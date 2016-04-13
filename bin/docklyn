@@ -3,19 +3,11 @@
 #
 # This is the main entry file to the cli interface
 
+# Ensure the script is invoced using cli sapi
 if (PHP_SAPI !== 'cli') {
     echo 'This application should be invoked via the CLI version of PHP, not the ' . PHP_SAPI . ' SAPI' . PHP_EOL;
     exit(1);
 }
 
-require __DIR__ . '/../src/bootstrap.php';
-
-error_reporting(E_ALL | E_STRICT);
-
-if (function_exists('ini_set')) {
-    @ini_set('display_errors', 1);
-}
-
-# start our cli app
-$application = new Docklyn\Application();
-$application->run();
+# Run our app
+require __DIR__ . '/../src/docklyn.php';

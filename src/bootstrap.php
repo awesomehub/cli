@@ -9,7 +9,7 @@ if (version_compare('5.6.0', PHP_VERSION, '>')) {
     exit(1);
 }
 
-# check timezone
+# set timezone if not set
 if (!ini_get('date.timezone')) {
     ini_set('date.timezone', 'UTC');
 }
