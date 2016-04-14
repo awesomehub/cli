@@ -3,6 +3,7 @@ namespace Docklyn;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\ArrayInput;
 use Psr\Log\LoggerInterface;
 use Docklyn\Exception\ExceptionHandlerManagerInterface;
 use Docklyn\Filesystem\Filesystem;
@@ -91,6 +92,19 @@ class Docklyn
      */
     public function setInput(InputInterface $input)
     {
+        # Map all incoming git-* commands to git:shell
+        $command = $input->getFirstArgument();
+        if(0 === strpos($command, 'git-')){
+            if(!method_exists($input, '__toString')){
+                throw new \InvalidArgumentException('The input instance provided must implement __toString() method.');
+            }
+
+            $input = new ArrayInput([
+                'command' => 'git:shell',
+                'git-command' => (string) $input,
+            ]);
+        }
+
         $this->input = $input;
     }
 

@@ -16,6 +16,7 @@ if (function_exists('ini_set') && (!ini_get('log_errors') || ini_get('error_log'
 }
 
 // register execption manager and add a temporary startup execption handler
+// we also need to make sure the exception handler is registered before the error handler
 ExceptionHandlerManager::register([new StartupExceptionHandler()]);
 
 # Use symfony error handler to convert php errors to exceptions

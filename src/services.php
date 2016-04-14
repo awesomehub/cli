@@ -16,12 +16,12 @@ $container
         ->addMethodCall('setOutput', [new Reference('docklyn.output')])
         ->addMethodCall('setLogger', [new Reference('docklyn.logger')]);
 
-$definition = (new Definition('Docklyn\Exception\ExceptionHandlerManager'))
+$definition = (new Definition())
     ->setPublic(false)
+    ->setFactory(['Docklyn\Exception\ExceptionHandlerManager', 'register'])
     ->addArgument([
         new Reference('docklyn.exception_handler.logger'),
-    ])
-    ->setFactory(['Docklyn\Exception\ExceptionHandlerManager', 'register']);
+    ]);
 $container
     ->setDefinition('docklyn.exception_handler', $definition);
 
@@ -68,22 +68,6 @@ $container
         ->setPublic(false)
         ->addArgument('%logger.stream.url%');
 
-# Map all incoming git-* commands to git:shell commands
-if($argc > 1 && 0 === strpos($argv[1], 'git-', 0)){
-    // shift the script name off the begining of the array
-    $gitargv = $argv;
-    array_shift($gitargv);
-
-    // modify the default input service
-    $container
-        ->register('docklyn.input', 'Symfony\Component\Console\Input\ArrayInput')
-            ->addArgument([
-                'command' => 'git:shell',
-                'git-command' => array_shift($gitargv),
-                'git-command-args' => $gitargv
-            ]);
-}
-
-unset($definition, $gitargv);
+unset($definition);
 
 return $container;
