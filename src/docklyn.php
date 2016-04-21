@@ -5,6 +5,7 @@ require __DIR__ . '/bootstrap.php';
 use Symfony\Component\Debug\ErrorHandler;
 use Docklyn\Exception\ExceptionHandlerManager;
 use Docklyn\Exception\Handler\StartupExceptionHandler;
+use Docklyn\Container;
 
 # Set error reporting
 error_reporting(E_ALL);
@@ -22,11 +23,9 @@ ExceptionHandlerManager::register([new StartupExceptionHandler()]);
 # Use symfony error handler to convert php errors to exceptions
 ErrorHandler::register();
 
-// Build the DI container
-/* @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
-$container = require __DIR__ . '/services.php';
+// Load the DI container
+$container = new Container();
 
 # Run our cli app
-/* @var \Docklyn\Docklyn $docklyn */
-$docklyn = $container->get('docklyn');
+$docklyn = $container->getDocklynService();
 $docklyn->run();
