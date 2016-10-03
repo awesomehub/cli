@@ -14,7 +14,7 @@ use Docklyn\Exception\Handler\LoggerExceptionHandler;
 use Docklyn\Process\ProcessFactory;
 use Docklyn\Filesystem\Filesystem;
 use Docklyn\Application;
-use Docklyn\Docklyn;
+use Docklyn\Container;
 
 $output = new ConsoleOutput(
     OutputInterface::VERBOSITY_NORMAL,
@@ -31,14 +31,14 @@ $exception_handler = ExceptionHandlerManager::register([
     new LoggerExceptionHandler($logger)
 ]);
 
-$docklyn = new Docklyn();
-$docklyn->setExceptionHandler($exception_handler);
-$docklyn->setApplication(new Application($docklyn));
-$docklyn->setInput(new ArgvInput());
-$docklyn->setOutput($output);
-$docklyn->setLogger($logger);
-$docklyn->setProcessFactory(new ProcessFactory($logger));
-$docklyn->setFilesystem(new Filesystem());
+$container = new Container();
+$container->setExceptionHandler($exception_handler);
+$container->setApplication(new Application($container));
+$container->setInput(new ArgvInput());
+$container->setOutput($output);
+$container->setLogger($logger);
+$container->setProcessFactory(new ProcessFactory($logger));
+$container->setFilesystem(new Filesystem());
 
 # Run our cli app
-$docklyn->run();
+$container->getApplication()->run();

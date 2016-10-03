@@ -1,18 +1,15 @@
 <?php
 namespace Docklyn;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\ArrayInput;
-use Psr\Log\LoggerInterface;
 use Docklyn\Exception\ExceptionHandlerManagerInterface;
-use Docklyn\Filesystem\Filesystem;
 use Docklyn\Process\ProcessFactoryInterface;
+use Docklyn\Filesystem\Filesystem;
 
-class Docklyn
+class Container
 {
-    const VERSION = '0.1.0';
-
     /**
      * @var Application
      */
@@ -49,21 +46,6 @@ class Docklyn
     private $processFactory;
 
     /**
-     * Runs Docklyn.
-     *
-     * @return int 0 if everything went fine, or an error code
-     */
-    public function run()
-    {
-        // Prevent symfony from catching exceptions if an exception handler manager has been registered
-        if($this->exceptionHandler instanceof ExceptionHandlerManagerInterface){
-            $this->application->setCatchExceptions(false);
-        }
-
-        return $this->application->run($this->input, $this->output);
-    }
-
-    /**
      * @return Application
      */
     public function getApplication()
@@ -92,19 +74,6 @@ class Docklyn
      */
     public function setInput(InputInterface $input)
     {
-        # Map all incoming git-* commands to git:shell
-        $command = $input->getFirstArgument();
-        if(0 === strpos($command, 'git-')){
-            if(!method_exists($input, '__toString')){
-                throw new \InvalidArgumentException('The input instance provided must implement __toString() method.');
-            }
-
-            $input = new ArrayInput([
-                'command' => 'git:shell',
-                'git-command' => (string) $input,
-            ]);
-        }
-
         $this->input = $input;
     }
 

@@ -5,6 +5,9 @@ use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Docklyn\Exception\ExceptionHandlerManagerInterface;
 
 /**
  * The main console application class.
@@ -13,21 +16,48 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class Application extends BaseApplication
 {
+    const NAME    = 'AwesomeHub';
+    const VERSION = '0.1.0';
+
     /**
-     * @var Docklyn $docklyn
+     * @var Container $container
      */
-    protected $docklyn;
+    protected $container;
 
     /**
      * Constructor.
      *
-     * @param Docklyn $docklyn
+     * @param Container $container
      */
-    public function __construct(Docklyn $docklyn)
+    public function __construct(Container $container)
     {
-        parent::__construct('Docklyn', Docklyn::VERSION);
+        parent::__construct(self::NAME, self::VERSION);
 
-        $this->docklyn = $docklyn;
+        $this->container = $container;
+    }
+
+    /**
+     * Runs the application.
+     *
+     * @param InputInterface  $input  An Input instance
+     * @param OutputInterface $output An Output instance
+     * @return int 0 if everything went fine, or an error code
+     */
+    public function run(InputInterface $input = null,  OutputInterface $output = null)
+    {
+        $exceptionHandler = $this->container->getExceptionHandler();
+        // Prevent symfony from catching exceptions if an exception handler manager has been registered
+        if($exceptionHandler instanceof ExceptionHandlerManagerInterface){
+            $this->setCatchExceptions(false);
+        }
+
+        if(!$input)
+            $input = $this->container->getInput();
+
+        if(!$output)
+            $output = $this->container->getOutput();
+
+        return parent::run($input, $output);
     }
 
     /**
@@ -41,14 +71,14 @@ class Application extends BaseApplication
     }
 
     /**
-     * Gets Docklyn instance.
+     * Gets DI Container instance.
      *
      * @param void
-     * @return Docklyn
+     * @return Container
      */
-    public function getDocklyn()
+    public function getContainer()
     {
-        return $this->docklyn;
+        return $this->container;
     }
 
     /**

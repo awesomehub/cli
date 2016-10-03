@@ -8,9 +8,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class Command extends BaseCommand
 {
     /**
-     * @var \Docklyn\Docklyn $docklyn
+     * @var \Docklyn\Container $container
      */
-    protected $docklyn;
+    protected $container;
 
     /**
      * @var \Psr\Log\LoggerInterface $logger
@@ -19,8 +19,8 @@ abstract class Command extends BaseCommand
 
     public function run(InputInterface $input, OutputInterface $output)
     {
-        $this->docklyn = $this->getApplication()->getDocklyn();
-        $this->logger = $this->docklyn->getLogger();
+        $this->container = $this->getApplication()->getContainer();
+        $this->logger = $this->container->getLogger();
 
         return parent::run($input, $output);
     }
@@ -28,7 +28,7 @@ abstract class Command extends BaseCommand
     /**
      * Gets the application instance for this command.
      *
-     * @return \Docklyn\Application An Application instance
+     * @return \Docklyn\Application|\Symfony\Component\Console\Application An Application instance
      */
     public function getApplication()
     {
