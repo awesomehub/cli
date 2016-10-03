@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Psr\Log\LoggerInterface;
 use Docklyn\Exception\ExceptionHandlerManagerInterface;
 use Docklyn\Filesystem\Filesystem;
-use Docklyn\Exec\Exec;
+use Docklyn\Process\ProcessFactoryInterface;
 
 class Docklyn
 {
@@ -44,9 +44,9 @@ class Docklyn
     private $filesystem;
 
     /**
-     * @var Exec
+     * @var ProcessFactoryInterface
      */
-    private $exec;
+    private $processFactory;
 
     /**
      * Runs Docklyn.
@@ -173,18 +173,18 @@ class Docklyn
     }
 
     /**
-     * @return Exec
+     * @return ProcessFactoryInterface
      */
-    public function getExec()
+    public function getProcessFactory()
     {
-        return $this->exec;
+        return $this->processFactory;
     }
 
     /**
-     * @param Exec $exec
+     * @param ProcessFactoryInterface $facory
      */
-    public function setExec(Exec $exec)
+    public function setProcessFactory(ProcessFactoryInterface $facory)
     {
-        $this->exec = $exec;
+        $this->processFactory = $facory;
     }
 }

@@ -36,7 +36,15 @@ class GitShellCommand extends GitCommand
         $cmd = $input->getArgument('git-command');
 
         var_dump($cmd);
-        
+
+        $this->logger->critical('critical message');
+        $this->logger->emergency('emergency message');
+        $this->logger->alert('alert message');
+        $this->logger->error('error message');
+        $this->logger->warning('warning message');
+        $this->logger->info('info message');
+        $this->logger->notice('notice message');
+        $this->logger->debug('debug message');
 
     }
 }

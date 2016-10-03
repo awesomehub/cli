@@ -10,4 +10,4 @@ if (PHP_SAPI !== 'cli') {
 }
 
 # Run our app
-require __DIR__ . '/../src/docklyn.php';
+require __DIR__ . '/../src/app.php';

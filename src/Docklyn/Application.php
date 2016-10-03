@@ -16,7 +16,7 @@ class Application extends BaseApplication
     /**
      * @var Docklyn $docklyn
      */
-    private $docklyn;
+    protected $docklyn;
 
     /**
      * Constructor.
