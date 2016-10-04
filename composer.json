@@ -8,8 +8,7 @@
     "symfony/process": "^3.1",
     "symfony/debug": "^3.1",
     "symfony/yaml": "^3.1",
-    "symfony/event-dispatcher": "^3.1",
-    "mdkholy/package-builder": "dev-master"
+    "symfony/event-dispatcher": "^3.1"
   },
   "require-dev": {
     "symfony/config": "^3.1",
@@ -19,13 +18,7 @@
   "bin": ["bin/docklyn"],
   "autoload": {
     "psr-4": {
-      "Docklyn\\": "src/Docklyn"
+      "Hub\\": "src/Hub"
     }
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "/projects/symfony-console-builder"
-    }
-  ]
+  }
 }

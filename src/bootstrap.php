@@ -27,8 +27,8 @@ if (function_exists('ini_set') && (!ini_get('log_errors') || ini_get('error_log'
 require __DIR__ . '/loader.php';
 
 use Symfony\Component\Debug\ErrorHandler;
-use Docklyn\Exception\ExceptionHandlerManager;
-use Docklyn\Exception\Handler\StartupExceptionHandler;
+use Hub\Exception\ExceptionHandlerManager;
+use Hub\Exception\Handler\StartupExceptionHandler;
 
 // Register execption manager and add a temporary startup execption handler
 // We also need to make sure the exception handler is registered before the error handler

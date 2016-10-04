@@ -5,16 +5,16 @@ require __DIR__ . '/bootstrap.php';
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Docklyn\Util\OutputFormatter;
-use Docklyn\Logger\LoggerManager;
-use Docklyn\Logger\Handler\ConsoleLoggerHandler;
-use Docklyn\Logger\Handler\StreamLoggerHandler;
-use Docklyn\Exception\ExceptionHandlerManager;
-use Docklyn\Exception\Handler\LoggerExceptionHandler;
-use Docklyn\Process\ProcessFactory;
-use Docklyn\Filesystem\Filesystem;
-use Docklyn\Application;
-use Docklyn\Container;
+use Hub\Util\OutputFormatter;
+use Hub\Logger\LoggerManager;
+use Hub\Logger\Handler\ConsoleLoggerHandler;
+use Hub\Logger\Handler\StreamLoggerHandler;
+use Hub\Exception\ExceptionHandlerManager;
+use Hub\Exception\Handler\LoggerExceptionHandler;
+use Hub\Process\ProcessFactory;
+use Hub\Filesystem\Filesystem;
+use Hub\Application;
+use Hub\Container;
 
 $output = new ConsoleOutput(
     OutputInterface::VERBOSITY_NORMAL,
@@ -24,7 +24,7 @@ $output = new ConsoleOutput(
 
 $logger = new LoggerManager([
     new ConsoleLoggerHandler($output),
-    new StreamLoggerHandler(__DIR__ . '/../../var/log/docklyn.log'),
+    new StreamLoggerHandler(__DIR__ . '/../../var/log/hub.log'),
 ]);
 
 $exception_handler = ExceptionHandlerManager::register([
