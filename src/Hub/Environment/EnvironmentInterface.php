@@ -2,7 +2,7 @@
 namespace Hub\Environment;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Hub\Environment\Workspace\Workspace;
+use Hub\Environment\Workspace\WorkspaceInterface;
 
 /**
  * Interface for an Environment.
@@ -25,28 +25,28 @@ interface EnvironmentInterface
     /**
      * Gets the current script path.
      *
-     * @return boolean
+     * @return string
      */
     public function getBin();
 
     /**
      * Gets the environment mode.
      *
-     * @return boolean
+     * @return string
      */
     public function getMode();
 
     /**
      * Gets the currently active workspace.
      *
-     * @return Workspace
+     * @return WorkspaceInterface
      */
     public function getWorkspace();
 
     /**
      * Checks if running in development mode.
      *
-     * @return string
+     * @return boolean
      */
     public function isDevelopment();
 

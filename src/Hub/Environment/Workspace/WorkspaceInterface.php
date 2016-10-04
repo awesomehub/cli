@@ -19,6 +19,7 @@ interface WorkspaceInterface
      * Gets a workspace path.
      *
      * @param $path array|string Path segments as array
+     * @return string
      */
     public function get($path = []);
 

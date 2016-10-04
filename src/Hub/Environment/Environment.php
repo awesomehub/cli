@@ -79,46 +79,50 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * Sets the environment worspace, auto-guesses it if null.
+     * Sets the environment worspace instance.
      *
      * @param $workspace string
      */
     protected function setWorkspace($workspace = null)
     {
-        if($workspace && !is_dir($workspace)){
-            throw new \InvalidArgumentException("Invalid workspace directory supplied '$workspace'.");
+        $this->workspace = new Workspace($workspace ?: $this->detectWorkspacePath());
+    }
+
+    /**
+     * Tries tpo auto-detect the environment worspace based on different factors.
+     *
+     * @param void
+     * @return string
+     */
+    protected function detectWorkspacePath()
+    {
+        // Check if in development mode
+        if($this->isDevelopment()){
+            return dirname(dirname($this->getBin())) . DIRECTORY_SEPARATOR . 'workspace';
         }
 
-        if(!$workspace){
-            if($this->isDevelopment()){
-                $workspace = dirname(dirname($this->getBin())) . DIRECTORY_SEPARATOR . 'workspace';
-            }
-            else {
-                $envWorkspaceVar = strtoupper(Application::SLUG) . '_WORKSPACE';
-                $envWorkspace = getenv($envWorkspaceVar);
-                if ($envWorkspace) {
-                    $workspace = $envWorkspace;
-                }
-                else if(defined('PHP_WINDOWS_VERSION_BUILD')){
-                    $envAppData = getenv('APPDATA');
-                    if (!$envAppData) {
-                        throw new \RuntimeException('The APPDATA or ' . $envWorkspaceVar . ' environment variable must be set for ' . Application::NAME . ' to run correctly');
-                    }
-
-                    $workspace = rtrim(strtr($envAppData, '\\', '/'), '/') . '/' . ucfirst(strtolower(Application::SLUG));
-                }
-                else {
-                    $envHome = getenv('HOME');
-                    if (!$envHome) {
-                        throw new \RuntimeException('The HOME or ' . $envWorkspaceVar . ' environment variable must be set for ' . Application::NAME . ' to run correctly');
-                    }
-
-                    $workspace = rtrim(strtr($envHome, '\\', '/'), '/'). '/.' . strtolower(Application::SLUG);
-                }
-            }
+        $envWorkspaceVar = strtoupper(Application::SLUG) . '_WORKSPACE';
+        if ($envWorkspace = getenv($envWorkspaceVar)) {
+            return $envWorkspace;
         }
 
-        $this->workspace = new Workspace($workspace);
+        // Check if on Windows platform
+        if(defined('PHP_WINDOWS_VERSION_BUILD')){
+            $envAppData = getenv('APPDATA');
+            if (!$envAppData) {
+                throw new \RuntimeException('The APPDATA or ' . $envWorkspaceVar . ' environment variable must be set for ' . Application::NAME . ' to run correctly');
+            }
+
+            return rtrim(strtr($envAppData, '\\', '/'), '/') . '/' . ucfirst(strtolower(Application::SLUG));
+        }
+
+        // Defaults to the $HOME directory
+        $envHome = getenv('HOME');
+        if (!$envHome) {
+            throw new \RuntimeException('The HOME or ' . $envWorkspaceVar . ' environment variable must be set for ' . Application::NAME . ' to run correctly');
+        }
+
+        return rtrim(strtr($envHome, '\\', '/'), '/'). '/.' . strtolower(Application::SLUG);
     }
 
     /**
@@ -127,14 +131,14 @@ class Environment implements EnvironmentInterface
      * @param $input InputInterface
      * @return string|null
      */
-    protected function getWorkspaceInput($input)
+    protected function getWorkspaceInput(InputInterface $input)
     {
-        if ($input->hasParameterOption('-w', true)) {
-            return $input->getParameterOption('-w', null, true);
-        }
-
         if ($input->hasParameterOption('--workspace', true)) {
             return $input->getParameterOption('--workspace', null, true);
+        }
+
+        if ($input->hasParameterOption('-w', true)) {
+            return $input->getParameterOption('-w', null, true);
         }
 
         return null;
