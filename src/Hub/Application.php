@@ -66,7 +66,7 @@ class Application extends BaseApplication
     public function getDefaultCommands()
     {
         return array_merge(parent::getDefaultCommands(), [
-            new Command\Git\GitShellCommand(),
+            new Command\FetchCommand(),
         ]);
     }
 

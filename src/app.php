@@ -24,7 +24,7 @@ $output = new ConsoleOutput(
 
 $logger = new LoggerManager([
     new ConsoleLoggerHandler($output),
-    new StreamLoggerHandler(__DIR__ . '/../../var/log/hub.log'),
+    new StreamLoggerHandler(__DIR__ . '/../var/log/hub.log'),
 ]);
 
 $exception_handler = ExceptionHandlerManager::register([
