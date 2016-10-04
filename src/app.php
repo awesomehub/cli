@@ -13,8 +13,13 @@ use Hub\Exception\ExceptionHandlerManager;
 use Hub\Exception\Handler\LoggerExceptionHandler;
 use Hub\Process\ProcessFactory;
 use Hub\Filesystem\Filesystem;
+use Hub\Environment\Environment;
 use Hub\Application;
 use Hub\Container;
+
+$input = new ArgvInput();
+
+$environment = new Environment($input);
 
 $output = new ConsoleOutput(
     OutputInterface::VERBOSITY_NORMAL,
@@ -24,7 +29,7 @@ $output = new ConsoleOutput(
 
 $logger = new LoggerManager([
     new ConsoleLoggerHandler($output),
-    new StreamLoggerHandler(__DIR__ . '/../var/log/hub.log'),
+    new StreamLoggerHandler($environment->getWorkspace()->get('hub.log')),
 ]);
 
 $exception_handler = ExceptionHandlerManager::register([
@@ -34,7 +39,8 @@ $exception_handler = ExceptionHandlerManager::register([
 $container = new Container();
 $container->setExceptionHandler($exception_handler);
 $container->setApplication(new Application($container));
-$container->setInput(new ArgvInput());
+$container->setEnvironment($environment);
+$container->setInput($input);
 $container->setOutput($output);
 $container->setLogger($logger);
 $container->setProcessFactory(new ProcessFactory($logger));

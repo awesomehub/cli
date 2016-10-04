@@ -1,10 +1,12 @@
 <?php
 namespace Hub\Command;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Hub\Process\ProcessFactory;
+use Hub\Environment\EnvironmentInterface;
+use Hub\Process\ProcessFactoryInterface;
 use Hub\Filesystem\Filesystem;
 use Hub\Container;
 
@@ -21,9 +23,19 @@ abstract class Command extends BaseCommand
     protected $container;
 
     /**
-     * @var ProcessFactory $process
+     * @var EnvironmentInterface $environment
+     */
+    protected $environment;
+
+    /**
+     * @var ProcessFactoryInterface $process
      */
     protected $process;
+
+    /**
+     * @var LoggerInterface $logger
+     */
+    protected $logger;
 
     /**
      * @var Filesystem $filesystem
@@ -31,20 +43,16 @@ abstract class Command extends BaseCommand
     protected $filesystem;
 
     /**
-     * @var \Psr\Log\LoggerInterface $logger
-     */
-    protected $logger;
-
-    /**
      * @inheritdoc
      */
     public function run(InputInterface $input, OutputInterface $output)
     {
-        $this->container = $this->getApplication()->getContainer();
+        $this->container    = $this->getApplication()->getContainer();
 
-        $this->logger = $this->container->getLogger();
-        $this->process = $this->container->getProcessFactory();
-        $this->filesystem = $this->container->getFilesystem();
+        $this->environment  = $this->container->getEnvironment();
+        $this->process      = $this->container->getProcessFactory();
+        $this->logger       = $this->container->getLogger();
+        $this->filesystem   = $this->container->getFilesystem();
 
         return parent::run($input, $output);
     }

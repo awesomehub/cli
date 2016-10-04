@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Hub\Exception\ExceptionHandlerManagerInterface;
 use Hub\Process\ProcessFactoryInterface;
+use Hub\Environment\Environment;
 use Hub\Filesystem\Filesystem;
 
 /**
@@ -19,6 +20,11 @@ class Container
      * @var Application
      */
     private $application;
+
+    /**
+     * @var Environment
+     */
+    private $environment;
 
     /**
      * @var InputInterface
@@ -64,6 +70,22 @@ class Container
     public function setApplication(Application $application)
     {
         $this->application = $application;
+    }
+
+    /**
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /**
+     * @param Environment $environment
+     */
+    public function setEnvironment(Environment $environment)
+    {
+        $this->environment = $environment;
     }
 
     /**

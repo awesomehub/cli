@@ -17,6 +17,7 @@ use Hub\Exception\ExceptionHandlerManagerInterface;
 class Application extends BaseApplication
 {
     const NAME    = 'AwesomeHub';
+    const SLUG    = 'awesomeHub';
     const VERSION = '0.1.0';
 
     /**
@@ -89,6 +90,7 @@ class Application extends BaseApplication
         return new InputDefinition(array(
             new InputArgument('command', InputArgument::REQUIRED, 'The command to execute'),
 
+            new InputOption('--workspace', '-w', InputOption::VALUE_REQUIRED, 'Sets the workspace directory'),
             new InputOption('--help', '-h', InputOption::VALUE_NONE, 'Display this help message'),
             new InputOption('--quiet', '-q', InputOption::VALUE_NONE, 'Do not output any message'),
             // we don't need the 3 verbosity level, only one level is enough
