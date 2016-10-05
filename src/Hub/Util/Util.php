@@ -1,19 +1,21 @@
 <?php
 
-namespace Dashbrew\Cli\Util;
+namespace Hub\Util;
 
 /**
- * Util Class.
+ * General utilities.
  *
- * @package Dashbrew\Cli\Util
+ * @package AwesomeHub
  */
 class Util {
 
     /**
+     * Renders a php template.
+     *
      * @param string $path
      * @param array $vars
-     * @throws \Exception
      * @return string
+     * @throws \Exception
      */
     public static function renderTemplate($path, array $vars = [])
     {
