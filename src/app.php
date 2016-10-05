@@ -22,7 +22,9 @@ $input = new ArgvInput();
 $environment = new Environment($input);
 
 $output = new ConsoleOutput(
-    OutputInterface::VERBOSITY_NORMAL,
+    $environment->isDevelopment()
+        ? OutputInterface::VERBOSITY_VERBOSE
+        : OutputInterface::VERBOSITY_NORMAL,
     null,
     new OutputFormatter()
 );
@@ -46,5 +48,5 @@ $container->setLogger($logger);
 $container->setProcessFactory(new ProcessFactory($logger));
 $container->setFilesystem(new Filesystem());
 
-# Run our cli app
+# Run our app
 $container->getApplication()->run();
