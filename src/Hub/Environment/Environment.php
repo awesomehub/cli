@@ -2,9 +2,10 @@
 namespace Hub\Environment;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Hub\Application;
 use Hub\Environment\Workspace\WorkspaceInterface;
 use Hub\Environment\Workspace\Workspace;
+use Hub\Filesystem\FilesystemUtil;
+use Hub\Application;
 
 /**
  * Responsible for handling environmental aspects.
@@ -85,6 +86,20 @@ class Environment implements EnvironmentInterface
      */
     protected function setWorkspace($workspace = null)
     {
+        // Get the real absolute path
+        if($workspace){
+            if(FilesystemUtil::isRelativePath($workspace)){
+                $workspace = getcwd() . DIRECTORY_SEPARATOR . $workspace;
+            }
+
+            try {
+                $workspace = FilesystemUtil::normalizePath($workspace);
+            }
+            catch (\Exception $e){
+                throw new \InvalidArgumentException("Invalid environment workspace supplied; {$e->getMessage()}");
+            }
+        }
+
         $this->workspace = new Workspace($workspace ?: $this->detectWorkspacePath());
     }
 

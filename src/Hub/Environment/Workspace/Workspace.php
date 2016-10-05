@@ -50,8 +50,13 @@ class Workspace implements WorkspaceInterface
     protected function verify()
     {
         if(!file_exists($this->path)){
+            $parent = dirname($this->path);
+            if(!is_dir($parent) || !is_writable($parent)){
+                throw new \RuntimeException("Failed creating workspace directory '$this->path'; Parent directory is not accessible or not writable.");
+            }
+
             if(!mkdir($this->path)){
-                throw new \RuntimeException("Unable to create workspace directory at '$this->path'.");
+                throw new \RuntimeException("Failed creating workspace directory '$this->path'.");
             }
         }
 
@@ -67,7 +72,7 @@ class Workspace implements WorkspaceInterface
             $dirPath = $this->path . DIRECTORY_SEPARATOR . $dir;
             if(!file_exists($dirPath)){
                 if(!mkdir($dirPath)){
-                    throw new \RuntimeException("Unable to create workspace directory at '$dirPath'.");
+                    throw new \RuntimeException("Failed creating child workspace directory '$dirPath'.");
                 }
             }
         }
