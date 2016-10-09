@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\HelpCommand;
 use Hub\Exception\ExceptionHandlerManagerInterface;
 
 /**
@@ -34,6 +35,7 @@ class Application extends BaseApplication
     {
         parent::__construct(self::NAME, self::VERSION);
 
+        $this->setDefaultCommand('commands');
         $this->container = $container;
     }
 
@@ -66,9 +68,10 @@ class Application extends BaseApplication
      */
     public function getDefaultCommands()
     {
-        return array_merge(parent::getDefaultCommands(), [
-            new Command\FetchCommand(),
-        ]);
+        return [
+            new HelpCommand(),
+            new Command\CommandsCommand()
+        ];
     }
 
     /**
