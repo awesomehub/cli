@@ -1,5 +1,4 @@
 <?php
-
 namespace Hub\Filesystem;
 
 /**
@@ -7,8 +6,25 @@ namespace Hub\Filesystem;
  *
  * @package AwesomeHub
  */
-class FilesystemUtil {
+class FilesystemUtil
+{
+    /**
+     * Checks whether the path has the given extension or not.
+     *
+     * @param string $path
+     * @param string $ext
+     * @return bool
+     */
+    public static function hasExtension($path, $ext){
+        return '.' . strtolower($ext) === strtolower(substr($path, -1 * strlen($ext)));
+    }
 
+    /**
+     * Checks whether the path is relative or not.
+     *
+     * @param $path
+     * @return bool
+     */
     public static function isRelativePath($path){
         return !preg_match('/^(?:\/|\\\\|\w:\\\\|\w:\/).*$/', $path);
     }
