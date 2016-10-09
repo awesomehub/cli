@@ -70,7 +70,9 @@ class Application extends BaseApplication
     {
         return [
             new HelpCommand(),
-            new Command\CommandsCommand()
+            new Command\CommandsCommand(),
+            new Command\ListFetchCommand(),
+            new Command\ListResolveCommand(),
         ];
     }
 

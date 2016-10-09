@@ -28,14 +28,24 @@ abstract class Command extends BaseCommand
     protected $environment;
 
     /**
-     * @var ProcessFactoryInterface $process
+     * @var InputInterface $input
      */
-    protected $process;
+    protected $input;
+
+    /**
+     * @var OutputInterface $output
+     */
+    protected $output;
 
     /**
      * @var LoggerInterface $logger
      */
     protected $logger;
+
+    /**
+     * @var ProcessFactoryInterface $process
+     */
+    protected $process;
 
     /**
      * @var Filesystem $filesystem
@@ -50,8 +60,10 @@ abstract class Command extends BaseCommand
         $this->container    = $this->getApplication()->getContainer();
 
         $this->environment  = $this->container->getEnvironment();
-        $this->process      = $this->container->getProcessFactory();
+        $this->input        = $this->container->getInput();
+        $this->output       = $this->container->getOutput();
         $this->logger       = $this->container->getLogger();
+        $this->process      = $this->container->getProcessFactory();
         $this->filesystem   = $this->container->getFilesystem();
 
         return parent::run($input, $output);
