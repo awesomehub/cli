@@ -180,6 +180,22 @@ abstract class EntryList implements EntryListInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function get($key = null)
+    {
+        if(!$key){
+            return $this->data;
+        }
+
+        if(!array_key_exists($key, $this->data)){
+            throw new \InvalidArgumentException("Trying to get an undefined list data key '$key'.");
+        }
+
+        return $this->data[$key];
+    }
+
+    /**
      * Parses the list file data and returns the output.
      *
      * @param string $data List file contents

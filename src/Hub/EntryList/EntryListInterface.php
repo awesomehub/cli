@@ -47,4 +47,12 @@ interface EntryListInterface
      * @return bool
      */
     public function isResolved();
+
+    /**
+     * Gets the value of a given data key. If the key is omitted, the whole data will be returned.
+     *
+     * @param string $key
+     * @return array
+     */
+    public function get($key = null);
 }
