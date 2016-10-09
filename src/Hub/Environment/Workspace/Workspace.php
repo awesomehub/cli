@@ -65,7 +65,9 @@ class Workspace implements WorkspaceInterface
         }
 
         $dirs = [
-            'lists'
+            'lists',
+            'cache',
+            'cache' . DIRECTORY_SEPARATOR . 'lists'
         ];
 
         foreach ($dirs as $dir){
