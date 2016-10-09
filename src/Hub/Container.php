@@ -4,6 +4,7 @@ namespace Hub;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 use Hub\Exception\ExceptionHandlerManagerInterface;
 use Hub\Process\ProcessFactoryInterface;
 use Hub\Environment\Environment;
@@ -35,6 +36,11 @@ class Container
      * @var OutputInterface
      */
     private $output;
+
+    /**
+     * @var StyleInterface
+     */
+    private $style;
 
     /**
      * @var LoggerInterface
@@ -118,6 +124,22 @@ class Container
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
+    }
+
+    /**
+     * @return StyleInterface
+     */
+    public function getStyle()
+    {
+        return $this->style;
+    }
+
+    /**
+     * @param StyleInterface $style
+     */
+    public function setStyle(StyleInterface $style)
+    {
+        $this->style = $style;
     }
 
     /**

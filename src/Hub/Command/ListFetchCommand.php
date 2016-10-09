@@ -49,6 +49,9 @@ class ListFetchCommand extends Command
         $path = $input->getArgument('list');
         $format = strtolower($input->getParameterOption('--format', 'json', true));
 
+        // Print process title
+        $this->style->title('Fetching List: ' . $path);
+
         // Check it it's relative path
         if(FilesystemUtil::isRelativePath($path)){
             $path = $this->environment->getWorkspace()->get(['lists', $path]);

@@ -5,6 +5,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Process\ProcessFactoryInterface;
 use Hub\Filesystem\Filesystem;
@@ -38,6 +39,11 @@ abstract class Command extends BaseCommand
     protected $output;
 
     /**
+     * @var StyleInterface $output
+     */
+    protected $style;
+
+    /**
      * @var LoggerInterface $logger
      */
     protected $logger;
@@ -62,6 +68,7 @@ abstract class Command extends BaseCommand
         $this->environment  = $this->container->getEnvironment();
         $this->input        = $this->container->getInput();
         $this->output       = $this->container->getOutput();
+        $this->style        = $this->container->getStyle();
         $this->logger       = $this->container->getLogger();
         $this->process      = $this->container->getProcessFactory();
         $this->filesystem   = $this->container->getFilesystem();
