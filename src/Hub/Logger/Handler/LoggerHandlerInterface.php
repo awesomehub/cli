@@ -11,7 +11,7 @@ interface LoggerHandlerInterface
     /**
      * Handles the log record.
      *
-     * @param array $record
+     * @param array[string] $record
      * @return void
      */
     public function handle($record);

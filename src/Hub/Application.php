@@ -72,6 +72,7 @@ class Application extends BaseApplication
             new HelpCommand(),
             new Command\CommandsCommand(),
             new Command\ListFetchCommand(),
+            new Command\ListInspectCommand(),
             new Command\ListResolveCommand(),
         ];
     }

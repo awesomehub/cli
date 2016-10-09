@@ -35,7 +35,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         LogLevel::CRITICAL => 'danger',
         LogLevel::ERROR => 'error',
         LogLevel::WARNING => 'warning',
-        LogLevel::NOTICE => 'NOTICE',
+        LogLevel::NOTICE => 'notice',
         LogLevel::INFO => 'info',
         LogLevel::DEBUG => 'debug',
     ];
@@ -66,7 +66,10 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
             $output = $this->output;
         }
 
-        $output->writeln(sprintf('<%1$s>[%2$s] %3$s</%1$s>', $this->formatLevelMap[$record['level']], ucfirst($record['level']), $record['message']));
+        // Set the style tag
+        $tag = $this->formatLevelMap[$record['level']];
+
+        $output->writeln(sprintf('<%1$s>[%3$s]</%1$s> <%2$s>%4$s</%2$s>', $tag . '_label', $tag, strtoupper($record['level']), $record['message']));
     }
 
     /**
