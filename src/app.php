@@ -20,9 +20,12 @@ use Hub\Process\ProcessFactory;
 use Hub\Application;
 use Hub\Container;
 
-$input = new ArgvInput();
 $environment = new Environment();
+
+$input = new ArgvInput();
+
 $filesystem = new Filesystem();
+
 $workspace = new StartupWorkspace($environment, $input, $filesystem);
 
 $output = new ConsoleOutput(

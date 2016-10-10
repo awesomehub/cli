@@ -1,11 +1,12 @@
 <?php
 namespace Hub\Workspace;
 
+use Symfony\Component\Config as SymfonyConfig;
 use Hub\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
- * Represents an Environment workspace.
+ * Represents an app workspace.
  *
  * @package AwesomeHub
  */
@@ -15,6 +16,11 @@ class Workspace implements WorkspaceInterface
      * @var string
      */
     protected $path;
+
+    /**
+     * @var array
+     */
+    protected $config;
 
     /**
      * @var string
@@ -38,9 +44,11 @@ class Workspace implements WorkspaceInterface
     public function __construct($path, Filesystem $filesystem)
     {
         $this->path = rtrim($path, '/\\');
+        $this->config = [];
         $this->filesystem = $filesystem;
 
         $this->verify();
+        $this->setConfig();
     }
 
     /**
@@ -59,6 +67,22 @@ class Workspace implements WorkspaceInterface
         array_unshift($path, $this->path);
 
         return implode(DIRECTORY_SEPARATOR, $path);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function config($key = null)
+    {
+        if(null === $key){
+            return $this->config();
+        }
+
+        if(array_key_exists($key, $this->config)){
+            return $this->config[$key];
+        }
+
+        return $this->getConfigPath($key, $this->config);
     }
 
     /**
@@ -95,5 +119,55 @@ class Workspace implements WorkspaceInterface
                 }
             }
         }
+    }
+
+    /**
+     * Loads and verifies workspace config file.
+     *
+     * @throws \RuntimeException
+     */
+    protected function setConfig()
+    {
+        $path = $this->path('config.json');
+        if(!$this->filesystem->exists($path)){
+            return;
+        }
+
+        try {
+            $config = json_decode($this->filesystem->read($path), true);
+            if(json_last_error()){
+                throw new \RuntimeException("Unable to process JSON data; " . json_last_error_msg() . ".");
+            }
+
+            $processor = new SymfonyConfig\Definition\Processor();
+            $this->config = $processor->processConfiguration(
+                new Config\WorkspaceConfigDefinition(),
+                [ $config ]
+            );
+        }
+        catch (\Exception $e) {
+            throw new \RuntimeException("Failed loading config.json file at '{$path}'; {$e->getMessage()}.", 0, $e);
+        }
+    }
+
+    /**
+     * Gets the value of a config path separated by dot.
+     *
+     * @param $path
+     * @param array $config
+     * @return bool|mixed
+     */
+    protected function getConfigPath($path, array $config)
+    {
+        $split = explode(".", $path, 2);
+        if(!array_key_exists($split[0], $config)){
+            return false;
+        }
+
+        if(!is_array($config[$split[0]])){
+            return $config[$split[0]];
+        }
+
+        return $this->getConfigPath($split[1], $config[$split[0]]);
     }
 }
