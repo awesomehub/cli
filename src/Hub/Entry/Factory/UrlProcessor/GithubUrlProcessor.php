@@ -28,7 +28,7 @@ class GithubUrlProcessor implements UrlProcessorInterface
      */
     public function getProcessingAction($url)
     {
-        if(preg_match('/http(?:s)?:\/\/github\.com\/([\w-]+)\/([\w-]+)/i', $url, $this->matches)) {
+        if(preg_match('/http(?:s)?:\/\/(?:www\.)?github\.com\/([\w-]+)\/([\w-]+)/i', $url, $this->matches)) {
             return self::ACTION_PROCESSING;
         }
 
