@@ -26,6 +26,7 @@ abstract class AbstractEntry implements EntryInterface
     public function __construct(array $data = [])
     {
         $this->data = $data;
+        $this->resolved = false;
     }
 
     /**
@@ -72,9 +73,10 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * @inheritdoc
      */
-    public function resolve()
+    public function resolve(array $data)
     {
-        //TODO: write this
+        $this->set($data);
+        $this->resolved = true;
     }
 
     /**

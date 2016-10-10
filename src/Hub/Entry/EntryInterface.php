@@ -39,11 +39,11 @@ interface EntryInterface
     public function unset($key);
 
     /**
-     * Resolves the entry and return the result as true/fale.
+     * Marks the entry as resolved and merges the resolved data.
      *
-     * @return bool
+     * @param array $data
      */
-    public function resolve();
+    public function resolve(array $data);
 
     /**
      * Determines whether the entry is resolved.

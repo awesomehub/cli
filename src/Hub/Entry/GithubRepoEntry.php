@@ -43,12 +43,4 @@ class GithubRepoEntry extends AbstractEntry
     {
         return $this->data['author'];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function resolve()
-    {
-        //TODO: write this
-    }
 }
