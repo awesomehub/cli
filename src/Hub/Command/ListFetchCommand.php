@@ -1,18 +1,18 @@
 <?php
 namespace Hub\Command;
 
-use Hub\EntryList\SourceProcessor\UrlsSourceProcessor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Hub\EntryList\EntryListJson;
+use Hub\EntryList\SourceProcessor\UrlsSourceProcessor;
+use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
 use Hub\Entry\Factory\UrlEntryFactory;
 use Hub\Entry\Factory\TypeEntryFactory;
 use Hub\Entry\Factory\UrlProcessor\GithubUrlProcessor;
 use Hub\Entry\GithubRepoEntry;
-use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
-use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
 
 /**
  * Fetches and processes a given list.
