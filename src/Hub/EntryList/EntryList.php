@@ -3,7 +3,6 @@ namespace Hub\EntryList;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config as SymfonyConfig;
-use GuzzleHttp as Guzzle;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\Entry\EntryInterface;

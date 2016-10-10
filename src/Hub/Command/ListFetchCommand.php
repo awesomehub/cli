@@ -85,7 +85,7 @@ class ListFetchCommand extends Command
 
         // Do the actual processing
         $list->process($this->logger, [
-            new GithubMarkdownSourceProcessor($entryFromUrlFactory),
+            new GithubMarkdownSourceProcessor($entryFromUrlFactory, $this->http),
             new UrlsSourceProcessor($entryFromUrlFactory),
             new EntriesSourceProcessor($entryFromTypeFactory)
         ]);

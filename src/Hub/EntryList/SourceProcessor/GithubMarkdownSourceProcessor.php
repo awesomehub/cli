@@ -2,8 +2,9 @@
 namespace Hub\EntryList\SourceProcessor;
 
 use Psr\Log\LoggerInterface;
+use Http\Client\HttpClient;
+use GuzzleHttp\Psr7\Request;
 use League\CommonMark as CommonMark;
-use GuzzleHttp as Guzzle;
 use Hub\Entry\Factory\EntryFactoryInterface;
 use Hub\Exceptions\EntryCreationFailedException;
 
@@ -20,13 +21,20 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     protected $entryFactory;
 
     /**
+     * @var HttpClient $http;
+     */
+    protected $http;
+
+    /**
      * Sets the logger and the entry factory.
      *
      * @param EntryFactoryInterface $entryFactory
+     * @param HttpClient $httpClient
      */
-    public function __construct(EntryFactoryInterface $entryFactory)
+    public function __construct(EntryFactoryInterface $entryFactory, HttpClient $httpClient)
     {
         $this->entryFactory = $entryFactory;
+        $this->http = $httpClient;
     }
 
     /**
@@ -111,14 +119,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      */
     protected function fetchMarkdownUrl($url)
     {
-        static $client;
-
-        if(!$client){
-            $client = new Guzzle\Client();
-        }
-
-        $response = $client->get($url);
-
+        $response = $this->http->sendRequest(new Request('GET', $url));
         return (string) $response->getBody();
     }
 }

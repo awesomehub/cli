@@ -2,7 +2,6 @@
 namespace Hub\EntryList\SourceProcessor;
 
 use Psr\Log\LoggerInterface;
-use GuzzleHttp as Guzzle;
 use Hub\Entry\Factory\EntryFactoryInterface;
 use Hub\Exceptions\EntryCreationFailedException;
 
