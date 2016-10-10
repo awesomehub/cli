@@ -1,6 +1,6 @@
 <?php
-# Bootstrap our app
-require __DIR__ . '/bootstrap.php';
+// Bootstrap our app
+require __DIR__.'/bootstrap.php';
 
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -37,7 +37,7 @@ $logger = new LoggerManager([
 ]);
 
 $exception_handler = ExceptionHandlerManager::register([
-    new LoggerExceptionHandler($logger)
+    new LoggerExceptionHandler($logger),
 ]);
 
 $container = new Container();
@@ -52,5 +52,5 @@ $container->setHttp(HttpClientDiscovery::find());
 $container->setProcessFactory(new ProcessFactory($logger));
 $container->setFilesystem(new Filesystem());
 
-# Run our app
+// Run our app
 $container->getApplication()->run();
