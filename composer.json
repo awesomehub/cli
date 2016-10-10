@@ -23,7 +23,6 @@
     "symfony/config": "^3.1",
     "symfony/event-dispatcher": "^3.1",
     "league/commonmark": "^0.15",
-    "php-http/httplug": "^1.0",
     "php-http/discovery": "^1.0",
     "php-http/guzzle6-adapter": "^1.1"
   },
