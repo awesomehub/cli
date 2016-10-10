@@ -2,6 +2,7 @@
 namespace Hub;
 
 use Psr\Log\LoggerInterface;
+use Http\Client\HttpClient;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -46,6 +47,11 @@ class Container
      * @var LoggerInterface
      */
     private $logger;
+
+    /**
+     * @var HttpClient
+     */
+    private $http;
 
     /**
      * @var ExceptionHandlerManagerInterface
@@ -156,6 +162,22 @@ class Container
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+    }
+
+    /**
+     * @return HttpClient
+     */
+    public function getHttp()
+    {
+        return $this->http;
+    }
+
+    /**
+     * @param HttpClient $http
+     */
+    public function setHttp(HttpClient $http)
+    {
+        $this->http = $http;
     }
 
     /**

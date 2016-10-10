@@ -2,6 +2,7 @@
 namespace Hub\Command;
 
 use Psr\Log\LoggerInterface;
+use Http\Client\HttpClient;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -49,6 +50,11 @@ abstract class Command extends BaseCommand
     protected $logger;
 
     /**
+     * @var HttpClient $http
+     */
+    protected $http;
+
+    /**
      * @var ProcessFactoryInterface $process
      */
     protected $process;
@@ -70,6 +76,7 @@ abstract class Command extends BaseCommand
         $this->output       = $this->container->getOutput();
         $this->style        = $this->container->getStyle();
         $this->logger       = $this->container->getLogger();
+        $this->http         = $this->container->getHttp();
         $this->process      = $this->container->getProcessFactory();
         $this->filesystem   = $this->container->getFilesystem();
 

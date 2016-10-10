@@ -23,7 +23,9 @@
     "symfony/config": "^3.1",
     "symfony/event-dispatcher": "^3.1",
     "league/commonmark": "^0.15",
-    "guzzlehttp/guzzle": "~6.0"
+    "php-http/httplug": "^1.0",
+    "php-http/discovery": "^1.0",
+    "php-http/guzzle6-adapter": "^1.1"
   },
   "require-dev": {
     "symfony/expression-language": "^3.1",

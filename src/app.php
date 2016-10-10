@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Http\Discovery\HttpClientDiscovery;
 use Hub\Util\OutputFormatter;
 use Hub\Logger\LoggerManager;
 use Hub\Logger\Handler\ConsoleLoggerHandler;
@@ -47,6 +48,7 @@ $container->setInput($input);
 $container->setOutput($output);
 $container->setStyle(new SymfonyStyle($input, $output));
 $container->setLogger($logger);
+$container->setHttp(HttpClientDiscovery::find());
 $container->setProcessFactory(new ProcessFactory($logger));
 $container->setFilesystem(new Filesystem());
 
