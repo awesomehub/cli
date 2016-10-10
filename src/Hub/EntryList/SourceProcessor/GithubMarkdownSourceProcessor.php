@@ -2,8 +2,7 @@
 namespace Hub\EntryList\SourceProcessor;
 
 use Psr\Log\LoggerInterface;
-use Http\Client\HttpClient;
-use GuzzleHttp\Psr7\Request;
+use Http\Client\Common\HttpMethodsClient;
 use League\CommonMark as CommonMark;
 use Hub\Entry\Factory\EntryFactoryInterface;
 use Hub\Exceptions\EntryCreationFailedException;
@@ -21,7 +20,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     protected $entryFactory;
 
     /**
-     * @var HttpClient $http;
+     * @var HttpMethodsClient $http;
      */
     protected $http;
 
@@ -29,9 +28,9 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      * Sets the logger and the entry factory.
      *
      * @param EntryFactoryInterface $entryFactory
-     * @param HttpClient $httpClient
+     * @param HttpMethodsClient $httpClient
      */
-    public function __construct(EntryFactoryInterface $entryFactory, HttpClient $httpClient)
+    public function __construct(EntryFactoryInterface $entryFactory, HttpMethodsClient $httpClient)
     {
         $this->entryFactory = $entryFactory;
         $this->http = $httpClient;
@@ -119,7 +118,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      */
     protected function fetchMarkdownUrl($url)
     {
-        $response = $this->http->sendRequest(new Request('GET', $url));
+        $response = $this->http->get($url);
         return (string) $response->getBody();
     }
 }

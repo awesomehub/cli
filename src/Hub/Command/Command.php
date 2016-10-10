@@ -2,7 +2,7 @@
 namespace Hub\Command;
 
 use Psr\Log\LoggerInterface;
-use Http\Client\HttpClient;
+use Http\Client\Common\HttpMethodsClient;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -50,7 +50,7 @@ abstract class Command extends BaseCommand
     protected $logger;
 
     /**
-     * @var HttpClient $http
+     * @var HttpMethodsClient $http
      */
     protected $http;
 

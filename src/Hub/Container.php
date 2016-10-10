@@ -2,10 +2,12 @@
 namespace Hub;
 
 use Psr\Log\LoggerInterface;
-use Http\Client\HttpClient;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
+use Http\Client\HttpClient;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Message\MessageFactory\GuzzleMessageFactory;
 use Hub\Exception\ExceptionHandlerManagerInterface;
 use Hub\Process\ProcessFactoryInterface;
 use Hub\Environment\Environment;
@@ -49,7 +51,7 @@ class Container
     private $logger;
 
     /**
-     * @var HttpClient
+     * @var HttpMethodsClient
      */
     private $http;
 
@@ -165,7 +167,7 @@ class Container
     }
 
     /**
-     * @return HttpClient
+     * @return HttpMethodsClient
      */
     public function getHttp()
     {
@@ -177,7 +179,7 @@ class Container
      */
     public function setHttp(HttpClient $http)
     {
-        $this->http = $http;
+        $this->http = new HttpMethodsClient($http, new GuzzleMessageFactory());
     }
 
     /**
