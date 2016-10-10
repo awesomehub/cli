@@ -3,6 +3,7 @@ namespace Hub\EntryList;
 
 use Psr\Log\LoggerInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
+use Hub\Entry\Resolver\EntryResolverInterface;
 
 /**
  * Interface for an EntryList.
@@ -29,10 +30,11 @@ interface EntryListInterface
      * Resolves the entries within the list.
      *
      * @param LoggerInterface $logger
+     * @param EntryResolverInterface[] $resolvers
      * @param bool $force
      * @return bool
      */
-    public function resolve(LoggerInterface $logger, $force = false);
+    public function resolve(LoggerInterface $logger, array $resolvers, $force = false);
 
     /**
      * Returns whether the list is processed or not.

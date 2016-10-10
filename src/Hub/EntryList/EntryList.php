@@ -5,6 +5,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Config as SymfonyConfig;
 use GuzzleHttp as Guzzle;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
+use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\Entry\EntryInterface;
 
 /**
@@ -67,26 +68,46 @@ abstract class EntryList implements EntryListInterface
             throw new \LogicException("Cannot process the list '$this->path' since it's already processed.");
         }
 
+        if(empty($processors)){
+            throw new \LogicException("Cannot process the list; No source processors has been provided.");
+        }
+
+        // Resolve the list sources
+        $logger->info("Processing list sources");
+
+        $s = 0;
         $entries = [];
         foreach ($this->data['sources'] as $index => $source){
             $sourceEntries = [];
+            $processedWith = false;
+            /** @var SourceProcessorInterface $processor */
             foreach ($processors as $processor){
-                /** @var SourceProcessorInterface $processor */
                 if($processor->supports($source)){
                     $logger->info("Processing source#$index with '" . get_class($processor) . "'");
+                    $processedWith = $processor;
                     $sourceEntries = $processor->process($logger, $source);
                     break;
                 }
             }
 
-            if(false === $sourceEntries){
-                $logger->critical("Failed processing source#$index of type '{$source['type']}'");
+            // Check if no processor can process this source
+            if(false === $processedWith){
+                $logger->critical("Ignoring source#$index of type '{$source['type']}'; None of the given processors supports it.");
+                continue;
+            }
+
+            // Check if the processor has failed
+            if(false === $sourceEntries || !is_array($sourceEntries)){
+                $logger->critical("Failed processing source#$index of type '{$source['type']}' with '" . get_class($processedWith) . "'.");
                 continue;
             }
 
             $logger->info("Processing source#$index completed successfully");
             $entries = array_merge_recursive($entries, $sourceEntries);
+            $s++;
         }
+
+        $logger->info("Processed $s/" . count($this->data['sources']) . " source(s)");
 
         $logger->info("Organizing resulted categories and entries");
 
@@ -146,19 +167,57 @@ abstract class EntryList implements EntryListInterface
         $this->data['categories'] = $categories;
         $this->data['entries'] = $entries;
 
+        $logger->info("Organized " . count($this->data['categories']) . " category(s) and " . count($this->data['entries']) . " entry(s)");
+
         return true;
     }
 
     /**
      * @inheritdoc
      */
-    public function resolve(LoggerInterface $logger, $force = false)
+    public function resolve(LoggerInterface $logger, array $resolvers, $force = false)
     {
         if($this->isResolved() && !$force){
             throw new \LogicException("Cannot resolve the list '$this->path' since it's already resolved.");
         }
 
-        //TODO: write this
+        if(empty($resolvers)){
+            throw new \LogicException("Cannot resolve the list; No resolvers has been provided.");
+        }
+
+        // Resolve the list entries
+        $logger->info("Resolving list entries");
+
+        $i = 0;
+        /* @var EntryInterface $entry */
+        foreach ($this->data['entries'] as $index => $entry) {
+            $resolvedWith = false;
+            /* @var EntryResolverInterface $resolver */
+            foreach ($resolvers as $resolver) {
+                if($resolver->supports($entry)){
+                    $resolvedWith = $resolver;
+                    $resolver->resolve($entry);
+                    break;
+                }
+            }
+
+            // Check if no resolver can resolve this entry
+            if(false === $resolvedWith){
+                $logger->warning("Ignoring entry#$index of type '" . get_class($entry) . "'; None of the given resolvers supports it.");
+                continue;
+            }
+
+            // Check if the resolver has failed
+            if(!$entry->isResolved()){
+                $logger->error("Failed resolving item#$index of type '" . get_class($entry) . "' with '" . get_class($resolvedWith) . "'.");
+                continue;
+            }
+
+            $i++;
+        }
+
+        // Resolve the list
+        $logger->info("Resolved $i/" . count($this->data['entries']) . " entry(s)");
 
         return $this->data['resolved'] = true;
     }

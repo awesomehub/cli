@@ -75,9 +75,6 @@ class ListFetchCommand extends Command
                 throw new \LogicException("Unsupported list format provided '$format'.");
         }
 
-        // Start processing the list
-        $this->logger->info("Processing list");
-
         // Create needed entry factories
         $entryFromUrlFactory = new UrlEntryFactory([
             new GithubUrlProcessor()
@@ -101,6 +98,6 @@ class ListFetchCommand extends Command
         }
 
         // We're done
-        $this->logger->info("List fetched successfully");
+        $this->logger->info("Done!");
     }
 }
