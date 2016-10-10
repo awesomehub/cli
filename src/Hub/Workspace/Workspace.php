@@ -1,5 +1,8 @@
 <?php
-namespace Hub\Environment\Workspace;
+namespace Hub\Workspace;
+
+use Hub\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Represents an Environment workspace.
@@ -14,11 +17,29 @@ class Workspace implements WorkspaceInterface
     protected $path;
 
     /**
-     * @inheritdoc
+     * @var string
      */
-    public function __construct($path)
+    protected $filesystem;
+
+    /**
+     * @var array
+     */
+    protected $structure = [
+        'lists',
+        'cache/lists'
+    ];
+
+    /**
+     * Constructor.
+     *
+     * @param $path string Workspace path
+     * @param $filesystem Filesystem
+     */
+    public function __construct($path, Filesystem $filesystem)
     {
-        $this->path = $path;
+        $this->path = rtrim($path, '/\\');
+        $this->filesystem = $filesystem;
+
         $this->verify();
     }
 
@@ -27,23 +48,21 @@ class Workspace implements WorkspaceInterface
      */
     public function path($path = null)
     {
-        if(is_array($path)){
-            $path = implode(DIRECTORY_SEPARATOR, $path);
+        if(null === $path){
+            return $this->path;
         }
 
-        return $this->path . DIRECTORY_SEPARATOR . $path;
+        if(!is_array($path)){
+            $path = [$path];
+        }
+
+        array_unshift($path, $this->path);
+
+        return implode(DIRECTORY_SEPARATOR, $path);
     }
 
     /**
-     * @inheritdoc
-     */
-    public function getConfig()
-    {
-        return $this->path(['config.yaml']);
-    }
-
-    /**
-     * Verifies the workspace and its directories.
+     * Verifies the workspace directory structure.
      *
      * @param void
      */
@@ -64,17 +83,15 @@ class Workspace implements WorkspaceInterface
             throw new \InvalidArgumentException("Workspace directory '$this->path' is not valid.");
         }
 
-        $dirs = [
-            'lists',
-            'cache',
-            'cache' . DIRECTORY_SEPARATOR . 'lists'
-        ];
 
-        foreach ($dirs as $dir){
+        foreach ($this->structure as $dir){
             $dirPath = $this->path . DIRECTORY_SEPARATOR . $dir;
-            if(!file_exists($dirPath)){
-                if(!mkdir($dirPath)){
-                    throw new \RuntimeException("Failed creating child workspace directory '$dirPath'.");
+            if(!is_dir($dirPath)){
+                try {
+                    $this->filesystem->mkdir($dirPath);
+                }
+                catch (IOException $e){
+                    throw new \RuntimeException("Failed creating child workspace directory '$dirPath'.", 0, $e);
                 }
             }
         }

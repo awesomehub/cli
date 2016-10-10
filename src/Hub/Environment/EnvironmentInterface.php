@@ -1,9 +1,6 @@
 <?php
 namespace Hub\Environment;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Hub\Environment\Workspace\WorkspaceInterface;
-
 /**
  * Interface for an Environment.
  *
@@ -15,12 +12,19 @@ interface EnvironmentInterface
     const PRODUCTION    = 'prod';
 
     /**
-     * Constructor.
+     * Gets the value of an environment variable.
      *
-     * @param $input InputInterface
-     * @param $mode string Environment mode
+     * @param string $varname
+     * @return string
      */
-    public function __construct(InputInterface $input, $mode = null);
+    public function get($varname);
+
+    /**
+     * Gets the user home directory path.
+     *
+     * @return string|bool
+     */
+    public function getUserHome();
 
     /**
      * Gets the current script path.
@@ -37,13 +41,6 @@ interface EnvironmentInterface
     public function getMode();
 
     /**
-     * Gets the currently active workspace.
-     *
-     * @return WorkspaceInterface
-     */
-    public function getWorkspace();
-
-    /**
      * Checks if running in development mode.
      *
      * @return boolean
@@ -56,4 +53,11 @@ interface EnvironmentInterface
      * @return boolean
      */
     public function isProduction();
+
+    /**
+     * Checks if running in windows platform.
+     *
+     * @return boolean
+     */
+    public function isPlatformWindows();
 }

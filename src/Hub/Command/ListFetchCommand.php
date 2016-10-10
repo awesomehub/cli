@@ -13,7 +13,6 @@ use Hub\Entry\Factory\UrlProcessor\GithubUrlProcessor;
 use Hub\Entry\GithubRepoEntry;
 use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
 use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
-use Hub\Filesystem\FilesystemUtil;
 
 /**
  * Fetches and processes a given list.
@@ -53,12 +52,12 @@ class ListFetchCommand extends Command
         $this->style->title('Fetching List: ' . $path);
 
         // Check it it's relative path
-        if(FilesystemUtil::isRelativePath($path)){
-            $path = $this->environment->getWorkspace()->path(['lists', $path]);
+        if(!$this->filesystem->isAbsolutePath($path)){
+            $path = $this->workspace->path(['lists', $path]);
         }
 
         // Add $format extension if not present
-        if(!FilesystemUtil::hasExtension($path, $format)){
+        if(!$this->filesystem->hasExtension($path, $format)){
             $path .= '.' . $format;
         }
 
@@ -92,7 +91,7 @@ class ListFetchCommand extends Command
 
         // Write serialized list to be resolved later
         $this->logger->info("Writing list cache file");
-        $cachedPath = $this->environment->getWorkspace()->path(['cache', 'lists', basename($path, '.' . $format)]);
+        $cachedPath = $this->workspace->path(['cache', 'lists', basename($path, '.' . $format)]);
         if(false === file_put_contents($cachedPath, serialize($list))){
             throw new \RuntimeException("Failed writing list cache file to '$cachedPath'.");
         }

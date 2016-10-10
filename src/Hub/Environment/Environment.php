@@ -1,12 +1,6 @@
 <?php
 namespace Hub\Environment;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Hub\Environment\Workspace\WorkspaceInterface;
-use Hub\Environment\Workspace\Workspace;
-use Hub\Filesystem\FilesystemUtil;
-use Hub\Application;
-
 /**
  * Responsible for handling environmental aspects.
  *
@@ -25,18 +19,22 @@ class Environment implements EnvironmentInterface
     protected $mode;
 
     /**
-     * @var WorkspaceInterface
+     * Constructor.
+     *
+     * @param $mode string Environment mode
      */
-    protected $workspace;
+    public function __construct($mode = null)
+    {
+        $this->setBin();
+        $this->setMode($mode);
+    }
 
     /**
      * @inheritdoc
      */
-    public function __construct(InputInterface $input, $mode = null)
+    public function get($varname)
     {
-        $this->setBin();
-        $this->setMode($mode);
-        $this->setWorkspace($this->getWorkspaceInput($input));
+        return getenv($varname);
     }
 
     /**
@@ -58,9 +56,24 @@ class Environment implements EnvironmentInterface
     /**
      * @inheritdoc
      */
-    public function getWorkspace()
+    public function getUserHome()
     {
-        return $this->workspace;
+        // Check if on Windows platform
+        if($this->isPlatformWindows()){
+            $envAppData = $this->get('APPDATA');
+            if (!$envAppData) {
+                return false;
+            }
+
+            return rtrim(strtr($envAppData, '/', '\\'), '\\');
+        }
+
+        $envHome = $this->get('HOME');
+        if (!$envHome) {
+            return false;
+        }
+
+        return rtrim(strtr($envHome, '\\', '/'), '/');
     }
 
     /**
@@ -80,83 +93,11 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * Sets the environment worspace instance.
-     *
-     * @param $workspace string
+     * @inheritdoc
      */
-    protected function setWorkspace($workspace = null)
+    public function isPlatformWindows()
     {
-        // Get the real absolute path
-        if($workspace){
-            if(FilesystemUtil::isRelativePath($workspace)){
-                $workspace = getcwd() . DIRECTORY_SEPARATOR . $workspace;
-            }
-
-            try {
-                $workspace = FilesystemUtil::normalizePath($workspace);
-            }
-            catch (\Exception $e){
-                throw new \InvalidArgumentException("Invalid environment workspace supplied; {$e->getMessage()}");
-            }
-        }
-
-        $this->workspace = new Workspace($workspace ?: $this->detectWorkspacePath());
-    }
-
-    /**
-     * Tries tpo auto-detect the environment worspace based on different factors.
-     *
-     * @param void
-     * @return string
-     */
-    protected function detectWorkspacePath()
-    {
-        // Check if in development mode
-        if($this->isDevelopment()){
-            return dirname(dirname($this->getBin())) . DIRECTORY_SEPARATOR . 'workspace';
-        }
-
-        $envWorkspaceVar = strtoupper(Application::SLUG) . '_WORKSPACE';
-        if ($envWorkspace = getenv($envWorkspaceVar)) {
-            return $envWorkspace;
-        }
-
-        // Check if on Windows platform
-        if(defined('PHP_WINDOWS_VERSION_BUILD')){
-            $envAppData = getenv('APPDATA');
-            if (!$envAppData) {
-                throw new \RuntimeException('The APPDATA or ' . $envWorkspaceVar . ' environment variable must be set for ' . Application::NAME . ' to run correctly');
-            }
-
-            return rtrim(strtr($envAppData, '\\', '/'), '/') . '/' . ucfirst(strtolower(Application::SLUG));
-        }
-
-        // Defaults to the $HOME directory
-        $envHome = getenv('HOME');
-        if (!$envHome) {
-            throw new \RuntimeException('The HOME or ' . $envWorkspaceVar . ' environment variable must be set for ' . Application::NAME . ' to run correctly');
-        }
-
-        return rtrim(strtr($envHome, '\\', '/'), '/'). '/.' . strtolower(Application::SLUG);
-    }
-
-    /**
-     * Fetches the user defined workspace.
-     *
-     * @param $input InputInterface
-     * @return string|null
-     */
-    protected function getWorkspaceInput(InputInterface $input)
-    {
-        if ($input->hasParameterOption('--workspace', true)) {
-            return $input->getParameterOption('--workspace', null, true);
-        }
-
-        if ($input->hasParameterOption('-w', true)) {
-            return $input->getParameterOption('-w', null, true);
-        }
-
-        return null;
+        return defined('PHP_WINDOWS_VERSION_BUILD');
     }
 
     /**
@@ -174,6 +115,8 @@ class Environment implements EnvironmentInterface
      *
      * @param string|null $mode
      * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     protected function setMode($mode = null)
     {

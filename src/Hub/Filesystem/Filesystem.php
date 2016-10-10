@@ -12,6 +12,7 @@ class Filesystem extends BaseFilesystem
      *
      * @param string $path
      * @return string
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -36,6 +37,7 @@ class Filesystem extends BaseFilesystem
      * @param string $contents
      * @param bool $lock
      * @return int
+     *
      * @throws IOException
      */
     public function write($path, $contents, $lock = true)
@@ -60,6 +62,7 @@ class Filesystem extends BaseFilesystem
      * @param string $data
      * @param bool $lock
      * @return int
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -75,5 +78,46 @@ class Filesystem extends BaseFilesystem
         }
 
         return $bytes;
+    }
+
+    /**
+     * Checks whether the path has the given extension or not.
+     *
+     * @param string $path
+     * @param string $ext
+     * @return bool
+     */
+    public function hasExtension($path, $ext){
+        return '.' . strtolower($ext) === strtolower(substr($path, -1 * strlen($ext)));
+    }
+
+    /**
+     * Normalize path.
+     *
+     * @param string $path
+     * @return string
+     * @throws \LogicException
+     */
+    public function normalizePath($path)
+    {
+        $segments = [];
+        foreach(preg_split('/[\/\\\\]+/', $path) as $part) {
+            if ($part === '.')
+                continue;
+
+            if ($part !== '..') {
+                array_push($segments, $part);
+                continue;
+            }
+
+            if (count($segments) > 0 && end($segments) != "") {
+                array_pop($segments);
+            }
+            else {
+                throw new \LogicException('Path is outside of the defined root, path: [' . $path . ']');
+            }
+        }
+
+        return join(DIRECTORY_SEPARATOR, $segments);
     }
 }

@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Hub\Environment\EnvironmentInterface;
+use Hub\Workspace\WorkspaceInterface;
 use Hub\Process\ProcessFactoryInterface;
 use Hub\Filesystem\Filesystem;
 use Hub\Container;
@@ -28,6 +29,11 @@ abstract class Command extends BaseCommand
      * @var EnvironmentInterface $environment
      */
     protected $environment;
+
+    /**
+     * @var WorkspaceInterface $workspace
+     */
+    protected $workspace;
 
     /**
      * @var InputInterface $input
@@ -72,6 +78,7 @@ abstract class Command extends BaseCommand
         $this->container    = $this->getApplication()->getContainer();
 
         $this->environment  = $this->container->getEnvironment();
+        $this->workspace    = $this->container->getWorkspace();
         $this->input        = $this->container->getInput();
         $this->output       = $this->container->getOutput();
         $this->style        = $this->container->getStyle();

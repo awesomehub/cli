@@ -9,8 +9,9 @@ use Http\Client\HttpClient;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
 use Hub\Exception\ExceptionHandlerManagerInterface;
+use Hub\Environment\EnvironmentInterface;
+use Hub\Workspace\WorkspaceInterface;
 use Hub\Process\ProcessFactoryInterface;
-use Hub\Environment\Environment;
 use Hub\Filesystem\Filesystem;
 
 /**
@@ -26,7 +27,7 @@ class Container
     private $application;
 
     /**
-     * @var Environment
+     * @var EnvironmentInterface
      */
     private $environment;
 
@@ -39,6 +40,11 @@ class Container
      * @var OutputInterface
      */
     private $output;
+
+    /**
+     * @var WorkspaceInterface
+     */
+    private $workspace;
 
     /**
      * @var StyleInterface
@@ -87,7 +93,7 @@ class Container
     }
 
     /**
-     * @return Environment
+     * @return EnvironmentInterface
      */
     public function getEnvironment()
     {
@@ -95,11 +101,27 @@ class Container
     }
 
     /**
-     * @param Environment $environment
+     * @param EnvironmentInterface $environment
      */
-    public function setEnvironment(Environment $environment)
+    public function setEnvironment(EnvironmentInterface $environment)
     {
         $this->environment = $environment;
+    }
+
+    /**
+     * @return WorkspaceInterface
+     */
+    public function getWorkspace()
+    {
+        return $this->workspace;
+    }
+
+    /**
+     * @param WorkspaceInterface $workspace
+     */
+    public function setWorkspace(WorkspaceInterface $workspace)
+    {
+        $this->workspace = $workspace;
     }
 
     /**
