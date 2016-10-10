@@ -25,7 +25,7 @@ class Workspace implements WorkspaceInterface
     /**
      * @inheritdoc
      */
-    public function get($path = null)
+    public function path($path = null)
     {
         if(is_array($path)){
             $path = implode(DIRECTORY_SEPARATOR, $path);
@@ -39,7 +39,7 @@ class Workspace implements WorkspaceInterface
      */
     public function getConfig()
     {
-        return $this->get(['config.yaml']);
+        return $this->path(['config.yaml']);
     }
 
     /**

@@ -21,7 +21,7 @@ interface WorkspaceInterface
      * @param $path array|string Path segments as array
      * @return string
      */
-    public function get($path = []);
+    public function path($path = []);
 
     /**
      * Gets the config file path.

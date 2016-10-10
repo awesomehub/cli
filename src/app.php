@@ -33,7 +33,7 @@ $output = new ConsoleOutput(
 
 $logger = new LoggerManager([
     new ConsoleLoggerHandler($output),
-    new StreamLoggerHandler($environment->getWorkspace()->get('hub.log')),
+    new StreamLoggerHandler($environment->getWorkspace()->path('hub.log')),
 ]);
 
 $exception_handler = ExceptionHandlerManager::register([

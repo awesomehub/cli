@@ -45,7 +45,7 @@ class ListInspectCommand extends Command
         $this->style->title('Inspecting List: ' . $list);
 
         // Fetch the cached list
-        $cachedPath = $this->environment->getWorkspace()->get(['cache', 'lists', $list]);
+        $cachedPath = $this->environment->getWorkspace()->path(['cache', 'lists', $list]);
         if(!file_exists($cachedPath)){
             throw new \LogicException("Unable to fined a cached list named '$list'. Maybe you need to 'list:fetch $list' first.");
         }

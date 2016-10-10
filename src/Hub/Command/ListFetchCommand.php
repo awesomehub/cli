@@ -54,7 +54,7 @@ class ListFetchCommand extends Command
 
         // Check it it's relative path
         if(FilesystemUtil::isRelativePath($path)){
-            $path = $this->environment->getWorkspace()->get(['lists', $path]);
+            $path = $this->environment->getWorkspace()->path(['lists', $path]);
         }
 
         // Add $format extension if not present
@@ -92,7 +92,7 @@ class ListFetchCommand extends Command
 
         // Write serialized list to be resolved later
         $this->logger->info("Writing list cache file");
-        $cachedPath = $this->environment->getWorkspace()->get(['cache', 'lists', basename($path, '.' . $format)]);
+        $cachedPath = $this->environment->getWorkspace()->path(['cache', 'lists', basename($path, '.' . $format)]);
         if(false === file_put_contents($cachedPath, serialize($list))){
             throw new \RuntimeException("Failed writing list cache file to '$cachedPath'.");
         }
