@@ -51,7 +51,7 @@ class ListInspectCommand extends Command
         }
 
         // Set list instance
-        $this->list = unserialize(file_get_contents($cachedPath));
+        $this->list = unserialize($this->filesystem->read($cachedPath));
 
         // Show basic info
         $this->style->section("Basic Information");

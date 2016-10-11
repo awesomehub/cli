@@ -92,9 +92,7 @@ class ListFetchCommand extends Command
         // Write serialized list to be resolved later
         $this->logger->info("Writing list cache file");
         $cachedPath = $this->workspace->path(['cache', 'lists', basename($path, '.' . $format)]);
-        if(false === file_put_contents($cachedPath, serialize($list))){
-            throw new \RuntimeException("Failed writing list cache file to '$cachedPath'.");
-        }
+        $this->filesystem->write($cachedPath, serialize($list));
 
         // We're done
         $this->logger->info("Done!");
