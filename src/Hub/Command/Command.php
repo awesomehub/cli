@@ -3,7 +3,6 @@ namespace Hub\Command;
 
 use Symfony\Component\Console;
 use Psr\Log\LoggerInterface;
-use Http\Client\Common\HttpMethodsClient;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Workspace\WorkspaceInterface;
 use Hub\Process\ProcessFactoryInterface;
@@ -34,6 +33,11 @@ abstract class Command extends Console\Command\Command
     protected $workspace;
 
     /**
+     * @var Filesystem $filesystem
+     */
+    protected $filesystem;
+
+    /**
      * @var Console\Input\InputInterface $input
      */
     protected $input;
@@ -54,19 +58,9 @@ abstract class Command extends Console\Command\Command
     protected $logger;
 
     /**
-     * @var HttpMethodsClient $http
-     */
-    protected $http;
-
-    /**
      * @var ProcessFactoryInterface $process
      */
     protected $process;
-
-    /**
-     * @var Filesystem $filesystem
-     */
-    protected $filesystem;
 
     /**
      * @inheritdoc
@@ -76,14 +70,13 @@ abstract class Command extends Console\Command\Command
         $this->container    = $this->getApplication()->getContainer();
 
         $this->environment  = $this->getApplication()->getKernel()->getEnvironment();
+        $this->filesystem   = $this->container->getFilesystem();
         $this->workspace    = $this->container->getWorkspace();
         $this->input        = $this->container->getInput();
         $this->output       = $this->container->getOutput();
         $this->style        = $this->container->getOutputStyle();
         $this->logger       = $this->container->getLogger();
-        $this->http         = $this->container->getHttp();
         $this->process      = $this->container->getProcessFactory();
-        $this->filesystem   = $this->container->getFilesystem();
 
         return parent::run($input, $output);
     }
