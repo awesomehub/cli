@@ -1,16 +1,14 @@
 <?php
 namespace Hub\Command;
 
+use Symfony\Component\Console;
 use Psr\Log\LoggerInterface;
 use Http\Client\Common\HttpMethodsClient;
-use Symfony\Component\Console\Command\Command as BaseCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\StyleInterface;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Workspace\WorkspaceInterface;
 use Hub\Process\ProcessFactoryInterface;
 use Hub\Filesystem\Filesystem;
+use Hub\Application;
 use Hub\Container;
 
 /**
@@ -18,7 +16,7 @@ use Hub\Container;
  *
  * @package AwesomeHub
  */
-abstract class Command extends BaseCommand
+abstract class Command extends Console\Command\Command
 {
     /**
      * @var Container $container
@@ -36,17 +34,17 @@ abstract class Command extends BaseCommand
     protected $workspace;
 
     /**
-     * @var InputInterface $input
+     * @var Console\Input\InputInterface $input
      */
     protected $input;
 
     /**
-     * @var OutputInterface $output
+     * @var Console\Output\OutputInterface $output
      */
     protected $output;
 
     /**
-     * @var StyleInterface $output
+     * @var Console\Style\StyleInterface $output
      */
     protected $style;
 
@@ -73,15 +71,15 @@ abstract class Command extends BaseCommand
     /**
      * @inheritdoc
      */
-    public function run(InputInterface $input, OutputInterface $output)
+    public function run(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
         $this->container    = $this->getApplication()->getContainer();
 
-        $this->environment  = $this->container->getEnvironment();
+        $this->environment  = $this->getApplication()->getKernel()->getEnvironment();
         $this->workspace    = $this->container->getWorkspace();
         $this->input        = $this->container->getInput();
         $this->output       = $this->container->getOutput();
-        $this->style        = $this->container->getStyle();
+        $this->style        = $this->container->getOutputStyle();
         $this->logger       = $this->container->getLogger();
         $this->http         = $this->container->getHttp();
         $this->process      = $this->container->getProcessFactory();
@@ -93,7 +91,7 @@ abstract class Command extends BaseCommand
     /**
      * Gets the application instance for this command.
      *
-     * @return \Hub\Application|\Symfony\Component\Console\Application An Application instance
+     * @return Application|Console\Application
      */
     public function getApplication()
     {

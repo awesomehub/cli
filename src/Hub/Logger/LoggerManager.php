@@ -2,7 +2,9 @@
 namespace Hub\Logger;
 
 use Psr\Log\AbstractLogger;
+use Hub\Logger\Record\LoggerRecordInterface;
 use Hub\Logger\Handler\LoggerHandlerInterface;
+use Hub\Logger\Record\LoggerRecord;
 
 /**
  * Logger manager class.
@@ -44,6 +46,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         foreach ($handlers as $handler) {
             $this->addHandler($handler);
         }
+        return $this;
     }
 
     /**
@@ -57,15 +60,14 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function runHandlers(array $record)
+    public function runHandlers(LoggerRecordInterface $record)
     {
         if (0 === count($this->handlers)) {
             throw new \LogicException('No logger handler has been defined.');
         }
 
         foreach ($this->handlers as $handler){
-            /* @var LoggerHandlerInterface $handler */
-            if (!$handler->isHandling($record['level'])) {
+            if (!$handler->isHandling($record)) {
                 continue;
             }
 
@@ -78,14 +80,12 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
      */
     public function log($level, $message, array $context = [])
     {
-        $record = [
-            'level' => $level,
-            'message' => $this->interpolate((string) $message, $context),
-            'context' => $context,
-            'timestamp' => time(),
-        ];
-
-        $this->runHandlers($record);
+        $this->runHandlers(new LoggerRecord(
+            $level,
+            $this->interpolate((string) $message, $context),
+            time(),
+            $context
+        ));
     }
 
     /**

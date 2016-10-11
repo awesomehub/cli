@@ -8,8 +8,10 @@ use Hub\Exception\Handler\ExceptionHandlerInterface;
  *
  * @package AwesomeHub
  */
-class ExceptionHandlerManager extends ExceptionHandlerManagerRegisterAware
+class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
 {
+    use ExceptionHandlerManagerRegistererTrait;
+
     /**
      * @var ExceptionHandlerInterface[]
      */
@@ -28,7 +30,7 @@ class ExceptionHandlerManager extends ExceptionHandlerManagerRegisterAware
     /**
      * @inheritDoc
      */
-    public function addHandler(ExceptionHandlerInterface $handler)
+    public function addHandler(ExceptionHandlerInterface $handler): self
     {
         $this->handlers[] = $handler;
         return $this;
@@ -39,10 +41,12 @@ class ExceptionHandlerManager extends ExceptionHandlerManagerRegisterAware
      */
     public function setHandlers(array $handlers)
     {
-        $this->handlers = array();
+        $this->handlers = [];
         foreach ($handlers as $handler) {
             $this->addHandler($handler);
         }
+
+        return $this;
     }
 
     /**
@@ -63,7 +67,6 @@ class ExceptionHandlerManager extends ExceptionHandlerManagerRegisterAware
         }
 
         foreach ($this->handlers as $handler){
-            /* @var ExceptionHandlerInterface $handler */
             if (!$handler->isHandling($exception)) {
                 continue;
             }

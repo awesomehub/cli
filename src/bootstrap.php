@@ -23,16 +23,25 @@ if (function_exists('ini_set') && (!ini_get('log_errors') || ini_get('error_log'
     ini_set('display_errors', 1);
 }
 
-// Load Composer Aautoloader
-require __DIR__.'/loader.php';
+// Find composer's autoload.php file
+$loader = null;
+foreach ([__DIR__.'/../vendor/autoload.php', __DIR__.'/../../../autoload.php'] as $file) {
+    if (file_exists($file)) {
+        $loader = $file;
+        break;
+    }
+}
 
-use Symfony\Component\Debug\ErrorHandler;
-use Hub\Exception\ExceptionHandlerManager;
-use Hub\Exception\Handler\StartupExceptionHandler;
+// Check if project is not set up yet
+if (is_null($loader)) {
+    fwrite(STDERR,
+        'You need to set up the project dependencies using the following commands:'.PHP_EOL.
+        'wget http://getcomposer.org/composer.phar'.PHP_EOL.
+        'php composer.phar install'.PHP_EOL
+    );
 
-// Register execption manager and add a temporary startup execption handler
-// We also need to make sure the exception handler is registered before the error handler
-ExceptionHandlerManager::register([new StartupExceptionHandler()]);
+    exit(1);
+}
 
-// Use symfony error handler to convert php errors to exceptions
-ErrorHandler::register();
+// Include composer autoload file
+return include $loader;

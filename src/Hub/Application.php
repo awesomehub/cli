@@ -1,64 +1,56 @@
 <?php
 namespace Hub;
 
-use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Command\HelpCommand;
-use Hub\Exception\ExceptionHandlerManagerInterface;
+use Symfony\Component\Console;
+use Symfony\Component\Console\Input;
+use Symfony\Component\Console\Output;
 
 /**
  * The main console application class.
  *
  * @package AwesomeHub
  */
-class Application extends BaseApplication
+class Application extends Console\Application
 {
     const NAME    = 'AwesomeHub';
     const SLUG    = 'awesomeHub';
     const VERSION = '0.1.0';
 
     /**
-     * @var Container $container
+     * @var KernelInterface $kernel
      */
-    protected $container;
+    protected $kernel;
 
     /**
      * Constructor.
      *
-     * @param Container $container
+     * @param KernelInterface $kernel
      */
-    public function __construct(Container $container)
+    public function __construct(KernelInterface $kernel)
     {
         parent::__construct(self::NAME, self::VERSION);
 
         $this->setDefaultCommand('commands');
-        $this->container = $container;
+        $this->kernel = $kernel;
     }
 
     /**
-     * Runs the application.
-     *
-     * @param InputInterface  $input  An Input instance
-     * @param OutputInterface $output An Output instance
-     * @return int 0 if everything went fine, or an error code
+     * @inheritdoc
      */
-    public function run(InputInterface $input = null,  OutputInterface $output = null)
+    public function run(Input\InputInterface $input = null,  Output\OutputInterface $output = null)
     {
-        $exceptionHandler = $this->container->getExceptionHandler();
+        $container = $this->getContainer();
+
         // Prevent symfony from catching exceptions if an exception handler manager has been registered
-        if($exceptionHandler instanceof ExceptionHandlerManagerInterface){
+        if($container->hasExceptionHandlerManager()){
             $this->setCatchExceptions(false);
         }
 
         if(!$input)
-            $input = $this->container->getInput();
+            $input = $container->getInput();
 
         if(!$output)
-            $output = $this->container->getOutput();
+            $output = $container->getOutput();
 
         return parent::run($input, $output);
     }
@@ -69,7 +61,7 @@ class Application extends BaseApplication
     public function getDefaultCommands()
     {
         return [
-            new HelpCommand(),
+            new Console\Command\HelpCommand(),
             new Command\CommandsCommand(),
             new Command\ListFetchCommand(),
             new Command\ListInspectCommand(),
@@ -78,14 +70,21 @@ class Application extends BaseApplication
     }
 
     /**
-     * Gets DI Container instance.
+     * Gets the DI Container instance.
      *
-     * @param void
      * @return Container
      */
     public function getContainer()
     {
-        return $this->container;
+        return $this->kernel->getContainer();
+    }
+
+    /**
+     * @return KernelInterface
+     */
+    public function getKernel()
+    {
+        return $this->kernel;
     }
 
     /**
@@ -93,18 +92,18 @@ class Application extends BaseApplication
      */
     protected function getDefaultInputDefinition()
     {
-        return new InputDefinition(array(
-            new InputArgument('command', InputArgument::REQUIRED, 'The command to execute'),
+        return new Input\InputDefinition(array(
+            new Input\InputArgument('command', Input\InputArgument::REQUIRED, 'The command to execute'),
 
-            new InputOption('--workspace', '-w', InputOption::VALUE_REQUIRED, 'Sets the workspace directory'),
-            new InputOption('--help', '-h', InputOption::VALUE_NONE, 'Display this help message'),
-            new InputOption('--quiet', '-q', InputOption::VALUE_NONE, 'Do not output any message'),
+            new Input\InputOption('--workspace', '-w', Input\InputOption::VALUE_REQUIRED, 'Sets the workspace directory'),
+            new Input\InputOption('--help', '-h', Input\InputOption::VALUE_NONE, 'Display this help message'),
+            new Input\InputOption('--quiet', '-q', Input\InputOption::VALUE_NONE, 'Do not output any message'),
             // we don't need the 3 verbosity level, only one level is enough
-            new InputOption('--verbose', '-v', InputOption::VALUE_NONE, 'Increase the verbosity of messages'),
-            new InputOption('--version', '-V', InputOption::VALUE_NONE, 'Display this application version'),
-            new InputOption('--ansi', '', InputOption::VALUE_NONE, 'Force ANSI output'),
-            new InputOption('--no-ansi', '', InputOption::VALUE_NONE, 'Disable ANSI output'),
-            new InputOption('--no-interaction', '-n', InputOption::VALUE_NONE, 'Do not ask any interactive question'),
+            new Input\InputOption('--verbose', '-v', Input\InputOption::VALUE_NONE, 'Increase the verbosity of messages'),
+            new Input\InputOption('--version', '-V', Input\InputOption::VALUE_NONE, 'Display this application version'),
+            new Input\InputOption('--ansi', '', Input\InputOption::VALUE_NONE, 'Force ANSI output'),
+            new Input\InputOption('--no-ansi', '', Input\InputOption::VALUE_NONE, 'Disable ANSI output'),
+            new Input\InputOption('--no-interaction', '-n', Input\InputOption::VALUE_NONE, 'Do not ask any interactive question'),
         ));
     }
 }

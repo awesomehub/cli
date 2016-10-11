@@ -1,87 +1,54 @@
 <?php
 namespace Hub;
 
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console;
 use Http\Client\HttpClient;
 use Http\Client\Common\HttpMethodsClient;
+use Http\Adapter\Guzzle6;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
+use Hub\Util\OutputFormatter;
+use Hub\Logger\LoggerManagerInterface;
+use Hub\Logger\LoggerManager;
 use Hub\Exception\ExceptionHandlerManagerInterface;
+use Hub\Exception\ExceptionHandlerManager;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Workspace\WorkspaceInterface;
-use Hub\Process\ProcessFactoryInterface;
+use Hub\Workspace\StartupWorkspace;
 use Hub\Filesystem\Filesystem;
+use Hub\Process\ProcessFactoryInterface;
+use Hub\Process\ProcessFactory;
 
 /**
  * The DI Container for the application.
  *
- * @package AwesomeHub
+ * @method bool hasApplication()
+ * @method bool hasWorkspace()
+ * @method bool hasInput()
+ * @method bool hasOutput()
+ * @method bool hasOutputStyle()
+ * @method bool hasLogger()
+ * @method bool hasHttp()
+ * @method bool hasExceptionHandlerManager()
+ * @method bool hasFilesystem()
+ * @method bool hasProcessFactory()
  */
 class Container
 {
     /**
-     * @var Application
+     * @var array $services
      */
-    private $application;
-
-    /**
-     * @var EnvironmentInterface
-     */
-    private $environment;
-
-    /**
-     * @var InputInterface
-     */
-    private $input;
-
-    /**
-     * @var OutputInterface
-     */
-    private $output;
-
-    /**
-     * @var WorkspaceInterface
-     */
-    private $workspace;
-
-    /**
-     * @var StyleInterface
-     */
-    private $style;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
-     * @var HttpMethodsClient
-     */
-    private $http;
-
-    /**
-     * @var ExceptionHandlerManagerInterface
-     */
-    private $exceptionHandler;
-
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
-
-    /**
-     * @var ProcessFactoryInterface
-     */
-    private $processFactory;
+    private $services = [];
 
     /**
      * @return Application
      */
-    public function getApplication()
+    public function getApplication(): Application
     {
-        return $this->application;
+        if(!$this->hasApplication()){
+            throw new Exceptions\ServiceNotFoundException("application");
+        }
+
+        return $this->services['application'];
     }
 
     /**
@@ -89,31 +56,41 @@ class Container
      */
     public function setApplication(Application $application)
     {
-        $this->application = $application;
+        $this->services['application'] = $application;
     }
 
     /**
-     * @return EnvironmentInterface
+     * @param Kernel $kernel
+     * @return Application
      */
-    public function getEnvironment()
+    public function createApplication(Kernel $kernel)
     {
-        return $this->environment;
-    }
-
-    /**
-     * @param EnvironmentInterface $environment
-     */
-    public function setEnvironment(EnvironmentInterface $environment)
-    {
-        $this->environment = $environment;
+        return new Application($kernel);
     }
 
     /**
      * @return WorkspaceInterface
      */
-    public function getWorkspace()
+    public function getWorkspace(): WorkspaceInterface
     {
-        return $this->workspace;
+        if(!$this->hasWorkspace()){
+            throw new Exceptions\ServiceNotFoundException("workspace");
+        }
+
+        return $this->services['workspace'];
+    }
+
+    /**
+     * @param EnvironmentInterface $environment
+     * @return WorkspaceInterface
+     */
+    public function createStartupWorkspace(EnvironmentInterface $environment): WorkspaceInterface
+    {
+        return new StartupWorkspace(
+            $environment,
+            $this->getInput(),
+            $this->getFilesystem()
+        );
     }
 
     /**
@@ -121,111 +98,104 @@ class Container
      */
     public function setWorkspace(WorkspaceInterface $workspace)
     {
-        $this->workspace = $workspace;
+        $this->services['workspace'] = $workspace;
     }
 
     /**
-     * @return InputInterface
+     * @return Console\Input\InputInterface
      */
-    public function getInput()
+    public function getInput(): Console\Input\InputInterface
     {
-        return $this->input;
+        return $this->services['input']
+            ?? $this->services['input'] = new Console\Input\ArgvInput();
     }
 
     /**
-     * @param InputInterface $input
+     * @param Console\Input\InputInterface $input
      */
-    public function setInput(InputInterface $input)
+    public function setInput(Console\Input\InputInterface $input)
     {
-        $this->input = $input;
+        $this->services['input'] = $input;
     }
 
     /**
-     * @return OutputInterface
+     * @return Console\Output\OutputInterface
      */
-    public function getOutput()
+    public function getOutput(): Console\Output\OutputInterface
     {
-        return $this->output;
+        if(!$this->hasOutput()){
+            throw new Exceptions\ServiceNotFoundException("output");
+        }
+
+        return $this->services['output'];
     }
 
     /**
-     * @param OutputInterface $output
+     * @param EnvironmentInterface $environment
+     * @return Console\Output\OutputInterface
      */
-    public function setOutput(OutputInterface $output)
+    public function createStartupOutput(EnvironmentInterface $environment): Console\Output\OutputInterface
     {
-        $this->output = $output;
+        return new Console\Output\ConsoleOutput(
+            $environment->isDevelopment()
+                ? Console\Output\OutputInterface::VERBOSITY_VERBOSE
+                : Console\Output\OutputInterface::VERBOSITY_NORMAL,
+            null,
+            new OutputFormatter()
+        );
     }
 
     /**
-     * @return StyleInterface
+     * @param Console\Output\OutputInterface $output
      */
-    public function getStyle()
+    public function setOutput(Console\Output\OutputInterface $output)
     {
-        return $this->style;
+        $this->services['output'] = $output;
     }
 
     /**
-     * @param StyleInterface $style
+     * @return LoggerManagerInterface
      */
-    public function setStyle(StyleInterface $style)
+    public function getLogger(): LoggerManagerInterface
     {
-        $this->style = $style;
+        return $this->services['logger']
+            ?? $this->services['logger'] = new LoggerManager();
     }
 
     /**
-     * @return LoggerInterface
+     * @param LoggerManagerInterface $logger
      */
-    public function getLogger()
+    public function setLogger(LoggerManagerInterface $logger)
     {
-        return $this->logger;
+        $this->services['logger'] = $logger;
     }
 
     /**
-     * @param LoggerInterface $logger
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
-    /**
-     * @return HttpMethodsClient
-     */
-    public function getHttp()
-    {
-        return $this->http;
-    }
-
-    /**
-     * @param HttpClient $http
-     */
-    public function setHttp(HttpClient $http)
-    {
-        $this->http = new HttpMethodsClient($http, new GuzzleMessageFactory());
-    }
-
-    /**
+     * Sets the manager and Make sure that the handler is registered
+     *
      * @return ExceptionHandlerManagerInterface
      */
-    public function getExceptionHandler()
+    public function getExceptionHandlerManager(): ExceptionHandlerManagerInterface
     {
-        return $this->exceptionHandler;
+        return $this->services['exceptionHandlerManager']
+            ?? $this->services['exceptionHandlerManager'] = ExceptionHandlerManager::getInstance()->register();
     }
 
     /**
-     * @param ExceptionHandlerManagerInterface $exception_handler
+     * @param ExceptionHandlerManagerInterface $exceptionHandlerManager
      */
-    public function setExceptionHandler(ExceptionHandlerManagerInterface $exception_handler)
+    public function setExceptionHandlerManager(ExceptionHandlerManagerInterface $exceptionHandlerManager)
     {
-        $this->exceptionHandler = $exception_handler;
+        $this->services['exceptionHandlerManager'] = $exceptionHandlerManager->register();
     }
 
     /**
      * @return Filesystem
      */
-    public function getFilesystem()
+    public function getFilesystem(): Filesystem
     {
-        return $this->filesystem;
+        return $this->services['filesystem']
+            ?? $this->services['filesystem'] = new Filesystem();
     }
 
     /**
@@ -233,15 +203,63 @@ class Container
      */
     public function setFilesystem(Filesystem $filesystem)
     {
-        $this->filesystem = $filesystem;
+        $this->services['filesystem'] = $filesystem;
+    }
+
+    /**
+     * @return HttpMethodsClient
+     */
+    public function getHttp(): HttpMethodsClient
+    {
+        return $this->services['http']
+            ?? $this->services['http'] = $this->createHttpMethodsClient(new Guzzle6\Client());
+    }
+
+    /**
+     * @param HttpClient $http
+     */
+    public function setHttp(HttpClient $http)
+    {
+        $this->services['http'] = $this->createHttpMethodsClient($http);
+    }
+
+    /**
+     * @param HttpClient $http
+     * @return HttpMethodsClient
+     */
+    public function createHttpMethodsClient(HttpClient $http): HttpMethodsClient
+    {
+        if($http instanceof HttpMethodsClient){
+            return $http;
+        }
+
+        return new HttpMethodsClient($http, new GuzzleMessageFactory());
+    }
+
+    /**
+     * @return Console\Style\StyleInterface
+     */
+    public function getOutputStyle(): Console\Style\StyleInterface
+    {
+        return $this->services['outputStyle']
+            ?? $this->services['outputStyle'] = new Console\Style\SymfonyStyle($this->getInput(), $this->getOutput());
+    }
+
+    /**
+     * @param Console\Style\StyleInterface $style
+     */
+    public function setOutputStyle(Console\Style\StyleInterface $style)
+    {
+        $this->services['outputStyle'] = $style;
     }
 
     /**
      * @return ProcessFactoryInterface
      */
-    public function getProcessFactory()
+    public function getProcessFactory(): ProcessFactoryInterface
     {
-        return $this->processFactory;
+        return $this->services['processFactory']
+            ?? $this->services['processFactory'] = new ProcessFactory($this->getLogger());
     }
 
     /**
@@ -249,6 +267,25 @@ class Container
      */
     public function setProcessFactory(ProcessFactoryInterface $facory)
     {
-        $this->processFactory = $facory;
+        $this->services['processFactory'] = $facory;
+    }
+
+    /**
+     * Handles has(Service) magic methods.
+     *
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        if('has' === strtolower(substr($name, 0, 3))){
+            $service = lcfirst(substr($name, 3));
+            return isset($this->services[$service])
+                ? true
+                : false;
+        }
+
+        throw new \BadMethodCallException('Call to undefined method '.__CLASS__.'::'.$name.'()');
     }
 }

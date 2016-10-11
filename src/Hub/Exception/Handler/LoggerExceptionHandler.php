@@ -58,10 +58,10 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
         }
 
         // log the main error
-        $this->logger->log($logLevel, sprintf('[%s] %s (%s:%s)', get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()));
+        $this->logger->log($logLevel, sprintf("[%s] %s (%s:%s)", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()));
 
         // generate stack trace
-        $this->logger->debug('Stack trace:');
+        $this->logger->log($logLevel, 'Stack trace:', ['console.level' => LogLevel::DEBUG]);
 
         // exception related properties
         $trace = $e->getTrace();
@@ -79,7 +79,7 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
             $file = isset($trace[$i]['file']) ? $trace[$i]['file'] : 'n/a';
             $line = isset($trace[$i]['line']) ? $trace[$i]['line'] : 'n/a';
 
-            $this->logger->debug(sprintf('- %s%s%s() at %s:%s', $class, $type, $function, $file, $line));
+            $this->logger->log($logLevel, sprintf('- %s%s%s() at %s:%s', $class, $type, $function, $file, $line), ['console.level' => LogLevel::DEBUG]);
         }
     }
 

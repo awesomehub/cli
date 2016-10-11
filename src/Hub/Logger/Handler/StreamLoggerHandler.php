@@ -84,9 +84,9 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function isHandling($level)
+    public function isHandling($record)
     {
-        return static::$severityLevelMap[$level] >= $this->severity;
+        return  static::$severityLevelMap[$record->getLevel()] >= $this->severity;
     }
 
     /**
@@ -130,7 +130,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
         }
 
         // write thre message to the stream resource
-        fwrite($this->stream, sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record['timestamp']), ucfirst($record['level']), $record['message']));
+        fwrite($this->stream, sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record->getTimestamp()), ucfirst($record->getLevel()), $record->getMessage()));
 
         if ($this->useLocking) {
             flock($this->stream, LOCK_UN);

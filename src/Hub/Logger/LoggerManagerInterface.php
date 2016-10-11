@@ -1,14 +1,16 @@
 <?php
 namespace Hub\Logger;
 
+use Psr\Log\LoggerInterface;
 use Hub\Logger\Handler\LoggerHandlerInterface;
+use Hub\Logger\Record\LoggerRecordInterface;
 
 /**
- * Interface for logger manager classes.
+ * Interface for a logger manager.
  *
  * @package AwesomeHub
  */
-interface LoggerManagerInterface
+interface LoggerManagerInterface extends LoggerInterface
 {
     /**
      * Adds a handler on to the stack.
@@ -22,6 +24,7 @@ interface LoggerManagerInterface
      * Set handlers, replacing all existing ones.
      *
      * @param  LoggerHandlerInterface[] $handlers
+     * @return self
      */
     public function setHandlers(array $handlers);
 
@@ -31,7 +34,7 @@ interface LoggerManagerInterface
     public function getHandlers();
 
     /**
-     * @param array $record
+     * @param LoggerRecordInterface $record
      */
-    public function runHandlers(array $record);
+    public function runHandlers(LoggerRecordInterface $record);
 }

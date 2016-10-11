@@ -1,6 +1,7 @@
 <?php
 namespace Hub\Logger\Handler;
 
+use Hub\Logger\Record\LoggerRecordInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
@@ -59,25 +60,36 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
      */
     public function handle($record)
     {
+        // Check if an explicit level is defined for the console
+        $level = $this->getExplicitLevel($record);
+        $isError = $this->isErrorLevel($level);
+
         // Write to the error output if necessary and available
-        if ($this->output instanceof ConsoleOutputInterface && $this->isErrorLevel($record['level'])) {
+        if ($this->output instanceof ConsoleOutputInterface && $isError) {
             $output = $this->output->getErrorOutput();
         } else {
             $output = $this->output;
         }
 
-        // Set the style tag
-        $tag = $this->formatLevelMap[$record['level']];
+        // Set the styling tags
+        $tag = $this->formatLevelMap[$level];
+        $label_tag = $tag . '_label';
 
-        $output->writeln(sprintf('<%1$s>[%3$s]</%1$s> <%2$s>%4$s</%2$s>', $tag . '_label', $tag, strtoupper($record['level']), $record['message']));
+        $output->writeln(sprintf('<%1$s>[%3$s]</%1$s>%5$s<%2$s>%4$s</%2$s>',
+            $label_tag,
+            $tag,
+            strtoupper($level),
+            $record->getMessage(),
+            $isError ? "\n" : " "
+        ));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isHandling($level)
+    public function isHandling($record)
     {
-        return $this->output->getVerbosity() >= $this->verbosityLevelMap[$level];
+        return $this->output->getVerbosity() >= $this->verbosityLevelMap[$this->getExplicitLevel($record)];
     }
 
     /**
@@ -94,5 +106,17 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
             LogLevel::CRITICAL,
             LogLevel::ERROR
         ]);
+    }
+
+    /**
+     * Checks if a record explicitly defined a log level for the console,
+     *  otherwise gets the original level.
+     *
+     * @param LoggerRecordInterface $record;
+     * @return string
+     */
+    protected function getExplicitLevel(LoggerRecordInterface $record)
+    {
+        return $record->getContext('console.level') ?? $record->getLevel();
     }
 }
