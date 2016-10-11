@@ -60,10 +60,10 @@ class Container
     }
 
     /**
-     * @param Kernel $kernel
+     * @param KernelInterface $kernel
      * @return Application
      */
-    public function createApplication(Kernel $kernel)
+    public function createApplication(KernelInterface $kernel): Application
     {
         return new Application($kernel);
     }
