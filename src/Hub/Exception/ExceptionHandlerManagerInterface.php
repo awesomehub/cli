@@ -45,14 +45,6 @@ interface ExceptionHandlerManagerInterface
     function register();
 
     /**
-     * Unregisters the current exception handler manager and
-     *  restores the previous php exception handler.
-     *
-     * @return self
-     */
-    function unregister();
-
-    /**
      * Singleton helper method to allow having one manager instance
      *  along the app live cycle.
      *

@@ -8,12 +8,11 @@ use Hub\Exception\Handler\StartupExceptionHandler;
 use Hub\Kernel;
 
 // Register execption manager and add a temporary startup execption handler
-// We also need to make sure the exception handler is registered before the error handler
 ExceptionHandlerManager::getInstance()
     ->addHandler(new StartupExceptionHandler())
     ->register();
 
-// Use symfony error handler to convert php errors to exceptions
+// Use Symfony error handler to convert php errors to exceptions
 ErrorHandler::register();
 
 // Boot up our app
