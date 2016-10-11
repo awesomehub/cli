@@ -279,7 +279,7 @@ class Container
      */
     public function __call($name, $arguments)
     {
-        if('has' === strtolower(substr($name, 0, 3))){
+        if(strlen($name) > 3 && 'has' === strtolower(substr($name, 0, 3))){
             $service = lcfirst(substr($name, 3));
             return isset($this->services[$service])
                 ? true
