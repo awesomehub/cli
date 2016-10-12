@@ -8,17 +8,12 @@ use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\Entry\EntryInterface;
 
 /**
- * Base List class for providing common functions.
+ * The Base List class.
  *
  * @package AwesomeHub
  */
-abstract class EntryList implements EntryListInterface
+class EntryList implements EntryListInterface
 {
-    /**
-     * @var string
-     */
-    protected $path;
-
     /**
      * @var array
      */
@@ -27,34 +22,17 @@ abstract class EntryList implements EntryListInterface
     /**
      * Constructor.
      *
-     * @param string $path Path to the list definition file
+     * @param array $data List definition
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function __construct($path)
+    public function __construct(array $data)
     {
-        if(!file_exists($path)){
-            throw new \InvalidArgumentException("Unable to find the list definition file at '$path'.");
-        }
-
-        $this->path = $path;
-        $encodedData = file_get_contents($path);
-        if(empty($encodedData)){
-            throw new \InvalidArgumentException("Empty list definition file provided at '$path'.");
-        }
-
-        try {
-            $data = $this->parse($encodedData);
-        }
-        catch (\Exception $e){
-            throw new \RuntimeException("Unable to parse list definition file at '{$this->path}'; {$e->getMessage()}", 0, $e);
-        }
-
         try {
             $this->data = $this->verify($data);
         }
         catch (SymfonyConfig\Definition\Exception\Exception $e) {
-            throw new \RuntimeException("Unable to process the list definition file at '{$this->path}'; {$e->getMessage()}.", 0, $e);
+            throw new \InvalidArgumentException("Unable to process the list definition data; {$e->getMessage()}.", 0, $e);
         }
     }
 
@@ -64,7 +42,7 @@ abstract class EntryList implements EntryListInterface
     public function process(LoggerInterface $logger, array $processors, $force = false)
     {
         if($this->isProcessed() && !$force){
-            throw new \LogicException("Cannot process the list '$this->path' since it's already processed.");
+            throw new \LogicException("Cannot process the list since it's already processed.");
         }
 
         if(empty($processors)){
@@ -177,7 +155,7 @@ abstract class EntryList implements EntryListInterface
     public function resolve(LoggerInterface $logger, array $resolvers, $force = false)
     {
         if($this->isResolved() && !$force){
-            throw new \LogicException("Cannot resolve the list '$this->path' since it's already resolved.");
+            throw new \LogicException("Cannot resolve the list since it's already resolved.");
         }
 
         if(empty($resolvers)){
@@ -252,14 +230,6 @@ abstract class EntryList implements EntryListInterface
 
         return $this->data[$key];
     }
-
-    /**
-     * Parses the list file data and returns the output.
-     *
-     * @param string $data List file contents
-     * @return array
-     */
-    abstract protected function parse($data);
 
     /**
      * Verifies list definition array and returns the processed array.

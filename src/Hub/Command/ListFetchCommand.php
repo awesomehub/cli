@@ -5,7 +5,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Hub\EntryList\EntryListJson;
+use Hub\EntryList\EntryListFile;
 use Hub\EntryList\SourceProcessor\UrlsSourceProcessor;
 use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
 use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
@@ -63,16 +63,7 @@ class ListFetchCommand extends Command
 
         // Create the list instancec
         $this->logger->info("Fetching list from '$path'");
-        switch ($format){
-            case 'json':
-                $list = new EntryListJson($path);
-                break;
-            case 'yaml':
-                throw new \LogicException("Yaml list format is not currently implemented.");
-                break;
-            default:
-                throw new \LogicException("Unsupported list format provided '$format'.");
-        }
+        $list = new EntryListFile($this->filesystem, $path, $format);
 
         // Create needed entry factories
         $entryFromUrlFactory = new UrlEntryFactory([
