@@ -1,9 +1,9 @@
 <?php
 namespace Hub\Workspace;
 
+use Symfony\Component\Serializer;
 use Symfony\Component\Config as SymfonyConfig;
 use Hub\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Represents an app workspace.
@@ -114,7 +114,7 @@ class Workspace implements WorkspaceInterface
                 try {
                     $this->filesystem->mkdir($dirPath);
                 }
-                catch (IOException $e){
+                catch (\Exception $e){
                     throw new \RuntimeException("Failed creating child workspace directory '$dirPath'.", 0, $e);
                 }
             }
@@ -134,15 +134,15 @@ class Workspace implements WorkspaceInterface
         }
 
         try {
-            $config = json_decode($this->filesystem->read($path), true);
-            if(json_last_error()){
-                throw new \RuntimeException("Unable to process JSON data; " . json_last_error_msg() . ".");
-            }
+            $decoder = new Serializer\Encoder\JsonDecode(true);
+
+            $encoded = $this->filesystem->read($path);
+            $data = $decoder->decode($encoded, 'json');
 
             $processor = new SymfonyConfig\Definition\Processor();
             $this->config = $processor->processConfiguration(
                 new Config\WorkspaceConfigDefinition(),
-                [ $config ]
+                [ $data ]
             );
         }
         catch (\Exception $e) {
