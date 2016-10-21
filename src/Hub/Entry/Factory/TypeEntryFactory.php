@@ -1,7 +1,7 @@
 <?php
 namespace Hub\Entry\Factory;
 
-use Hub\Entry\EntryInterface;
+use Hub\Entry\RepoGithubEntry;
 use Hub\Exceptions\EntryCreationFailedException;
 
 /**
@@ -9,82 +9,88 @@ use Hub\Exceptions\EntryCreationFailedException;
  *
  * @package AwesomeHub
  */
-class TypeEntryFactory implements EntryFactoryInterface
+class TypeEntryFactory implements TypeEntryFactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected $types;
+    private static $supports = [
+        RepoGithubEntry::class
+    ];
 
     /**
-     * Constructor.
-     *
-     * @param array $classes Entry class names
+     * {@inheritdoc}
      */
-    public function __construct(array $classes)
+    public static function create($type, array $data = [])
     {
-        foreach ($classes as $className){
-            $this->addClass($className);
-        }
-    }
-
-    /**
-     * Adds an entry classname to the stack.
-     *
-     * @param string $className
-     * @return self
-     */
-    public function addClass($className)
-    {
-        if(!class_exists($className) || !is_subclass_of($className, EntryInterface::class)){
-            throw new \InvalidArgumentException("Invalid Entry class name provided '$className'.");
+        if (empty($type)) {
+            throw new \UnexpectedValueException('Expected non empty entry type');
         }
 
-        $parameters = [];
-        foreach ((new \ReflectionClass($className))->getConstructor()->getParameters() as $parameter){
-            $parameters[] = [
-                'name' => $parameter->getName(),
-                'required' => !$parameter->isOptional()
-            ];
-        }
-
-        /** @var EntryInterface $className */
-        $this->types[$className::TYPE] = [
-            'class' => $className,
-            'parameters' => $parameters
-        ];
-
-        return $this;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function create($entry)
-    {
-        if (0 === count($this->types)) {
-            throw new \LogicException('No entry types has been defined for the entry factory.');
-        }
-
-        if(!isset($this->types[$entry['type']])){
-            return false;
-        }
-
-        $type = $this->types[$entry['type']];
-        $args = [];
-        foreach ($type['parameters'] as $parameter){
-            if(!array_key_exists($parameter['name'], $entry['data'])){
-                $args[] = null;
-                if($parameter['required']){
-                    throw new EntryCreationFailedException("Unable to satisfay all the required paramaters; Given a data array with keys [" . implode(", ", array_keys($entry['data'])) . "].");
+        if (is_array($type)) {
+            $instances = [];
+            foreach ($type as $i => $entry) {
+                if (empty($entry['type']) || !is_string($entry['type'])
+                    || (isset($entry['data']) && !is_array($entry['data']))
+                ) {
+                    throw new \UnexpectedValueException(sprintf(
+                        'Expected an array [type: string, data: array], got %s',
+                        var_export($entry, true)
+                    ));
                 }
+
+                $args = [$entry['type']];
+                if(isset($entry['data'])){
+                    $args[] = $entry['data'];
+                }
+
+                $instances[$i] = self::create(...$args);
             }
 
-            $args[] = $entry['data'][$parameter['name']];
+            return $instances;
         }
 
-        return [
-            new $type['class'](...$args)
-        ];
+        switch (self::supports($type)) {
+            case RepoGithubEntry::class:
+                if(!isset($data['author']) || !isset($data['name'])){
+                    throw new EntryCreationFailedException(sprintf(
+                        "Unable to satisfay all required paramaters for type '%s'; Given a data array with keys [%s]",
+                        implode(", ", array_keys($data))
+                    ));
+                }
+
+                return new RepoGithubEntry($data['author'], $data['name']);
+        }
+
+        throw new EntryCreationFailedException(sprintf("Unsupported entry type '%s'", $type));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function supports($type = null)
+    {
+        $types = self::getTypeMap();
+        if (null === $type) {
+            return $types;
+        }
+
+        return $types[$type];
+    }
+
+    /**
+     * Gets type class map for all supported types.
+     *
+     * @return array
+     */
+    private static function getTypeMap()
+    {
+        static $types;
+
+        if(!$types){
+            $types = [];
+            foreach(self::$supports as $class){
+                $types[$class::getType()] = $class;
+            }
+        }
+
+        return $types;
     }
 }

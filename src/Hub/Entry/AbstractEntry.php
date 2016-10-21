@@ -35,7 +35,7 @@ abstract class AbstractEntry implements EntryInterface
     public function set($key, $value = null)
     {
         if(is_array($key)){
-            $this->data = array_merge_recursive($this->data, $key);
+            $this->data = array_merge($this->data, $key);
             return;
         }
 

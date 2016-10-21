@@ -1,7 +1,7 @@
 <?php
 namespace Hub\Entry\Factory\UrlProcessor;
 
-use Hub\Entry\GithubRepoEntry;
+use Hub\Entry\RepoGithubEntry;
 
 /**
  * Create new entries based on github urls.
@@ -20,7 +20,7 @@ class GithubUrlProcessor implements UrlProcessorInterface
      */
     public function process($url)
     {
-        return new GithubRepoEntry($this->matches[1], $this->matches[2]);
+        return new RepoGithubEntry($this->matches[1], $this->matches[2]);
     }
 
     /**

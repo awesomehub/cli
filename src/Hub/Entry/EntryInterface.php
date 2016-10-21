@@ -9,9 +9,18 @@ namespace Hub\Entry;
 interface EntryInterface
 {
     /**
-     * The type constant should be overriden by implementors
+     * Gets the id of the entry.
+     *
+     * @return string
      */
-    const TYPE = 'generic';
+    public function getId();
+
+    /**
+     * Gets the type of the entry.
+     *
+     * @return string
+     */
+    public static function getType();
 
     /**
      * Sets the value of a given data key and if an array is given
