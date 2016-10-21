@@ -6,11 +6,11 @@ use Hub\Entry\Factory\UrlProcessor\UrlProcessorInterface;
 use Hub\Exceptions\UrlEntryCreationFailedException;
 
 /**
- * Manages and runs url processors.
+ * Manages and runs url processors to create new entries.
  *
  * @package AwesomeHub
  */
-class UrlEntryFactory implements EntryFactoryInterface
+class UrlEntryFactory implements UrlEntryFactoryInterface
 {
     /**
      * @var UrlProcessorInterface[]
@@ -48,7 +48,7 @@ class UrlEntryFactory implements EntryFactoryInterface
     public function create($urls)
     {
         if (0 === count($this->processors)) {
-            throw new \LogicException('No url processors has been defined.');
+            throw new \LogicException('No url processors has been defined');
         }
 
         if(!is_array($urls)){
@@ -68,7 +68,11 @@ class UrlEntryFactory implements EntryFactoryInterface
                         }
                         catch (\Exception $e){
                             throw new UrlEntryCreationFailedException(
-                                "Failed processing url '$url' partially; {$e->getMessage()}", $processor, $url, 0, $e
+                                sprintf(
+                                    "Failed processing url '%s' partially; %s",
+                                    $url, $e->getMessage()
+                                ),
+                                $processor, $url, 0, $e
                             );
                         }
 
@@ -80,9 +84,13 @@ class UrlEntryFactory implements EntryFactoryInterface
                             $childUrls = [ $childUrls ];
                         }
 
+                        // Prevent infinite loop
                         if(in_array($url, $childUrls)){
                             throw new \LogicException(
-                                "Infinite loop detected; '" . get_class($processor) . "' processor shouldn't return the same url passed to it."
+                                sprintf(
+                                    "Infinite loop detected; '%s' processor shall not return the same url passed to it '%s'",
+                                    get_class($processor), $url
+                                )
                             );
                         }
 
@@ -95,7 +103,11 @@ class UrlEntryFactory implements EntryFactoryInterface
                         }
                         catch (\Exception $e){
                             throw new UrlEntryCreationFailedException(
-                                "Failed processing url '$url' using '" . get_class($processor) . "' processor; {$e->getMessage()}", $processor, $url, 0, $e
+                                sprintf(
+                                    "Failed processing url '%s' using '%s' processor; %s",
+                                    $url, get_class($processor), $e->getMessage()
+                                ),
+                                $processor, $url, 0, $e
                             );
                         }
 
@@ -110,14 +122,20 @@ class UrlEntryFactory implements EntryFactoryInterface
                             }
 
                             throw new \UnexpectedValueException(
-                                "Invalid processor output of type [" . gettype($result)  . "] for processor '" . get_class($processor) . "'."
+                                sprintf(
+                                    "Invalid processor output of type [%s] for processor '%s'",
+                                    gettype($result), get_class($processor)
+                                )
                             );
                         }
                         else {
                             array_walk_recursive($result, function($item, $key) use($processor) {
                                 if(!$item instanceof EntryInterface){
                                     throw new \UnexpectedValueException(
-                                        "Invalid inner processor output value of type [" . gettype($item)  . "] at index[$key] for processor '" . get_class($processor) . "'."
+                                        sprintf(
+                                            "Invalid inner processor output value of type [%s] at index[%s] for processor '%s'",
+                                            gettype($item), $key, get_class($processor)
+                                        )
                                     );
                                 }
                             });
@@ -127,7 +145,9 @@ class UrlEntryFactory implements EntryFactoryInterface
                         break;
 
                     default:
-                        throw new \LogicException("Invalid processing mode defined in processor '" . get_class($processor) . "'.");
+                        throw new \LogicException(
+                            sprintf("Invalid processing mode defined in processor '%s'", get_class($processor))
+                        );
                 }
             }
         }
