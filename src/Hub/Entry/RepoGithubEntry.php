@@ -26,7 +26,7 @@ class RepoGithubEntry extends AbstractEntry implements RepoGithubEntryInterface
      */
     public function getId()
     {
-        return $this->data['author'].'/'.$this->data['name'];
+        return $this->getType().':'.$this->data['author'].'/'.$this->data['name'];
     }
 
     /**

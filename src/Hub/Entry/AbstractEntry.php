@@ -1,10 +1,9 @@
 <?php
+
 namespace Hub\Entry;
 
 /**
  * Base class for providing common Entry functions.
- *
- * @package AwesomeHub
  */
 abstract class AbstractEntry implements EntryInterface
 {
@@ -14,11 +13,6 @@ abstract class AbstractEntry implements EntryInterface
     protected $data;
 
     /**
-     * @var bool
-     */
-    protected $resolved;
-
-    /**
      * Constructor.
      *
      * @param array $data Initial entry data
@@ -26,64 +20,83 @@ abstract class AbstractEntry implements EntryInterface
     public function __construct(array $data = [])
     {
         $this->data = $data;
-        $this->resolved = false;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function set($key, $value = null)
     {
-        if(is_array($key)){
-            $this->data = array_merge($this->data, $key);
-            return;
-        }
-
         $this->data[$key] = $value;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     */
+    public function merge($key, $value = null, $preserveIntegerKeys = false)
+    {
+        if (!is_array($key)) {
+            $key = [$key => $value];
+        }
+
+        $this->data = $this->deepMerge($this->data, $key, $preserveIntegerKeys);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function get($key = null)
     {
-        if(!$key){
+        if (!$key) {
             return $this->data;
         }
 
-        if(!array_key_exists($key, $this->data)){
-            throw new \InvalidArgumentException("Trying to get an undefined entry data key '$key'.");
+        if (!array_key_exists($key, $this->data)) {
+            throw new \InvalidArgumentException(sprintf("Trying to get an undefined entry data key '%s'", $key));
         }
 
         return $this->data[$key];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function unset($key)
     {
-        if(!array_key_exists($key, $this->data)){
-            throw new \InvalidArgumentException("Trying to unset an undefined entry data key '$key'.");
+        if (!array_key_exists($key, $this->data)) {
+            throw new \InvalidArgumentException(sprintf("Trying to unset an undefined entry data key '%s'", $key));
         }
 
         unset($this->data[$key]);
     }
 
     /**
-     * @inheritdoc
+     * Depp merge two arrays.
+     *
+     * @param array $a
+     * @param array $b
+     * @param bool  $preserveIntegerKeys
+     *
+     * @return array
      */
-    public function resolve(array $data)
+    protected function deepMerge(array $a, array $b, $preserveIntegerKeys = false)
     {
-        $this->set($data);
-        $this->resolved = true;
-    }
+        $result = array();
+        foreach ([$a, $b] as $array) {
+            foreach ($array as $key => $value) {
+                // Re-number integer keys as array_merge_recursive() does unless
+                // $preserveIntegerKeys is set to true. Note that PHP automatically
+                // converts array keys that are integer strings (e.g., '1') to integers.
+                if (is_integer($key) && !$preserveIntegerKeys) {
+                    $result[] = $value;
+                } elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                    $result[$key] = $this->deepMerge($result[$key], $value, $preserveIntegerKeys);
+                } else {
+                    $result[$key] = $value;
+                }
+            }
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function isResolved()
-    {
-        return $this->resolved;
+        return $result;
     }
 }

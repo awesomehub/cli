@@ -14,9 +14,16 @@ interface EntryResolverInterface
      * Resolves the given entry and returns the resolved entry.
      *
      * @param EntryInterface $entry
-     * @return bool Returns TRUE on success or FALSE on failure
      */
     public function resolve(EntryInterface $entry);
+
+    /**
+     * Checks whether a supported entry is resolved or not.
+     *
+     * @param EntryInterface $entry
+     * @return bool
+     */
+    public function isResolved(EntryInterface $entry);
 
     /**
      * Checks whether the resolver supports the given entry.
