@@ -40,5 +40,5 @@ interface UrlProcessorInterface
      *
      * @return int
      */
-    public function getProcessingAction($url);
+    public function getAction($url);
 }
