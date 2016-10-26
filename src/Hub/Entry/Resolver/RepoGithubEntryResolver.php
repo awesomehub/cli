@@ -49,8 +49,14 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      *
      * @param RepoGithubEntryInterface $entry
      */
-    public function resolve(EntryInterface $entry)
+    public function resolve(EntryInterface $entry, $force = false)
     {
+        $cached = $this->read($entry);
+        if($cached instanceof RepoGithubEntryInterface && !$force){
+            $entry->set($cached->get());
+            return;
+        }
+
         $author = $entry->getAuthor();
         $name = $entry->getName();
 
@@ -65,7 +71,6 @@ class RepoGithubEntryResolver implements EntryResolverInterface
             'language' => $repo['language'],
             'score' => $repo['scores_avg'],
             'scores' => $repo['scores'],
-            'updated' => date(\DateTime::ISO8601),
             'pushed' => date(\DateTime::ISO8601, strtotime($repo['pushed_at'])),
         ]);
 
@@ -141,7 +146,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      */
     protected function getPath(RepoGithubEntryInterface $entry)
     {
-        return $this->workspace->path(['cache', 'entries', 'github', $entry->getAuthor(), $entry->getName()]);
+        return $this->workspace->path(['cache/entries', $entry->getType(), $entry->getAuthor(), $entry->getName()]);
     }
 
     /**

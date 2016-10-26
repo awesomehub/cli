@@ -23,7 +23,7 @@ class Workspace implements WorkspaceInterface
     protected $config;
 
     /**
-     * @var string
+     * @var Filesystem
      */
     protected $filesystem;
 
@@ -32,7 +32,7 @@ class Workspace implements WorkspaceInterface
      */
     protected $structure = [
         'lists',
-        'cache/lists'
+        'cache'
     ];
 
     /**
@@ -60,10 +60,11 @@ class Workspace implements WorkspaceInterface
             return $this->path;
         }
 
-        if(!is_array($path)){
-            $path = [$path];
+        if(is_array($path)){
+            $path = join('/', $path);
         }
 
+        $path = explode('/', str_replace('\\', '/', $path));
         array_unshift($path, $this->path);
 
         return implode(DIRECTORY_SEPARATOR, $path);
@@ -98,8 +99,11 @@ class Workspace implements WorkspaceInterface
                 throw new \RuntimeException("Failed creating workspace directory '$this->path'; Parent directory is not accessible or not writable.");
             }
 
-            if(!mkdir($this->path)){
-                throw new \RuntimeException("Failed creating workspace directory '$this->path'.");
+            try {
+                $this->filesystem->mkdir($this->path);
+            }
+            catch (\Exception $e){
+                throw new \RuntimeException("Failed creating workspace directory '$this->path'.", 0, $e);
             }
         }
 
@@ -134,9 +138,9 @@ class Workspace implements WorkspaceInterface
         }
 
         try {
-            $decoder = new Serializer\Encoder\JsonDecode(true);
-
             $encoded = $this->filesystem->read($path);
+
+            $decoder = new Serializer\Encoder\JsonDecode(true);
             $data = $decoder->decode($encoded, 'json');
 
             $processor = new SymfonyConfig\Definition\Processor();
@@ -164,7 +168,7 @@ class Workspace implements WorkspaceInterface
             return false;
         }
 
-        if(!is_array($config[$split[0]])){
+        if(!is_array($config[$split[0]]) || !isset($split[1])){
             return $config[$split[0]];
         }
 

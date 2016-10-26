@@ -42,7 +42,7 @@ interface ExceptionHandlerManagerInterface
      *
      * @return self
      */
-    function register();
+    public function register();
 
     /**
      * Singleton helper method to allow having one manager instance
@@ -50,5 +50,5 @@ interface ExceptionHandlerManagerInterface
      *
      * @return self
      */
-    static function getInstance();
+    static public function getInstance();
 }

@@ -33,12 +33,12 @@ interface EntryInterface
     public function get($key = null);
 
     /**
-     * Sets the value of a given data key.
+     * Sets the value of a given data key or the whole data array.
      *
      * @param string|array $key
      * @param mixed        $value
      */
-    public function set($key, $value);
+    public function set($key, $value = null);
 
     /**
      * Merges the value of a given data key and if an array is given

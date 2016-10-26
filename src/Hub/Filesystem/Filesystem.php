@@ -88,7 +88,7 @@ class Filesystem extends BaseFilesystem
      * @return bool
      */
     public function hasExtension($path, $ext){
-        return '.' . strtolower($ext) === strtolower(substr($path, -1 * strlen($ext)));
+        return '.' . strtolower($ext) === strtolower(substr($path, -1 * strlen($ext) -1));
     }
 
     /**
