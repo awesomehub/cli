@@ -3,7 +3,9 @@
 namespace Hub\Command;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Console;
+use Symfony\Component\Console\Command\Command as BaseCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Psr\Log\LoggerInterface;
 use Hub\IO\IOInterface;
 use Hub\Environment\EnvironmentInterface;
@@ -15,7 +17,7 @@ use Hub\Application;
 /**
  * Base command abstract class.
  */
-abstract class Command extends Console\Command\Command
+abstract class Command extends BaseCommand
 {
     /**
      * @var ContainerInterface
@@ -38,12 +40,12 @@ abstract class Command extends Console\Command\Command
     protected $filesystem;
 
     /**
-     * @var Console\Input\InputInterface
+     * @var InputInterface
      */
     protected $input;
 
     /**
-     * @var Console\Output\OutputInterface
+     * @var OutputInterface
      */
     protected $output;
 
@@ -65,7 +67,7 @@ abstract class Command extends Console\Command\Command
     /**
      * {@inheritdoc}
      */
-    final public function run(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    final public function run(InputInterface $input, OutputInterface $output)
     {
         $this->container = $this->getApplication()->getContainer();
 
@@ -84,7 +86,7 @@ abstract class Command extends Console\Command\Command
     /**
      * Gets the application instance for this command.
      *
-     * @return Application|Console\Application
+     * @return Application|\Symfony\Component\Console\Application
      */
     public function getApplication()
     {
@@ -94,7 +96,7 @@ abstract class Command extends Console\Command\Command
     /**
      * {@inheritdoc}
      */
-    protected function initialize(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output)
     {
         return $this->init();
     }
@@ -102,7 +104,7 @@ abstract class Command extends Console\Command\Command
     /**
      * {@inheritdoc}
      */
-    protected function interact(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output)
     {
         return $this->validate();
     }
@@ -110,7 +112,7 @@ abstract class Command extends Console\Command\Command
     /**
      * {@inheritdoc}
      */
-    protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         return $this->exec();
     }
