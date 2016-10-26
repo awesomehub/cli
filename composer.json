@@ -35,7 +35,8 @@
     "mdkholy/github-api-utils": "*@dev"
   },
   "require-dev": {
-    "symfony/var-dumper": "^3.1"
+    "symfony/var-dumper": "^3.1",
+    "friendsofphp/php-cs-fixer": "^1.12"
   },
   "bin": ["bin/hub"],
   "autoload": {

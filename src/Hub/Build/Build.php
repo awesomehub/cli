@@ -39,12 +39,12 @@ class Build implements BuildInterface
         }
 
         $this->filesystem = $filesystem;
-        $this->path = $path;
+        $this->path       = $path;
 
         if (!empty($number)) {
             $this->set([
                 'number' => $number,
-                'date' => date('c'),
+                'date'   => date('c'),
                 'format' => $this->getFormat(),
             ]);
 
@@ -69,7 +69,7 @@ class Build implements BuildInterface
             return $this->path;
         }
 
-        if(empty($path)){
+        if (empty($path)) {
             throw new \InvalidArgumentException('Path cannot br empty');
         }
 
@@ -149,9 +149,9 @@ class Build implements BuildInterface
     {
         $path = $this->getPath($path, $raw);
         try {
-            if(!$raw){
+            if (!$raw) {
                 $encoder = new Serializer\Encoder\JsonEncode();
-                $data = $encoder->encode($data, $this->getFormat());
+                $data    = $encoder->encode($data, $this->getFormat());
             }
 
             $this->filesystem->write($path, $data);
@@ -168,11 +168,12 @@ class Build implements BuildInterface
         $path = $this->getPath($path, $raw);
         try {
             $encoded = $this->filesystem->read($path);
-            if($raw){
+            if ($raw) {
                 return $encoded;
             }
 
             $decoder = new Serializer\Encoder\JsonDecode(true);
+
             return $decoder->decode($encoded, $this->getFormat());
         } catch (\Exception $e) {
             throw new \RuntimeException(sprintf("Failed reading '%s'; %s", $path, $e->getMessage()), 0, $e);

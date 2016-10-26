@@ -1,10 +1,9 @@
 <?php
+
 namespace Hub\Logger\Record;
 
 /**
  * Interface for a LoggerRecord.
- *
- * @package AwesomeHub
  */
 interface LoggerRecordInterface
 {
@@ -19,6 +18,7 @@ interface LoggerRecordInterface
      * Checks whether the record is of a certain level.
      *
      * @param string $level
+     *
      * @return bool
      */
     public function isLevel($level): bool;
@@ -35,6 +35,7 @@ interface LoggerRecordInterface
      *  array if the key is ommited.
      *
      * @param string $key
+     *
      * @return string|array
      */
     public function getContext($key = null);
@@ -42,7 +43,7 @@ interface LoggerRecordInterface
     /**
      * Gets the log UNIX timestamp.
      *
-     * @return integer
+     * @return int
      */
     public function getTimestamp(): int;
 }

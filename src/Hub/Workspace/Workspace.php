@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Workspace;
 
 use Symfony\Component\Serializer;
@@ -7,8 +8,6 @@ use Hub\Filesystem\Filesystem;
 
 /**
  * Represents an app workspace.
- *
- * @package AwesomeHub
  */
 class Workspace implements WorkspaceInterface
 {
@@ -32,7 +31,7 @@ class Workspace implements WorkspaceInterface
      */
     protected $structure = [
         'lists',
-        'cache'
+        'cache',
     ];
 
     /**
@@ -43,8 +42,8 @@ class Workspace implements WorkspaceInterface
      */
     public function __construct($path, Filesystem $filesystem)
     {
-        $this->path = rtrim($path, '/\\');
-        $this->config = [];
+        $this->path       = rtrim($path, '/\\');
+        $this->config     = [];
         $this->filesystem = $filesystem;
 
         $this->verify();
@@ -52,16 +51,16 @@ class Workspace implements WorkspaceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function path($path = null)
     {
-        if(null === $path){
+        if (null === $path) {
             return $this->path;
         }
 
-        if(is_array($path)){
-            $path = join('/', $path);
+        if (is_array($path)) {
+            $path = implode('/', $path);
         }
 
         $path = explode('/', str_replace('\\', '/', $path));
@@ -71,15 +70,15 @@ class Workspace implements WorkspaceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function config($key = null)
     {
-        if(null === $key){
+        if (null === $key) {
             return $this->config();
         }
 
-        if(array_key_exists($key, $this->config)){
+        if (array_key_exists($key, $this->config)) {
             return $this->config[$key];
         }
 
@@ -93,32 +92,29 @@ class Workspace implements WorkspaceInterface
      */
     protected function verify()
     {
-        if(!file_exists($this->path)){
+        if (!file_exists($this->path)) {
             $parent = dirname($this->path);
-            if(!is_dir($parent) || !is_writable($parent)){
+            if (!is_dir($parent) || !is_writable($parent)) {
                 throw new \RuntimeException("Failed creating workspace directory '$this->path'; Parent directory is not accessible or not writable.");
             }
 
             try {
                 $this->filesystem->mkdir($this->path);
-            }
-            catch (\Exception $e){
+            } catch (\Exception $e) {
                 throw new \RuntimeException("Failed creating workspace directory '$this->path'.", 0, $e);
             }
         }
 
-        if(!is_dir($this->path)){
+        if (!is_dir($this->path)) {
             throw new \InvalidArgumentException("Workspace directory '$this->path' is not valid.");
         }
 
-
-        foreach ($this->structure as $dir){
-            $dirPath = $this->path . DIRECTORY_SEPARATOR . $dir;
-            if(!is_dir($dirPath)){
+        foreach ($this->structure as $dir) {
+            $dirPath = $this->path.DIRECTORY_SEPARATOR.$dir;
+            if (!is_dir($dirPath)) {
                 try {
                     $this->filesystem->mkdir($dirPath);
-                }
-                catch (\Exception $e){
+                } catch (\Exception $e) {
                     throw new \RuntimeException("Failed creating child workspace directory '$dirPath'.", 0, $e);
                 }
             }
@@ -133,7 +129,7 @@ class Workspace implements WorkspaceInterface
     protected function setConfig()
     {
         $path = $this->path('config.json');
-        if(!$this->filesystem->exists($path)){
+        if (!$this->filesystem->exists($path)) {
             return;
         }
 
@@ -141,15 +137,14 @@ class Workspace implements WorkspaceInterface
             $encoded = $this->filesystem->read($path);
 
             $decoder = new Serializer\Encoder\JsonDecode(true);
-            $data = $decoder->decode($encoded, 'json');
+            $data    = $decoder->decode($encoded, 'json');
 
-            $processor = new SymfonyConfig\Definition\Processor();
+            $processor    = new SymfonyConfig\Definition\Processor();
             $this->config = $processor->processConfiguration(
                 new Config\WorkspaceConfigDefinition(),
-                [ $data ]
+                [$data]
             );
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw new \RuntimeException("Failed loading config.json file at '{$path}'; {$e->getMessage()}.", 0, $e);
         }
     }
@@ -159,16 +154,17 @@ class Workspace implements WorkspaceInterface
      *
      * @param $path
      * @param array $config
+     *
      * @return bool|mixed
      */
     protected function getConfigPath($path, array $config)
     {
-        $split = explode(".", $path, 2);
-        if(!array_key_exists($split[0], $config)){
+        $split = explode('.', $path, 2);
+        if (!array_key_exists($split[0], $config)) {
             return false;
         }
 
-        if(!is_array($config[$split[0]]) || !isset($split[1])){
+        if (!is_array($config[$split[0]]) || !isset($split[1])) {
             return $config[$split[0]];
         }
 

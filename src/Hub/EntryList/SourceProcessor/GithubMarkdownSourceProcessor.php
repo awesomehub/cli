@@ -32,7 +32,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     public function __construct(UrlEntryFactoryInterface $entryFactory, HttpMethodsClient $httpClient)
     {
         $this->entryFactory = $entryFactory;
-        $this->http = $httpClient;
+        $this->http         = $httpClient;
     }
 
     /**
@@ -40,7 +40,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      */
     public function process(array $source, \Closure $callback = null)
     {
-        /**
+        /*
          * @var string $type
          * @var array $data
          * @var array $options
@@ -50,12 +50,10 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         if ($type === self::INPUT_MARKDOWN_URL) {
             try {
                 $markdown = $this->fetchMarkdownUrl($data);
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 throw new SourceProcessorFailedException(sprintf("Failed fetching url '%s'; %s", $data, $e->getMessage()));
             }
-        }
-        else {
+        } else {
             $markdown = $data;
         }
 
@@ -64,11 +62,11 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         }
 
         $environment = CommonMark\Environment::createCommonMarkEnvironment();
-        $parser = new CommonMark\DocParser($environment);
-        $document = $parser->parse($markdown);
+        $parser      = new CommonMark\DocParser($environment);
+        $document    = $parser->parse($markdown);
 
-        $entries = [];
-        $category = $options['category'] ?? 'Uncategorized';
+        $entries         = [];
+        $category        = $options['category'] ?? 'Uncategorized';
         $insideListBlock = false;
 
         $walker = $document->walker();
@@ -86,7 +84,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
             }
 
             if ($node instanceof CommonMark\Inline\Element\Link && $event->isEntering() && $insideListBlock) {
-                if(isset($options['ignoreCategories']) && in_array($category, $options['ignoreCategories'], true)){
+                if (isset($options['ignoreCategories']) && in_array($category, $options['ignoreCategories'], true)) {
                     continue;
                 }
 
@@ -136,9 +134,9 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      *
      * @param $url
      *
-     * @return string
-     *
      * @throws \Exception When http request fails
+     *
+     * @return string
      */
     protected function fetchMarkdownUrl($url)
     {

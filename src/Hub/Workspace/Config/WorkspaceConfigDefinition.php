@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Workspace\Config;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,7 +14,7 @@ class WorkspaceConfigDefinition implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('config');
+        $rootNode    = $treeBuilder->root('config');
 
         $rootNode
             ->children()

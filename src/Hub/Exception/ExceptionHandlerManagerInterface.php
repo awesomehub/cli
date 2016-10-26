@@ -1,19 +1,19 @@
 <?php
+
 namespace Hub\Exception;
 
 use Hub\Exception\Handler\ExceptionHandlerInterface;
 
 /**
  * Interface for an exception handler manager.
- *
- * @package AwesomeHub
  */
 interface ExceptionHandlerManagerInterface
 {
     /**
      * Adds a handler on to the stack.
      *
-     * @param  ExceptionHandlerInterface $handler
+     * @param ExceptionHandlerInterface $handler
+     *
      * @return self
      */
     public function addHandler(ExceptionHandlerInterface $handler);
@@ -21,7 +21,8 @@ interface ExceptionHandlerManagerInterface
     /**
      * Set handlers, replacing all existing ones.
      *
-     * @param  ExceptionHandlerInterface[] $handlers
+     * @param ExceptionHandlerInterface[] $handlers
+     *
      * @return self
      */
     public function setHandlers(array $handlers);
@@ -50,5 +51,5 @@ interface ExceptionHandlerManagerInterface
      *
      * @return self
      */
-    static public function getInstance();
+    public static function getInstance();
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub;
 
 use Symfony\Component\Console;
@@ -8,8 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * The main console application class.
- *
- * @package AwesomeHub
  */
 class Application extends Console\Application
 {
@@ -18,7 +17,7 @@ class Application extends Console\Application
     const VERSION = '0.1.0';
 
     /**
-     * @var KernelInterface $kernel
+     * @var KernelInterface
      */
     protected $kernel;
 
@@ -36,22 +35,24 @@ class Application extends Console\Application
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function run(Input\InputInterface $input = null,  Output\OutputInterface $output = null)
     {
         $container = $this->getContainer();
 
         // Prevent symfony from catching exceptions if an exception handler manager has been registered
-        if($container->has('exception')){
+        if ($container->has('exception')) {
             $this->setCatchExceptions(false);
         }
 
-        if(!$input)
+        if (!$input) {
             $input = $container->get('input');
+        }
 
-        if(!$output)
+        if (!$output) {
             $output = $container->get('output');
+        }
 
         return parent::run($input, $output);
     }
@@ -98,7 +99,7 @@ class Application extends Console\Application
      */
     protected function getDefaultInputDefinition()
     {
-        return new Input\InputDefinition(array(
+        return new Input\InputDefinition([
             new Input\InputArgument('command', Input\InputArgument::REQUIRED, 'The command to execute'),
 
             new Input\InputOption('--workspace', '-w', Input\InputOption::VALUE_REQUIRED, 'Sets the workspace directory'),
@@ -110,6 +111,6 @@ class Application extends Console\Application
             new Input\InputOption('--ansi', '', Input\InputOption::VALUE_NONE, 'Force ANSI output'),
             new Input\InputOption('--no-ansi', '', Input\InputOption::VALUE_NONE, 'Disable ANSI output'),
             new Input\InputOption('--no-interaction', '-n', Input\InputOption::VALUE_NONE, 'Do not ask any interactive question'),
-        ));
+        ]);
     }
 }

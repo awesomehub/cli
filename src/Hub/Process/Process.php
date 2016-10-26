@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Process;
 
 use Psr\Log\LoggerInterface;
@@ -8,33 +9,31 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 /**
  * Process class with additional functionality (eg. logging).
- *
- * @package AwesomeHub
  */
 class Process extends BaseProcess
 {
     /**
-     * @var $command string
+     * @var string
      */
     protected $command;
 
     /**
-     * @var $options array
+     * @var array
      */
     protected $options;
 
     /**
-     * @var $logger LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
-     * @var $isTerminationLogged bool
+     * @var bool
      */
     protected $isTerminationLogged;
 
     /**
-     * @var $isStartingLogged bool
+     * @var bool
      */
     protected $isStartingLogged;
 
@@ -48,19 +47,19 @@ class Process extends BaseProcess
      *      [env]       array
      *      [cwd]       string
      *
-     * @param string $command
-     * @param array $options Process options:
+     * @param string          $command
+     * @param array           $options Process options:
      * @param LoggerInterface $logger
      */
     public function __construct($command, array $options = [], LoggerInterface $logger = null)
     {
         $this->command = $command;
         $this->options = array_merge([
-            'input'     => null,
-            'output'    => null,
-            'timeout'   => 60,
-            'env'       => null,
-            'cwd'       => null,
+            'input'   => null,
+            'output'  => null,
+            'timeout' => 60,
+            'env'     => null,
+            'cwd'     => null,
         ], $options);
         $this->logger = $logger;
 
@@ -76,7 +75,7 @@ class Process extends BaseProcess
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function start(callable $callback = null)
     {
@@ -84,7 +83,7 @@ class Process extends BaseProcess
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function wait(callable $callback = null)
     {
@@ -92,11 +91,11 @@ class Process extends BaseProcess
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function stop($timeout = 10, $signal = null)
     {
-        if(!$this->isTerminationLogged){
+        if (!$this->isTerminationLogged) {
             $this->isTerminationLogged = true;
             $this->logger->debug("[Process] Stopping ($this->command)");
         }
@@ -105,20 +104,18 @@ class Process extends BaseProcess
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isRunning()
     {
         $running = parent::isRunning();
 
-        if($this->isTerminated() && !$this->isTerminationLogged){
-
+        if ($this->isTerminated() && !$this->isTerminationLogged) {
             $this->isTerminationLogged = true;
 
-            if($this->isSuccessful()){
+            if ($this->isSuccessful()) {
                 $this->logger->debug("[Process] Execution Successfull ($this->command)");
-            }
-            else {
+            } else {
                 $this->logger->error("[Process] Execution failed ($this->command)");
             }
         }
@@ -130,30 +127,32 @@ class Process extends BaseProcess
      * Adds output callback to the user defined callback. Logs the starting message.
      *
      * @param callable|null $callback The user defined PHP callback
+     *
      * @return \Closure A PHP closure
      */
     protected function getOutputCallback(callable $callback = null)
     {
-        if(!$this->isStartingLogged){
+        if (!$this->isStartingLogged) {
             $this->isStartingLogged = true;
             $this->logger->debug("[Process] Starting ($this->command)");
         }
 
-        if(!is_callable($callback)){
+        if (!is_callable($callback)) {
             $callback = null;
         }
 
         $finalCallback = $callback;
         /* @var $output OutputInterface|ConsoleOutputInterface */
         $output = $this->options['output'];
-        if($output instanceof OutputInterface){
-            $finalCallback = function ($type, $buffer) use($output, $callback) {
-                if($callback){
+        if ($output instanceof OutputInterface) {
+            $finalCallback = function ($type, $buffer) use ($output, $callback) {
+                if ($callback) {
                     call_user_func($callback, $type, $buffer);
                 }
 
-                if($type === Process::ERR && $output instanceof ConsoleOutputInterface){
+                if ($type === Process::ERR && $output instanceof ConsoleOutputInterface) {
                     $output->getErrorOutput()->write($buffer);
+
                     return;
                 }
 

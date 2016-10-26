@@ -1,12 +1,11 @@
 <?php
+
 namespace Hub\Exception;
 
 use Symfony\Component\Debug\ErrorHandler;
 
 /**
  * Exception handler manager registerer trit.
- *
- * @package AwesomeHub
  */
 trait ExceptionHandlerManagerRegistererTrait
 {
@@ -16,7 +15,7 @@ trait ExceptionHandlerManagerRegistererTrait
     private static $instance;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register()
     {
@@ -35,7 +34,7 @@ trait ExceptionHandlerManagerRegistererTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getInstance()
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\EntryList\SourceProcessor;
 
 use Hub\Entry\Factory\TypeEntryFactoryInterface;
@@ -7,13 +8,11 @@ use Hub\Exceptions\EntryCreationFailedException;
 
 /**
  * Creates entry objects from raw entries data.
- *
- * @package AwesomeHub
  */
 class EntriesSourceProcessor implements SourceProcessorInterface
 {
     /**
-     * @var TypeEntryFactoryInterface $entryFactory;
+     * @var TypeEntryFactoryInterface;
      */
     protected $entryFactory;
 
@@ -28,17 +27,17 @@ class EntriesSourceProcessor implements SourceProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function process(array $source, \Closure $callback = null)
     {
-        /**
+        /*
          * @var string $type
          * @var array $data
          */
         extract($source);
 
-        if(!is_array($data)){
+        if (!is_array($data)) {
             throw new SourceProcessorFailedException(sprintf(
                 'Unexpected source data type; Expected [array] but got [%s]', gettype($data)
             ));
@@ -46,7 +45,7 @@ class EntriesSourceProcessor implements SourceProcessorInterface
 
         $entries = [];
         foreach ($data as $category => $categoryEntries) {
-            if(!is_array($categoryEntries)){
+            if (!is_array($categoryEntries)) {
                 throw new SourceProcessorFailedException(sprintf(
                     'Unexpected source data type at [%s]; Expected [array] but got [%s]', $category, gettype($categoryEntries)
                 ));
@@ -55,7 +54,7 @@ class EntriesSourceProcessor implements SourceProcessorInterface
 
             $entries[$category] = [];
             foreach ($categoryEntries as $index => $entry) {
-                if(!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])){
+                if (!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])) {
                     $callback && $callback(
                         self::EVENT_ENTRY_FAILED,
                         sprintf('[%s][%d]', $category, $index),
@@ -69,12 +68,11 @@ class EntriesSourceProcessor implements SourceProcessorInterface
                     $callback && $callback(
                         self::EVENT_ENTRY_CREATE,
                         sprintf('[%s][%d]', $category, $index),
-                        sprintf("Trying to create an entry from data [%s][%d]", $category, $index)
+                        sprintf('Trying to create an entry from data [%s][%d]', $category, $index)
                     );
 
                     $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
-                }
-                catch (EntryCreationFailedException $e){
+                } catch (EntryCreationFailedException $e) {
                     $callback && $callback(
                         self::EVENT_ENTRY_FAILED,
                         sprintf('[%s][%d]', $category, $index),
@@ -98,7 +96,7 @@ class EntriesSourceProcessor implements SourceProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(array $source)
     {

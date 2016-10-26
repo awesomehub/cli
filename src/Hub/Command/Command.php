@@ -14,8 +14,6 @@ use Hub\Application;
 
 /**
  * Base command abstract class.
- *
- * @package AwesomeHub
  */
 abstract class Command extends Console\Command\Command
 {
@@ -50,7 +48,7 @@ abstract class Command extends Console\Command\Command
     protected $output;
 
     /**
-     * @var IOInterface $io
+     * @var IOInterface
      */
     protected $io;
 
@@ -65,20 +63,20 @@ abstract class Command extends Console\Command\Command
     protected $process;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     final public function run(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
-        $this->container    = $this->getApplication()->getContainer();
+        $this->container = $this->getApplication()->getContainer();
 
-        $this->environment  = $this->getApplication()->getKernel()->getEnvironment();
-        $this->filesystem   = $this->container->get('filesystem');
-        $this->workspace    = $this->container->get('workspace');
-        $this->input        = $this->container->get('input');
-        $this->output       = $this->container->get('output');
-        $this->io           = $this->container->get('io');
-        $this->logger       = $this->container->get('logger');
-        $this->process      = $this->container->get('process.factory');
+        $this->environment = $this->getApplication()->getKernel()->getEnvironment();
+        $this->filesystem  = $this->container->get('filesystem');
+        $this->workspace   = $this->container->get('workspace');
+        $this->input       = $this->container->get('input');
+        $this->output      = $this->container->get('output');
+        $this->io          = $this->container->get('io');
+        $this->logger      = $this->container->get('logger');
+        $this->process     = $this->container->get('process.factory');
 
         return parent::run($input, $output);
     }
@@ -94,7 +92,7 @@ abstract class Command extends Console\Command\Command
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function initialize(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
@@ -102,7 +100,7 @@ abstract class Command extends Console\Command\Command
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function interact(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
@@ -110,7 +108,7 @@ abstract class Command extends Console\Command\Command
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {

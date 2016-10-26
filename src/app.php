@@ -1,5 +1,5 @@
 <?php
-// Bootstrap our app
+
 require __DIR__.'/bootstrap.php';
 
 use Symfony\Component\Debug\ErrorHandler;

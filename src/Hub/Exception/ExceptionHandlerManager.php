@@ -1,12 +1,11 @@
 <?php
+
 namespace Hub\Exception;
 
 use Hub\Exception\Handler\ExceptionHandlerInterface;
 
 /**
  * Exception handler manager class.
- *
- * @package AwesomeHub
  */
 class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
 {
@@ -28,16 +27,17 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addHandler(ExceptionHandlerInterface $handler): self
     {
         $this->handlers[] = $handler;
+
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setHandlers(array $handlers)
     {
@@ -50,7 +50,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getHandlers()
     {
@@ -58,7 +58,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function runHandlers(\Exception $exception)
     {
@@ -66,7 +66,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
             throw new \LogicException('No exception handler has been defined.');
         }
 
-        foreach ($this->handlers as $handler){
+        foreach ($this->handlers as $handler) {
             if (!$handler->isHandling($exception)) {
                 continue;
             }

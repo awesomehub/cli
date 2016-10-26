@@ -1,12 +1,11 @@
 <?php
+
 namespace Hub\EntryList\Distributer;
 
 use Hub\EntryList\EntryListInterface;
 
 /**
  * Interface for a ListDistributer.
- *
- * @package AwesomeHub
  */
 interface ListDistributerInterface
 {

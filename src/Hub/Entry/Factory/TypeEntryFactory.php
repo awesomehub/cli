@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Entry\Factory;
 
 use Hub\Entry\RepoGithubEntry;
@@ -6,13 +7,11 @@ use Hub\Exceptions\EntryCreationFailedException;
 
 /**
  * Creates new Entry instances based on entry type and data.
- *
- * @package AwesomeHub
  */
 class TypeEntryFactory implements TypeEntryFactoryInterface
 {
     private static $supports = [
-        RepoGithubEntry::class
+        RepoGithubEntry::class,
     ];
 
     /**
@@ -37,7 +36,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
                 }
 
                 $args = [$entry['type']];
-                if(isset($entry['data'])){
+                if (isset($entry['data'])) {
                     $args[] = $entry['data'];
                 }
 
@@ -49,10 +48,10 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
 
         switch (self::supports($type)) {
             case RepoGithubEntry::class:
-                if(!isset($data['author']) || !isset($data['name'])){
+                if (!isset($data['author']) || !isset($data['name'])) {
                     throw new EntryCreationFailedException(sprintf(
                         "Unable to satisfay all required paramaters for type '%s'; Given a data array with keys [%s]",
-                        implode(", ", array_keys($data))
+                        implode(', ', array_keys($data))
                     ));
                 }
 
@@ -84,9 +83,9 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
     {
         static $types;
 
-        if(!$types){
+        if (!$types) {
             $types = [];
-            foreach(self::$supports as $class){
+            foreach (self::$supports as $class) {
                 $types[$class::getType()] = $class;
             }
         }

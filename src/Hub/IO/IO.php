@@ -9,8 +9,6 @@ use Hub\Helper\ProgressIndicator;
 
 /**
  * Base I/O class.
- *
- * @package AwesomeHub
  */
 class IO extends Console\Style\SymfonyStyle implements IOInterface
 {
@@ -37,16 +35,15 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * Constructor.
      *
-     * @param Console\Input\InputInterface  $input
+     * @param Console\Input\InputInterface   $input
      * @param Console\Output\OutputInterface $output
-     * @param LoggerInterface $logger
+     * @param LoggerInterface                $logger
      */
     public function __construct(
         Console\Input\InputInterface $input,
         Console\Output\OutputInterface $output,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->input  = $input;
         $this->output = $output;
         $this->logger = $logger;
@@ -55,7 +52,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getInput()
     {
@@ -63,7 +60,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOutput()
     {
@@ -71,7 +68,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLogger()
     {
@@ -79,31 +76,31 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function startOverwrite(array $options = [])
     {
-        if($this->output instanceof OverwritableOutputInterface){
+        if ($this->output instanceof OverwritableOutputInterface) {
             $this->output->startOverwrite($options);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function endOverwrite()
     {
-        if($this->output instanceof OverwritableOutputInterface){
+        if ($this->output instanceof OverwritableOutputInterface) {
             $this->output->endOverwrite();
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isOverwritable()
     {
-        if($this->output instanceof OverwritableOutputInterface){
+        if ($this->output instanceof OverwritableOutputInterface) {
             return $this->output->isOverwritable();
         }
 

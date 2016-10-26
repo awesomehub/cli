@@ -1,10 +1,9 @@
 <?php
+
 namespace Hub\Build;
 
 /**
  * Interface for a Build.
- *
- * @package AwesomeHub
  */
 interface BuildInterface
 {
@@ -12,7 +11,8 @@ interface BuildInterface
      * Gets a build path.
      *
      * @param array|string $path Path segments as array or string
-     * @param bool $raw
+     * @param bool         $raw Ignores file format extension
+     *
      * @return string
      */
     public function getPath($path = null, $raw = false);
@@ -42,6 +42,7 @@ interface BuildInterface
      * Gets a meta paramater.
      *
      * @param string $key
+     *
      * @return mixed
      */
     public function get($key = null);
@@ -50,7 +51,7 @@ interface BuildInterface
      * Sets the value of a meta paramater or the whole meta array.
      *
      * @param string|array $key
-     * @param mixed|null $value
+     * @param mixed|null   $value
      */
     public function set($key, $value = null);
 
@@ -59,7 +60,8 @@ interface BuildInterface
      *
      * @param string $path
      * @param string $data
-     * @param bool $raw Ignore encoding
+     * @param bool   $raw  Ignores file encoding
+     *
      * @return bool
      */
     public function write($path, $data, $raw = false);
@@ -68,7 +70,8 @@ interface BuildInterface
      * Reads a file from the build directory.
      *
      * @param string $path
-     * @param bool $raw Ignore decoding
+     * @param bool   $raw  Ignores file decoding
+     *
      * @return string
      */
     public function read($path, $raw = false);
@@ -77,15 +80,14 @@ interface BuildInterface
      * Checks if a file from the build directory does exist.
      *
      * @param string $path
-     * @param bool $raw
+     * @param bool   $raw Ignores file format extension
+     *
      * @return bool
      */
     public function exists($path = null, $raw = false);
 
     /**
      * Cleans the build directory.
-     *
-     * @return void
      */
     public function clean();
 }

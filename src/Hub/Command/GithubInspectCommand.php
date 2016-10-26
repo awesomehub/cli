@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Command;
 
 use Symfony\Component\Console\Input;
@@ -6,8 +7,6 @@ use Github\Utils\RepoInspector;
 
 /**
  * Inspects github repository.
- * 
- * @package AwesomeHub
  */
 class GithubInspectCommand extends Command
 {
@@ -34,21 +33,22 @@ class GithubInspectCommand extends Command
     {
         /** @var RepoInspector\GithubRepoInspectorInterface $inspector */
         $inspector = $this->container->get('github.inspector');
-        $name = explode('/', trim($this->input->getArgument('repo')), 2);
-        if(count($name) != 2){
+        $name      = explode('/', trim($this->input->getArgument('repo')), 2);
+        if (count($name) != 2) {
             $this->io->error('Invalid Github repository provided. It should be formatted like {author}/{name}');
+
             return 1;
         }
 
         try {
             $repo = $inspector->inspect($name[0], $name[1]);
-        }
-        catch (RepoInspector\Exception\RepoInspectorException $e){
+        } catch (RepoInspector\Exception\RepoInspectorException $e) {
             $this->io->error(sprintf('Github Inspector failed; %s', $e->getMessage()));
+
             return 1;
         }
 
-        $this->io->section(sprintf("Repository: %s", $repo['full_name']));
+        $this->io->section(sprintf('Repository: %s', $repo['full_name']));
 
         $list = [
             sprintf(' <info>* Language:</info> %s', $repo['language']),
@@ -71,7 +71,7 @@ class GithubInspectCommand extends Command
             sprintf('   <debug>- Size:</debug> %dM', round($repo['size'] / 1024, 1)),
         ];
 
-        if(!empty($repo['description'])){
+        if (!empty($repo['description'])) {
             array_unshift($list, sprintf(' * %s', $repo['description']));
         }
 

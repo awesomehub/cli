@@ -4,8 +4,6 @@ namespace Hub\Command;
 
 /**
  * Inspects github tokens status.
- * 
- * @package AwesomeHub
  */
 class GithubTokensCommand extends Command
 {
@@ -31,11 +29,11 @@ class GithubTokensCommand extends Command
         $github = $this->container->get('github');
         $tokens = $github->getTokenPool()->getTokens();
 
-        $this->io->section("Github Tokens");
+        $this->io->section('Github Tokens');
 
         $i = 0;
-        foreach ($tokens as $token){
-            $i++;
+        foreach ($tokens as $token) {
+            ++$i;
 
             $github->setToken($token);
             $ratelimit = $github->api('rateLimit/getRateLimits');
@@ -56,7 +54,7 @@ class GithubTokensCommand extends Command
             $this->io->writeln('');
         }
 
-        if(count($tokens) == 0){
+        if (count($tokens) == 0) {
             $this->io->writeln('No Github token has been defined.');
         }
 

@@ -15,9 +15,9 @@ interface UrlEntryFactoryInterface
      *
      * @param array|string $input
      *
-     * @return EntryInterface[] Returns new entries on success or FALSE on failure
-     *
      * @throws UrlEntryCreationFailedException
+     *
+     * @return EntryInterface[] Returns new entries on success or FALSE on failure
      */
     public function create($input);
 }

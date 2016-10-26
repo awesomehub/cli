@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Command;
 
 use Symfony\Component\Console\Input;
@@ -14,8 +15,6 @@ use Hub\Entry\Factory\UrlProcessor\GithubUrlProcessor;
 
 /**
  * Builds a given list.
- * 
- * @package AwesomeHub
  */
 class ListBuildCommand extends Command
 {
@@ -50,13 +49,13 @@ class ListBuildCommand extends Command
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate()
     {
-        if(null === $this->input->getArgument('list')){
+        if (null === $this->input->getArgument('list')) {
             $all = $this->io->confirm(sprintf('Are you sure you want to build all lists?'));
-            if(!$all){
+            if (!$all) {
                 exit(0);
             }
         }
@@ -67,24 +66,24 @@ class ListBuildCommand extends Command
      */
     protected function exec()
     {
-        $path = $this->input->getArgument('list');
-        $format = strtolower($this->input->getOption('format'));
+        $path      = $this->input->getArgument('list');
+        $format    = strtolower($this->input->getOption('format'));
         $noResolve = $this->input->getOption('no-resolve');
-        $noCache = $this->input->getOption('no-cache');
+        $noCache   = $this->input->getOption('no-cache');
 
         // Build all lists
-        if(empty($path)){
+        if (empty($path)) {
             $paths = EntryListFile::findLists($this->workspace);
-            if(count($paths) == 0){
+            if (count($paths) == 0) {
                 $this->io->note('No lists found to build');
                 exit(0);
             }
 
             $this->io->title(sprintf('Building %d list(s)', count($paths)));
-            foreach ($paths as $singlePath){
+            foreach ($paths as $singlePath) {
                 try {
                     $this->build($singlePath, $format, $noResolve, $noCache);
-                } catch (\Exception $e){
+                } catch (\Exception $e) {
                     $this->io->getLogger()->warning(sprintf(
                         "Ignoring list '%s'; %s", $singlePath, $e->getMessage()
                     ));
@@ -92,19 +91,22 @@ class ListBuildCommand extends Command
             }
 
             $this->io->writeln('');
+
             return 0;
         }
 
         // Build a single list
         try {
             $this->build($path, $format, $noResolve, $noCache);
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->io->error($e->getMessage());
+
             return 1;
         }
 
         // We're done
         $this->io->writeln('');
+
         return 0;
     }
 
@@ -113,22 +115,22 @@ class ListBuildCommand extends Command
      *
      * @param string $path
      * @param string $format
-     * @param bool $noResolve
-     * @param bool $noCache
+     * @param bool   $noResolve
+     * @param bool   $noCache
      */
     protected function build($path, $format, $noResolve, $noCache)
     {
         $list = new EntryListFile($this->filesystem, $this->workspace, $path, $format);
-        $this->io->title('Building list: ' . $path);
+        $this->io->title('Building list: '.$path);
         $this->process($list);
-        if(!$noResolve){
+        if (!$noResolve) {
             $this->resolve($list, $noCache);
         }
-        $this->logger->info("Done!");
+        $this->logger->info('Done!');
     }
 
     /**
-     * Processes the list
+     * Processes the list.
      *
      * @param EntryListInterface $list
      */
@@ -136,7 +138,7 @@ class ListBuildCommand extends Command
     {
         // Create needed entry factories
         $entryFromUrlFactory = new UrlEntryFactory([
-            new GithubUrlProcessor()
+            new GithubUrlProcessor(),
         ]);
         $entryFromTypeFactory = new TypeEntryFactory();
 
@@ -144,7 +146,7 @@ class ListBuildCommand extends Command
         $list->process($this->io, [
             new GithubMarkdownSourceProcessor($entryFromUrlFactory, $this->container->get('http')),
             new UrlsSourceProcessor($entryFromUrlFactory),
-            new EntriesSourceProcessor($entryFromTypeFactory)
+            new EntriesSourceProcessor($entryFromTypeFactory),
         ]);
     }
 
@@ -152,12 +154,12 @@ class ListBuildCommand extends Command
      * Resolves the list.
      *
      * @param EntryListInterface $list
-     * @param bool $force
+     * @param bool               $force
      */
     protected function resolve(EntryListInterface $list, $force = false)
     {
         $list->resolve($this->io, [
-            new RepoGithubEntryResolver($this->container->get('github.inspector'), $this->filesystem, $this->workspace)
+            new RepoGithubEntryResolver($this->container->get('github.inspector'), $this->filesystem, $this->workspace),
         ], $force);
     }
 }

@@ -1,10 +1,9 @@
 <?php
+
 namespace Hub\EntryList;
 
 /**
  * Interface for an EntryListFile.
- *
- * @package AwesomeHub
  */
 interface EntryListFileInterface extends EntryListInterface
 {

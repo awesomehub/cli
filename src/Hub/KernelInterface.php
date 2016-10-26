@@ -1,12 +1,11 @@
 <?php
+
 namespace Hub;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Interface for a Kernel.
- *
- * @package AwesomeHub
  */
 interface KernelInterface
 {

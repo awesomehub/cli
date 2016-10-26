@@ -27,12 +27,13 @@ abstract class AbstractEntry implements EntryInterface
      */
     public function set($key, $value = null)
     {
-        if($value == null){
-            if(!is_array($key)) {
+        if ($value == null) {
+            if (!is_array($key)) {
                 throw new \UnexpectedValueException(sprintf('Expected array but got %s'), var_export($key));
             }
 
             $this->data = $key;
+
             return;
         }
 
@@ -90,7 +91,7 @@ abstract class AbstractEntry implements EntryInterface
      */
     protected function deepMerge(array $a, array $b, $preserveIntegerKeys = false)
     {
-        $result = array();
+        $result = [];
         foreach ([$a, $b] as $array) {
             foreach ($array as $key => $value) {
                 // Re-number integer keys as array_merge_recursive() does unless

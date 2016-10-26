@@ -1,5 +1,5 @@
 <?php
-// Check for php version
+
 if (version_compare('7.0.0', PHP_VERSION, '>')) {
     fwrite(
         STDERR,
@@ -12,7 +12,6 @@ if (version_compare('7.0.0', PHP_VERSION, '>')) {
 // Set timezone if not set
 ini_set('date.timezone', 'UTC');
 date_default_timezone_set('UTC');
-
 
 // Set error reporting
 error_reporting(E_ALL);

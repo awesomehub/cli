@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub;
 
 use Symfony\Component\Config\ConfigCache;
@@ -20,8 +21,6 @@ use Hub\Logger\LoggerHandlerPass;
 
 /**
  * The App Kernel.
- *
- * @package AwesomeHub
  */
 abstract class Kernel implements KernelInterface
 {
@@ -43,8 +42,12 @@ abstract class Kernel implements KernelInterface
     /**
      * Kernel constructor.
      *
+     * Possible values for the mode are:
+     *  - EnvironmentInterface::DEVELOPMENT
+     *  - EnvironmentInterface::PRODUCTION
+     *
      * @param EnvironmentInterface $environment
-     * @param string $mode Possible values are EnvironmentInterface::DEVELOPMENT and EnvironmentInterface::PRODUCTION
+     * @param string               $mode
      */
     public function __construct(EnvironmentInterface $environment = null, $mode = null)
     {
@@ -60,7 +63,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function boot()
     {
@@ -85,7 +88,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function shutdown()
     {
@@ -98,7 +101,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isBooted()
     {
@@ -106,7 +109,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEnvironment()
     {
@@ -114,7 +117,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getContainer()
     {
@@ -177,12 +180,12 @@ abstract class Kernel implements KernelInterface
      */
     protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class)
     {
-        $dumper = new PhpDumper($container);
+        $dumper  = new PhpDumper($container);
         $content = $dumper->dump([
-            'class' => $class,
+            'class'     => $class,
             'namespace' => __NAMESPACE__,
-            'file' => $cache->getPath(),
-            'debug' => $this->environment->isDevelopment()
+            'file'      => $cache->getPath(),
+            'debug'     => $this->environment->isDevelopment(),
         ]);
         $cache->write($content, $container->getResources());
     }
@@ -196,13 +199,14 @@ abstract class Kernel implements KernelInterface
      */
     protected function getContainerLoader(ContainerBuilder $container)
     {
-        $locator = new FileLocator(dirname(__DIR__));
+        $locator  = new FileLocator(dirname(__DIR__));
         $resolver = new LoaderResolver([
             new XmlFileLoader($container, $locator),
             new PhpFileLoader($container, $locator),
             new DirectoryLoader($container, $locator),
             new ClosureLoader($container),
         ]);
+
         return new DelegatingLoader($resolver);
     }
 

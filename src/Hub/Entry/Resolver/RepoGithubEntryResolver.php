@@ -39,8 +39,8 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      */
     public function __construct(GithubRepoInspectorInterface $inspector, Filesystem $filesystem, WorkspaceInterface $workspace)
     {
-        $this->inspector = $inspector;
-        $this->workspace = $workspace;
+        $this->inspector  = $inspector;
+        $this->workspace  = $workspace;
         $this->filesystem = $filesystem;
     }
 
@@ -52,13 +52,14 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     public function resolve(EntryInterface $entry, $force = false)
     {
         $cached = $this->read($entry);
-        if($cached instanceof RepoGithubEntryInterface && !$force){
+        if ($cached instanceof RepoGithubEntryInterface && !$force) {
             $entry->set($cached->get());
+
             return;
         }
 
         $author = $entry->getAuthor();
-        $name = $entry->getName();
+        $name   = $entry->getName();
 
         try {
             $repo = $this->inspector->inspect($author, $name);
@@ -67,11 +68,11 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         }
 
         $entry->merge([
-            'desc' => $this->cleanStr($repo['description']),
+            'desc'     => $this->cleanStr($repo['description']),
             'language' => $repo['language'],
-            'score' => $repo['scores_avg'],
-            'scores' => $repo['scores'],
-            'pushed' => date(\DateTime::ISO8601, strtotime($repo['pushed_at'])),
+            'score'    => $repo['scores_avg'],
+            'scores'   => $repo['scores'],
+            'pushed'   => date(\DateTime::ISO8601, strtotime($repo['pushed_at'])),
         ]);
 
         try {
@@ -103,6 +104,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         }
 
         $cached = $this->read($entry);
+
         return $cached instanceof RepoGithubEntryInterface;
     }
 

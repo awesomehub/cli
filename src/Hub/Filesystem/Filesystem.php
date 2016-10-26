@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Filesystem;
 
 use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
@@ -11,10 +12,11 @@ class Filesystem extends BaseFilesystem
      * Reads the contents of a file.
      *
      * @param string $path
-     * @return string
      *
      * @throws FileNotFoundException
      * @throws IOException
+     *
+     * @return string
      */
     public function read($path)
     {
@@ -23,7 +25,7 @@ class Filesystem extends BaseFilesystem
         }
 
         $data = file_get_contents($path);
-        if(false === $data){
+        if (false === $data) {
             throw new IOException(sprintf('Failed to read data from file "%s".', $path), 0, null, $path);
         }
 
@@ -35,20 +37,21 @@ class Filesystem extends BaseFilesystem
      *
      * @param string $path
      * @param string $contents
-     * @param bool $lock
-     * @return int
+     * @param bool   $lock
      *
      * @throws IOException
+     *
+     * @return int
      */
     public function write($path, $contents, $lock = true)
     {
         $dir = dirname($path);
-        if(!is_dir($dir)){
+        if (!is_dir($dir)) {
             $this->mkdir($dir);
         }
 
         $bytes = file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
-        if(false === $bytes){
+        if (false === $bytes) {
             throw new IOException(sprintf('Failed to write data to file "%s".', $path), 0, null, $path);
         }
 
@@ -60,11 +63,12 @@ class Filesystem extends BaseFilesystem
      *
      * @param string $path
      * @param string $data
-     * @param bool $lock
-     * @return int
+     * @param bool   $lock
      *
      * @throws FileNotFoundException
      * @throws IOException
+     *
+     * @return int
      */
     public function append($path, $data, $lock = true)
     {
@@ -73,7 +77,7 @@ class Filesystem extends BaseFilesystem
         }
 
         $bytes = file_put_contents($path, $data, FILE_APPEND | ($lock ? LOCK_EX : 0));
-        if(false === $bytes){
+        if (false === $bytes) {
             throw new IOException(sprintf('Failed to append data to file "%s".', $path), 0, null, $path);
         }
 
@@ -85,39 +89,43 @@ class Filesystem extends BaseFilesystem
      *
      * @param string $path
      * @param string $ext
+     *
      * @return bool
      */
-    public function hasExtension($path, $ext){
-        return '.' . strtolower($ext) === strtolower(substr($path, -1 * strlen($ext) -1));
+    public function hasExtension($path, $ext)
+    {
+        return '.'.strtolower($ext) === strtolower(substr($path, -1 * strlen($ext) - 1));
     }
 
     /**
      * Normalize path.
      *
      * @param string $path
-     * @return string
+     *
      * @throws \LogicException
+     *
+     * @return string
      */
     public function normalizePath($path)
     {
         $segments = [];
-        foreach(preg_split('/[\/\\\\]+/', $path) as $part) {
-            if ($part === '.')
+        foreach (preg_split('/[\/\\\\]+/', $path) as $part) {
+            if ($part === '.') {
                 continue;
+            }
 
             if ($part !== '..') {
                 array_push($segments, $part);
                 continue;
             }
 
-            if (count($segments) > 0 && end($segments) != "") {
+            if (count($segments) > 0 && end($segments) != '') {
                 array_pop($segments);
-            }
-            else {
-                throw new \LogicException('Path is outside of the defined root, path: [' . $path . ']');
+            } else {
+                throw new \LogicException('Path is outside of the defined root, path: ['.$path.']');
             }
         }
 
-        return join(DIRECTORY_SEPARATOR, $segments);
+        return implode(DIRECTORY_SEPARATOR, $segments);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\EntryList;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,7 +14,7 @@ class EntryListDefinition implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('list');
+        $rootNode    = $treeBuilder->root('list');
 
         $rootNode
             ->children()
@@ -80,8 +81,10 @@ class EntryListDefinition implements ConfigurationInterface
                             ->defaultValue([])
                             ->prototype('variable')->end()
                             ->validate()
-                            ->ifTrue(function ($tree) { return $this->checkCategoryTreeDups($tree); })
-                                ->thenInvalid("Duplicate entries detected.")
+                            ->ifTrue(function ($tree) {
+                                return $this->checkCategoryTreeDups($tree);
+                            })
+                                ->thenInvalid('Duplicate entries detected.')
                             ->end()
                         ->end()
                     ->end()
@@ -96,25 +99,27 @@ class EntryListDefinition implements ConfigurationInterface
      * Validates category tree for possible duplicates.
      *
      * @param array $tree
-     * @param int $depth
-     * @return string|null
+     * @param int   $depth
+     *
      * @throws \LogicException
+     *
+     * @return string|null
      */
     protected function checkCategoryTreeDups(array $tree, $depth = 0)
     {
         $categories = [];
-        foreach($tree as $parent => $child) {
+        foreach ($tree as $parent => $child) {
             if (is_array($child)) {
                 $categories[] = $parent;
-                $categories = array_merge($categories, $this->checkCategoryTreeDups($child, $depth + 1));
-            }
-            else {
+                $categories   = array_merge($categories, $this->checkCategoryTreeDups($child, $depth + 1));
+            } else {
                 $categories[] = $child;
             }
         }
 
-        if(0 === $depth){
+        if (0 === $depth) {
             $categoriesDup = array_unique(array_diff_assoc($categories, array_unique($categories)));
+
             return sizeof($categoriesDup) > 0;
         }
 

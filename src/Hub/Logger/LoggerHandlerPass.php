@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Logger;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -16,7 +17,7 @@ class LoggerHandlerPass implements CompilerPassInterface
         $definition = $container->findDefinition('logger');
         foreach ($container->findTaggedServiceIds('logger.handler') as $id => $tags) {
             $definition->addMethodCall('addHandler', [
-                new Reference($id)
+                new Reference($id),
             ]);
         }
     }

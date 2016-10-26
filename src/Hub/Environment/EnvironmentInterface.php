@@ -1,20 +1,20 @@
 <?php
+
 namespace Hub\Environment;
 
 /**
  * Interface for an Environment.
- *
- * @package AwesomeHub
  */
 interface EnvironmentInterface
 {
-    const DEVELOPMENT   = 'dev';
-    const PRODUCTION    = 'prod';
+    const DEVELOPMENT = 'dev';
+    const PRODUCTION  = 'prod';
 
     /**
      * Gets the value of an environment variable.
      *
      * @param string $varname
+     *
      * @return string
      */
     public function get($varname);
@@ -43,21 +43,21 @@ interface EnvironmentInterface
     /**
      * Checks if running in development mode.
      *
-     * @return boolean
+     * @return bool
      */
     public function isDevelopment();
 
     /**
      * Checks if running in production mode.
      *
-     * @return boolean
+     * @return bool
      */
     public function isProduction();
 
     /**
      * Checks if running in windows platform.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPlatformWindows();
 }

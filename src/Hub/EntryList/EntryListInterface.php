@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\EntryList;
 
 use Hub\IO\IOInterface;
@@ -7,8 +8,6 @@ use Hub\Entry\Resolver\EntryResolverInterface;
 
 /**
  * Interface for an EntryList.
- *
- * @package AwesomeHub
  */
 interface EntryListInterface
 {
@@ -22,7 +21,7 @@ interface EntryListInterface
     /**
      * Processes the list file and creates list entries.
      *
-     * @param IOInterface $io
+     * @param IOInterface                $io
      * @param SourceProcessorInterface[] $processors
      */
     public function process(IOInterface $io, array $processors);
@@ -30,9 +29,9 @@ interface EntryListInterface
     /**
      * Resolves the entries within the list.
      *
-     * @param IOInterface $io
+     * @param IOInterface              $io
      * @param EntryResolverInterface[] $resolvers
-     * @param bool $force
+     * @param bool                     $force
      */
     public function resolve(IOInterface $io, array $resolvers, $force = false);
 
@@ -47,6 +46,7 @@ interface EntryListInterface
      * Gets the value of a given data key. If the key is omitted, the whole data will be returned.
      *
      * @param string $key
+     *
      * @return array
      */
     public function get($key = null);

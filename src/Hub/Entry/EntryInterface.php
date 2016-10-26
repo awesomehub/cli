@@ -26,9 +26,9 @@ interface EntryInterface
      *
      * @param string $key
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return mixed
      */
     public function get($key = null);
 

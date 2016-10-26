@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Command;
 
 use Hub\Build\BuildFactory;
@@ -8,8 +9,6 @@ use Symfony\Component\Console\Input;
 
 /**
  * Distribute a cached list.
- * 
- * @package AwesomeHub
  */
 class MakeBuildCommand extends Command
 {
@@ -30,13 +29,13 @@ class MakeBuildCommand extends Command
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate()
     {
-        if($this->input->hasArgument('--release')){
+        if ($this->input->hasArgument('--release')) {
             $yes = $this->io->confirm(sprintf('Are you sure you want to mark this build as a release?'));
-            if(!$yes){
+            if (!$yes) {
                 exit(0);
             }
         }
@@ -48,11 +47,12 @@ class MakeBuildCommand extends Command
     protected function exec()
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
-        $build = $buildFactory->create();
-        $lists = EntryListFile::findCachedLists($this->workspace);
+        $build        = $buildFactory->create();
+        $lists        = EntryListFile::findCachedLists($this->workspace);
 
-        if(count($lists) == 0){
+        if (count($lists) == 0) {
             $this->io->note('No cached lists found');
+
             return 0;
         }
 
@@ -62,7 +62,7 @@ class MakeBuildCommand extends Command
             ' <comment>* Build number:</comment> '.$build->getNumber(),
             ' <comment>* Build path:</comment> '.$build->getPath(),
             ' <comment>* Build format:</comment> '.$build->getFormat(),
-            ''
+            '',
         ]);
 
         $dist = new ListDistributer($build, $buildFactory->getCached() ?: null);
@@ -71,18 +71,19 @@ class MakeBuildCommand extends Command
                 $this->logger->info(sprintf("Building list '%s'", $list));
                 $listInstance = EntryListFile::createFromCache($this->filesystem, $this->workspace, $list);
                 $dist->distribute($listInstance);
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 $this->logger->critical(sprintf("Unable to build list '%s'; %s", $list, $e->getMessage()));
             }
         }
 
-        if($this->input->hasArgument('--release')){
-            $this->logger->info("Caching current build");
+        if ($this->input->hasArgument('--release')) {
+            $this->logger->info('Caching current build');
             $buildFactory->cache($build);
         }
 
-        $this->logger->info("Done!");
+        $this->logger->info('Done!');
         $this->io->writeln('');
+
         return 0;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Hub\Logger;
 
 use Psr\Log\AbstractLogger;
@@ -8,8 +9,6 @@ use Hub\Logger\Record\LoggerRecord;
 
 /**
  * Logger manager class.
- *
- * @package AwesomeHub
  */
 class LoggerManager extends AbstractLogger implements LoggerManagerInterface
 {
@@ -34,6 +33,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     public function addHandler(LoggerHandlerInterface $handler)
     {
         $this->handlers[] = $handler;
+
         return $this;
     }
 
@@ -42,10 +42,11 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
      */
     public function setHandlers(array $handlers)
     {
-        $this->handlers = array();
+        $this->handlers = [];
         foreach ($handlers as $handler) {
             $this->addHandler($handler);
         }
+
         return $this;
     }
 
@@ -66,7 +67,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
             throw new \LogicException('No logger handler has been defined.');
         }
 
-        foreach ($this->handlers as $handler){
+        foreach ($this->handlers as $handler) {
             if (!$handler->isHandling($record)) {
                 continue;
             }
@@ -95,12 +96,13 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
      *
      * @param string $message
      * @param array  $context
+     *
      * @return string
      */
     private function interpolate($message, array $context)
     {
         // build a replacement array with braces around the context keys
-        $replace = array();
+        $replace = [];
         foreach ($context as $key => $val) {
             if (!is_array($val) && (!is_object($val) || method_exists($val, '__toString'))) {
                 $replace[sprintf('{%s}', $key)] = $val;

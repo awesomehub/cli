@@ -31,7 +31,7 @@ class UrlsSourceProcessor implements SourceProcessorInterface
      */
     public function process(array $source, \Closure $callback = null)
     {
-        /**
+        /*
          * @var string $type
          * @var array $data
          */
@@ -61,8 +61,7 @@ class UrlsSourceProcessor implements SourceProcessorInterface
                     );
 
                     $output = $this->entryFactory->create($url);
-                }
-                catch (EntryCreationFailedException $e) {
+                } catch (EntryCreationFailedException $e) {
                     $callback && $callback(
                         self::EVENT_ENTRY_FAILED, $url,
                         sprintf("Ignoring url '%s'; %s", $url, $e->getMessage())

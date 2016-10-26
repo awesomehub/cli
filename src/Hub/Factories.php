@@ -15,6 +15,7 @@ class Factories
      * Creates a Filesystem cache adaptor.
      *
      * @param string $path
+     *
      * @return FilesystemAdapter
      */
     public static function createFilesystemCache($path)
@@ -26,7 +27,8 @@ class Factories
      * Creates a GithubTokenPool instance.
      *
      * @param string $path
-     * @param array $tokens
+     * @param array  $tokens
+     *
      * @return GithubTokenPool
      */
     public static function createGithubTokenPool($path, array $tokens)

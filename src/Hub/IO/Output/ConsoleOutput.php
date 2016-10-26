@@ -6,8 +6,6 @@ use Symfony\Component\Console;
 
 /**
  * Extends Symfony's ConsoleOutput with helpful features.
- *
- * @package AwesomeHub
  */
 class ConsoleOutput extends Console\Output\ConsoleOutput implements OverwritableOutputInterface
 {
@@ -15,24 +13,24 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     protected $options;
     protected $startTime;
     protected $spinnerCurrent = 0;
-    protected $lastMessage = '';
-    protected $lastMessageNl = false;
+    protected $lastMessage    = '';
+    protected $lastMessageNl  = false;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function startOverwrite(array $options = [])
     {
         $this->overwrite = true;
         $this->startTime = time();
-        $this->options = array_merge([
-            'spinnerValues' => ['-', '\\', '|', '/'],
+        $this->options   = array_merge([
+            'spinnerValues'   => ['-', '\\', '|', '/'],
             'fallbackNewline' => true,
         ], $options);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function endOverwrite()
     {
@@ -40,7 +38,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isOverwritable()
     {
@@ -48,28 +46,28 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
-        while($this->isOverwritable()){
+        while ($this->isOverwritable()) {
             ++$this->spinnerCurrent;
             $messages = implode($newline ? "\n" : '', (array) $messages);
             $messages = $this->processPlaceholders($messages);
 
-            if(!$this->isDecorated()){
-                if($this->options['fallbackNewline']){
+            if (!$this->isDecorated()) {
+                if ($this->options['fallbackNewline']) {
                     $newline = true;
                 }
                 break;
             }
 
-            if($this->lastMessageNl){
+            if ($this->lastMessageNl) {
                 break;
             }
 
             $size = Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $this->lastMessage);
-            if(!$size){
+            if (!$size) {
                 break;
             }
 
@@ -92,14 +90,15 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 parent::write('', true, $type);
             }
 
-            $this->lastMessage = $messages;
+            $this->lastMessage   = $messages;
             $this->lastMessageNl = $newline;
+
             return;
         }
 
         parent::write($messages, $newline, $type);
 
-        $this->lastMessage = $messages;
+        $this->lastMessage   = $messages;
         $this->lastMessageNl = $newline;
     }
 
@@ -107,11 +106,13 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
      * Replaces message placeholders with their values.
      *
      * @param string $message
+     *
      * @return string
      */
     protected function processPlaceholders($message)
     {
         $formatters = $this->getPlaceholderFormatters();
+
         return preg_replace_callback("{%([a-z\-_]+)%}i", function ($matches) use ($formatters) {
             return isset($formatters[$matches[1]])
                 ? call_user_func($formatters[$matches[1]])
@@ -128,10 +129,11 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     {
         static $formatters;
 
-        if(!$formatters){
+        if (!$formatters) {
             $formatters = [
                 'spinner' => function () {
                     $values = $this->options['spinnerValues'];
+
                     return $values[$this->spinnerCurrent % count($values)];
                 },
                 'elapsed' => function () {
@@ -139,7 +141,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 },
                 'memory' => function () {
                     return Console\Helper\Helper::formatMemory(memory_get_usage(true));
-                }
+                },
             ];
         }
 

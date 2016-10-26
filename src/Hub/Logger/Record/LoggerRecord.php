@@ -1,30 +1,29 @@
 <?php
+
 namespace Hub\Logger\Record;
 
 /**
  * Represents a logger record.
- *
- * @package AwesomeHub
  */
 class LoggerRecord implements LoggerRecordInterface
 {
     /**
-     * @var string $level
+     * @var string
      */
     protected $level;
 
     /**
-     * @var string $message
+     * @var string
      */
     protected $message;
 
     /**
-     * @var array $context
+     * @var array
      */
     protected $context;
 
     /**
-     * @var integer $timstamp
+     * @var int
      */
     protected $timstamp;
 
@@ -33,8 +32,8 @@ class LoggerRecord implements LoggerRecordInterface
      *
      * @param string $level
      * @param string $message
-     * @param integer $timstamp
-     * @param array $context
+     * @param int    $timstamp
+     * @param array  $context
      */
     public function __construct($level, $message, $timstamp, array $context = [])
     {
@@ -45,7 +44,7 @@ class LoggerRecord implements LoggerRecordInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLevel(): string
     {
@@ -53,7 +52,7 @@ class LoggerRecord implements LoggerRecordInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isLevel($level): bool
     {
@@ -61,7 +60,7 @@ class LoggerRecord implements LoggerRecordInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMessage(): string
     {
@@ -69,11 +68,11 @@ class LoggerRecord implements LoggerRecordInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getContext($key = null)
     {
-        if($key){
+        if ($key) {
             return $this->context[$key] ?? null;
         }
 
@@ -81,7 +80,7 @@ class LoggerRecord implements LoggerRecordInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTimestamp(): int
     {

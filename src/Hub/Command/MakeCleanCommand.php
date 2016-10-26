@@ -1,12 +1,11 @@
 <?php
+
 namespace Hub\Command;
 
 use Hub\Build\BuildFactory;
 
 /**
  * Cleans the dist directory.
- * 
- * @package AwesomeHub
  */
 class MakeCleanCommand extends Command
 {
@@ -29,8 +28,8 @@ class MakeCleanCommand extends Command
     protected function exec()
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
-        $build = $buildFactory->getCurrent();
-        if($build){
+        $build        = $buildFactory->getCurrent();
+        if ($build) {
             $build->clean();
         }
 

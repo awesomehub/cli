@@ -1,12 +1,11 @@
 <?php
+
 namespace Hub\Entry\Factory\UrlProcessor;
 
 use Hub\Entry\RepoGithubEntry;
 
 /**
  * Create new entries based on github urls.
- *
- * @package AwesomeHub
  */
 class GithubUrlProcessor implements UrlProcessorInterface
 {
@@ -16,7 +15,7 @@ class GithubUrlProcessor implements UrlProcessorInterface
     protected $matches;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function process($url)
     {
@@ -24,11 +23,11 @@ class GithubUrlProcessor implements UrlProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getProcessingAction($url)
     {
-        if(preg_match('/http(?:s)?:\/\/(?:www\.)?github\.com\/([\w-]+)\/([\w-]+)(?:\/?[\?\#].|$)/i', $url, $this->matches)) {
+        if (preg_match('/http(?:s)?:\/\/(?:www\.)?github\.com\/([\w-]+)\/([\w-]+)(?:\/?[\?\#].|$)/i', $url, $this->matches)) {
             return self::ACTION_PROCESSING;
         }
 

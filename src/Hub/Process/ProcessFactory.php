@@ -1,17 +1,16 @@
 <?php
+
 namespace Hub\Process;
 
 use Psr\Log\LoggerInterface;
 
 /**
  * A Factory for creating Process instances.
- *
- * @package AwesomeHub
  */
 class ProcessFactory implements ProcessFactoryInterface
 {
     /**
-     * @var LoggerInterface $logger
+     * @var LoggerInterface
      */
     protected $logger;
 
@@ -29,7 +28,8 @@ class ProcessFactory implements ProcessFactoryInterface
      * Creates a new Process.
      *
      * @param string $command
-     * @param array $options Process options, includes:
+     * @param array  $options Process options, includes:
+     *
      * @return Process
      */
     public function create($command, array $options = [])
@@ -41,7 +41,8 @@ class ProcessFactory implements ProcessFactoryInterface
      * Creates and runs a new Process.
      *
      * @param string $command
-     * @param array $options Process options, includes:
+     * @param array  $options Process options, includes:
+     *
      * @return Process
      */
     public function run($command, array $options = [])
@@ -56,7 +57,8 @@ class ProcessFactory implements ProcessFactoryInterface
      * Creates and starts a new Process.
      *
      * @param string $command
-     * @param array $options Process options, includes:
+     * @param array  $options Process options, includes:
+     *
      * @return Process
      */
     public function start($command, array $options = [])

@@ -8,10 +8,10 @@ class ProgressIndicator extends Console\Helper\ProgressIndicator
 {
     public function clear()
     {
-        $theif = \Closure::bind(function (){
+        $theif = \Closure::bind(function () {
             return [
                 $this->{'output'},
-                $this->{'lastMessagesLength'}
+                $this->{'lastMessagesLength'},
             ];
         }, $this, parent::class);
 

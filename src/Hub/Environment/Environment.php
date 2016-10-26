@@ -1,10 +1,9 @@
 <?php
+
 namespace Hub\Environment;
 
 /**
  * Responsible for handling environmental aspects.
- *
- * @package AwesomeHub
  */
 class Environment implements EnvironmentInterface
 {
@@ -30,7 +29,7 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get($varname)
     {
@@ -38,7 +37,7 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBin()
     {
@@ -46,7 +45,7 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMode()
     {
@@ -54,12 +53,12 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUserHome()
     {
         // Check if on Windows platform
-        if($this->isPlatformWindows()){
+        if ($this->isPlatformWindows()) {
             $envAppData = $this->get('APPDATA');
             if (!$envAppData) {
                 return false;
@@ -77,7 +76,7 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isDevelopment()
     {
@@ -85,7 +84,7 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isProduction()
     {
@@ -93,7 +92,7 @@ class Environment implements EnvironmentInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isPlatformWindows()
     {
@@ -102,8 +101,6 @@ class Environment implements EnvironmentInterface
 
     /**
      * Sets the current script path.
-     *
-     * @return void
      */
     protected function setBin()
     {
@@ -114,41 +111,43 @@ class Environment implements EnvironmentInterface
      * Sets the environment mode, tries to autguess if null.
      *
      * @param string|null $mode
-     * @return void
      *
      * @throws \InvalidArgumentException
      */
     protected function setMode($mode = null)
     {
-        if($mode){
-            if(!in_array($mode, [self::DEVELOPMENT, self::PRODUCTION])){
+        if ($mode) {
+            if (!in_array($mode, [self::DEVELOPMENT, self::PRODUCTION])) {
                 throw new \InvalidArgumentException("Invalid environment mode supplied '$mode'.");
             }
 
             $this->mode = $mode;
+
             return;
         }
 
         // Check if we are inside phat
         if ('phar:' === substr(__FILE__, 0, 5)) {
             $this->mode = self::PRODUCTION;
+
             return;
         }
 
         // Check if ENV variable is defined
-        if($envMode = getenv('ENV')){
-            if(in_array(strtolower($envMode), ['development', 'dev'])){
+        if ($envMode = getenv('ENV')) {
+            if (in_array(strtolower($envMode), ['development', 'dev'])) {
                 $this->mode = self::DEVELOPMENT;
-            }
-            else {
+            } else {
                 $this->mode = self::PRODUCTION;
             }
+
             return;
         }
 
         // Check if a git repo is present
-        if(file_exists(dirname(dirname($this->getBin())) . DIRECTORY_SEPARATOR . '.git')){
+        if (file_exists(dirname(dirname($this->getBin())).DIRECTORY_SEPARATOR.'.git')) {
             $this->mode = self::DEVELOPMENT;
+
             return;
         }
 
