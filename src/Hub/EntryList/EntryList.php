@@ -88,7 +88,8 @@ class EntryList implements EntryListInterface
             /** @var SourceProcessorInterface $processor */
             foreach ($processors as $processor) {
                 if ($processor->supports($source)) {
-                    $logger->info(sprintf("Processing source#%d with '%s'", $index, get_class($processor)));
+                    $processorName = basename(str_replace('\\', '/', get_class($processor)));
+                    $logger->info(sprintf("Processing source#%d with '%s'", $index, $processorName));
                     $processedWith = $processor;
                     try {
                         $sourceEntries = $processor->process($source, function ($event, $entry, $message) use ($logger, $io, $index, $indicator) {
