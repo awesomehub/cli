@@ -212,22 +212,23 @@ class EntryList implements EntryListInterface
         $io->startOverwrite();
         $indicator = ' [ %%spinner%% ] Resolving entry#%d => %s (%%elapsed%%)';
 
-        $i = $ic = 0;
+        $i = $ir = $ic = 0;
         /* @var EntryInterface $entry */
-        foreach ($this->data['entries'] as $index => $entry) {
-            $id           = $entry->getId();
+        foreach ($this->data['entries'] as $id => $entry) {
+            ++$i;
             $resolvedWith = false;
             $isCached     = false;
+
             /* @var EntryResolverInterface $resolver */
             foreach ($resolvers as $resolver) {
                 if ($resolver->supports($entry)) {
                     $resolvedWith = $resolver;
                     $isCached     = $resolver->isResolved($entry);
-                    $io->write(sprintf($indicator, $index, $id));
+                    $io->write(sprintf($indicator, $i, $id));
                     try {
                         $resolver->resolve($entry, $force);
                     } catch (EntryResolveFailedException $e) {
-                        $logger->warning(sprintf("Failed resolving entry#%d [%s] with '%s'; %s", $index, $id, get_class($resolver), $e->getMessage()));
+                        $logger->warning(sprintf("Failed resolving entry#%d [%s] with '%s'; %s", $i, $id, get_class($resolver), $e->getMessage()));
                         continue 2;
                     }
 
@@ -237,7 +238,7 @@ class EntryList implements EntryListInterface
 
             // Check if no resolver can resolve this entry
             if (false === $resolvedWith) {
-                $logger->warning(sprintf("Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it", $index, $id, get_class($entry)));
+                $logger->warning(sprintf("Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it", $i, $id, get_class($entry)));
                 continue;
             }
 
@@ -245,12 +246,12 @@ class EntryList implements EntryListInterface
                 ++$ic;
             }
 
-            ++$i;
+            ++$ir;
         }
 
         $this->resolved = true;
         $logger->info(sprintf('Resolved %d/%d entry(s) with %d cached entry(s)',
-            $i, count($this->data['entries']), $ic
+            $ir, count($this->data['entries']), $ic
         ));
         $io->endOverwrite();
     }
