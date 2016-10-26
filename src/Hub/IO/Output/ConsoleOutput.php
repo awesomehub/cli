@@ -9,8 +9,11 @@ use Symfony\Component\Console;
  */
 class ConsoleOutput extends Console\Output\ConsoleOutput implements OverwritableOutputInterface
 {
+    const MAX_LINE_LENGTH = 120;
+
     protected $overwrite = false;
     protected $options;
+    protected $lineLength;
     protected $startTime;
     protected $spinnerCurrent = 0;
     protected $lastMessage    = '';
@@ -27,6 +30,8 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
             'spinnerValues'   => ['-', '\\', '|', '/'],
             'fallbackNewline' => true,
         ], $options);
+        // Windows cmd wraps lines as soon as the terminal width is reached, whether there are following chars or not.
+        $this->lineLength = min($this->getTerminalWidth() - (int) (DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
     }
 
     /**
@@ -53,6 +58,9 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
         while ($this->isOverwritable()) {
             ++$this->spinnerCurrent;
             $messages = implode($newline ? "\n" : '', (array) $messages);
+            if (!$newline) {
+                $messages = substr($messages, 0, $this->lineLength);
+            }
             $messages = $this->processPlaceholders($messages);
 
             if (!$this->isDecorated()) {
@@ -146,5 +154,16 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
         }
 
         return $formatters;
+    }
+
+    /**
+     * @return int
+     */
+    private function getTerminalWidth()
+    {
+        $application = new Console\Application();
+        $dimensions  = $application->getTerminalDimensions();
+
+        return $dimensions[0] ?: self::MAX_LINE_LENGTH;
     }
 }
