@@ -1,10 +1,11 @@
 <?php
 namespace Hub\Logger\Handler;
 
-use Hub\Logger\Record\LoggerRecordInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Hub\IO\Output\OverwritableOutputInterface;
+use Hub\Logger\Record\LoggerRecordInterface;
 
 class ConsoleLoggerHandler implements LoggerHandlerInterface
 {
@@ -67,6 +68,10 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         // Write to the error output if necessary and available
         if ($this->output instanceof ConsoleOutputInterface && $isError) {
             $output = $this->output->getErrorOutput();
+            // Overwrite the previous message in stdout if current output is overwritable
+            if($this->output instanceof OverwritableOutputInterface  && $this->output->isOverwritable()){
+                $this->output->write('');
+            }
         } else {
             $output = $this->output;
         }
@@ -75,7 +80,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         $tag = $this->formatLevelMap[$level];
         $label_tag = $tag . '_label';
 
-        $output->writeln(sprintf('<%1$s>[%3$s]</%1$s>%5$s<%2$s>%4$s</%2$s>',
+        $output->writeln(sprintf(' <%1$s>[%3$s]</%1$s>%5$s<%2$s>%4$s</%2$s>',
             $label_tag,
             $tag,
             strtoupper($level),

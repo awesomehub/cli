@@ -5,7 +5,7 @@ require __DIR__.'/bootstrap.php';
 use Symfony\Component\Debug\ErrorHandler;
 use Hub\Exception\ExceptionHandlerManager;
 use Hub\Exception\Handler\StartupExceptionHandler;
-use Hub\Kernel;
+use Hub\ConsoleKernel;
 
 // Register execption manager and add a temporary startup execption handler
 ExceptionHandlerManager::getInstance()
@@ -16,4 +16,4 @@ ExceptionHandlerManager::getInstance()
 ErrorHandler::register();
 
 // Boot up our app
-(new Kernel())->boot();
+(new ConsoleKernel())->boot();

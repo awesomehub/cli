@@ -1,14 +1,16 @@
 <?php
+
 namespace Hub\Command;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Console;
 use Psr\Log\LoggerInterface;
+use Hub\IO\IOInterface;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Workspace\WorkspaceInterface;
 use Hub\Process\ProcessFactoryInterface;
 use Hub\Filesystem\Filesystem;
 use Hub\Application;
-use Hub\Container;
 
 /**
  * Base command abstract class.
@@ -18,65 +20,65 @@ use Hub\Container;
 abstract class Command extends Console\Command\Command
 {
     /**
-     * @var Container $container
+     * @var ContainerInterface
      */
     protected $container;
 
     /**
-     * @var EnvironmentInterface $environment
+     * @var EnvironmentInterface
      */
     protected $environment;
 
     /**
-     * @var WorkspaceInterface $workspace
+     * @var WorkspaceInterface
      */
     protected $workspace;
 
     /**
-     * @var Filesystem $filesystem
+     * @var Filesystem
      */
     protected $filesystem;
 
     /**
-     * @var Console\Input\InputInterface $input
+     * @var Console\Input\InputInterface
      */
     protected $input;
 
     /**
-     * @var Console\Output\OutputInterface $output
+     * @var Console\Output\OutputInterface
      */
     protected $output;
 
     /**
-     * @var Console\Style\StyleInterface $output
+     * @var IOInterface $io
      */
-    protected $style;
+    protected $io;
 
     /**
-     * @var LoggerInterface $logger
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
-     * @var ProcessFactoryInterface $process
+     * @var ProcessFactoryInterface
      */
     protected $process;
 
     /**
      * @inheritdoc
      */
-    public function run(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    final public function run(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
         $this->container    = $this->getApplication()->getContainer();
 
         $this->environment  = $this->getApplication()->getKernel()->getEnvironment();
-        $this->filesystem   = $this->container->getFilesystem();
-        $this->workspace    = $this->container->getWorkspace();
-        $this->input        = $this->container->getInput();
-        $this->output       = $this->container->getOutput();
-        $this->style        = $this->container->getOutputStyle();
-        $this->logger       = $this->container->getLogger();
-        $this->process      = $this->container->getProcessFactory();
+        $this->filesystem   = $this->container->get('filesystem');
+        $this->workspace    = $this->container->get('workspace');
+        $this->input        = $this->container->get('input');
+        $this->output       = $this->container->get('output');
+        $this->io           = $this->container->get('io');
+        $this->logger       = $this->container->get('logger');
+        $this->process      = $this->container->get('process.factory');
 
         return parent::run($input, $output);
     }
@@ -90,4 +92,49 @@ abstract class Command extends Console\Command\Command
     {
         return parent::getApplication();
     }
+
+    /**
+     * @inheritdoc
+     */
+    protected function initialize(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    {
+        return $this->init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function interact(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    {
+        return $this->validate();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
+    {
+        return $this->exec();
+    }
+
+    /**
+     * Initializes the command just after the input has been validated.
+     */
+    protected function init()
+    {
+    }
+
+    /**
+     * This is where the command can interactively ask for values of missing required arguments..
+     */
+    protected function validate()
+    {
+    }
+
+    /**
+     * Executes the current command.
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
+     */
+    abstract protected function exec();
 }

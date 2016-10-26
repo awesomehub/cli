@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="output.verbosity.normal" type="constant">Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL</parameter>
+        <parameter key="output.verbosity.verbose" type="constant">Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE</parameter>
+    </parameters>
+
+    <services>
+        <service id="factories" class="Hub\Factories" public="false" />
+        <service id="application" class="Hub\Application">
+            <argument type="service" id="kernel" />
+        </service>
+        <service id="workspace" class="Hub\Workspace\StartupWorkspace">
+            <argument type="service" id="environment"/>
+            <argument type="service" id="input"/>
+            <argument type="service" id="filesystem"/>
+        </service>
+        <service id="input" class="Symfony\Component\Console\Input\ArgvInput" />
+        <service id="output" class="Hub\IO\Output\ConsoleOutput">
+            <argument type="expression">service('environment').isDevelopment() ? parameter('output.verbosity.verbose') : parameter('output.verbosity.normal')</argument>
+            <argument>null</argument>
+            <argument type="service" id="output.formatter" />
+        </service>
+        <service id="output.formatter" class="Hub\IO\Output\OutputFormatter" />
+        <service id="filesystem" class="Hub\Filesystem\Filesystem" />
+        <service id="logger" class="Hub\Logger\LoggerManager" />
+        <service id="logger.console" class="Hub\Logger\Handler\ConsoleLoggerHandler" public="false">
+            <argument type="service" id="output" />
+            <tag name="logger.handler" />
+        </service>
+        <service id="logger.file.debug" class="Hub\Logger\Handler\StreamLoggerHandler" public="false">
+            <argument type="expression">service('workspace').path('debug.log')</argument>
+            <argument type="constant">Psr\Log\LogLevel::DEBUG</argument>
+            <tag name="logger.handler" />
+        </service>
+        <service id="logger.file.error" class="Hub\Logger\Handler\StreamLoggerHandler" public="false">
+            <argument type="expression">service('workspace').path('error.log')</argument>
+            <argument type="constant">Psr\Log\LogLevel::ERROR</argument>
+            <tag name="logger.handler" />
+        </service>
+        <service id="io" class="Hub\IO\IO">
+            <argument type="service" id="input" />
+            <argument type="service" id="output" />
+            <argument type="service" id="logger" />
+        </service>
+        <service id="exception" class="Hub\Exception\ExceptionHandlerManager">
+            <factory class="Hub\Exception\ExceptionHandlerManager" method="getInstance" />
+            <call method="register" />
+        </service>
+        <service id="exception.logger" class="Hub\Exception\Handler\LoggerExceptionHandler" public="false">
+            <argument type="service" id="logger" />
+            <tag name="exception.handler" />
+        </service>
+        <service id="http" class="Http\Client\Common\HttpMethodsClient">
+            <argument type="service" id="http.client" />
+            <argument type="service" id="http.messageFactory" />
+        </service>
+        <service id="http.client" class="Http\Adapter\Guzzle6\Client" />
+        <service id="http.messageFactory" class="Http\Message\MessageFactory\GuzzleMessageFactory" public="false" />
+        <service id="github" class="Github\Utils\GithubWrapper">
+            <argument type="service" id="github.client" />
+            <argument type="service" id="github.tokens" />
+            <argument type="service" id="logger" />
+        </service>
+        <service id="github.client" class="Github\Client">
+            <argument type="service" id="http.client" />
+            <call method="addCache">
+                <argument type="service" id="github.cache" />
+                <argument type="collection">
+                    <argument key="respect_cache_headers">false</argument>
+                </argument>
+            </call>
+        </service>
+        <service id="github.cache" class="Symfony\Component\Cache\Adapter\FilesystemAdapter" public="false">
+            <factory service="factories" method="createFilesystemCache" />
+            <argument type="expression">service('workspace').path('cache/github')</argument>
+        </service>
+        <service id="github.tokens" class="Github\Utils\GithubTokenPool" public="false">
+            <factory service="factories" method="createGithubTokenPool" />
+            <argument type="expression">service('workspace').path('cache/github/tokens.pool')</argument>
+            <argument type="expression">service('workspace').config('github.tokens')</argument>
+        </service>
+        <service id="github.inspector" class="Github\Utils\RepoInspector\GithubRepoInspector">
+            <argument type="service" id="github" />
+            <argument type="service" id="http" />
+        </service>
+        <service id="process.factory" class="Hub\Process\ProcessFactory">
+            <argument type="service" id="logger" />
+        </service>
+    </services>
+</container>

@@ -1,8 +1,8 @@
 <?php
 namespace Hub\EntryList\SourceProcessor;
 
-use Psr\Log\LoggerInterface;
 use Hub\Entry\EntryInterface;
+use Hub\Exceptions\SourceProcessorFailedException;
 
 /**
  * Interface for a SourceProcessor.
@@ -23,14 +23,20 @@ interface SourceProcessorInterface
         self::INPUT_ENTRIES,
     ];
 
+    const EVENT_ENTRY_CREATE    = 1;
+    const EVENT_ENTRY_SUCCESS   = 2;
+    const EVENT_ENTRY_FAILED    = 3;
+
     /**
      * Processes the source and outputs new entry(s).
      *
-     * @param LoggerInterface $logger
      * @param array $source
-     * @return EntryInterface[]|EntryInterface|bool Returns new entries on success or FALSE on failure
+     * @param \Closure $callback Should receive 3 atgs ($event, $entry, $message)
+     * @return EntryInterface[]|EntryInterface Returns new entries on success
+     *
+     * @throws SourceProcessorFailedException
      */
-    public function process(LoggerInterface $logger, array $source);
+    public function process(array $source, \Closure $callback = null);
 
     /**
      * Determines whether the processor supports the given source.

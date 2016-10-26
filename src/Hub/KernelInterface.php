@@ -1,6 +1,8 @@
 <?php
 namespace Hub;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Interface for a Kernel.
  *
@@ -28,7 +30,7 @@ interface KernelInterface
     /**
      * Gets the current container.
      *
-     * @return Container
+     * @return ContainerInterface
      */
     public function getContainer();
 

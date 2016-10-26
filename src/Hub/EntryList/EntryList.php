@@ -1,11 +1,14 @@
 <?php
+
 namespace Hub\EntryList;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Config as SymfonyConfig;
+use Hub\IO\IOInterface;
+use Hub\Entry\EntryInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
-use Hub\Entry\EntryInterface;
+use Hub\Exceptions\EntryResolveFailedException;
+use Hub\Exceptions\SourceProcessorFailedException;
 
 /**
  * The Base List class.
@@ -39,60 +42,93 @@ class EntryList implements EntryListInterface
     /**
      * @inheritdoc
      */
-    public function process(LoggerInterface $logger, array $processors, $force = false)
+    public function getId()
     {
-        if($this->isProcessed() && !$force){
-            throw new \LogicException("Cannot process the list since it's already processed.");
+        return strtolower($this->get('id'));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function get($key = null)
+    {
+        if(null === $key){
+            return $this->data;
         }
 
+        if(!array_key_exists($key, $this->data)){
+            throw new \InvalidArgumentException(sprintf("Trying to get an undefined list data key '%s'", $key));
+        }
+
+        return $this->data[$key];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function process(IOInterface $io, array $processors)
+    {
         if(empty($processors)){
             throw new \LogicException("Cannot process the list; No source processors has been provided.");
         }
 
-        // Resolve the list sources
+        $logger = $io->getLogger();
         $logger->info("Processing list sources");
+        $io->startOverwrite();
+        $indicator = ' [ %%spinner%% ] Processesing source#%d => %s (%%elapsed%%)';
 
         $s = 0;
-        $entries = [];
+        $entriesMap = [];
         foreach ($this->data['sources'] as $index => $source){
             $sourceEntries = [];
             $processedWith = false;
             /** @var SourceProcessorInterface $processor */
             foreach ($processors as $processor){
                 if($processor->supports($source)){
-                    $logger->info("Processing source#$index with '" . get_class($processor) . "'");
+                    $logger->info(sprintf("Processing source#%d with '%s'", $index, get_class($processor)));
                     $processedWith = $processor;
-                    $sourceEntries = $processor->process($logger, $source);
+                    try {
+                        $sourceEntries = $processor->process($source, function($event, $entry, $message) use($logger, $io, $index, $indicator){
+                            switch ($event){
+                                case SourceProcessorInterface::EVENT_ENTRY_CREATE:
+                                    $io->write(sprintf($indicator, $index, $entry));
+                                    break;
+                                case SourceProcessorInterface::EVENT_ENTRY_FAILED:
+                                    $logger->warning($message);
+                                    break;
+                            }
+                        });
+                    }
+                    catch (SourceProcessorFailedException $e) {
+                        $logger->critical(sprintf("Failed processing source#%d of type '%s' with '%s'.", $index, $source['type'], get_class($processor)));
+                        continue 2;
+                    }
                     break;
                 }
             }
 
             // Check if no processor can process this source
             if(false === $processedWith){
-                $logger->critical("Ignoring source#$index of type '{$source['type']}'; None of the given processors supports it.");
+                $logger->critical(sprintf("Ignoring source#%d of type '%s'; None of the given processors supports it.", $index, $source['type']));
                 continue;
             }
 
-            // Check if the processor has failed
-            if(false === $sourceEntries || !is_array($sourceEntries)){
-                $logger->critical("Failed processing source#$index of type '{$source['type']}' with '" . get_class($processedWith) . "'.");
-                continue;
-            }
-
-            $logger->info("Processing source#$index completed successfully");
-            $entries = array_merge_recursive($entries, $sourceEntries);
+            $logger->info(sprintf("Processing source#%d completed successfully", $index));
+            $entriesMap = array_merge_recursive($entriesMap, $sourceEntries);
             $s++;
         }
 
-        $logger->info("Processed $s/" . count($this->data['sources']) . " source(s)");
+        $logger->info(sprintf('Processed %d/%d source(s)', $s, count($this->data['sources'])));
+
+        $io->endOverwrite();
 
         $logger->info("Organizing resulted categories and entries");
 
         $id = 1;
         $categories = [];
+        $entries = [];
         $saved = [];
-        foreach ($entries as $category => $categoryEntries) {
-            $category = $this->getCategoryName($category);
+        foreach ($entriesMap as $category => $categoryEntries) {
             $categoryPath = $this->getCategoryPath($category);
             if(!$categoryPath){
                 $categoryPath[] = $category;
@@ -122,113 +158,100 @@ class EntryList implements EntryListInterface
 
             foreach ($categoryEntries as $entry) {
                 /* @var EntryInterface $entry */
-                $entry->set('categories', $categoryPathIds);
+                $entryId = $entry->getId();
+                $entryType = $entry->getType();
+                if(isset($entries[$entryId])){
+                    $entry = $entries[$entryId];
+                }
+
+                // Merge to preserve previous categories if any
+                $entry->merge('categories', $categoryPathIds);
 
                 // Update category counts for all parent categories
-                $type = $entry::TYPE;
                 foreach ($categoryPathIds as $categoryPathId) {
-                    if(!isset($categories[$categoryPathId]['count'][$type])){
-                        $categories[$categoryPathId]['count'][$type] = 1;
+                    if(!isset($categories[$categoryPathId]['count'][$entryType])){
+                        $categories[$categoryPathId]['count'][$entryType] = 1;
                         continue;
                     }
 
-                    $categories[$categoryPathId]['count'][$type]++;
+                    $categories[$categoryPathId]['count'][$entryType]++;
                 }
+
+                $entries[$entryId] = $entry;
             }
         }
 
-        // Flatten entries array
-        $entries = call_user_func_array('array_merge', $entries);
-
-        $this->data['processed'] = true;
         $this->data['categories'] = $categories;
         $this->data['entries'] = $entries;
 
-        $logger->info("Organized " . count($this->data['categories']) . " category(s) and " . count($this->data['entries']) . " entry(s)");
-
-        return true;
+        $logger->info(sprintf(
+            "Organized %d category(s) and %d entry(s)",
+            count($categories),
+            count($entries)
+        ));
     }
 
     /**
      * @inheritdoc
      */
-    public function resolve(LoggerInterface $logger, array $resolvers, $force = false)
+    public function resolve(IOInterface $io, array $resolvers, $force = false)
     {
-        if($this->isResolved() && !$force){
-            throw new \LogicException("Cannot resolve the list since it's already resolved.");
-        }
-
         if(empty($resolvers)){
-            throw new \LogicException("Cannot resolve the list; No resolvers has been provided.");
+            throw new \LogicException("Cannot resolve the list; No resolvers has been provided");
         }
 
-        // Resolve the list entries
-        $logger->info("Resolving list entries");
+        if(empty($this->data['entries'])){
+            throw new \LogicException("No entries to resolve");
+        }
 
-        $i = 0;
+        $logger = $io->getLogger();
+
+        $logger->info("Resolving list entries");
+        $io->startOverwrite();
+        $indicator = ' [ %%spinner%% ] Resolving entry#%d => %s (%%elapsed%%)';
+
+        $i = $ic = 0;
         /* @var EntryInterface $entry */
         foreach ($this->data['entries'] as $index => $entry) {
+            $id = $entry->getId();
             $resolvedWith = false;
+            $isCached = false;
             /* @var EntryResolverInterface $resolver */
             foreach ($resolvers as $resolver) {
                 if($resolver->supports($entry)){
                     $resolvedWith = $resolver;
-                    $resolver->resolve($entry);
+                    $isCached = $resolver->isResolved($entry);
+                    $io->write(sprintf($indicator, $index, $id));
+                    try {
+                        $resolver->resolve($entry, $force);
+                    }
+                    catch (EntryResolveFailedException $e) {
+                        $logger->warning(sprintf("Failed resolving entry#%d [%s] with '%s'; %s", $index, $id, get_class($resolver), $e->getMessage()));
+                        continue 2;
+                    }
+
                     break;
                 }
             }
 
             // Check if no resolver can resolve this entry
             if(false === $resolvedWith){
-                $logger->warning("Ignoring entry#$index of type '" . get_class($entry) . "'; None of the given resolvers supports it.");
+                $logger->warning(sprintf("Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it", $index, $id, get_class($entry)));
                 continue;
             }
 
-            // Check if the resolver has failed
-            if(!$entry->isResolved()){
-                $logger->error("Failed resolving item#$index of type '" . get_class($entry) . "' with '" . get_class($resolvedWith) . "'.");
-                continue;
+            if($isCached){
+                $ic++;
             }
 
             $i++;
         }
 
         // Resolve the list
-        $logger->info("Resolved $i/" . count($this->data['entries']) . " entry(s)");
-
-        return $this->data['resolved'] = true;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function isProcessed()
-    {
-        return (bool) $this->data['processed'];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function isResolved()
-    {
-        return (bool) $this->data['resolved'];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function get($key = null)
-    {
-        if(!$key){
-            return $this->data;
-        }
-
-        if(!array_key_exists($key, $this->data)){
-            throw new \InvalidArgumentException("Trying to get an undefined list data key '$key'.");
-        }
-
-        return $this->data[$key];
+        $logger->info(sprintf("Resolved %d/%d entry(s) with %d cached entry(s)",
+            $i, count($this->data['entries']), $ic
+        ));
+        $io->endOverwrite();
     }
 
     /**
@@ -243,22 +266,6 @@ class EntryList implements EntryListInterface
             new EntryListDefinition(),
             [ $data ]
         );
-    }
-
-    /**
-     * Gets a new name for the category if defined in options.categoryNames.
-     *
-     * @param string $name
-     * @return string
-     */
-    protected function getCategoryName($name)
-    {
-        $names = $this->data['options']['categoryNames'];
-        if(isset($names[$name])){
-            return $names[$name];
-        }
-
-        return $name;
     }
 
     /**

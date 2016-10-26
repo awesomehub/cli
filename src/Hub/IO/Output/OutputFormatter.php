@@ -1,5 +1,5 @@
 <?php
-namespace Hub\Util;
+namespace Hub\IO\Output;
 
 use Symfony\Component\Console\Formatter\OutputFormatter as BaseFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;

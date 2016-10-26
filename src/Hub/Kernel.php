@@ -1,33 +1,42 @@
 <?php
 namespace Hub;
 
-use Psr\Log\LogLevel;
+use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\DependencyInjection\Loader\ClosureLoader;
+use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Environment\Environment;
-use Hub\Exception\Handler\StartupExceptionHandler;
-use Hub\Exception\Handler\LoggerExceptionHandler;
-use Hub\Logger\Handler\ConsoleLoggerHandler;
-use Hub\Logger\Handler\StreamLoggerHandler;
+use Hub\Exception\ExceptionHandlerPass;
+use Hub\Logger\LoggerHandlerPass;
 
 /**
  * The App Kernel.
  *
  * @package AwesomeHub
  */
-class Kernel implements KernelInterface
+abstract class Kernel implements KernelInterface
 {
     /**
-     * @var Container $container
+     * @var ContainerInterface
      */
     protected $container;
 
     /**
-     * @var EnvironmentInterface $environment
+     * @var EnvironmentInterface
      */
     protected $environment;
 
     /**
-     * @var bool $booted
+     * @var bool
      */
     protected $booted = false;
 
@@ -35,12 +44,11 @@ class Kernel implements KernelInterface
      * Kernel constructor.
      *
      * @param EnvironmentInterface $environment
-     * @param Container $container
+     * @param string $mode Possible values are EnvironmentInterface::DEVELOPMENT and EnvironmentInterface::PRODUCTION
      */
-    public function __construct(EnvironmentInterface $environment = null, Container $container = null)
+    public function __construct(EnvironmentInterface $environment = null, $mode = null)
     {
-        $this->environment = $environment ?: new Environment();
-        $this->container = $container ?: new Container();
+        $this->environment = $environment ?: new Environment($mode);
     }
 
     /**
@@ -61,43 +69,16 @@ class Kernel implements KernelInterface
             return;
         }
 
-        // First, we need to ensure we have a valid workspace
-        $this->container->setWorkspace(
-            $this->container->createStartupWorkspace($this->environment)
-        );
+        // init container
+        $this->initializeContainer();
 
-        // Ensure we have a valid output
-        $this->container->setOutput(
-            $this->container->createStartupOutput($this->environment)
-        );
-
-        // Ensure we have a valid logger
-        $loggerManager = $this->container->getLogger();
-        $loggers = $loggerManager->getHandlers();
-        if(count($loggers) == 0){
-            $loggerManager->setHandlers([
-                new ConsoleLoggerHandler($this->container->getOutput()),
-                new StreamLoggerHandler($this->container->getWorkspace()->path('debug.log'), LogLevel::DEBUG),
-                new StreamLoggerHandler($this->container->getWorkspace()->path('error.log'), LogLevel::WARNING),
-            ]);
-        }
-
-        // Ensure we have a valid exception handler
-        $manager = $this->container->getExceptionHandlerManager();
-        $handlers = $manager->getHandlers();
-        if(empty($handlers) ||
-            (count($handlers) == 1 &&
-                current($handlers) instanceof StartupExceptionHandler)
-        ){
-            $manager->setHandlers([
-                new LoggerExceptionHandler($this->container->getLogger())
-            ]);
-        }
-
-        // Create our actual application
-        $application = $this->container->createApplication($this);
+        // Preload important services
+        $this->container->get('exception');
+        $this->container->get('workspace');
+        $this->container->get('io');
 
         // Run our application
+        $application = $this->container->get('application');
         $application->run();
 
         $this->booted = true;
@@ -139,4 +120,96 @@ class Kernel implements KernelInterface
     {
         return $this->container;
     }
+
+    /**
+     * Initializes the service container.
+     *
+     * The cached version of the service container is used when fresh, otherwise the
+     * container is built.
+     */
+    protected function initializeContainer()
+    {
+        $class = 'CachedContainer';
+        $cache = new ConfigCache(__DIR__.DIRECTORY_SEPARATOR.$class.'.php', $this->environment->isDevelopment());
+        if (!$cache->isFresh()) {
+            $container = $this->buildContainer();
+            $container->compile();
+            $this->dumpContainer($cache, $container, $class);
+        }
+
+        $this->container = new CachedContainer();
+        $this->container->set('kernel', $this);
+        $this->container->set('environment', $this->environment);
+    }
+
+    /**
+     * Creates the container builder.
+     *
+     * @return ContainerBuilder
+     */
+    protected function buildContainer()
+    {
+        $container = new ContainerBuilder();
+        $container->addObjectResource($this);
+        $container->addObjectResource($this->environment);
+
+        if (null !== $cont = $this->registerContainerConfiguration($this->getContainerLoader($container))) {
+            $container->merge($cont);
+        }
+
+        // These are just placeholders to allow the container to compile
+        // without errors about non-existing services
+        $container->set('kernel', new \stdClass());
+        $container->set('environment', new \stdClass());
+
+        $container->addCompilerPass(new LoggerHandlerPass($this));
+        $container->addCompilerPass(new ExceptionHandlerPass($this));
+
+        return $container;
+    }
+
+    /**
+     * Dumps the service container to PHP code in the cache.
+     *
+     * @param ConfigCache      $cache     The config cache
+     * @param ContainerBuilder $container The service container
+     * @param string           $class     The name of the class to generate
+     */
+    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class)
+    {
+        $dumper = new PhpDumper($container);
+        $content = $dumper->dump([
+            'class' => $class,
+            'namespace' => __NAMESPACE__,
+            'file' => $cache->getPath(),
+            'debug' => $this->environment->isDevelopment()
+        ]);
+        $cache->write($content, $container->getResources());
+    }
+
+    /**
+     * Returns a loader for the container.
+     *
+     * @param ContainerBuilder $container The service container
+     *
+     * @return DelegatingLoader The loader
+     */
+    protected function getContainerLoader(ContainerBuilder $container)
+    {
+        $locator = new FileLocator(dirname(__DIR__));
+        $resolver = new LoaderResolver([
+            new XmlFileLoader($container, $locator),
+            new PhpFileLoader($container, $locator),
+            new DirectoryLoader($container, $locator),
+            new ClosureLoader($container),
+        ]);
+        return new DelegatingLoader($resolver);
+    }
+
+    /**
+     * Loads the container configuration.
+     *
+     * @param LoaderInterface $loader A LoaderInterface instance
+     */
+    abstract protected function registerContainerConfiguration(LoaderInterface $loader);
 }

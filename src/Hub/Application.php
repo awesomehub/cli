@@ -4,6 +4,7 @@ namespace Hub;
 use Symfony\Component\Console;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * The main console application class.
@@ -42,15 +43,15 @@ class Application extends Console\Application
         $container = $this->getContainer();
 
         // Prevent symfony from catching exceptions if an exception handler manager has been registered
-        if($container->hasExceptionHandlerManager()){
+        if($container->has('exception')){
             $this->setCatchExceptions(false);
         }
 
         if(!$input)
-            $input = $container->getInput();
+            $input = $container->get('input');
 
         if(!$output)
-            $output = $container->getOutput();
+            $output = $container->get('output');
 
         return parent::run($input, $output);
     }
@@ -63,16 +64,19 @@ class Application extends Console\Application
         return [
             new Console\Command\HelpCommand(),
             new Command\CommandsCommand(),
-            new Command\ListFetchCommand(),
+            new Command\MakeBuildCommand(),
+            new Command\MakeCleanCommand(),
+            new Command\ListBuildCommand(),
             new Command\ListInspectCommand(),
-            new Command\ListResolveCommand(),
+            new Command\GithubInspectCommand(),
+            new Command\GithubTokensCommand(),
         ];
     }
 
     /**
      * Gets the DI Container instance.
      *
-     * @return Container
+     * @return ContainerInterface
      */
     public function getContainer()
     {
@@ -80,6 +84,8 @@ class Application extends Console\Application
     }
 
     /**
+     * Gets the Kernel instance.
+     *
      * @return KernelInterface
      */
     public function getKernel()

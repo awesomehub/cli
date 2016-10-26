@@ -1,8 +1,8 @@
 <?php
 namespace Hub\EntryList\SourceProcessor;
 
-use Psr\Log\LoggerInterface;
-use Hub\Entry\Factory\EntryFactoryInterface;
+use Hub\Entry\Factory\TypeEntryFactoryInterface;
+use Hub\Exceptions\SourceProcessorFailedException;
 use Hub\Exceptions\EntryCreationFailedException;
 
 /**
@@ -13,16 +13,16 @@ use Hub\Exceptions\EntryCreationFailedException;
 class EntriesSourceProcessor implements SourceProcessorInterface
 {
     /**
-     * @var EntryFactoryInterface $entryFactory;
+     * @var TypeEntryFactoryInterface $entryFactory;
      */
     protected $entryFactory;
 
     /**
      * Sets the logger and the entry factory.
      *
-     * @param EntryFactoryInterface $entryFactory
+     * @param TypeEntryFactoryInterface $entryFactory
      */
-    public function __construct(EntryFactoryInterface $entryFactory)
+    public function __construct(TypeEntryFactoryInterface $entryFactory)
     {
         $this->entryFactory = $entryFactory;
     }
@@ -30,37 +30,67 @@ class EntriesSourceProcessor implements SourceProcessorInterface
     /**
      * @inheritdoc
      */
-    public function process(LoggerInterface $logger, array $source)
+    public function process(array $source, \Closure $callback = null)
     {
-        if(!is_array($source['data'])){
-            throw new \InvalidArgumentException("Unexpected source data type; Expected [array] but got [" . gettype($source['data']) . "]");
+        /**
+         * @var string $type
+         * @var array $data
+         */
+        extract($source);
+
+        if(!is_array($data)){
+            throw new SourceProcessorFailedException(sprintf(
+                'Unexpected source data type; Expected [array] but got [%s]', gettype($data)
+            ));
         }
 
         $entries = [];
-        foreach ($source['data'] as $category => $categoryEntries) {
+        foreach ($data as $category => $categoryEntries) {
             if(!is_array($categoryEntries)){
-                throw new \InvalidArgumentException("Unexpected source data type at [$category]; Expected [array] but got [" . gettype($categoryEntries) . "]");
+                throw new SourceProcessorFailedException(sprintf(
+                    'Unexpected source data type at [%s]; Expected [array] but got [%s]', $category, gettype($categoryEntries)
+                ));
                 continue;
             }
 
-            $enteries[$category] = [];
+            $entries[$category] = [];
             foreach ($categoryEntries as $index => $entry) {
-                if(!isset($entry['type']) || !isset($entry['data'])){
-                    $logger->warning("Ignoring source entry at [$category][$index]; Incorrect entry schema.");
+                if(!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])){
+                    $callback && $callback(
+                        self::EVENT_ENTRY_FAILED,
+                        sprintf('[%s][%d]', $category, $index),
+                        sprintf('Incorrect entry schema at [%s][%d]', $category, $index)
+                    );
+
                     continue;
                 }
 
                 try {
-                    $output = $this->entryFactory->create($entry);
+                    $callback && $callback(
+                        self::EVENT_ENTRY_CREATE,
+                        sprintf('[%s][%d]', $category, $index),
+                        sprintf("Trying to create an entry from data [%s][%d]", $category, $index)
+                    );
+
+                    $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
                 }
                 catch (EntryCreationFailedException $e){
-                    $logger->warning("Ignoring source entry at [$category][$index]; " . $e->getMessage());
+                    $callback && $callback(
+                        self::EVENT_ENTRY_FAILED,
+                        sprintf('[%s][%d]', $category, $index),
+                        sprintf('Entry creating failed; %s', $e->getMessage())
+                    );
+
                     continue;
                 }
 
-                if(sizeof($output) > 0){
-                    $enteries[$category] = array_merge($enteries[$category], $output);
-                }
+                $callback && $callback(
+                    self::EVENT_ENTRY_SUCCESS,
+                    'Entry created successfully',
+                    sprintf('[%s][%d]', $category, $index)
+                );
+
+                $entries[$category][] = $entryInstance;
             }
         }
 

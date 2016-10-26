@@ -13,12 +13,19 @@ interface EntryListFileInterface extends EntryListInterface
      *
      * @return string
      */
-    function getPath();
+    public function getPath();
+
+    /**
+     * Gets the list cache file path.
+     *
+     * @return string
+     */
+    public function getCachePath();
 
     /**
      * Gets the list file format.
      *
      * @return string
      */
-    function getFormat();
+    public function getFormat();
 }

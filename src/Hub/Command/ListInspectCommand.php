@@ -1,9 +1,8 @@
 <?php
 namespace Hub\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
+use Hub\EntryList\EntryListFile;
+use Symfony\Component\Console\Input;
 use Hub\EntryList\EntryListInterface;
 
 /**
@@ -29,7 +28,7 @@ class ListInspectCommand extends Command
             ->setName('list:inspect')
             ->setDescription('Inspects a fetched hub list.')
             ->addArgument(
-                'list', InputArgument::REQUIRED, 'The name of the cached list'
+                'list', Input\InputArgument::REQUIRED, 'The name of the cached list'
             )
         ;
     }
@@ -37,29 +36,29 @@ class ListInspectCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function exec()
     {
-        $list = $input->getArgument('list');
+        $name = $this->input->getArgument('list');
 
-        // Print process title
-        $this->style->title('Inspecting List: ' . $list);
-
-        // Fetch the cached list
-        $cachedPath = $this->workspace->path(['cache', 'lists', $list]);
-        if(!file_exists($cachedPath)){
-            throw new \LogicException("Unable to fined a cached list named '$list'. Maybe you need to 'list:fetch $list' first.");
+        try {
+            $this->list = EntryListFile::createFromCache($this->filesystem, $this->workspace, $name);
+        }
+        catch (\Exception $e){
+            $this->io->error($e->getMessage());
+            return 1;
         }
 
-        // Set list instance
-        $this->list = unserialize($this->filesystem->read($cachedPath));
+        $this->io->title($name);
 
         // Show basic info
-        $this->style->section("Basic Information");
+        $this->io->section("Basic Information");
         $this->printInfo();
 
         // Show list categories
-        $this->style->section("Categories Information");
+        $this->io->section("Categories Information");
         $this->printCategories();
+
+        return 0;
     }
 
     /**
@@ -85,7 +84,7 @@ class ListInspectCommand extends Command
 
         if($depth === 0){
             if(count($body) == 0){
-                $this->style->text("No categories found");
+                $this->io->text("No categories found");
                 return true;
             }
             $header = ['Category'];
@@ -93,7 +92,7 @@ class ListInspectCommand extends Command
                 $header[] = $type;
             }
 
-            $this->style->table($header, $body);
+            $this->io->table($header, $body);
             return true;
         }
 
@@ -110,8 +109,6 @@ class ListInspectCommand extends Command
         $data = [
             'ID' => $this->list->get('id'),
             'Name' => $this->list->get('name'),
-            'Processed' => $this->list->isProcessed() ? 'Yes' : 'No',
-            'Resolved' => $this->list->isResolved() ? 'Yes' : 'No',
             'Sources' => count($this->list->get('sources')),
             'Categories' => count($this->list->get('categories')),
             'Entries' => count($this->list->get('entries')),
@@ -122,6 +119,6 @@ class ListInspectCommand extends Command
             $list[] = sprintf('<info>%1$s:</info> %2$s', $key, $value);
         }
 
-        $this->style->listing($list);
+        $this->io->listing($list);
     }
 }
