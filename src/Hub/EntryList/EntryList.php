@@ -23,6 +23,11 @@ class EntryList implements EntryListInterface
     protected $data;
 
     /**
+     * @var bool
+     */
+    protected $resolved = false;
+
+    /**
      * Constructor.
      *
      * @param array $data List definition
@@ -247,11 +252,19 @@ class EntryList implements EntryListInterface
             $i++;
         }
 
-        // Resolve the list
+        $this->resolved = true;
         $logger->info(sprintf("Resolved %d/%d entry(s) with %d cached entry(s)",
             $i, count($this->data['entries']), $ic
         ));
         $io->endOverwrite();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isResolved()
+    {
+        return $this->resolved;
     }
 
     /**

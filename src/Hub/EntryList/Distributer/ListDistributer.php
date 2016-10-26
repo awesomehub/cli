@@ -63,6 +63,10 @@ class ListDistributer implements ListDistributerInterface
      */
     public function distribute(EntryListInterface $list)
     {
+        if(!$list->isResolved()){
+            throw new \LogicException("Cannot distribute a list that is not yet resolved");
+        }
+
         $this->list = $list;
 
         $this->buildList();
