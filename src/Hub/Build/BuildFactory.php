@@ -46,10 +46,14 @@ class BuildFactory implements BuildFactoryInterface
      */
     public function create($path = null)
     {
-        return new Build($this->filesystem,
+        $build = new Build($this->filesystem,
             $path ?: $this->path['dist'],
             $this->getNextBuildNumber()
         );
+
+        $build->clean();
+
+        return $build;
     }
 
     /**

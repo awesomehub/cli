@@ -33,7 +33,7 @@ class MakeBuildCommand extends Command
      */
     public function validate()
     {
-        if ($this->input->hasArgument('--release')) {
+        if ($this->input->getOption('release')) {
             $yes = $this->io->confirm(sprintf('Are you sure you want to mark this build as a release?'));
             if (!$yes) {
                 exit(0);
@@ -76,7 +76,7 @@ class MakeBuildCommand extends Command
             }
         }
 
-        if ($this->input->hasArgument('--release')) {
+        if ($this->input->getOption('release')) {
             $this->logger->info('Caching current build');
             $buildFactory->cache($build);
         }
