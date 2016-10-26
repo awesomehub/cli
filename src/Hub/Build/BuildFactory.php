@@ -94,7 +94,7 @@ class BuildFactory implements BuildFactoryInterface
     protected function getNextBuildNumber()
     {
         $number = [date('Ymd'), 0];
-        $file   = $this->workspace->path('build.dat');
+        $file   = $this->workspace->path('.buildnum');
         if (file_exists($file)) {
             $pnumber = explode('.', $this->filesystem->read($file));
             if (count($pnumber) === 2 && $number[0] == $pnumber[0]) {
