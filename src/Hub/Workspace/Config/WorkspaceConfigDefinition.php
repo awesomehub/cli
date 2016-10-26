@@ -43,6 +43,18 @@ class WorkspaceConfigDefinition implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('dist')
+                    ->info('Contains build related configurations.')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('listCollections')
+                            ->defaultValue([])
+                            ->prototype('array')
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

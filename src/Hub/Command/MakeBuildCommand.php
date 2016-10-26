@@ -65,7 +65,9 @@ class MakeBuildCommand extends Command
             '',
         ]);
 
-        $dist = new ListDistributer($build, $buildFactory->getCached() ?: null);
+        $dist = new ListDistributer($build, $buildFactory->getCached() ?: null, [
+            'collections' => $this->workspace->config('dist.listCollections')
+        ]);
         foreach ($lists as $list) {
             try {
                 $this->logger->info(sprintf("Building list '%s'", $list));
