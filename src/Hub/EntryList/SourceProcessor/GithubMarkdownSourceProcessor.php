@@ -40,11 +40,9 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      */
     public function process(array $source, \Closure $callback = null)
     {
-        /*
-         * @var string $type
-         * @var array $data
-         * @var array $options
-         */
+        /* @var string $type */
+        /* @var array  $data */
+        /* @var array  $options */
         extract($source);
 
         if ($type === self::INPUT_MARKDOWN_URL) {

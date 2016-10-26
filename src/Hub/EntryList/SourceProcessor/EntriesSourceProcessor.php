@@ -31,10 +31,8 @@ class EntriesSourceProcessor implements SourceProcessorInterface
      */
     public function process(array $source, \Closure $callback = null)
     {
-        /*
-         * @var string $type
-         * @var array $data
-         */
+        /* @var string $type */
+        /* @var array  $data */
         extract($source);
 
         if (!is_array($data)) {
