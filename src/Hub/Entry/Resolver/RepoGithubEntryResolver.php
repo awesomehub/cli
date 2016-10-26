@@ -148,7 +148,8 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      */
     protected function getPath(RepoGithubEntryInterface $entry)
     {
-        return $this->workspace->path(['cache/entries', $entry->getType(), $entry->getAuthor(), $entry->getName()]);
+        $author = $entry->getAuthor();
+        return $this->workspace->path(['cache/entries', $entry->getType(), $author[0], $author[1], $author, $entry->getName()]);
     }
 
     /**
