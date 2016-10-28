@@ -152,9 +152,11 @@ class ListDistributer implements ListDistributerInterface
     protected function addToCollection($collection)
     {
         $file  = 'lists/'.$collection;
-        $lists = [];
+        $collection = [
+            'lists' => []
+        ];
         if ($this->build->exists($file)) {
-            $lists = $this->build->read($file);
+            $collection['lists'] = $this->build->read($file);
         }
 
         $list = [
@@ -166,11 +168,11 @@ class ListDistributer implements ListDistributerInterface
             'updated' => $this->updated,
         ];
 
-        if (!in_array($list, $lists)) {
-            array_push($lists, $list);
+        if (!in_array($list, $collection['lists'])) {
+            array_push($collection['lists'], $list);
         }
 
-        $this->build->write($file, $lists);
+        $this->build->write($file, $collection);
     }
 
     /**
