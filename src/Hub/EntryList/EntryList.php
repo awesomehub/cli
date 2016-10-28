@@ -229,6 +229,7 @@ class EntryList implements EntryListInterface
                     try {
                         $resolver->resolve($entry, $force);
                     } catch (EntryResolveFailedException $e) {
+                        unset($this->data['entries'][$id]);
                         $logger->warning(sprintf("Failed resolving entry#%d [%s] with '%s'; %s", $i, $id, get_class($resolver), $e->getMessage()));
                         continue 2;
                     }
@@ -239,6 +240,7 @@ class EntryList implements EntryListInterface
 
             // Check if no resolver can resolve this entry
             if (false === $resolvedWith) {
+                unset($this->data['entries'][$id]);
                 $logger->warning(sprintf("Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it", $i, $id, get_class($entry)));
                 continue;
             }
@@ -252,7 +254,7 @@ class EntryList implements EntryListInterface
 
         $this->resolved = true;
         $logger->info(sprintf('Resolved %d/%d entry(s) with %d cached entry(s)',
-            $ir, count($this->data['entries']), $ic
+            $ir, $i, $ic
         ));
         $io->endOverwrite();
     }
