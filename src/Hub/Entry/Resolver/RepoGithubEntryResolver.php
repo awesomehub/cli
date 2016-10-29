@@ -68,11 +68,11 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         }
 
         $entry->merge([
-            'desc'     => $this->cleanStr($repo['description']),
-            'language' => $repo['language'],
-            'score'    => $repo['scores_avg'],
-            'scores'   => $repo['scores'],
-            'pushed'   => date(\DateTime::ISO8601, strtotime($repo['pushed_at'])),
+            'description' => $this->cleanStr($repo['description']),
+            'language'    => $repo['language'],
+            'scores_avg'  => $repo['scores_avg'],
+            'scores'      => $repo['scores'],
+            'pushed'      => strtotime($repo['pushed_at']),
         ]);
 
         try {
@@ -149,6 +149,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     protected function getPath(RepoGithubEntryInterface $entry)
     {
         $author = $entry->getAuthor();
+
         return $this->workspace->path(['cache/entries', $entry->getType(), $author[0], $author[1], $author, $entry->getName()]);
     }
 

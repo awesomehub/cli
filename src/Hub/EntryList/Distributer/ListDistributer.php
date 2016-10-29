@@ -96,11 +96,9 @@ class ListDistributer implements ListDistributerInterface
         /** @var EntryInterface $entry */
         foreach ($this->list->get('entries') as $entry) {
             $entryData            = $entry->get();
-            $entryData['updated'] = date('c');
+            $entryData['updated'] = time();
             $entryDataCache       = $this->getCachedObject($entry->getId()) ?: $entryData;
-
-            // Check if its updated
-            $diff = $this->deepDiffArray($entryData, $entryDataCache);
+            $diff                 = $this->deepDiffArray($entryData, $entryDataCache);
             if (count($diff) == 1) {
                 $entryData['updated'] = $entryDataCache['updated'];
             } else {
@@ -109,41 +107,64 @@ class ListDistributer implements ListDistributerInterface
             }
 
             if ($entry instanceof RepoGithubEntryInterface) {
-                $entryData['score_d']  = $entryData['score'] - $entryDataCache['score'];
-                $entryData['scores_d'] = [
-                    'p' => $entryData['scores']['p'] - $entryDataCache['scores']['p'],
-                    'h' => $entryData['scores']['h'] - $entryDataCache['scores']['h'],
-                    'a' => $entryData['scores']['a'] - $entryDataCache['scores']['a'],
-                    'm' => $entryData['scores']['m'] - $entryDataCache['scores']['m'],
-                ];
+                $entryData = $this->buildEntryRepoGithub($entryData, $entryDataCache);
             }
 
             $entries[$entry->getType()][] = $entryData;
         }
 
         $list = [
-            'id'         => $this->list->getId(),
-            'name'       => $this->list->get('name'),
-            'desc'       => $this->list->get('desc'),
-            'score'      => $this->list->get('score'),
-            'categories' => $this->list->get('categories'),
-            'updated'    => date('c'),
+            'id'      => $this->list->getId(),
+            'name'    => $this->list->get('name'),
+            'desc'    => $this->list->get('desc'),
+            'score'   => $this->list->get('score'),
+            'cats'    => $this->list->get('categories'),
+            'updated' => time(),
         ];
 
         $cid       = 'list:'.$list['id'];
-        $dataCache = $this->getCachedObject($cid) ?: $list;
-        $diff      = $this->deepDiffArray($list, $dataCache);
+        $listCache = $this->getCachedObject($cid) ?: $list;
+        $diff      = $this->deepDiffArray($list, $listCache);
         if (count($diff) == 1 && !$updated) {
-            $list['updated'] = $dataCache['updated'];
+            $list['updated'] = $listCache['updated'];
         } else {
             $this->setObject($cid, $list);
         }
 
-        $list = array_merge($list, $entries);
+        $list['entries'] = $entries;
         $this->build->write('list/'.$list['id'], $list);
         $this->updated = $list['updated'];
     }
 
+    /**
+     * Builds an API consumable output of a RepoGithubEntry.
+     *
+     * @param array $current
+     * @param array $cached
+     *
+     * @return array
+     */
+    protected function buildEntryRepoGithub(array $current, array $cached)
+    {
+        return [
+            'author'   => $current['author'],
+            'name'     => $current['name'],
+            'desc'     => $current['description'],
+            'lang'     => $current['language'],
+            'cats'     => $current['categories'],
+            'score'    => $current['scores_avg'],
+            'scores'   => $current['scores'],
+            'score_d'  => $current['scores_avg'] - $cached['scores_avg'],
+            'scores_d' => [
+                'p' => $current['scores']['p'] - $cached['scores']['p'],
+                'h' => $current['scores']['h'] - $cached['scores']['h'],
+                'a' => $current['scores']['a'] - $cached['scores']['a'],
+                'm' => $current['scores']['m'] - $cached['scores']['m'],
+            ],
+            'pushed'  => $current['pushed'],
+            'updated' => $current['updated'],
+        ];
+    }
     /**
      * Adds the current list to a collection.
      *
@@ -151,9 +172,9 @@ class ListDistributer implements ListDistributerInterface
      */
     protected function addToCollection($collection)
     {
-        $file  = 'lists/'.$collection;
+        $file       = 'lists/'.$collection;
         $collection = [
-            'lists' => []
+            'lists' => [],
         ];
         if ($this->build->exists($file)) {
             $collection['lists'] = $this->build->read($file);
