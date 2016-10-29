@@ -121,7 +121,7 @@ class ListDistributer implements ListDistributerInterface
             $entries[$entry->getType()][] = $entryData;
         }
 
-        $data = [
+        $list = [
             'id'         => $this->list->getId(),
             'name'       => $this->list->get('name'),
             'desc'       => $this->list->get('desc'),
@@ -130,18 +130,18 @@ class ListDistributer implements ListDistributerInterface
             'updated'    => date('c'),
         ];
 
-        $cid       = 'list:'.$data['id'];
-        $dataCache = $this->getCachedObject($cid) ?: $data;
-        $diff      = $this->deepDiffArray($data, $dataCache);
+        $cid       = 'list:'.$list['id'];
+        $dataCache = $this->getCachedObject($cid) ?: $list;
+        $diff      = $this->deepDiffArray($list, $dataCache);
         if (count($diff) == 1 && !$updated) {
-            $data['updated'] = $dataCache['updated'];
+            $list['updated'] = $dataCache['updated'];
         } else {
-            $this->setObject($cid, $data);
+            $this->setObject($cid, $list);
         }
 
-        $data = array_merge($data, $entries);
-        $this->build->write('list/'.$data['id'], $data);
-        $this->updated = $data['updated'];
+        $list = array_merge($list, $entries);
+        $this->build->write('list/'.$list['id'], $list);
+        $this->updated = $list['updated'];
     }
 
     /**
