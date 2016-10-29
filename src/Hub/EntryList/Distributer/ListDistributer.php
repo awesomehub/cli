@@ -107,6 +107,10 @@ class ListDistributer implements ListDistributerInterface
             }
 
             if ($entry instanceof RepoGithubEntryInterface) {
+                // Ignore entries with very low score
+                if($entryData['scores_avg'] < 10){
+                    continue;
+                }
                 $entryData = $this->buildEntryRepoGithub($entryData, $entryDataCache);
             }
 
