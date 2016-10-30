@@ -172,12 +172,19 @@ class EntryList implements EntryListInterface
 
                 // Update category counts for all parent categories
                 foreach ($categoryPathIds as $categoryPathId) {
-                    if (!isset($categories[$categoryPathId]['count'][$entryType])) {
-                        $categories[$categoryPathId]['count'][$entryType] = 1;
-                        continue;
+                    // Update the sum count
+                    if (isset($categories[$categoryPathId]['count']['all'])) {
+                        ++$categories[$categoryPathId]['count']['all'];
+                    } else {
+                        $categories[$categoryPathId]['count']['all'] = 1;
                     }
 
-                    ++$categories[$categoryPathId]['count'][$entryType];
+                    // Update entry type count
+                    if (isset($categories[$categoryPathId]['count'][$entryType])) {
+                        ++$categories[$categoryPathId]['count'][$entryType];
+                    } else {
+                        $categories[$categoryPathId]['count'][$entryType] = 1;
+                    }
                 }
 
                 $entries[$entryId] = $entry;

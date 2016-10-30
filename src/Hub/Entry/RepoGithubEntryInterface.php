@@ -5,19 +5,7 @@ namespace Hub\Entry;
 /**
  * Interface for an RepoGithubEntry.
  */
-interface RepoGithubEntryInterface extends EntryInterface
+interface RepoGithubEntryInterface extends RepoEntryInterface
 {
-    /**
-     * Gets the author of the repo.
-     *
-     * @return string
-     */
-    public function getAuthor();
 
-    /**
-     * Gets the name of the repo.
-     *
-     * @return string
-     */
-    public function getName();
 }
