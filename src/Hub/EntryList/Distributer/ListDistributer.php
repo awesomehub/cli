@@ -108,7 +108,8 @@ class ListDistributer implements ListDistributerInterface
 
             if ($entry instanceof RepoGithubEntryInterface) {
                 // Ignore entries with very low score
-                if($entryData['scores_avg'] < 10){
+                if($entryData['scores_avg'] <= 15){
+                    $this->list->removeEntry($entry);
                     continue;
                 }
                 $entryData = $this->buildEntryRepoGithub($entryData, $entryDataCache);
@@ -122,7 +123,7 @@ class ListDistributer implements ListDistributerInterface
             'name'    => $this->list->get('name'),
             'desc'    => $this->list->get('desc'),
             'score'   => $this->list->get('score'),
-            'cats'    => $this->list->get('categories'),
+            'cats'    => array_values($this->list->get('categories')),
             'updated' => time(),
         ];
 
@@ -169,6 +170,7 @@ class ListDistributer implements ListDistributerInterface
             'updated' => $current['updated'],
         ];
     }
+
     /**
      * Adds the current list to a collection.
      *
