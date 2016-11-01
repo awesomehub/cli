@@ -71,24 +71,24 @@ class ListInspectCommand extends Command
      */
     protected function printCategories(int $parent = 0, int $depth = 0)
     {
-        $body = [];
+        $body  = [];
         $total = 0;
         foreach ($this->list->get('categories') as $id => $category) {
             if ($category['parent'] == $parent) {
                 $row = [str_repeat('-', $depth + 1).' '.$category['title']];
-                if($depth === 0){
+                if ($depth === 0) {
                     $total += $category['count']['all'];
                 }
                 foreach ($category['count'] as $type => $count) {
-                    if($type !== 'all'){
+                    if ($type !== 'all') {
                         $realCount = 0;
                         /** @var EntryInterface $ntry */
                         foreach ($this->list->get('entries') as $ntry) {
-                            if(in_array($category['id'], $ntry->get('categories'))){
-                                $realCount++;
+                            if (in_array($category['id'], $ntry->get('categories'))) {
+                                ++$realCount;
                             }
                         }
-                        if($count !== $realCount){
+                        if ($count !== $realCount) {
                             $count = sprintf('%d <debug>(%d)</debug>', $count, $realCount);
                         }
                     }
@@ -114,7 +114,7 @@ class ListInspectCommand extends Command
             $this->io->table($header, $body);
 
             $this->io->listing([
-                sprintf('<info>Total Count:</info> %d', $total)
+                sprintf('<info>Total Count:</info> %d', $total),
             ]);
 
             return true;

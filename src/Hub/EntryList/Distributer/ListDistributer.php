@@ -108,7 +108,7 @@ class ListDistributer implements ListDistributerInterface
 
             if ($entry instanceof RepoGithubEntryInterface) {
                 // Ignore entries with very low score
-                if($entryData['scores_avg'] <= 15){
+                if ($entryData['scores_avg'] <= 15) {
                     $this->list->removeEntry($entry);
                     continue;
                 }

@@ -7,5 +7,4 @@ namespace Hub\Entry;
  */
 interface RepoGithubEntryInterface extends RepoEntryInterface
 {
-
 }

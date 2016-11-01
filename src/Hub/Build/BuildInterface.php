@@ -11,7 +11,7 @@ interface BuildInterface
      * Gets a build path.
      *
      * @param array|string $path Path segments as array or string
-     * @param bool         $raw Ignores file format extension
+     * @param bool         $raw  Ignores file format extension
      *
      * @return string
      */
@@ -80,7 +80,7 @@ interface BuildInterface
      * Checks if a file from the build directory does exist.
      *
      * @param string $path
-     * @param bool   $raw Ignores file format extension
+     * @param bool   $raw  Ignores file format extension
      *
      * @return bool
      */

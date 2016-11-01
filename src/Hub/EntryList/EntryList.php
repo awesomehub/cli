@@ -293,7 +293,7 @@ class EntryList implements EntryListInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeEntry(EntryInterface $entry)
     {
@@ -305,12 +305,12 @@ class EntryList implements EntryListInterface
         // Update cat counts
         $categories = $this->get('categories');
         foreach ($categories as $i => $category) {
-            if(in_array($category['id'], $entry->get('categories'))){
+            if (in_array($category['id'], $entry->get('categories'))) {
                 --$categories[$i]['count']['all'];
                 --$categories[$i]['count'][$entry->getType()];
 
                 // Remove the category if it hs no entries
-                if(1 > $categories[$i]['count']['all']){
+                if (1 > $categories[$i]['count']['all']) {
                     unset($categories[$i]);
                 }
             }
