@@ -2,6 +2,7 @@
 
 namespace Hub\EntryList;
 
+use Hub\Entry\EntryInterface;
 use Hub\IO\IOInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
@@ -50,4 +51,19 @@ interface EntryListInterface
      * @return array
      */
     public function get($key = null);
+
+    /**
+     * Sets the value of a given data key or the whole data array.
+     *
+     * @param string|array $key
+     * @param mixed        $value
+     */
+    public function set($key, $value = null);
+
+    /**
+     * Removes an entry from the list and recounts category stats.
+     *
+     * @param EntryInterface $entry
+     */
+    public function removeEntry(EntryInterface $entry);
 }

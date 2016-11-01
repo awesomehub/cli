@@ -69,6 +69,24 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
+    public function set($key, $value = null)
+    {
+        if ($value == null) {
+            if (!is_array($key)) {
+                throw new \UnexpectedValueException(sprintf('Expected array but got %s'), var_export($key));
+            }
+
+            $this->data = $key;
+
+            return;
+        }
+
+        $this->data[$key] = $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function process(IOInterface $io, array $processors)
     {
         if (empty($processors)) {
@@ -236,7 +254,7 @@ class EntryList implements EntryListInterface
                     try {
                         $resolver->resolve($entry, $force);
                     } catch (EntryResolveFailedException $e) {
-                        unset($this->data['entries'][$id]);
+                        $this->removeEntry($entry);
                         $logger->warning(sprintf("Failed resolving entry#%d [%s] with '%s'; %s", $i, $id, get_class($resolver), $e->getMessage()));
                         continue 2;
                     }
@@ -247,7 +265,7 @@ class EntryList implements EntryListInterface
 
             // Check if no resolver can resolve this entry
             if (false === $resolvedWith) {
-                unset($this->data['entries'][$id]);
+                $this->removeEntry($entry);
                 $logger->warning(sprintf("Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it", $i, $id, get_class($entry)));
                 continue;
             }
@@ -272,6 +290,32 @@ class EntryList implements EntryListInterface
     public function isResolved()
     {
         return $this->resolved;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeEntry(EntryInterface $entry)
+    {
+        // Remove from entries
+        $entries = $this->get('entries');
+        unset($entries[$entry->getId()]);
+        $this->set('entries', $entries);
+
+        // Update cat counts
+        $categories = $this->get('categories');
+        foreach ($categories as $i => $category) {
+            if(in_array($category['id'], $entry->get('categories'))){
+                --$categories[$i]['count']['all'];
+                --$categories[$i]['count'][$entry->getType()];
+
+                // Remove the category if it hs no entries
+                if(1 > $categories[$i]['count']['all']){
+                    unset($categories[$i]);
+                }
+            }
+        }
+        $this->set('categories', $categories);
     }
 
     /**
