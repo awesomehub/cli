@@ -2,6 +2,7 @@
 
 namespace Hub\Command;
 
+use Hub\Entry\EntryInterface;
 use Hub\EntryList\EntryListFile;
 use Symfony\Component\Console\Input;
 use Hub\EntryList\EntryListInterface;
@@ -71,10 +72,26 @@ class ListInspectCommand extends Command
     protected function printCategories(int $parent = 0, int $depth = 0)
     {
         $body = [];
+        $total = 0;
         foreach ($this->list->get('categories') as $id => $category) {
             if ($category['parent'] == $parent) {
                 $row = [str_repeat('-', $depth + 1).' '.$category['title']];
+                if($depth === 0){
+                    $total += $category['count']['all'];
+                }
                 foreach ($category['count'] as $type => $count) {
+                    if($type !== 'all'){
+                        $realCount = 0;
+                        /** @var EntryInterface $ntry */
+                        foreach ($this->list->get('entries') as $ntry) {
+                            if(in_array($category['id'], $ntry->get('categories'))){
+                                $realCount++;
+                            }
+                        }
+                        if($count !== $realCount){
+                            $count = sprintf('%d <debug>(%d)</debug>', $count, $realCount);
+                        }
+                    }
                     $row[] = $count;
                 }
                 $body[] = $row;
@@ -88,12 +105,17 @@ class ListInspectCommand extends Command
 
                 return true;
             }
+
             $header = ['Category'];
             foreach (current($this->list->get('categories'))['count'] as $type => $count) {
                 $header[] = $type;
             }
 
             $this->io->table($header, $body);
+
+            $this->io->listing([
+                sprintf('<info>Total Count:</info> %d', $total)
+            ]);
 
             return true;
         }
