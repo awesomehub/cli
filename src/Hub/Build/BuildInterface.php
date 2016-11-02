@@ -87,6 +87,11 @@ interface BuildInterface
     public function exists($path = null, $raw = false);
 
     /**
+     * Finalizes the build at the end of the build process.
+     */
+    public function finalize();
+
+    /**
      * Cleans the build directory.
      */
     public function clean();

@@ -48,6 +48,7 @@ class MakeBuildCommand extends Command
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
         $build        = $buildFactory->create();
+        $cachedBuild  = $buildFactory->getCached() ?: null;
         $lists        = EntryListFile::findCachedLists($this->workspace);
 
         if (count($lists) == 0) {
@@ -65,7 +66,8 @@ class MakeBuildCommand extends Command
             '',
         ]);
 
-        $dist = new ListDistributer($build, $buildFactory->getCached() ?: null, [
+        $this->logger->info(sprintf('Initiating list distributer %s cached build', $cachedBuild ? 'with' : 'without'));
+        $dist = new ListDistributer($build, $cachedBuild, [
             'collections' => $this->workspace->config('dist.listCollections'),
         ]);
         foreach ($lists as $list) {
@@ -78,8 +80,11 @@ class MakeBuildCommand extends Command
             }
         }
 
+        $this->logger->info('Finalizing build');
+        $build->finalize();
+
         if ($this->input->getOption('release')) {
-            $this->logger->info('Caching current build');
+            $this->logger->info('Caching build');
             $buildFactory->cache($build);
         }
 

@@ -191,6 +191,14 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
+    public function finalize()
+    {
+        $this->write('build', $this->meta);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function clean()
     {
         $this->filesystem->remove($this->path);
