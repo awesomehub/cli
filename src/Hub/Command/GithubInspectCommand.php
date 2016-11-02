@@ -68,7 +68,7 @@ class GithubInspectCommand extends Command
             sprintf('   <debug>- Branches:</debug> %d', $repo['branches_count']),
             sprintf('   <debug>- Contributers:</debug> %d', $repo['contributers_count']),
             sprintf('   <debug>- Releases:</debug> %d', $repo['releases_count']),
-            sprintf('   <debug>- Size:</debug> %dM', round($repo['size'] / 1024, 1)),
+            sprintf('   <debug>- Size:</debug> %sM', round($repo['size'] / 1024, 1)),
         ];
 
         if (!empty($repo['description'])) {
