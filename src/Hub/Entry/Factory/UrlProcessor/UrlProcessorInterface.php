@@ -29,7 +29,10 @@ interface UrlProcessorInterface
      *
      * @param string $url
      *
-     * @return EntryInterface[]|EntryInterface|bool Returns new entries on success or FALSE on failure
+     * @return EntryInterface[]|EntryInterface|string[]|string|bool When success it returns new entries or a single
+     *                                                              entry, on partial processing it returns child
+     *                                                              urls or a single child url, on failure
+     *                                                              it returns FALSE
      */
     public function process($url);
 
