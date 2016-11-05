@@ -46,7 +46,11 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
             return $instances;
         }
 
-        switch (self::supports($type)) {
+        if (!$class = self::supports($type)) {
+            throw new EntryCreationFailedException(sprintf("Unsupported entry type '%s'", $type));
+        }
+
+        switch ($class) {
             case RepoGithubEntry::class:
                 if (!isset($data['author']) || !isset($data['name'])) {
                     throw new EntryCreationFailedException(sprintf(
@@ -57,8 +61,6 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
 
                 return new RepoGithubEntry($data['author'], $data['name']);
         }
-
-        throw new EntryCreationFailedException(sprintf("Unsupported entry type '%s'", $type));
     }
 
     /**
@@ -71,7 +73,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
             return $types;
         }
 
-        return $types[$type];
+        return $types[$type] ?? false;
     }
 
     /**
