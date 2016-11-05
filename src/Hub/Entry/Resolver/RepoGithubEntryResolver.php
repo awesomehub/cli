@@ -162,6 +162,9 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      */
     protected function cleanStr($string)
     {
-        return trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $string));
+        // Strip non-utf chars
+        $string = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $string);
+        // Strip github emoticons
+        return trim(preg_replace('/\:[^\:]+\:/', '', $string));
     }
 }
