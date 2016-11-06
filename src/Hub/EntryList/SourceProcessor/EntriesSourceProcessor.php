@@ -3,7 +3,7 @@
 namespace Hub\EntryList\SourceProcessor;
 
 use Hub\Entry\Factory\TypeEntryFactoryInterface;
-use Hub\Exceptions\SourceProcessorFailedException;
+use Hub\EntryList\Source\SourceInterface;
 use Hub\Exceptions\EntryCreationFailedException;
 
 /**
@@ -29,75 +29,45 @@ class EntriesSourceProcessor implements SourceProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function process(array $source, \Closure $callback = null)
+    public function process(SourceInterface $source, \Closure $callback = null)
     {
-        /* @var string $type */
-        /* @var array  $data */
-        extract($source);
-
-        if (!is_array($data)) {
-            throw new SourceProcessorFailedException(sprintf(
-                'Unexpected source data type; Expected [array] but got [%s]', gettype($data)
+        $entries = $source->getData();
+        if (!is_array($entries)) {
+            throw new \UnexpectedValueException(sprintf(
+                'Unexpected source data type; Expected [array] but got [%s]', gettype($entries)
             ));
         }
 
-        $entries = [];
-        foreach ($data as $category => $categoryEntries) {
-            if (!is_array($categoryEntries)) {
-                throw new SourceProcessorFailedException(sprintf(
-                    'Unexpected source data type at [%s]; Expected [array] but got [%s]', $category, gettype($categoryEntries)
-                ));
+        foreach ($entries as $i => $entry) {
+            if (!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])) {
+                throw new \RuntimeException(sprintf(sprintf('Incorrect entry schema at entries[%d]', $i)));
+            }
+
+            $callback(self::ON_STATUS_UPDATE, [
+                'type' => 'info',
+                'message' => sprintf("Attempting to create an entry from data at entries[%d]", $i)
+            ]);
+            try {
+                $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
+            } catch (EntryCreationFailedException $e) {
+                $callback(self::ON_STATUS_UPDATE, [
+                    'type' => 'error',
+                    'message' => sprintf("Ignoring entry at entries[%d]; %s", $i, $e->getMessage())
+                ]);
                 continue;
             }
 
-            $entries[$category] = [];
-            foreach ($categoryEntries as $index => $entry) {
-                if (!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])) {
-                    $callback && $callback(
-                        self::EVENT_ENTRY_FAILED,
-                        sprintf('[%s][%d]', $category, $index),
-                        sprintf('Incorrect entry schema at [%s][%d]', $category, $index)
-                    );
-
-                    continue;
-                }
-
-                try {
-                    $callback && $callback(
-                        self::EVENT_ENTRY_CREATE,
-                        sprintf('[%s][%d]', $category, $index),
-                        sprintf('Trying to create an entry from data [%s][%d]', $category, $index)
-                    );
-
-                    $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
-                } catch (EntryCreationFailedException $e) {
-                    $callback && $callback(
-                        self::EVENT_ENTRY_FAILED,
-                        sprintf('[%s][%d]', $category, $index),
-                        sprintf('Entry creating failed; %s', $e->getMessage())
-                    );
-
-                    continue;
-                }
-
-                $callback && $callback(
-                    self::EVENT_ENTRY_SUCCESS,
-                    'Entry created successfully',
-                    sprintf('[%s][%d]', $category, $index)
-                );
-
-                $entries[$category][] = $entryInstance;
-            }
+            $callback(self::ON_ENTRY_CREATED, $entryInstance);
         }
-
-        return $entries;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supports(array $source)
+    public function getAction(SourceInterface $source)
     {
-        return $source['type'] === self::INPUT_ENTRIES;
+        return $source->getType() === 'entries'
+            ? self::ACTION_PROCESSING
+            : self::ACTION_SKIP;
     }
 }

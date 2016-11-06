@@ -5,9 +5,10 @@ namespace Hub\Command;
 use Symfony\Component\Console\Input;
 use Hub\EntryList\EntryListInterface;
 use Hub\EntryList\EntryListFile;
-use Hub\EntryList\SourceProcessor\UrlsSourceProcessor;
+use Hub\EntryList\SourceProcessor\UrlListSourceProcessor;
 use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
 use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubMarkdownUrlSourceProcessor;
 use Hub\Entry\Resolver\RepoGithubEntryResolver;
 use Hub\Entry\Factory\TypeEntryFactory;
 use Hub\Entry\Factory\UrlEntryFactory;
@@ -96,13 +97,7 @@ class ListBuildCommand extends Command
         }
 
         // Build a single list
-        try {
-            $this->build($path, $format, $noResolve, $noCache);
-        } catch (\Exception $e) {
-            $this->io->error($e->getMessage());
-
-            return 1;
-        }
+        $this->build($path, $format, $noResolve, $noCache);
 
         // We're done
         $this->io->writeln('');
@@ -144,8 +139,9 @@ class ListBuildCommand extends Command
 
         // Do the actual processing
         $list->process($this->io, [
-            new GithubMarkdownSourceProcessor($entryFromUrlFactory, $this->container->get('http')),
-            new UrlsSourceProcessor($entryFromUrlFactory),
+            new GithubMarkdownUrlSourceProcessor($this->container->get('http')),
+            new GithubMarkdownSourceProcessor(),
+            new UrlListSourceProcessor($entryFromUrlFactory),
             new EntriesSourceProcessor($entryFromTypeFactory),
         ]);
     }

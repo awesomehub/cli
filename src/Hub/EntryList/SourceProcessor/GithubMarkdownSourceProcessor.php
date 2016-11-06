@@ -2,11 +2,9 @@
 
 namespace Hub\EntryList\SourceProcessor;
 
+use Hub\EntryList\Source\Source;
+use Hub\EntryList\Source\SourceInterface;
 use League\CommonMark as CommonMark;
-use Http\Client\Common\HttpMethodsClient;
-use Hub\Entry\Factory\UrlEntryFactoryInterface;
-use Hub\Exceptions\SourceProcessorFailedException;
-use Hub\Exceptions\EntryCreationFailedException;
 
 /**
  * Processes github markdown and outputs new entries.
@@ -14,65 +12,31 @@ use Hub\Exceptions\EntryCreationFailedException;
 class GithubMarkdownSourceProcessor implements SourceProcessorInterface
 {
     /**
-     * @var UrlEntryFactoryInterface;
-     */
-    protected $entryFactory;
-
-    /**
-     * @var HttpMethodsClient;
-     */
-    protected $http;
-
-    /**
-     * Sets the logger and the entry factory.
-     *
-     * @param UrlEntryFactoryInterface $entryFactory
-     * @param HttpMethodsClient        $httpClient
-     */
-    public function __construct(UrlEntryFactoryInterface $entryFactory, HttpMethodsClient $httpClient)
-    {
-        $this->entryFactory = $entryFactory;
-        $this->http         = $httpClient;
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function process(array $source, \Closure $callback = null)
+    public function process(SourceInterface $source, \Closure $callback)
     {
-        /* @var string $type */
-        /* @var array  $data */
-        /* @var array  $options */
-        extract($source);
-
-        if ($type === self::INPUT_MARKDOWN_URL) {
-            try {
-                $markdown = $this->fetchMarkdownUrl($data);
-            } catch (\Exception $e) {
-                throw new SourceProcessorFailedException(sprintf("Failed fetching url '%s'; %s", $data, $e->getMessage()));
-            }
-        } else {
-            $markdown = $data;
-        }
-
+        $markdown = $source->getData();
         if (empty($markdown)) {
-            throw new SourceProcessorFailedException('Failed processing an empty markdown source.');
+            throw new \RuntimeException('Failed processing an empty markdown data');
         }
 
         $environment = CommonMark\Environment::createCommonMarkEnvironment();
         $parser      = new CommonMark\DocParser($environment);
         $document    = $parser->parse($markdown);
 
-        $entries         = [];
-        $category        = $options['category'] ?? 'Uncategorized';
-        $insideListBlock = false;
+        $category         = '';
+        $categoryNames    = $source->getOption('renameCategories', []);
+        $ignoreCategories = $source->getOption('ignoreCategories', []);
+        $insideListBlock  = false;
 
+        $urls = [];
         $walker = $document->walker();
         while ($event = $walker->next()) {
             $node = $event->getNode();
-            if ($node instanceof CommonMark\Block\Element\Heading && $event->isEntering() && empty($options['category'])) {
+            if ($node instanceof CommonMark\Block\Element\Heading && $event->isEntering()) {
                 $category = $node->getStringContent();
-                $category = $options['categoryNames'][$category] ?? $category;
+                $category = $categoryNames[$category] ?? $category;
                 continue;
             }
 
@@ -82,64 +46,31 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
             }
 
             if ($node instanceof CommonMark\Inline\Element\Link && $event->isEntering() && $insideListBlock) {
-                if (isset($options['ignoreCategories']) && in_array($category, $options['ignoreCategories'], true)) {
+                if (in_array($category, $ignoreCategories, true)) {
                     continue;
                 }
 
-                $url = $node->getUrl();
-                try {
-                    $callback && $callback(
-                        self::EVENT_ENTRY_CREATE, $url,
-                        sprintf("Trying to create an entry from url '%s'", $url)
-                    );
-
-                    $output = $this->entryFactory->create($url);
-                } catch (EntryCreationFailedException $e) {
-                    $callback && $callback(
-                        self::EVENT_ENTRY_FAILED, $url,
-                        sprintf("Ignoring url '%s'; %s", $url, $e->getMessage())
-                    );
-
-                    continue;
-                }
-
-                if (sizeof($output) > 0) {
-                    $callback && $callback(
-                        self::EVENT_ENTRY_SUCCESS, $url,
-                        sprintf("Processed url '%s' and got %d entry(s)", $url, sizeof($output))
-                    );
-
-                    $entries[$category] = isset($entries[$category]) && is_array($entries[$category])
-                        ? array_merge($entries[$category], $output)
-                        : $output;
-                }
+                $urls[$category][] = $node->getUrl();
             }
         }
 
-        return $entries;
+        $sources = [];
+        foreach ($urls as $cat => $list){
+            $sources[] = new Source('url.list', $list, [
+                'categories' => [$cat]
+            ]);
+        }
+
+        return $sources;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supports(array $source)
+    public function getAction(SourceInterface $source)
     {
-        return in_array($source['type'], [self::INPUT_MARKDOWN, self::INPUT_MARKDOWN_URL], true);
-    }
-
-    /**
-     * Fetch the markdown string from an url.
-     *
-     * @param $url
-     *
-     * @throws \Exception When http request fails
-     *
-     * @return string
-     */
-    protected function fetchMarkdownUrl($url)
-    {
-        $response = $this->http->get($url);
-
-        return (string) $response->getBody();
+        return $source->getType() === 'github.markdown'
+            ? self::ACTION_PARTIAL_PROCESSING
+            : self::ACTION_SKIP;
     }
 }

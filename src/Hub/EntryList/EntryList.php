@@ -5,10 +5,10 @@ namespace Hub\EntryList;
 use Symfony\Component\Config as SymfonyConfig;
 use Hub\IO\IOInterface;
 use Hub\Entry\EntryInterface;
+use Hub\EntryList\Source\SourceInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\Exceptions\EntryResolveFailedException;
-use Hub\Exceptions\SourceProcessorFailedException;
 
 /**
  * The Base List class.
@@ -39,6 +39,14 @@ class EntryList implements EntryListInterface
             $this->data = $this->verify($data);
         } catch (SymfonyConfig\Definition\Exception\Exception $e) {
             throw new \InvalidArgumentException("Unable to process the list definition data; {$e->getMessage()}.", 0, $e);
+        }
+
+        foreach ($this->data['sources'] as $i => $source) {
+            $this->data['sources'][$i] = new Source\Source(
+                $source['type'],
+                $source['data'],
+                $source['options']
+            );
         }
     }
 
@@ -71,9 +79,9 @@ class EntryList implements EntryListInterface
      */
     public function set($key, $value = null)
     {
-        if ($value == null) {
+        if ($value === null) {
             if (!is_array($key)) {
-                throw new \UnexpectedValueException(sprintf('Expected array but got %s'), var_export($key));
+                throw new \UnexpectedValueException(sprintf('Expected array but got %s', var_export($key, true)));
             }
 
             $this->data = $key;
@@ -92,131 +100,51 @@ class EntryList implements EntryListInterface
         if (empty($processors)) {
             throw new \LogicException('Cannot process the list; No source processors has been provided.');
         }
-
         $logger = $io->getLogger();
+
         $logger->info('Processing list sources');
-        $io->startOverwrite();
-        $indicator = ' [ %%spinner%% ] Processesing source#%d => %s (%%elapsed%%)';
+        $this->processSources($io, $processors);
+        $logger->info(sprintf('Processed %d entry(s)', count($this->data['entries'])));
 
-        $s          = 0;
-        $entriesMap = [];
-        foreach ($this->data['sources'] as $index => $source) {
-            $sourceEntries = [];
-            $processedWith = false;
-            /** @var SourceProcessorInterface $processor */
-            foreach ($processors as $processor) {
-                if ($processor->supports($source)) {
-                    $processorName = basename(str_replace('\\', '/', get_class($processor)));
-                    $logger->info(sprintf("Processing source#%d with '%s'", $index, $processorName));
-                    $processedWith = $processor;
-                    try {
-                        $sourceEntries = $processor->process($source, function ($event, $entry, $message) use ($logger, $io, $index, $indicator) {
-                            switch ($event) {
-                                case SourceProcessorInterface::EVENT_ENTRY_CREATE:
-                                    $io->write(sprintf($indicator, $index, $entry));
-                                    break;
-                                case SourceProcessorInterface::EVENT_ENTRY_FAILED:
-                                    $logger->warning($message);
-                                    break;
-                            }
-                        });
-                    } catch (SourceProcessorFailedException $e) {
-                        $logger->critical(sprintf("Failed processing source#%d of type '%s' with '%s'.", $index, $source['type'], get_class($processor)));
-                        continue 2;
-                    }
-                    break;
-                }
-            }
-
-            // Check if no processor can process this source
-            if (false === $processedWith) {
-                $logger->critical(sprintf("Ignoring source#%d of type '%s'; None of the given processors supports it.", $index, $source['type']));
-                continue;
-            }
-
-            $logger->info(sprintf('Processing source#%d completed successfully', $index));
-            $entriesMap = array_merge_recursive($entriesMap, $sourceEntries);
-            ++$s;
-        }
-
-        $logger->info(sprintf('Processed %d/%d source(s)', $s, count($this->data['sources'])));
-
-        $io->endOverwrite();
-
-        $logger->info('Organizing resulted categories and entries');
-
-        $id         = 1;
+        $logger->info('Organizing categories');
+        $categoryId = 1;
         $categories = [];
-        $entries    = [];
-        $saved      = [];
-        foreach ($entriesMap as $category => $categoryEntries) {
-            $categoryPath = $this->getCategoryPath($category);
-            if (!$categoryPath) {
-                $categoryPath[] = $category;
-            }
-
-            $categoryPathIds = [];
-            $parent          = 0;
-            foreach ($categoryPath as $pathSegment) {
-                if (in_array($pathSegment, $saved)) {
-                    $savedId           = array_search($pathSegment, $saved);
-                    $categoryPathIds[] = $savedId;
-                    $parent            = $savedId;
-                    continue;
-                }
-
-                $saved[$id]      = $pathSegment;
-                $categories[$id] = [
-                    'id'     => $id,
-                    'title'  => ucfirst($pathSegment),
-                    'parent' => $parent,
-                ];
-
-                $categoryPathIds[] = $id;
-                $parent            = $id;
-                ++$id;
-            }
-
-            foreach ($categoryEntries as $entry) {
-                /* @var EntryInterface $entry */
-                $entryId   = $entry->getId();
-                $entryType = $entry->getType();
-                if (isset($entries[$entryId])) {
-                    $entry = $entries[$entryId];
-                }
-
-                // Merge to preserve previous categories if any
-                $entry->merge('categories', $categoryPathIds);
-
-                // Update category counts for all parent categories
-                foreach ($categoryPathIds as $categoryPathId) {
-                    // Update the sum count
-                    if (isset($categories[$categoryPathId]['count']['all'])) {
-                        ++$categories[$categoryPathId]['count']['all'];
-                    } else {
-                        $categories[$categoryPathId]['count']['all'] = 1;
+        foreach ($this->data['entries'] as $entryId => $entry) {
+            /* @var EntryInterface $entry */
+            $entryType        = $entry->getType();
+            $entryCategoryIds = [];
+            foreach (array_unique($entry->get('categories')) as $categoryName) {
+                $categoryPath = $this->getCategoryPath($categoryName) ?: [$categoryName];
+                $parent       = 0;
+                foreach ($categoryPath as $pathSegment) {
+                    $saved = array_column($categories, 'title', 'id');
+                    if (in_array($pathSegment, $saved, true)) {
+                        $parent = $entryCategoryIds[] = array_search($pathSegment, $saved, true);
+                        ++$categories[$parent]['count'][$entryType];
+                        ++$categories[$parent]['count']['all'];
+                        continue;
                     }
 
-                    // Update entry type count
-                    if (isset($categories[$categoryPathId]['count'][$entryType])) {
-                        ++$categories[$categoryPathId]['count'][$entryType];
-                    } else {
-                        $categories[$categoryPathId]['count'][$entryType] = 1;
-                    }
+                    $categories[$categoryId] = [
+                        'id'     => $categoryId,
+                        'title'  => $pathSegment,
+                        'parent' => $parent,
+                        'count'  => [
+                            'all'      => 1,
+                            $entryType => 1,
+                        ],
+                    ];
+                    $parent             = $categoryId;
+                    $entryCategoryIds[] = $categoryId;
+                    ++$categoryId;
                 }
-
-                $entries[$entryId] = $entry;
             }
+
+            $entry->set('categories', $entryCategoryIds);
         }
 
         $this->data['categories'] = $categories;
-        $this->data['entries']    = $entries;
-
-        $logger->info(sprintf(
-            'Organized %d category(s) and %d entry(s)',
-            count($categories),
-            count($entries)
-        ));
+        $logger->info(sprintf('Organized %d category(s)', count($categories)));
     }
 
     /**
@@ -316,6 +244,127 @@ class EntryList implements EntryListInterface
             }
         }
         $this->set('categories', $categories);
+    }
+
+    /**
+     * Recursively processes list sources.
+     *
+     * @param IOInterface                $io
+     * @param SourceProcessorInterface[] $processors
+     * @param SourceInterface[]|null     $sources
+     * @param int                        $depth
+     */
+    protected function processSources(IOInterface $io, array $processors, array $sources = [], $depth = 0)
+    {
+        $root      = 0 === $depth;
+        $logger    = $io->getLogger();
+        $depthStr  = $root ? '' : str_repeat('|_ ', $depth);
+        $indicator = ' [ %%spinner%% ] %s (%%elapsed%%)';
+
+        if ($root) {
+            $io->startOverwrite();
+            $sources = $this->data['sources'];
+        }
+
+        foreach ($sources as $index => $source) {
+            $id            = ($root ? 'index='.$index.' ' : '').'type='.$source->getType();
+            $processedWith = false;
+            $callback      = function ($event, $payload) use ($source, $io, $indicator) {
+                switch ($event) {
+                    case SourceProcessorInterface::ON_STATUS_UPDATE:
+                        if ($payload['type'] === 'error') {
+                            $io->getLogger()->warning($payload['message']);
+
+                            return;
+                        }
+                        $io->write(sprintf($indicator, $payload['message']));
+                        break;
+
+                    case SourceProcessorInterface::ON_ENTRY_CREATED:
+                        /** @var EntryInterface $payload */
+                        $id = $payload->getId();
+                        if (isset($this->data['entries'][$id])) {
+                            $this->data['entries'][$id]->merge($payload->get());
+                            break;
+                        }
+
+                        if ($source->hasOption('categories')) {
+                            $payload->merge('categories', $source->getOption('categories', []));
+                        }
+                        $this->data['entries'][$id] = $payload;
+                        break;
+
+                    default:
+                        throw new \UnexpectedValueException(
+                            sprintf("Unsupported source processor event '%s'", $event)
+                        );
+                }
+            };
+
+            foreach ($processors as $processor) {
+                $processorName = basename(str_replace('\\', '/', get_class($processor)));
+                switch ($processor->getAction($source)) {
+                    case SourceProcessorInterface::ACTION_PARTIAL_PROCESSING:
+                        $processedWith = $processor;
+                        $logger->info(sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+                        try {
+                            $childSources = $processor->process($source, $callback);
+                        } catch (\Exception $e) {
+                            $logger->critical(sprintf("%sFailed processing source[%s] with '%s'; %s",
+                                $depthStr, $id, $processorName, $e->getMessage()
+                            ));
+                            continue;
+                        }
+
+                        if (!is_array($childSources)) {
+                            $childSources = [$childSources];
+                        }
+
+                        if (count($childSources) === 0) {
+                            $logger->warning(sprintf(
+                                "%sNo child sources from processing source[%s] with '%s'",
+                                $depthStr, $id, $processorName
+                            ));
+                            continue;
+                        }
+
+                        $this->processSources($io, $processors, $childSources, $depth + 1);
+                        break;
+
+                    case SourceProcessorInterface::ACTION_PROCESSING:
+                        $processedWith = $processor;
+                        $logger->info(sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+                        try {
+                            $processor->process($source, $callback);
+                        } catch (\Exception $e) {
+                            $logger->critical(sprintf("%sFailed processing source[%s] with '%s'; %s",
+                                $depthStr, $id, $processorName, $e->getMessage()
+                            ));
+                        }
+                        break;
+
+                    case SourceProcessorInterface::ACTION_SKIP:
+                        break;
+
+                    default:
+                        throw new \UnexpectedValueException(sprintf(
+                            "Got an invalid processing mode from processor '%s'", get_class($processor)
+                        ));
+                }
+            }
+
+            // Check if no processor can process this source
+            if (false === $processedWith) {
+                $logger->critical(sprintf('%sIgnoring source[%s]; None of the given processors supports it.', $depthStr, $id));
+                continue;
+            }
+
+            $logger->info(sprintf('%sFinished processing source[%s]', $depthStr, $id));
+        }
+
+        if ($root) {
+            $io->endOverwrite();
+        }
     }
 
     /**

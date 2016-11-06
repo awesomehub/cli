@@ -4,7 +4,6 @@ namespace Hub\EntryList;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 
 class EntryListDefinition implements ConfigurationInterface
 {
@@ -42,9 +41,8 @@ class EntryListDefinition implements ConfigurationInterface
                     ->requiresAtLeastOneElement()
                     ->prototype('array')
                         ->children()
-                            ->enumNode('type')
+                            ->scalarNode('type')
                                 ->isRequired()
-                                ->values(SourceProcessorInterface::SUPPORTS)
                             ->end()
                             ->variableNode('data')
                                 ->isRequired()
