@@ -25,6 +25,30 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
+    public function has($key)
+    {
+        return array_key_exists($key, $this->data);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get($key = null)
+    {
+        if (!$key) {
+            return $this->data;
+        }
+
+        if (!array_key_exists($key, $this->data)) {
+            throw new \InvalidArgumentException(sprintf("Trying to get an undefined entry data key '%s'", $key));
+        }
+
+        return $this->data[$key];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function set($key, $value = null)
     {
         if ($value === null) {
@@ -50,22 +74,6 @@ abstract class AbstractEntry implements EntryInterface
         }
 
         $this->data = $this->deepMerge($this->data, $key, $preserveIntegerKeys);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get($key = null)
-    {
-        if (!$key) {
-            return $this->data;
-        }
-
-        if (!array_key_exists($key, $this->data)) {
-            throw new \InvalidArgumentException(sprintf("Trying to get an undefined entry data key '%s'", $key));
-        }
-
-        return $this->data[$key];
     }
 
     /**

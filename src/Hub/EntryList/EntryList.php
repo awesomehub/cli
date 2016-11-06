@@ -61,6 +61,14 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
+    public function has($key)
+    {
+        return array_key_exists($key, $this->data);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function get($key = null)
     {
         if (null === $key) {
@@ -112,8 +120,9 @@ class EntryList implements EntryListInterface
         foreach ($this->data['entries'] as $entryId => $entry) {
             /* @var EntryInterface $entry */
             $entryType        = $entry->getType();
+            $entryCategories  = $entry->has('categories') ? array_unique($entry->get('categories')) : ['Uncatagorized'];
             $entryCategoryIds = [];
-            foreach (array_unique($entry->get('categories')) as $categoryName) {
+            foreach ($entryCategories as $categoryName) {
                 $categoryPath = $this->getCategoryPath($categoryName) ?: [$categoryName];
                 $parent       = 0;
                 foreach ($categoryPath as $pathSegment) {
@@ -309,8 +318,8 @@ class EntryList implements EntryListInterface
                         try {
                             $childSources = $processor->process($source, $callback);
                         } catch (\Exception $e) {
-                            $logger->critical(sprintf("%sFailed processing source[%s] with '%s'; %s",
-                                $depthStr, $id, $processorName, $e->getMessage()
+                            $logger->critical(sprintf("Failed processing source[%s] with '%s'; %s",
+                                $id, $processorName, $e->getMessage()
                             ));
                             continue;
                         }
@@ -321,8 +330,8 @@ class EntryList implements EntryListInterface
 
                         if (count($childSources) === 0) {
                             $logger->warning(sprintf(
-                                "%sNo child sources from processing source[%s] with '%s'",
-                                $depthStr, $id, $processorName
+                                "No child sources from processing source[%s] with '%s'",
+                                $id, $processorName
                             ));
                             continue;
                         }
@@ -336,8 +345,8 @@ class EntryList implements EntryListInterface
                         try {
                             $processor->process($source, $callback);
                         } catch (\Exception $e) {
-                            $logger->critical(sprintf("%sFailed processing source[%s] with '%s'; %s",
-                                $depthStr, $id, $processorName, $e->getMessage()
+                            $logger->critical(sprintf("Failed processing source[%s] with '%s'; %s",
+                                $id, $processorName, $e->getMessage()
                             ));
                         }
                         break;
@@ -354,7 +363,7 @@ class EntryList implements EntryListInterface
 
             // Check if no processor can process this source
             if (false === $processedWith) {
-                $logger->critical(sprintf('%sIgnoring source[%s]; None of the given processors supports it.', $depthStr, $id));
+                $logger->critical(sprintf('Ignoring source[%s]; None of the given processors supports it.', $id));
                 continue;
             }
 

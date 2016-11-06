@@ -34,25 +34,25 @@ class EntriesSourceProcessor implements SourceProcessorInterface
         $entries = $source->getData();
         if (!is_array($entries)) {
             throw new \UnexpectedValueException(sprintf(
-                'Unexpected source data type; Expected [array] but got [%s]', gettype($entries)
+                'Unexpected entries source data type; Expected [array] but got [%s]', gettype($entries)
             ));
         }
 
         foreach ($entries as $i => $entry) {
             if (!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])) {
-                throw new \RuntimeException(sprintf(sprintf('Incorrect entry schema at entries[%d]', $i)));
+                throw new \RuntimeException(sprintf('Incorrect entry schema at index[%d]', $i));
             }
 
             $callback(self::ON_STATUS_UPDATE, [
                 'type' => 'info',
-                'message' => sprintf("Attempting to create an entry from data at entries[%d]", $i)
+                'message' => sprintf("Attempting to create an entry from data at index[%d]", $i)
             ]);
             try {
                 $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
             } catch (EntryCreationFailedException $e) {
                 $callback(self::ON_STATUS_UPDATE, [
                     'type' => 'error',
-                    'message' => sprintf("Ignoring entry at entries[%d]; %s", $i, $e->getMessage())
+                    'message' => sprintf("Ignoring entry at index[%d]; %s", $i, $e->getMessage())
                 ]);
                 continue;
             }

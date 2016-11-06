@@ -61,6 +61,15 @@ interface EntryListInterface
     public function set($key, $value = null);
 
     /**
+     * Checks if a given key exists in list data.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has($key);
+
+    /**
      * Removes an entry from the list and recounts category stats.
      *
      * @param EntryInterface $entry

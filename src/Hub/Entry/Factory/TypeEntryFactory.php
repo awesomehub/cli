@@ -55,7 +55,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
                 if (!isset($data['author']) || !isset($data['name'])) {
                     throw new EntryCreationFailedException(sprintf(
                         "Unable to satisfay all required paramaters for type '%s'; Given a data array with keys [%s]",
-                        implode(', ', array_keys($data))
+                        $type, implode(', ', array_keys($data))
                     ));
                 }
 

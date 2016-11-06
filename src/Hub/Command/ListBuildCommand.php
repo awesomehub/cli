@@ -8,6 +8,7 @@ use Hub\EntryList\EntryListFile;
 use Hub\EntryList\SourceProcessor\UrlListSourceProcessor;
 use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
 use Hub\EntryList\SourceProcessor\GithubListSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubAuthorSourceProcessor;
 use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
 use Hub\Entry\Resolver\RepoGithubEntryResolver;
 use Hub\Entry\Factory\TypeEntryFactory;
@@ -139,6 +140,7 @@ class ListBuildCommand extends Command
 
         // Do the actual processing
         $list->process($this->io, [
+            new GithubAuthorSourceProcessor($this->container->get('github')),
             new GithubListSourceProcessor($this->container->get('http')),
             new GithubMarkdownSourceProcessor(),
             new UrlListSourceProcessor($entryFromUrlFactory),

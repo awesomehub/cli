@@ -22,6 +22,15 @@ interface EntryInterface
     public static function getType();
 
     /**
+     * Checks if a given key exists in entry data.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has($key);
+
+    /**
      * Gets the value of a given data key. If the key is omitted, the whole data will be returned.
      *
      * @param string $key
