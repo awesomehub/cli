@@ -274,8 +274,7 @@ class EntryList implements EntryListInterface
                     case SourceProcessorInterface::ON_STATUS_UPDATE:
                         if ($payload['type'] === 'error') {
                             $io->getLogger()->warning($payload['message']);
-
-                            return;
+                            break;
                         }
                         $io->write(sprintf($indicator, $payload['message']));
                         break;
