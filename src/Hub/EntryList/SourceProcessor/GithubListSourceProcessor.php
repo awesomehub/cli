@@ -7,9 +7,9 @@ use Hub\EntryList\Source\SourceInterface;
 use Http\Client\Common\HttpMethodsClient;
 
 /**
- * fetches github markdown url and pass it to the github markdown processor.
+ * fetches github list markdown url and pass it to the github markdown processor.
  */
-class GithubMarkdownUrlSourceProcessor implements SourceProcessorInterface
+class GithubListSourceProcessor implements SourceProcessorInterface
 {
     /**
      * @var HttpMethodsClient;
@@ -59,7 +59,7 @@ class GithubMarkdownUrlSourceProcessor implements SourceProcessorInterface
      */
     public function getAction(SourceInterface $source)
     {
-        return $source->getType() === 'github.markdown.url'
+        return $source->getType() === 'github.list'
             ? self::ACTION_PARTIAL_PROCESSING
             : self::ACTION_SKIP;
     }
