@@ -110,7 +110,7 @@ class Build implements BuildInterface
     {
         if (null === $value) {
             if (!is_array($key)) {
-                new \InvalidArgumentException(sprintf('Expected array but got %s', var_export($value)));
+                new \InvalidArgumentException(sprintf('Expected array but got %s', var_export($value, true)));
             }
             $this->meta = $key;
         } else {

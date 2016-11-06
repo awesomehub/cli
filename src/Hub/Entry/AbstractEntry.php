@@ -27,9 +27,9 @@ abstract class AbstractEntry implements EntryInterface
      */
     public function set($key, $value = null)
     {
-        if ($value == null) {
+        if ($value === null) {
             if (!is_array($key)) {
-                throw new \UnexpectedValueException(sprintf('Expected array but got %s'), var_export($key));
+                throw new \UnexpectedValueException(sprintf('Expected array but got %s', var_export($key, true)));
             }
 
             $this->data = $key;

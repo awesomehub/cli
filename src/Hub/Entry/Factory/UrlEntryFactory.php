@@ -60,9 +60,6 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
         foreach ($this->processors as $processor) {
             foreach ($urls as $url) {
                 switch ($processor->getAction($url)) {
-                    case UrlProcessorInterface::ACTION_SKIP:
-                        break;
-
                     case UrlProcessorInterface::ACTION_PARTIAL_PROCESSING:
                         try {
                             $childUrls = $processor->process($url);
@@ -126,24 +123,25 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                             );
                         }
 
-                            array_walk_recursive($result, function ($item, $key) use ($processor) {
-                                if (!$item instanceof EntryInterface) {
-                                    throw new \UnexpectedValueException(
-                                        sprintf(
-                                            "Invalid inner processor output value of type [%s] at index[%s] for processor '%s'",
-                                            gettype($item), $key, get_class($processor)
-                                        )
-                                    );
-                                }
-                            });
+                        array_walk_recursive($result, function ($item, $key) use ($processor) {
+                            if (!$item instanceof EntryInterface) {
+                                throw new \UnexpectedValueException(sprintf(
+                                    "Invalid inner processor output value of type [%s] at index[%s] for processor '%s'",
+                                    gettype($item), $key, get_class($processor)
+                                ));
+                            }
+                        });
 
                         $entries = array_merge($entries, $result);
                         break;
 
+                    case UrlProcessorInterface::ACTION_SKIP:
+                        break;
+
                     default:
-                        throw new \LogicException(
-                            sprintf("Invalid processing mode defined in processor '%s'", get_class($processor))
-                        );
+                        throw new \UnexpectedValueException(sprintf(
+                            "Got an invalid processing mode from processor '%s'", get_class($processor)
+                        ));
                 }
             }
         }
