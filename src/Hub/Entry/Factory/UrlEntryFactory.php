@@ -57,8 +57,8 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
         }
 
         $entries = [];
-        foreach ($this->processors as $processor) {
-            foreach ($urls as $url) {
+        foreach ($urls as $url) {
+            foreach ($this->processors as $processor) {
                 switch ($processor->getAction($url)) {
                     case UrlProcessorInterface::ACTION_PARTIAL_PROCESSING:
                         try {
