@@ -78,7 +78,10 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
             ];
         }
 
-        return new Source('entries', $entries);
+        $options = $source->getOptions();
+        unset($options['excludeForks'], $options['excludeRepos']);
+
+        return new Source('entries', $entries, $options);
     }
 
     /**

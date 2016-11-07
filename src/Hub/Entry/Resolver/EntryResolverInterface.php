@@ -18,13 +18,13 @@ interface EntryResolverInterface
     public function resolve(EntryInterface $entry, $force = false);
 
     /**
-     * Checks whether a supported entry is resolved or not.
+     * Checks if a supported entry is cached.
      *
      * @param EntryInterface $entry
      *
      * @return bool
      */
-    public function isResolved(EntryInterface $entry);
+    public function isCached(EntryInterface $entry);
 
     /**
      * Checks whether the resolver supports the given entry.

@@ -54,11 +54,18 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
             }
         }
 
+        $options = $source->getOptions();
+        unset($options['renameCategories'], $options['ignoreCategories']);
+
         $sources = [];
         foreach ($urls as $cat => $list){
-            $sources[] = new Source('url.list', $list, [
-                'categories' => [$cat]
-            ]);
+            // Don't overwrite user-defined options
+            // This is to allow user to map all source entries to one one category
+            if(!isset($options['categories']['*'])){
+                $options['categories']['*'] = $cat;
+            }
+
+            $sources[] = new Source('url.list', $list, $options);
         }
 
         return $sources;

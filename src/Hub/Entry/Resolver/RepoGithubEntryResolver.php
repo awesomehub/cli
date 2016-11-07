@@ -53,7 +53,11 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     {
         $cached = $this->read($entry);
         if ($cached instanceof RepoGithubEntryInterface && !$force) {
-            $entry->set($cached->get());
+            // Only merge the fields that we provide
+            $fields = ['description', 'language', 'scores_avg', 'scores', 'pushed'];
+            foreach ($fields as $field) {
+                $entry->set($field, $cached->get($field));
+            }
 
             return;
         }
@@ -97,7 +101,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      *
      * @param RepoGithubEntryInterface $entry
      */
-    public function isResolved(EntryInterface $entry)
+    public function isCached(EntryInterface $entry)
     {
         if (!$this->supports($entry)) {
             throw new \UnexpectedValueException("Shouldn't receive an unsupported entry");

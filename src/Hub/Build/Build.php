@@ -108,7 +108,7 @@ class Build implements BuildInterface
      */
     public function set($key, $value = null)
     {
-        if (null === $value) {
+        if (func_num_args() === 1) {
             if (!is_array($key)) {
                 new \InvalidArgumentException(sprintf('Expected array but got %s', var_export($value, true)));
             }

@@ -87,7 +87,7 @@ class EntryList implements EntryListInterface
      */
     public function set($key, $value = null)
     {
-        if ($value === null) {
+        if (func_num_args() === 1) {
             if (!is_array($key)) {
                 throw new \UnexpectedValueException(sprintf('Expected array but got %s', var_export($key, true)));
             }
@@ -115,27 +115,30 @@ class EntryList implements EntryListInterface
         $logger->info(sprintf('Processed %d entry(s)', count($this->data['entries'])));
 
         $logger->info('Organizing categories');
-        $categoryId = 1;
-        $categories = [];
-        foreach ($this->data['entries'] as $entryId => $entry) {
+        $nextCategoryId = 1;
+        $categories     = [];
+        foreach ($this->data['entries'] as $entry) {
             /* @var EntryInterface $entry */
-            $entryType        = $entry->getType();
-            $entryCategories  = $entry->has('categories') ? array_unique($entry->get('categories')) : ['Uncatagorized'];
+            $entryType       = $entry->getType();
+            $entryCategories = $entry->get('categories');
+            if (empty($entryCategories)) {
+                $entryCategories = ['Uncatagorized'];
+            }
             $entryCategoryIds = [];
             foreach ($entryCategories as $categoryName) {
                 $categoryPath = $this->getCategoryPath($categoryName) ?: [$categoryName];
                 $parent       = 0;
                 foreach ($categoryPath as $pathSegment) {
-                    $saved = array_column($categories, 'title', 'id');
-                    if (in_array($pathSegment, $saved, true)) {
-                        $parent = $entryCategoryIds[] = array_search($pathSegment, $saved, true);
+                    $idTitleMap = array_column($categories, 'title', 'id');
+                    if (in_array($pathSegment, $idTitleMap, true)) {
+                        $parent = $entryCategoryIds[] = array_search($pathSegment, $idTitleMap, true);
                         ++$categories[$parent]['count'][$entryType];
                         ++$categories[$parent]['count']['all'];
                         continue;
                     }
 
-                    $categories[$categoryId] = [
-                        'id'     => $categoryId,
+                    $categories[$nextCategoryId] = [
+                        'id'     => $nextCategoryId,
                         'title'  => $pathSegment,
                         'parent' => $parent,
                         'count'  => [
@@ -143,9 +146,9 @@ class EntryList implements EntryListInterface
                             $entryType => 1,
                         ],
                     ];
-                    $parent             = $categoryId;
-                    $entryCategoryIds[] = $categoryId;
-                    ++$categoryId;
+                    $parent             = $nextCategoryId;
+                    $entryCategoryIds[] = $nextCategoryId;
+                    ++$nextCategoryId;
                 }
             }
 
@@ -181,12 +184,11 @@ class EntryList implements EntryListInterface
             ++$i;
             $resolvedWith = false;
             $isCached     = false;
-
             /* @var EntryResolverInterface $resolver */
             foreach ($resolvers as $resolver) {
                 if ($resolver->supports($entry)) {
                     $resolvedWith = $resolver;
-                    $isCached     = $resolver->isResolved($entry);
+                    $isCached     = $resolver->isCached($entry);
                     $io->write(sprintf($indicator, $i, $id));
                     try {
                         $resolver->resolve($entry, $force);
@@ -256,6 +258,75 @@ class EntryList implements EntryListInterface
     }
 
     /**
+     * Adds an entry to the list.
+     *
+     * @param EntryInterface  $entry
+     * @param SourceInterface $source
+     */
+    protected function addEntry(EntryInterface $entry, SourceInterface $source)
+    {
+        $id = $entry->getId();
+        if ($source->hasOption('exclude')) {
+            foreach ($source->getOption('exclude', []) as $regex) {
+                $regex = $regex[0] !== '/' ? "/${regex}/" : $regex;
+                if (false === @preg_match($regex, null)) {
+                    throw new \InvalidArgumentException(sprintf("Invalid exclude regex '%s'", $regex));
+                }
+
+                if (preg_match($regex, $id)) {
+                    return;
+                }
+            }
+        }
+
+        // Check if an already existing entry exists
+        if (isset($this->data['entries'][$id])) {
+            $this->data['entries'][$id]->merge($entry->get());
+            $entry = $this->data['entries'][$id];
+        }
+
+        $categories = [];
+        if ($entry->has('categories')) {
+            $categories = $entry->get('categories');
+        }
+
+        // Add source categories
+        if ($source->hasOption('categories')) {
+            foreach ($source->getOption('categories', []) as $regex => $sourceCategory) {
+                $regex = $regex === '*' ? '.*' : $regex;
+                $regex = $regex[0] !== '/' ? "/${regex}/" : $regex;
+                if (false === @preg_match($regex, null)) {
+                    throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
+                }
+
+                if (preg_match($regex, $id)) {
+                    if (!is_array($sourceCategory)) {
+                        $sourceCategory = [$sourceCategory];
+                    }
+                    $categories = array_merge($categories, $sourceCategory);
+                }
+            }
+        }
+
+        $cleaned = [];
+        foreach ($categories as $category) {
+            // Strip non-utf chars
+            $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
+            $category = trim($category);
+
+            if(!empty($category)){
+                $cleaned[] = $category;
+            }
+        }
+
+        // Set the final categories
+        $entry->set('categories', array_unique($cleaned));
+
+        // Save the entry
+        $this->data['entries'][$id] = $entry;
+    }
+
+    /**
      * Recursively processes list sources.
      *
      * @param IOInterface                $io
@@ -289,17 +360,7 @@ class EntryList implements EntryListInterface
                         break;
 
                     case SourceProcessorInterface::ON_ENTRY_CREATED:
-                        /** @var EntryInterface $payload */
-                        $id = $payload->getId();
-                        if (isset($this->data['entries'][$id])) {
-                            $this->data['entries'][$id]->merge($payload->get());
-                            break;
-                        }
-
-                        if ($source->hasOption('categories')) {
-                            $payload->merge('categories', $source->getOption('categories', []));
-                        }
-                        $this->data['entries'][$id] = $payload;
+                        $this->addEntry($payload, $source);
                         break;
 
                     default:
