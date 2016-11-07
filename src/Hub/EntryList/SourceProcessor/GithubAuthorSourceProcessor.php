@@ -60,12 +60,12 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
             throw new \RuntimeException(sprintf('Github API request failed; %s', $e->getMessage()), 0, $e);
         }
 
-        $excludeForks = $source->getOption('excludeForks', true);
-        $excludeRepos = $source->getOption('excludeRepos', []);
+        // Source options
+        $includeForks = $source->getOption('includeAuthorForks', true);
 
         $entries = [];
         foreach ($repos as $repo) {
-            if (($excludeForks && $repo['fork']) || in_array($repo['name'], $excludeRepos, true)) {
+            if (!$includeForks && $repo['fork']) {
                 continue;
             }
 
@@ -79,7 +79,7 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
         }
 
         $options = $source->getOptions();
-        unset($options['excludeForks'], $options['excludeRepos']);
+        unset($options['includeAuthorForks']);
 
         return new Source('entries', $entries, $options);
     }
