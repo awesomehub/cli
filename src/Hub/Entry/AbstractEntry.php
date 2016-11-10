@@ -2,6 +2,8 @@
 
 namespace Hub\Entry;
 
+use Hub\Util\NestedArray;
+
 /**
  * Base class for providing common Entry functions.
  */
@@ -73,7 +75,7 @@ abstract class AbstractEntry implements EntryInterface
             $key = [$key => $value];
         }
 
-        $this->data = $this->deepMerge($this->data, $key, $preserveIntegerKeys);
+        $this->data = NestedArray::merge($this->data, $key);
     }
 
     /**
@@ -86,35 +88,5 @@ abstract class AbstractEntry implements EntryInterface
         }
 
         unset($this->data[$key]);
-    }
-
-    /**
-     * Depp merge two arrays.
-     *
-     * @param array $a
-     * @param array $b
-     * @param bool  $preserveIntegerKeys
-     *
-     * @return array
-     */
-    protected function deepMerge(array $a, array $b, $preserveIntegerKeys = false)
-    {
-        $result = [];
-        foreach ([$a, $b] as $array) {
-            foreach ($array as $key => $value) {
-                // Re-number integer keys as array_merge_recursive() does unless
-                // $preserveIntegerKeys is set to true. Note that PHP automatically
-                // converts array keys that are integer strings (e.g., '1') to integers.
-                if (is_integer($key) && !$preserveIntegerKeys) {
-                    $result[] = $value;
-                } elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
-                    $result[$key] = $this->deepMerge($result[$key], $value, $preserveIntegerKeys);
-                } else {
-                    $result[$key] = $value;
-                }
-            }
-        }
-
-        return $result;
     }
 }
