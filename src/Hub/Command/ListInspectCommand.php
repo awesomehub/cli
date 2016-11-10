@@ -73,24 +73,25 @@ class ListInspectCommand extends Command
     {
         $body  = [];
         $total = 0;
-        foreach ($this->list->get('categories') as $id => $category) {
+        foreach ($this->list->getCategories() as $id => $category) {
             if ($category['parent'] == $parent) {
-                $row = [str_repeat('-', $depth + 1).' '.$category['title']];
+                $row = [str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title']];
                 if ($depth === 0) {
                     $total += $category['count']['all'];
                 }
                 foreach ($category['count'] as $type => $count) {
-                    if ($type !== 'all') {
-                        $realCount = 0;
-                        /** @var EntryInterface $ntry */
-                        foreach ($this->list->get('entries') as $ntry) {
-                            if (in_array($category['id'], $ntry->get('categories'))) {
-                                ++$realCount;
-                            }
+                    $realCount = 0;
+                    foreach ($this->list->getEntries() as $entry) {
+                        if($type !== 'all' && $type !== $entry->getType()){
+                            continue;
                         }
-                        if ($count !== $realCount) {
-                            $count = sprintf('%d <debug>(%d)</debug>', $count, $realCount);
+
+                        if (in_array($id, $entry->get('categories'))) {
+                            ++$realCount;
                         }
+                    }
+                    if ($count !== $realCount) {
+                        $count = sprintf('%d <debug>(%d)</debug>', $count, $realCount);
                     }
                     $row[] = $count;
                 }
@@ -107,14 +108,19 @@ class ListInspectCommand extends Command
             }
 
             $header = ['Category'];
-            foreach (current($this->list->get('categories'))['count'] as $type => $count) {
+            foreach (current($this->list->getCategories())['count'] as $type => $count) {
                 $header[] = $type;
             }
 
             $this->io->table($header, $body);
 
+            $totalReal = count($this->list->getEntries());
+            if ($total !== $totalReal) {
+                $total = sprintf('%d <debug>(%d)</debug>', $total, $totalReal);
+            }
+
             $this->io->listing([
-                sprintf('<info>Total Count:</info> %d', $total),
+                sprintf('<info>Total Count:</info> %s', $total),
             ]);
 
             return true;
@@ -129,11 +135,13 @@ class ListInspectCommand extends Command
     protected function printInfo()
     {
         $data = [
-            'ID'         => $this->list->get('id'),
+            'ID'         => $this->list->getId(),
             'Name'       => $this->list->get('name'),
             'Sources'    => count($this->list->get('sources')),
-            'Categories' => count($this->list->get('categories')),
-            'Entries'    => count($this->list->get('entries')),
+            'Categories' => count($this->list->getCategories()),
+            'Entries'    => count($this->list->getEntries()),
+            'Processed'  => $this->list->isProcessed() ? 'Yes' : 'No',
+            'Resolved'   => $this->list->isResolved() ? 'Yes' : 'No',
         ];
 
         $list = [];

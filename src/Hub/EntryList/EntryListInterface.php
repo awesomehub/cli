@@ -13,13 +13,6 @@ use Hub\Entry\Resolver\EntryResolverInterface;
 interface EntryListInterface
 {
     /**
-     * Gets the list ID.
-     *
-     * @return string
-     */
-    public function getId();
-
-    /**
      * Processes the list file and creates list entries.
      *
      * @param IOInterface                $io
@@ -37,11 +30,46 @@ interface EntryListInterface
     public function resolve(IOInterface $io, array $resolvers, $force = false);
 
     /**
+     * Removes an entry from the list and recounts category stats.
+     *
+     * @param EntryInterface $entry
+     */
+    public function removeEntry(EntryInterface $entry);
+
+    /**
+     * Checks whether the list has been processed.
+     *
+     * @return bool
+     */
+    public function isProcessed();
+
+    /**
      * Checks whether the list has been resolved.
      *
      * @return bool
      */
     public function isResolved();
+
+    /**
+     * Gets the list ID.
+     *
+     * @return string
+     */
+    public function getId();
+
+    /**
+     * Gets the list categories.
+     *
+     * @return array
+     */
+    public function getCategories();
+
+    /**
+     * Gets the list ientries.
+     *
+     * @return EntryInterface[]
+     */
+    public function getEntries();
 
     /**
      * Gets the value of a given data key. If the key is omitted, the whole data will be returned.
@@ -68,11 +96,4 @@ interface EntryListInterface
      * @return bool
      */
     public function has($key);
-
-    /**
-     * Removes an entry from the list and recounts category stats.
-     *
-     * @param EntryInterface $entry
-     */
-    public function removeEntry(EntryInterface $entry);
 }

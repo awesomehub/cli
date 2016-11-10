@@ -57,54 +57,10 @@ class EntryListDefinition implements ConfigurationInterface
                 ->arrayNode('options')
                     ->info('The list options.')
                     ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('categoryTree')
-                            ->info('An optional category tree to applied to the generated categories.')
-                            ->defaultValue([])
-                            ->prototype('variable')->end()
-                            ->validate()
-                            ->ifTrue(function ($tree) {
-                                return $this->checkCategoryTreeDups($tree);
-                            })
-                                ->thenInvalid('Duplicate entries detected.')
-                            ->end()
-                        ->end()
-                    ->end()
                 ->end()
             ->end()
         ;
 
         return $treeBuilder;
-    }
-
-    /**
-     * Validates category tree for possible duplicates.
-     *
-     * @param array $tree
-     * @param int   $depth
-     *
-     * @throws \LogicException
-     *
-     * @return string|null
-     */
-    protected function checkCategoryTreeDups(array $tree, $depth = 0)
-    {
-        $categories = [];
-        foreach ($tree as $parent => $child) {
-            if (is_array($child)) {
-                $categories[] = $parent;
-                $categories   = array_merge($categories, $this->checkCategoryTreeDups($child, $depth + 1));
-            } else {
-                $categories[] = $child;
-            }
-        }
-
-        if (0 === $depth) {
-            $categoriesDup = array_unique(array_diff_assoc($categories, array_unique($categories)));
-
-            return sizeof($categoriesDup) > 0;
-        }
-
-        return $categories;
     }
 }

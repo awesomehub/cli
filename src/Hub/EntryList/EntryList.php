@@ -21,6 +21,26 @@ class EntryList implements EntryListInterface
     protected $data;
 
     /**
+     * @var EntryInterface[]
+     */
+    protected $entries = [];
+
+    /**
+     * @var array
+     */
+    protected $categories = [];
+
+    /**
+     * @var int
+     */
+    protected $categoryLastInsert = 0;
+
+    /**
+     * @var bool
+     */
+    protected $processed = false;
+
+    /**
      * @var bool
      */
     protected $resolved = false;
@@ -56,6 +76,38 @@ class EntryList implements EntryListInterface
     public function getId()
     {
         return strtolower($this->get('id'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isProcessed()
+    {
+        return $this->processed;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isResolved()
+    {
+        return $this->resolved;
     }
 
     /**
@@ -112,51 +164,30 @@ class EntryList implements EntryListInterface
 
         $logger->info('Processing list sources');
         $this->processSources($io, $processors);
-        $logger->info(sprintf('Processed %d entry(s)', count($this->data['entries'])));
+        $logger->info(sprintf('Processed %d entry(s)', count($this->entries)));
 
         $logger->info('Organizing categories');
-        $nextCategoryId = 1;
-        $categories     = [];
-        foreach ($this->data['entries'] as $entry) {
-            /* @var EntryInterface $entry */
-            $entryType       = $entry->getType();
-            $entryCategories = $entry->get('categories');
-            if (empty($entryCategories)) {
-                $entryCategories = ['Uncatagorized'];
+        foreach ($this->entries as $entry) {
+            $categories = $entry->get('categories');
+            if (empty($categories)) {
+                $categories = ['Uncatagorized'];
             }
-            $entryCategoryIds = [];
-            foreach ($entryCategories as $categoryName) {
-                $categoryPath = $this->getCategoryPath($categoryName) ?: [$categoryName];
-                $parent       = 0;
-                foreach ($categoryPath as $pathSegment) {
-                    $idTitleMap = array_column($categories, 'title', 'id');
-                    if (in_array($pathSegment, $idTitleMap, true)) {
-                        $parent = $entryCategoryIds[] = array_search($pathSegment, $idTitleMap, true);
-                        ++$categories[$parent]['count'][$entryType];
-                        ++$categories[$parent]['count']['all'];
-                        continue;
-                    }
-
-                    $categories[$nextCategoryId] = [
-                        'id'     => $nextCategoryId,
-                        'title'  => $pathSegment,
-                        'parent' => $parent,
-                        'count'  => [
-                            'all'      => 1,
-                            $entryType => 1,
-                        ],
-                    ];
-                    $parent             = $nextCategoryId;
-                    $entryCategoryIds[] = $nextCategoryId;
-                    ++$nextCategoryId;
-                }
+            $categoryIds = [];
+            foreach ($categories as $category) {
+                $categoryIds = array_merge(
+                    $categoryIds,
+                    $this->insertCategory($category, [
+                        'all'             => 1,
+                        $entry->getType() => 1,
+                    ])
+                );
             }
 
-            $entry->set('categories', $entryCategoryIds);
+            $entry->set('categories', array_unique($categoryIds));
         }
 
-        $this->data['categories'] = $categories;
-        $logger->info(sprintf('Organized %d category(s)', count($categories)));
+        $this->processed = true;
+        $logger->info(sprintf('Organized %d category(s)', count($this->categories)));
     }
 
     /**
@@ -164,11 +195,16 @@ class EntryList implements EntryListInterface
      */
     public function resolve(IOInterface $io, array $resolvers, $force = false)
     {
+        // Santity check
+        if (!$this->isProcessed()) {
+            throw new \LogicException('Can not resolve the listt while it is not processed');
+        }
+
         if (empty($resolvers)) {
             throw new \LogicException('Cannot resolve the list; No resolvers has been provided');
         }
 
-        if (empty($this->data['entries'])) {
+        if (empty($this->entries)) {
             throw new \LogicException('No entries to resolve');
         }
 
@@ -179,8 +215,7 @@ class EntryList implements EntryListInterface
         $indicator = ' [ %%spinner%% ] Resolving entry#%d => %s (%%elapsed%%)';
 
         $i = $ir = $ic = 0;
-        /* @var EntryInterface $entry */
-        foreach ($this->data['entries'] as $id => $entry) {
+        foreach ($this->entries as $id => $entry) {
             ++$i;
             $resolvedWith = false;
             $isCached     = false;
@@ -226,35 +261,28 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function isResolved()
-    {
-        return $this->resolved;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function removeEntry(EntryInterface $entry)
     {
+        // Santity check
+        if (!$this->isProcessed()) {
+            throw new \LogicException('Can not remove an entry while the list is not processed');
+        }
+
         // Remove from entries
-        $entries = $this->get('entries');
-        unset($entries[$entry->getId()]);
-        $this->set('entries', $entries);
+        unset($this->entries[$entry->getId()]);
 
         // Update cat counts
-        $categories = $this->get('categories');
-        foreach ($categories as $i => $category) {
-            if (in_array($category['id'], $entry->get('categories'))) {
-                --$categories[$i]['count']['all'];
-                --$categories[$i]['count'][$entry->getType()];
+        foreach ($this->categories as $id => $category) {
+            if (in_array($id, $entry->get('categories'))) {
+                --$this->categories[$id]['count']['all'];
+                --$this->categories[$id]['count'][$entry->getType()];
 
                 // Remove the category if it hs no entries
-                if (1 > $categories[$i]['count']['all']) {
-                    unset($categories[$i]);
+                if (1 > $this->categories[$id]['count']['all']) {
+                    unset($this->categories[$id]);
                 }
             }
         }
-        $this->set('categories', $categories);
     }
 
     /**
@@ -280,9 +308,9 @@ class EntryList implements EntryListInterface
         }
 
         // Check if an already existing entry exists
-        if (isset($this->data['entries'][$id])) {
-            $this->data['entries'][$id]->merge($entry->get());
-            $entry = $this->data['entries'][$id];
+        if (isset($this->entries[$id])) {
+            $this->entries[$id]->merge($entry->get());
+            $entry = $this->entries[$id];
         }
 
         $categories = [];
@@ -314,7 +342,7 @@ class EntryList implements EntryListInterface
             $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
             $category = trim($category);
 
-            if(!empty($category)){
+            if (!empty($category)) {
                 $cleaned[] = $category;
             }
         }
@@ -323,7 +351,7 @@ class EntryList implements EntryListInterface
         $entry->set('categories', array_unique($cleaned));
 
         // Save the entry
-        $this->data['entries'][$id] = $entry;
+        $this->entries[$id] = $entry;
     }
 
     /**
@@ -452,55 +480,65 @@ class EntryList implements EntryListInterface
     }
 
     /**
-     * Gets the path to a category within the category tree if defined.
+     * Adds a new category.
+     *  Takes a category path like 'Category/Sub Category/Demo' and returns their
+     *  ids while adding them if not already added.
      *
-     * @param $category
-     * @param $tree
-     * @param int $depth
+     * @param string $category
+     * @param array  $count
      *
      * @return array|bool
      */
-    protected function getCategoryPath($category, array $tree = null, $depth = 0)
+    protected function insertCategory($category, array $count = [])
     {
-        if ($tree === null) {
-            $tree = $this->data['options']['categoryTree'];
-        }
-
-        $path = [];
-        foreach ($tree as $parent => $child) {
-            if ($depth === 0) {
-                $path = [];
-            }
-
-            if (is_array($child)) {
-                $path[] = $parent;
-            } elseif ($category === $child) {
-                $path[] = $category;
-            }
-
-            if ($category === $parent) {
-                return $path;
-            }
-
-            if (is_array($child)) {
-                if (in_array($category, $child)) {
-                    $path[] = $category;
-
-                    return $path;
+        $path   = [];
+        $return = [];
+        foreach (explode('/', trim($category, '/')) as $title) {
+            $parentPath = implode('/', $path);
+            $title      = ucfirst(trim($title));
+            $path[]     = $this->slugify($title);
+            $pathString = implode('/', $path);
+            $paths      = array_column($this->categories, 'path', 'id');
+            if (in_array($pathString, $paths)) {
+                $return[] = $id = array_search($pathString, $paths);
+                $object   = &$this->categories[$id];
+                // Allow overwriting the category title
+                $object['title'] = $title;
+                foreach ($count as $ckey => $cval) {
+                    if (!isset($object['count'][$ckey])) {
+                        $object['count'][$ckey] = $cval;
+                        continue;
+                    }
+                    $object['count'][$ckey] += $cval;
                 }
-
-                $path = array_merge($path, $this->getCategoryPath($category, $child, $depth + 1));
+                continue;
             }
 
-            if (in_array($category, $path)) {
-                return $path;
-            }
+            $return[] = $id = ++$this->categoryLastInsert;
+
+            $this->categories[$id] = [
+                'id'     => $id,
+                'title'  => $title,
+                'path'   => $pathString,
+                'parent' => (int) array_search($parentPath, $paths),
+                'count'  => $count,
+            ];
         }
 
-        if ($depth === 0 && !in_array($category, $path)) {
-            return false;
-        }
+        return $return;
+    }
 
-        return $path;
+    /**
+     * @param string $str
+     *
+     * @return mixed|string
+     */
+    protected function slugify($str)
+    {
+        $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+        $str = preg_replace('/[^\w\d\-]/', ' ', $str);
+        $str = str_replace(' ', '-', strtolower(trim($str, '-')));
+
+        return preg_replace('/\-{2,}/', '-', $str);
     }
 }

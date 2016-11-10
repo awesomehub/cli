@@ -3,7 +3,6 @@
 namespace Hub\EntryList\Distributer;
 
 use Hub\Build\BuildInterface;
-use Hub\Entry\EntryInterface;
 use Hub\Entry\RepoGithubEntryInterface;
 use Hub\EntryList\EntryListInterface;
 
@@ -93,8 +92,7 @@ class ListDistributer implements ListDistributerInterface
     {
         $updated = false;
         $entries = [];
-        /** @var EntryInterface $entry */
-        foreach ($this->list->get('entries') as $entry) {
+        foreach ($this->list->getEntries() as $entry) {
             $entryData            = $entry->get();
             $entryData['updated'] = time();
             $entryDataCache       = $this->getCachedObject($entry->getId()) ?: $entryData;
@@ -123,7 +121,7 @@ class ListDistributer implements ListDistributerInterface
             'name'    => $this->list->get('name'),
             'desc'    => $this->list->get('desc'),
             'score'   => $this->list->get('score'),
-            'cats'    => array_values($this->list->get('categories')),
+            'cats'    => array_values($this->list->getCategories()),
             'updated' => time(),
         ];
 
@@ -191,7 +189,7 @@ class ListDistributer implements ListDistributerInterface
             'name'    => $this->list->get('name'),
             'desc'    => $this->list->get('desc'),
             'score'   => $this->list->get('score'),
-            'entries' => count($this->list->get('entries')),
+            'entries' => count($this->list->getEntries()),
             'updated' => $this->updated,
         ];
 
