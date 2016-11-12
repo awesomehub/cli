@@ -4,6 +4,8 @@ namespace Hub\EntryList;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 class EntryListDefinition implements ConfigurationInterface
 {
@@ -33,7 +35,7 @@ class EntryListDefinition implements ConfigurationInterface
                 ->end()
                 ->integerNode('score')
                     ->info('The list score.')
-                    ->defaultValue(0)
+                    ->defaultValue(20)
                 ->end()
                 ->arrayNode('sources')
                     ->info('The sources for the list contents.')
@@ -42,25 +44,91 @@ class EntryListDefinition implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('type')
+                                ->info('Source type')
                                 ->isRequired()
                             ->end()
                             ->variableNode('data')
+                                ->info('Source data')
                                 ->isRequired()
                             ->end()
                             ->arrayNode('options')
-                                ->defaultValue([])
-                                ->prototype('variable')->end()
+                                ->info('Source options')
+                                ->ignoreExtraKeys(false)
+                                ->append($this->getSourceCategoryNode())
+                                ->append($this->getSourceCategoriesNode())
+                                ->append($this->getSourceExcludeNode())
                             ->end()
                         ->end()
                     ->end()
                 ->end()
                 ->arrayNode('options')
-                    ->info('The list options.')
-                    ->addDefaultsIfNotSet()
+                    ->info('The list options')
+                    ->children()
+                        ->arrayNode('source')
+                            ->info('Global source options')
+                            ->ignoreExtraKeys(false)
+                            ->append($this->getSourceCategoryNode())
+                            ->append($this->getSourceCategoriesNode())
+                            ->append($this->getSourceExcludeNode())
+                        ->end()
+                        ->arrayNode('categoryOrder')
+                            ->info('An array of categories to control categories order')
+                            ->useAttributeAsKey('path')
+                            ->normalizeKeys(false)
+                            ->prototype('scalar')
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end()
         ;
 
         return $treeBuilder;
+    }
+
+    /**
+     * Category node.
+     *
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    protected function getSourceCategoryNode()
+    {
+        return (new TreeBuilder())
+            ->root('category', 'scalar')
+                ->info('A single category to map all entries to it discarding any other category')
+                ->cannotBeEmpty()
+            ;
+    }
+
+    /**
+     * Categories option node.
+     *
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    protected function getSourceCategoriesNode()
+    {
+        return (new TreeBuilder())
+            ->root('categories')
+                ->info('A map of category => regex pattern(s) to match against entry ids')
+                ->useAttributeAsKey('name')
+                ->normalizeKeys(false)
+                ->prototype('variable')
+                ->end()
+            ;
+    }
+
+    /**
+     * Exclude option node.
+     *
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    protected function getSourceExcludeNode()
+    {
+        return (new TreeBuilder())
+            ->root('exclude')
+                ->info('An array of regex patterns to match against entry ids')
+                ->prototype('scalar')
+                ->end()
+            ;
     }
 }

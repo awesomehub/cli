@@ -9,6 +9,7 @@ use Hub\EntryList\Source\SourceInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\Exceptions\EntryResolveFailedException;
+use Hub\Util\NestedArray;
 
 /**
  * The Base List class.
@@ -62,11 +63,11 @@ class EntryList implements EntryListInterface
         }
 
         foreach ($this->data['sources'] as $i => $source) {
-            $this->data['sources'][$i] = new Source\Source(
-                $source['type'],
-                $source['data'],
-                $source['options']
-            );
+            $options = isset($this->data['options']['source'])
+                // Merge top-level source options
+                ? NestedArray::merge($this->data['options']['source'], $source['options'])
+                : $source['options'];
+            $this->data['sources'][$i] = new Source\Source($source['type'], $source['data'], $options);
         }
     }
 
@@ -168,10 +169,16 @@ class EntryList implements EntryListInterface
 
         $logger->info('Organizing categories');
         foreach ($this->entries as $entry) {
-            $categories = $entry->get('categories');
-            if (empty($categories)) {
-                $categories = ['Uncatagorized'];
+            $categories = [];
+            foreach ($entry->get('categories') as $category) {
+                // Strip non-utf chars
+                $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
+                $category = trim($category);
+                if (!empty($category) && !in_array($category, $categories)) {
+                    $categories[] = $category;
+                }
             }
+
             $categoryIds = [];
             foreach ($categories as $category) {
                 $categoryIds = array_merge(
@@ -183,7 +190,17 @@ class EntryList implements EntryListInterface
                 );
             }
 
-            $entry->set('categories', array_unique($categoryIds));
+            $entry->set('categories', $categoryIds);
+        }
+
+        // Add category order
+        $categoryOrder = $this->data['options']['categoryOrder'];
+        foreach ($this->categories as $id => $category) {
+            $order = 20;
+            if(array_key_exists($category['path'], $categoryOrder)){
+                $order = (int) $categoryOrder[$category['path']];
+            }
+            $this->categories[$id]['order'] = $order;
         }
 
         $this->processed = true;
@@ -229,10 +246,12 @@ class EntryList implements EntryListInterface
                         $resolver->resolve($entry, $force);
                     } catch (EntryResolveFailedException $e) {
                         $this->removeEntry($entry);
-                        $logger->warning(sprintf("Failed resolving entry#%d [%s] with '%s'; %s", $i, $id, get_class($resolver), $e->getMessage()));
+                        $logger->warning(sprintf(
+                            "Failed resolving entry#%d [%s] with '%s'; %s",
+                            $i, $id, get_class($resolver), $e->getMessage()
+                        ));
                         continue 2;
                     }
-
                     break;
                 }
             }
@@ -240,7 +259,10 @@ class EntryList implements EntryListInterface
             // Check if no resolver can resolve this entry
             if (false === $resolvedWith) {
                 $this->removeEntry($entry);
-                $logger->warning(sprintf("Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it", $i, $id, get_class($entry)));
+                $logger->warning(sprintf(
+                    "Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it",
+                    $i, $id, get_class($entry)
+                ));
                 continue;
             }
 
@@ -313,6 +335,17 @@ class EntryList implements EntryListInterface
             $entry = $this->entries[$id];
         }
 
+        // Check if a single category is defined
+        if ($source->hasOption('category')) {
+            $entry->set('categories', [
+                $source->getOption('category', null),
+            ]);
+            // Save the entry
+            $this->entries[$id] = $entry;
+
+            return;
+        }
+
         $categories = [];
         if ($entry->has('categories')) {
             $categories = $entry->get('categories');
@@ -320,36 +353,30 @@ class EntryList implements EntryListInterface
 
         // Add source categories
         if ($source->hasOption('categories')) {
-            foreach ($source->getOption('categories', []) as $regex => $sourceCategory) {
-                $regex = $regex === '*' ? '.*' : $regex;
-                $regex = $regex[0] !== '/' ? "/${regex}/" : $regex;
-                if (false === @preg_match($regex, null)) {
-                    throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
+            foreach ($source->getOption('categories', []) as $category => $regexs) {
+                if (!is_array($regexs)) {
+                    $regexs = [$regexs];
                 }
 
-                if (preg_match($regex, $id)) {
-                    if (!is_array($sourceCategory)) {
-                        $sourceCategory = [$sourceCategory];
+                foreach ($regexs as $regex) {
+                    $regex = $regex === '*' ? '.*' : $regex;
+                    $regex = $regex[0] !== '/' ? "/${regex}/" : $regex;
+                    if (false === @preg_match($regex, null)) {
+                        throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
                     }
-                    $categories = array_merge($categories, $sourceCategory);
+
+                    if (preg_match($regex, $id)) {
+                        if (!is_array($category)) {
+                            $category = [$category];
+                        }
+                        $categories = array_merge($categories, $category);
+                    }
                 }
-            }
-        }
-
-        $cleaned = [];
-        foreach ($categories as $category) {
-            // Strip non-utf chars
-            $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
-            $category = trim($category);
-
-            if (!empty($category)) {
-                $cleaned[] = $category;
             }
         }
 
         // Set the final categories
-        $entry->set('categories', array_unique($cleaned));
-
+        $entry->set('categories', $categories);
         // Save the entry
         $this->entries[$id] = $entry;
     }

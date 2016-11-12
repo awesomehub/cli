@@ -75,7 +75,10 @@ class ListInspectCommand extends Command
         $total = 0;
         foreach ($this->list->getCategories() as $id => $category) {
             if ($category['parent'] == $parent) {
-                $row = [str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title']];
+                $row = [
+                    str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title'],
+                    $category['order']
+                ];
                 if ($depth === 0) {
                     $total += $category['count']['all'];
                 }
@@ -107,9 +110,9 @@ class ListInspectCommand extends Command
                 return true;
             }
 
-            $header = ['Category'];
+            $header = ['Category', 'Order'];
             foreach (current($this->list->getCategories())['count'] as $type => $count) {
-                $header[] = $type;
+                $header[] = 'Count['.$type.']';
             }
 
             $this->io->table($header, $body);

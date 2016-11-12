@@ -10,7 +10,7 @@ use Hub\Filesystem\Filesystem;
 /**
  * Creates list instances from files of different formats.
  */
-class EntryListFile extends EntryList implements EntryListFileInterface
+class EntryListFile extends EntryList
 {
     const LISTS_DIR       = 'lists';
     const LISTS_CACHE_DIR = 'cache/lists';
@@ -24,21 +24,6 @@ class EntryListFile extends EntryList implements EntryListFileInterface
      * @var WorkspaceInterface
      */
     protected $workspace;
-
-    /**
-     * @var string
-     */
-    protected $path;
-
-    /**
-     * @var string
-     */
-    protected $cachePath;
-
-    /**
-     * @var string
-     */
-    protected $format;
 
     /**
      * Constructor.
@@ -61,53 +46,26 @@ class EntryListFile extends EntryList implements EntryListFileInterface
         }
 
         // Add $format extension if not present
-        if (!$this->filesystem->hasExtension($path, $format)) {
-            $pathname = basename($path);
-            if (!file_exists($path)) {
-                $path .= '.'.$format;
-            }
-        } else {
-            $pathname = basename($path, '.'.$format);
+        if (!$this->filesystem->hasExtension($path, $format) && !file_exists($path)) {
+            $path .= '.'.$format;
         }
-
-        $this->path      = $path;
-        $this->cachePath = $this->workspace->path([self::LISTS_CACHE_DIR, $pathname]);
-        $this->format    = $format;
 
         try {
-            $encoded = $filesystem->read($this->path);
-            if (empty($encoded)) {
-                throw new \InvalidArgumentException(sprintf("File contents shall not be empty at '%s'", $this->path));
+            $encodedData = $filesystem->read($path);
+            if (empty($encodedData)) {
+                throw new \InvalidArgumentException(sprintf("File contents shall not be empty at '%s'", $path));
             }
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf('Unable to read list definition file; %s', $e->getMessage()));
+            throw new \RuntimeException(sprintf("Unable to read list definition file '%s'; %s", $path, $e->getMessage()));
         }
 
-        parent::__construct($this->decode($encoded));
-    }
+        try {
+            $data = $this->decode($encodedData, $format);
+        } catch (\Exception $e) {
+            throw new \RuntimeException(sprintf("Unable to encode list definition file '%s'; %s", $path, $e->getMessage()));
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCachePath(): string
-    {
-        return $this->cachePath;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormat()
-    {
-        return $this->format;
+        parent::__construct($data);
     }
 
     /**
@@ -137,6 +95,7 @@ class EntryListFile extends EntryList implements EntryListFileInterface
      * Decodes given data into an array.
      *
      * @param string $data
+     * @param string $format
      *
      * @throws \InvalidArgumentException
      * @throws \LogicException
@@ -144,23 +103,17 @@ class EntryListFile extends EntryList implements EntryListFileInterface
      *
      * @return array
      */
-    protected function decode($data)
+    protected function decode($data, $format)
     {
         $serializer = new Serializer\Encoder\ChainDecoder([
             new Serializer\Encoder\JsonDecode(true),
         ]);
 
-        if (!$serializer->supportsDecoding($this->format)) {
-            throw new \LogicException(sprintf("Unsupported list definition file format provided '%s'", $this->format));
+        if (!$serializer->supportsDecoding($format)) {
+            throw new \LogicException(sprintf("Unsupported list definition file format '%s'", $format));
         }
 
-        try {
-            return $serializer->decode($data, $this->format);
-        } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf(
-                "Unable to decode list definition file at '%s'; %s", $this->path, $e->getMessage()
-            ), 0, $e);
-        }
+        return $serializer->decode($data, $format);
     }
 
     /**
@@ -170,7 +123,10 @@ class EntryListFile extends EntryList implements EntryListFileInterface
      */
     protected function save()
     {
-        return $this->filesystem->write($this->cachePath, serialize($this));
+        return $this->filesystem->write(
+            $this->workspace->path([self::LISTS_CACHE_DIR, $this->getId()]),
+            serialize($this)
+        );
     }
 
     /**
@@ -178,15 +134,15 @@ class EntryListFile extends EntryList implements EntryListFileInterface
      *
      * @param Filesystem         $filesystem
      * @param WorkspaceInterface $workspace
-     * @param string             $name
+     * @param string             $id
      *
      * @return self
      */
-    public static function createFromCache(Filesystem $filesystem, WorkspaceInterface $workspace, $name)
+    public static function createFromCache(Filesystem $filesystem, WorkspaceInterface $workspace, $id)
     {
-        $cachedPath = $workspace->path([self::LISTS_CACHE_DIR, $name]);
+        $cachedPath = $workspace->path([self::LISTS_CACHE_DIR, $id]);
         if (!$filesystem->exists($cachedPath)) {
-            throw new \InvalidArgumentException(sprintf('Unable to find the list cache file at %s', $cachedPath));
+            throw new \InvalidArgumentException(sprintf("Unable to find the list cache file at '%s'", $cachedPath));
         }
 
         $instance = unserialize($filesystem->read($cachedPath));
