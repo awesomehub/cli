@@ -64,7 +64,10 @@ class StartupWorkspace extends Workspace
     {
         // Check if in development mode
         if ($env->isDevelopment()) {
-            return dirname(dirname($env->getBin())).DIRECTORY_SEPARATOR.'.'.strtolower(Application::SLUG);
+            $devPath = dirname(dirname($env->getBin())).DIRECTORY_SEPARATOR.'.'.strtolower(Application::SLUG);
+            if(file_exists($devPath)){
+                return $devPath;
+            }
         }
 
         $envWorkspaceVar = strtoupper(Application::SLUG).'_WORKSPACE';
