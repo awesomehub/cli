@@ -114,6 +114,9 @@ abstract class Command extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->logger->debug(sprintf("Current command '%s'", implode(' ', $_SERVER['argv'])));
+        $this->logger->debug(sprintf("Current workspace '%s'", $this->workspace->path()));
+
         return $this->exec();
     }
 
