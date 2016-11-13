@@ -63,6 +63,7 @@ class EntryListDefinition implements ConfigurationInterface
                 ->end()
                 ->arrayNode('options')
                     ->info('The list options')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('source')
                             ->info('Global source options')

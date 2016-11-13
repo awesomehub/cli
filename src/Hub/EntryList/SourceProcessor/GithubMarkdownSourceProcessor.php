@@ -41,7 +41,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         $document    = $parser->parse($markdown);
 
         // Load category rules definitions
-        $this->loadlistRules($source->getOption('listCategories', []));
+        $this->loadlistRules($source->getOption('markdownCategories', []));
 
         $category        = '';
         $categoryRules   = null;
@@ -79,7 +79,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         $this->checkSkippedRules();
 
         $options = $source->getOptions();
-        unset($options['listCategories']);
+        unset($options['markdownCategories']);
 
         $sources = [];
         foreach ($urls as $cat => $list) {
