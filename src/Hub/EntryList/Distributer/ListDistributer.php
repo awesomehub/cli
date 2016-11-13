@@ -181,7 +181,7 @@ class ListDistributer implements ListDistributerInterface
             'lists' => [],
         ];
         if ($this->build->exists($file)) {
-            $collection['lists'] = $this->build->read($file);
+            $collection = $this->build->read($file);
         }
 
         $list = [
