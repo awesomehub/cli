@@ -1,7 +1,7 @@
 {
   "name": "awesomehub/cli",
   "type": "project",
-  "description": "Awesomehub command line interface for genrating collecting lists and repositories.",
+  "description": "Awesomehub command line interface for genrating collecting lists and repositories",
   "keywords": ["cli", "console", "github"],
   "homepage": "https://github.com/",
   "license": "MIT",
