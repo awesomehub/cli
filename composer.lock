@@ -363,17 +363,17 @@
             "time": "2016-11-22 17:30:29"
         },
         {
-            "name": "mdkholy/github-api-utils",
+            "name": "mohatt/github-api-utils",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mdkholy/github-api-utils.git",
-                "reference": "e1ad3a6bc0d10eb6db8b39ec2660fb67b9852137"
+                "url": "https://github.com/mohatt/github-api-utils.git",
+                "reference": "1eca1b90532acdde26e012e14e7893e1c5b272dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mdkholy/github-api-utils/zipball/e1ad3a6bc0d10eb6db8b39ec2660fb67b9852137",
-                "reference": "e1ad3a6bc0d10eb6db8b39ec2660fb67b9852137",
+                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/1eca1b90532acdde26e012e14e7893e1c5b272dc",
+                "reference": "1eca1b90532acdde26e012e14e7893e1c5b272dc",
                 "shasum": ""
             },
             "require": {
@@ -411,7 +411,7 @@
                 }
             ],
             "description": "Utility library for Github API authentication, token switching and static repository analysis",
-            "homepage": "https://github.com/mdkholy/github-api-utils",
+            "homepage": "https://github.com/mohatt/github-api-utils",
             "keywords": [
                 "api",
                 "gh",
@@ -2105,7 +2105,7 @@
     "stability-flags": {
         "php-http/httplug": 20,
         "knplabs/github-api": 20,
-        "mdkholy/github-api-utils": 20
+        "mohatt/github-api-utils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
