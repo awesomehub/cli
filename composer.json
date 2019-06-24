@@ -30,7 +30,7 @@
     "php-http/client-common": "^1.4",
     "php-http/guzzle6-adapter": "^1.1",
     "knplabs/github-api": "dev-master",
-    "mdkholy/github-api-utils": "dev-master"
+    "mohatt/github-api-utils": "dev-master"
   },
   "require-dev": {
     "symfony/var-dumper": "^3.1",
