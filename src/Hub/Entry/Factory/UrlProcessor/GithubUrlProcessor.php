@@ -5,7 +5,7 @@ namespace Hub\Entry\Factory\UrlProcessor;
 use Hub\Entry\RepoGithubEntry;
 
 /**
- * Create new entries based on github urls.
+ * Creates new entries based on github urls.
  */
 class GithubUrlProcessor implements UrlProcessorInterface
 {
@@ -27,7 +27,7 @@ class GithubUrlProcessor implements UrlProcessorInterface
      */
     public function getAction($url)
     {
-        if (preg_match('/http(?:s)?:\/\/+(?:www\.)?github\.com\/+([\w-]+)\/+([\w-]+)(?:\/?[\?\#].|$)/i', $url, $this->matches)) {
+        if (preg_match('/http(?:s)?:\/\/+(?:www\.)?github\.com\/+([\w-]+)\/+([\w-]+)(?:\/?[?#].|$)/i', $url, $this->matches)) {
             return self::ACTION_PROCESSING;
         }
 

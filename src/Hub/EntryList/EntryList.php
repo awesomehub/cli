@@ -402,13 +402,18 @@ class EntryList implements EntryListInterface
                 }
 
                 foreach ($regexs as $regex) {
+                    if ($negative = ('!' === $regex[0])) {
+                        $regex = substr($regex, 1);
+                    }
+
                     $regex = '*' === $regex ? '.*' : $regex;
                     $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
                     if (false === @preg_match($regex, null)) {
                         throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
                     }
 
-                    if (preg_match($regex, $id)) {
+                    $assert = preg_match($regex, $id);
+                    if (($negative && !$assert) || (!$negative && $assert)) {
                         if (!\is_array($category)) {
                             $category = [$category];
                         }
