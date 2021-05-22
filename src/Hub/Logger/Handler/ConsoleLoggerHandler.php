@@ -2,11 +2,11 @@
 
 namespace Hub\Logger\Handler;
 
-use Psr\Log\LogLevel;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Hub\IO\Output\OverwritableOutputInterface;
 use Hub\Logger\Record\LoggerRecordInterface;
+use Psr\Log\LogLevel;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleLoggerHandler implements LoggerHandlerInterface
 {
@@ -20,13 +20,13 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
      */
     private $verbosityLevelMap = [
         LogLevel::EMERGENCY => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::ALERT     => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::CRITICAL  => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::ERROR     => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::WARNING   => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::NOTICE    => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::INFO      => OutputInterface::VERBOSITY_NORMAL,
-        LogLevel::DEBUG     => OutputInterface::VERBOSITY_VERBOSE,
+        LogLevel::ALERT => OutputInterface::VERBOSITY_NORMAL,
+        LogLevel::CRITICAL => OutputInterface::VERBOSITY_NORMAL,
+        LogLevel::ERROR => OutputInterface::VERBOSITY_NORMAL,
+        LogLevel::WARNING => OutputInterface::VERBOSITY_NORMAL,
+        LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL,
+        LogLevel::INFO => OutputInterface::VERBOSITY_NORMAL,
+        LogLevel::DEBUG => OutputInterface::VERBOSITY_VERBOSE,
     ];
 
     /**
@@ -34,27 +34,23 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
      */
     private $formatLevelMap = [
         LogLevel::EMERGENCY => 'danger',
-        LogLevel::ALERT     => 'danger',
-        LogLevel::CRITICAL  => 'danger',
-        LogLevel::ERROR     => 'error',
-        LogLevel::WARNING   => 'warning',
-        LogLevel::NOTICE    => 'notice',
-        LogLevel::INFO      => 'info',
-        LogLevel::DEBUG     => 'debug',
+        LogLevel::ALERT => 'danger',
+        LogLevel::CRITICAL => 'danger',
+        LogLevel::ERROR => 'error',
+        LogLevel::WARNING => 'warning',
+        LogLevel::NOTICE => 'notice',
+        LogLevel::INFO => 'info',
+        LogLevel::DEBUG => 'debug',
     ];
 
     /**
      * Handle Constructor.
-     *
-     * @param OutputInterface $output
-     * @param array           $verbosityLevelMap
-     * @param array           $formatLevelMap
      */
     public function __construct(OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
     {
-        $this->output            = $output;
+        $this->output = $output;
         $this->verbosityLevelMap = $verbosityLevelMap + $this->verbosityLevelMap;
-        $this->formatLevelMap    = $formatLevelMap + $this->formatLevelMap;
+        $this->formatLevelMap = $formatLevelMap + $this->formatLevelMap;
     }
 
     /**
@@ -63,7 +59,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
     public function handle($record)
     {
         // Check if an explicit level is defined for the console
-        $level   = $this->getExplicitLevel($record);
+        $level = $this->getExplicitLevel($record);
         $isError = $this->isErrorLevel($level);
 
         // Write to the error output if necessary and available
@@ -78,10 +74,11 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         }
 
         // Set the styling tags
-        $tag       = $this->formatLevelMap[$level];
+        $tag = $this->formatLevelMap[$level];
         $label_tag = $tag.'_label';
 
-        $output->writeln(sprintf(' <%1$s>[%3$s]</%1$s>%5$s<%2$s>%4$s</%2$s>',
+        $output->writeln(sprintf(
+            ' <%1$s>[%3$s]</%1$s>%5$s<%2$s>%4$s</%2$s>',
             $label_tag,
             $tag,
             strtoupper($level),
@@ -107,7 +104,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
      */
     protected function isErrorLevel($level)
     {
-        return in_array($level, [
+        return \in_array($level, [
             LogLevel::EMERGENCY,
             LogLevel::ALERT,
             LogLevel::CRITICAL,

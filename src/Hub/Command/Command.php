@@ -2,17 +2,17 @@
 
 namespace Hub\Command;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Hub\Application;
+use Hub\Environment\EnvironmentInterface;
+use Hub\Filesystem\Filesystem;
+use Hub\IO\IOInterface;
+use Hub\Process\ProcessFactoryInterface;
+use Hub\Workspace\WorkspaceInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Psr\Log\LoggerInterface;
-use Hub\IO\IOInterface;
-use Hub\Environment\EnvironmentInterface;
-use Hub\Workspace\WorkspaceInterface;
-use Hub\Process\ProcessFactoryInterface;
-use Hub\Filesystem\Filesystem;
-use Hub\Application;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base command abstract class.
@@ -67,18 +67,18 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    final public function run(InputInterface $input, OutputInterface $output)
+    final public function run(InputInterface $input, OutputInterface $output): int
     {
         $this->container = $this->getApplication()->getContainer();
 
         $this->environment = $this->getApplication()->getKernel()->getEnvironment();
-        $this->filesystem  = $this->container->get('filesystem');
-        $this->workspace   = $this->container->get('workspace');
-        $this->input       = $this->container->get('input');
-        $this->output      = $this->container->get('output');
-        $this->io          = $this->container->get('io');
-        $this->logger      = $this->container->get('logger');
-        $this->process     = $this->container->get('process.factory');
+        $this->filesystem = $this->container->get('filesystem');
+        $this->workspace = $this->container->get('workspace');
+        $this->input = $this->container->get('input');
+        $this->output = $this->container->get('output');
+        $this->io = $this->container->get('io');
+        $this->logger = $this->container->get('logger');
+        $this->process = $this->container->get('process.factory');
 
         return parent::run($input, $output);
     }

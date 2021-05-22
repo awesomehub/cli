@@ -11,8 +11,6 @@ interface ListDistributerInterface
 {
     /**
      * Distributes the list.
-     *
-     * @param EntryListInterface $list
      */
     public function distribute(EntryListInterface $list);
 }

@@ -16,8 +16,6 @@ interface BuildFactoryInterface
 
     /**
      * Caches a build.
-     *
-     * @param BuildInterface $build
      */
     public function cache(BuildInterface $build);
 

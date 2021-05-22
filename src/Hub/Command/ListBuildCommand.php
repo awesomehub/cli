@@ -2,19 +2,19 @@
 
 namespace Hub\Command;
 
-use Symfony\Component\Console\Input;
-use Hub\EntryList\EntryListInterface;
-use Hub\EntryList\EntryListFile;
-use Hub\EntryList\SourceProcessor\UrlListSourceProcessor;
-use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
-use Hub\EntryList\SourceProcessor\GithubReposSourceProcessor;
-use Hub\EntryList\SourceProcessor\GithubListSourceProcessor;
-use Hub\EntryList\SourceProcessor\GithubAuthorSourceProcessor;
-use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
-use Hub\Entry\Resolver\RepoGithubEntryResolver;
 use Hub\Entry\Factory\TypeEntryFactory;
 use Hub\Entry\Factory\UrlEntryFactory;
 use Hub\Entry\Factory\UrlProcessor\GithubUrlProcessor;
+use Hub\Entry\Resolver\RepoGithubEntryResolver;
+use Hub\EntryList\EntryListFile;
+use Hub\EntryList\EntryListInterface;
+use Hub\EntryList\SourceProcessor\EntriesSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubAuthorSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubListSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubMarkdownSourceProcessor;
+use Hub\EntryList\SourceProcessor\GithubReposSourceProcessor;
+use Hub\EntryList\SourceProcessor\UrlListSourceProcessor;
+use Symfony\Component\Console\Input;
 
 /**
  * Builds a given list.
@@ -29,35 +29,10 @@ class ListBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
-    {
-        parent::configure();
-
-        $this
-            ->setName('list:build')
-            ->setDescription('Build a hub list using a given list definition file.')
-            ->addArgument(
-                'list', Input\InputArgument::OPTIONAL, 'The name or path to the list definition file'
-            )
-            ->addOption(
-                '--format', '-f', Input\InputOption::VALUE_REQUIRED, 'The list file format (json or yaml)', 'json'
-            )
-            ->addOption(
-                '--no-resolve', null, Input\InputOption::VALUE_NONE, 'Do not resolve the list'
-            )
-            ->addOption(
-                '--no-cache', null, Input\InputOption::VALUE_NONE, 'Do not check for cached entries (may slow down the build)'
-            )
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function validate()
     {
         if (null === $this->input->getArgument('list')) {
-            $all = $this->io->confirm(sprintf('Are you sure you want to build all lists?'));
+            $all = $this->io->confirm('Are you sure you want to build all lists?');
             if (!$all) {
                 exit(0);
             }
@@ -67,28 +42,68 @@ class ListBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
+    protected function configure()
+    {
+        parent::configure();
+
+        $this
+            ->setName('list:build')
+            ->setDescription('Build a hub list using a given list definition file.')
+            ->addArgument(
+                'list',
+                Input\InputArgument::OPTIONAL,
+                'The name or path to the list definition file'
+            )
+            ->addOption(
+                '--format',
+                '-f',
+                Input\InputOption::VALUE_REQUIRED,
+                'The list file format (json or yaml)',
+                'json'
+            )
+            ->addOption(
+                '--no-resolve',
+                null,
+                Input\InputOption::VALUE_NONE,
+                'Do not resolve the list'
+            )
+            ->addOption(
+                '--no-cache',
+                null,
+                Input\InputOption::VALUE_NONE,
+                'Do not check for cached entries (may slow down the build)'
+            )
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function exec()
     {
-        $path      = $this->input->getArgument('list');
-        $format    = strtolower($this->input->getOption('format'));
+        $path = $this->input->getArgument('list');
+        $format = strtolower($this->input->getOption('format'));
         $noResolve = $this->input->getOption('no-resolve');
-        $noCache   = $this->input->getOption('no-cache');
+        $noCache = $this->input->getOption('no-cache');
 
         // Build all lists
         if (empty($path)) {
             $paths = EntryListFile::findLists($this->workspace);
-            if (count($paths) == 0) {
+            if (0 == \count($paths)) {
                 $this->io->note('No lists found to build');
+
                 exit(0);
             }
 
-            $this->io->title(sprintf('Building %d list(s)', count($paths)));
+            $this->io->title(sprintf('Building %d list(s)', \count($paths)));
             foreach ($paths as $singlePath) {
                 try {
                     $this->build($singlePath, $format, $noResolve, $noCache);
                 } catch (\Exception $e) {
                     $this->io->getLogger()->warning(sprintf(
-                        "Ignoring list '%s'; %s", $singlePath, $e->getMessage()
+                        "Ignoring list '%s'; %s",
+                        $singlePath,
+                        $e->getMessage()
                     ));
                 }
             }
@@ -123,13 +138,12 @@ class ListBuildCommand extends Command
         if (!$noResolve) {
             $this->resolve($list, $noCache);
         }
+        $list->finalize($this->io);
         $this->logger->info('Done!');
     }
 
     /**
      * Processes the list.
-     *
-     * @param EntryListInterface $list
      */
     protected function process(EntryListInterface $list)
     {
@@ -153,8 +167,7 @@ class ListBuildCommand extends Command
     /**
      * Resolves the list.
      *
-     * @param EntryListInterface $list
-     * @param bool               $force
+     * @param bool $force
      */
     protected function resolve(EntryListInterface $list, $force = false)
     {

@@ -2,15 +2,16 @@
 
 require __DIR__.'/bootstrap.php';
 
-use Symfony\Component\Debug\ErrorHandler;
+use Hub\ConsoleKernel;
 use Hub\Exception\ExceptionHandlerManager;
 use Hub\Exception\Handler\StartupExceptionHandler;
-use Hub\ConsoleKernel;
+use Symfony\Component\Debug\ErrorHandler;
 
-// Register execption manager and add a temporary startup execption handler
+// Register exception manager and add a temporary startup exception handler
 ExceptionHandlerManager::getInstance()
     ->addHandler(new StartupExceptionHandler())
-    ->register();
+    ->register()
+;
 
 // Use Symfony error handler to convert php errors to exceptions
 ErrorHandler::register();

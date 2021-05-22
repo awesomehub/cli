@@ -2,9 +2,9 @@
 
 namespace Hub\EntryList\SourceProcessor;
 
+use Http\Client\Common\HttpMethodsClient;
 use Hub\EntryList\Source\Source;
 use Hub\EntryList\Source\SourceInterface;
-use Http\Client\Common\HttpMethodsClient;
 
 /**
  * fetches github list markdown url and pass it to the github markdown processor.
@@ -18,8 +18,6 @@ class GithubListSourceProcessor implements SourceProcessorInterface
 
     /**
      * Sets the logger and the entry factory.
-     *
-     * @param HttpMethodsClient $httpClient
      */
     public function __construct(HttpMethodsClient $httpClient)
     {
@@ -32,7 +30,7 @@ class GithubListSourceProcessor implements SourceProcessorInterface
     public function process(SourceInterface $source, \Closure $callback = null)
     {
         $url = $source->getData();
-        if(preg_match('/^(?!https?:\/\/)([^\/]+)\/(.*)$/', $source->getData(), $matches)) {
+        if (preg_match('/^(?!https?:\/\/)([^\/]+)\/(.*)$/', $source->getData(), $matches)) {
             $url = sprintf(
                 'https://raw.githubusercontent.com/%s/%s/master/README.md',
                 $matches[1],
@@ -42,8 +40,9 @@ class GithubListSourceProcessor implements SourceProcessorInterface
 
         $callback(self::ON_STATUS_UPDATE, [
             'type' => 'info',
-            'message' => sprintf("Fetching '%s'", $url)
+            'message' => sprintf("Fetching '%s'", $url),
         ]);
+
         try {
             $response = $this->http->get($url);
             $markdown = (string) $response->getBody();
@@ -59,7 +58,7 @@ class GithubListSourceProcessor implements SourceProcessorInterface
      */
     public function getAction(SourceInterface $source)
     {
-        return $source->getType() === 'github.list'
+        return 'github.list' === $source->getType()
             ? self::ACTION_PARTIAL_PROCESSING
             : self::ACTION_SKIP;
     }

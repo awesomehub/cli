@@ -12,9 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Application extends Console\Application
 {
-    const NAME    = 'AwesomeHub';
-    const SLUG    = 'awesomeHub';
-    const VERSION = '0.1.0';
+    public const NAME = 'AwesomeHub';
+    public const SLUG = 'awesomeHub';
+    public const VERSION = '0.1.0';
 
     /**
      * @var KernelInterface
@@ -23,8 +23,6 @@ class Application extends Console\Application
 
     /**
      * Constructor.
-     *
-     * @param KernelInterface $kernel
      */
     public function __construct(KernelInterface $kernel)
     {
@@ -37,7 +35,7 @@ class Application extends Console\Application
     /**
      * {@inheritdoc}
      */
-    public function run(Input\InputInterface $input = null,  Output\OutputInterface $output = null)
+    public function run(Input\InputInterface $input = null, Output\OutputInterface $output = null)
     {
         $container = $this->getContainer();
 

@@ -25,7 +25,7 @@ trait ExceptionHandlerManagerRegistererTrait
 
         // If Symfony ErrorHandler was active restore it and set the exception handler though it
         // This prevents some errors not get converted to exceptions
-        if (is_array($prev) && $prev[0] instanceof ErrorHandler) {
+        if (\is_array($prev) && $prev[0] instanceof ErrorHandler) {
             restore_exception_handler();
             $prev[0]->setExceptionHandler($handler);
         }

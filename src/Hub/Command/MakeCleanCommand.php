@@ -28,7 +28,7 @@ class MakeCleanCommand extends Command
     protected function exec()
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
-        $build        = $buildFactory->getCurrent();
+        $build = $buildFactory->getCurrent();
         if ($build) {
             $build->clean();
         }

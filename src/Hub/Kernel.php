@@ -2,22 +2,22 @@
 
 namespace Hub;
 
+use Hub\Environment\Environment;
+use Hub\Environment\EnvironmentInterface;
+use Hub\Exception\ExceptionHandlerPass;
+use Hub\Logger\LoggerHandlerPass;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\DependencyInjection\Loader\ClosureLoader;
 use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
-use Hub\Environment\EnvironmentInterface;
-use Hub\Environment\Environment;
-use Hub\Exception\ExceptionHandlerPass;
-use Hub\Logger\LoggerHandlerPass;
 
 /**
  * The App Kernel.
@@ -47,9 +47,9 @@ abstract class Kernel implements KernelInterface
      *  - EnvironmentInterface::PRODUCTION
      *
      * @param EnvironmentInterface $environment
-     * @param string               $mode
+     * @param string|null $mode
      */
-    public function __construct(EnvironmentInterface $environment = null, $mode = null)
+    public function __construct(EnvironmentInterface $environment = null, string $mode = null)
     {
         $this->environment = $environment ?: new Environment($mode);
     }
@@ -65,7 +65,7 @@ abstract class Kernel implements KernelInterface
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         // Check it it's already booted up
         if ($this->isBooted()) {
@@ -90,7 +90,7 @@ abstract class Kernel implements KernelInterface
     /**
      * {@inheritdoc}
      */
-    public function shutdown()
+    public function shutdown(): void
     {
         // Chck if we are not booted
         if (!$this->isBooted()) {
@@ -103,7 +103,7 @@ abstract class Kernel implements KernelInterface
     /**
      * {@inheritdoc}
      */
-    public function isBooted()
+    public function isBooted(): bool
     {
         return true === $this->booted;
     }
@@ -119,7 +119,7 @@ abstract class Kernel implements KernelInterface
     /**
      * {@inheritdoc}
      */
-    public function getContainer()
+    public function getContainer(): ContainerInterface
     {
         return $this->container;
     }
@@ -130,10 +130,10 @@ abstract class Kernel implements KernelInterface
      * The cached version of the service container is used when fresh, otherwise the
      * container is built.
      */
-    protected function initializeContainer()
+    protected function initializeContainer(): void
     {
         $class = 'CachedContainer';
-        $cache = new ConfigCache(__DIR__.DIRECTORY_SEPARATOR.$class.'.php', $this->environment->isDevelopment());
+        $cache = new ConfigCache(__DIR__.\DIRECTORY_SEPARATOR.$class.'.php', $this->environment->isDevelopment());
         if (!$cache->isFresh()) {
             $container = $this->buildContainer();
             $container->compile();
@@ -150,7 +150,7 @@ abstract class Kernel implements KernelInterface
      *
      * @return ContainerBuilder
      */
-    protected function buildContainer()
+    protected function buildContainer(): ContainerBuilder
     {
         $container = new ContainerBuilder();
         $container->addObjectResource($this);
@@ -162,11 +162,11 @@ abstract class Kernel implements KernelInterface
 
         // These are just placeholders to allow the container to compile
         // without errors about non-existing services
-        $container->set('kernel', new \stdClass());
-        $container->set('environment', new \stdClass());
+        $container->register('kernel')->setSynthetic(true);
+        $container->register('environment')->setSynthetic(true);
 
-        $container->addCompilerPass(new LoggerHandlerPass($this));
-        $container->addCompilerPass(new ExceptionHandlerPass($this));
+        $container->addCompilerPass(new LoggerHandlerPass());
+        $container->addCompilerPass(new ExceptionHandlerPass());
 
         return $container;
     }
@@ -178,14 +178,14 @@ abstract class Kernel implements KernelInterface
      * @param ContainerBuilder $container The service container
      * @param string           $class     The name of the class to generate
      */
-    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class)
+    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class): void
     {
-        $dumper  = new PhpDumper($container);
+        $dumper = new PhpDumper($container);
         $content = $dumper->dump([
-            'class'     => $class,
+            'class' => $class,
             'namespace' => __NAMESPACE__,
-            'file'      => $cache->getPath(),
-            'debug'     => $this->environment->isDevelopment(),
+            'file' => $cache->getPath(),
+            'debug' => $this->environment->isDevelopment(),
         ]);
         $cache->write($content, $container->getResources());
     }
@@ -197,9 +197,9 @@ abstract class Kernel implements KernelInterface
      *
      * @return DelegatingLoader The loader
      */
-    protected function getContainerLoader(ContainerBuilder $container)
+    protected function getContainerLoader(ContainerBuilder $container): DelegatingLoader
     {
-        $locator  = new FileLocator(dirname(__DIR__));
+        $locator = new FileLocator(\dirname(__DIR__));
         $resolver = new LoaderResolver([
             new XmlFileLoader($container, $locator),
             new PhpFileLoader($container, $locator),

@@ -22,6 +22,20 @@ interface EntryInterface
     public static function getType();
 
     /**
+     * Marks another entry id as an alias to thid entry.
+     *
+     * @param string $id
+     */
+    public function addAlias($id);
+
+    /**
+     * Gets a list of other entry ids that are marked as aliases to this entry.
+     *
+     * @return array
+     */
+    public function getAliases();
+
+    /**
      * Checks if a given key exists in entry data.
      *
      * @param string $key
@@ -44,7 +58,7 @@ interface EntryInterface
     /**
      * Sets the value of a given data key or the whole data array.
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed        $value
      */
     public function set($key, $value = null);
@@ -53,11 +67,10 @@ interface EntryInterface
      * Merges the value of a given data key and if an array is given
      *  it should merge it with the main data array.
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed        $value
-     * @param bool         $preserveIntegerKeys
      */
-    public function merge($key, $value = null, $preserveIntegerKeys = false);
+    public function merge($key, $value = null);
 
     /**
      * Delets a given data key.

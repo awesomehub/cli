@@ -12,8 +12,6 @@ interface ExceptionHandlerManagerInterface
     /**
      * Adds a handler on to the stack.
      *
-     * @param ExceptionHandlerInterface $handler
-     *
      * @return self
      */
     public function addHandler(ExceptionHandlerInterface $handler);
@@ -32,9 +30,6 @@ interface ExceptionHandlerManagerInterface
      */
     public function getHandlers();
 
-    /**
-     * @param \Exception $exception
-     */
     public function runHandlers(\Exception $exception);
 
     /**

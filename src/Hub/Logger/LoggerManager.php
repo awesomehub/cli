@@ -2,10 +2,10 @@
 
 namespace Hub\Logger;
 
-use Psr\Log\AbstractLogger;
-use Hub\Logger\Record\LoggerRecordInterface;
 use Hub\Logger\Handler\LoggerHandlerInterface;
 use Hub\Logger\Record\LoggerRecord;
+use Hub\Logger\Record\LoggerRecordInterface;
+use Psr\Log\AbstractLogger;
 
 /**
  * Logger manager class.
@@ -63,7 +63,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
      */
     public function runHandlers(LoggerRecordInterface $record)
     {
-        if (0 === count($this->handlers)) {
+        if (0 === \count($this->handlers)) {
             throw new \LogicException('No logger handler has been defined.');
         }
 
@@ -95,7 +95,6 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
      * @author PHP Framework Interoperability Group
      *
      * @param string $message
-     * @param array  $context
      *
      * @return string
      */
@@ -104,7 +103,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         // build a replacement array with braces around the context keys
         $replace = [];
         foreach ($context as $key => $val) {
-            if (!is_array($val) && (!is_object($val) || method_exists($val, '__toString'))) {
+            if (!\is_array($val) && (!\is_object($val) || method_exists($val, '__toString'))) {
                 $replace[sprintf('{%s}', $key)] = $val;
             }
         }

@@ -18,8 +18,6 @@ class EntriesSourceProcessor implements SourceProcessorInterface
 
     /**
      * Sets the logger and the entry factory.
-     *
-     * @param TypeEntryFactoryInterface $entryFactory
      */
     public function __construct(TypeEntryFactoryInterface $entryFactory)
     {
@@ -32,28 +30,28 @@ class EntriesSourceProcessor implements SourceProcessorInterface
     public function process(SourceInterface $source, \Closure $callback = null)
     {
         $entries = $source->getData();
-        if (!is_array($entries)) {
-            throw new \UnexpectedValueException(sprintf(
-                'Unexpected entries source data type; Expected [array] but got [%s]', gettype($entries)
-            ));
+        if (!\is_array($entries)) {
+            throw new \UnexpectedValueException(sprintf('Unexpected entries source data type; Expected [array] but got [%s]', \gettype($entries)));
         }
 
         foreach ($entries as $i => $entry) {
-            if (!isset($entry['type']) || !isset($entry['data']) || !is_array($entry['data'])) {
+            if (!isset($entry['type'], $entry['data']) || !\is_array($entry['data'])) {
                 throw new \RuntimeException(sprintf('Incorrect entry schema at index[%d]', $i));
             }
 
             $callback(self::ON_STATUS_UPDATE, [
                 'type' => 'info',
-                'message' => sprintf("Attempting to create an entry from data at index[%d]", $i)
+                'message' => sprintf('Attempting to create an entry from data at index[%d]', $i),
             ]);
+
             try {
                 $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
             } catch (EntryCreationFailedException $e) {
                 $callback(self::ON_STATUS_UPDATE, [
                     'type' => 'error',
-                    'message' => sprintf("Ignoring entry at index[%d]; %s", $i, $e->getMessage())
+                    'message' => sprintf('Ignoring entry at index[%d]; %s', $i, $e->getMessage()),
                 ]);
+
                 continue;
             }
 
@@ -66,7 +64,7 @@ class EntriesSourceProcessor implements SourceProcessorInterface
      */
     public function getAction(SourceInterface $source)
     {
-        return $source->getType() === 'entries'
+        return 'entries' === $source->getType()
             ? self::ACTION_PROCESSING
             : self::ACTION_SKIP;
     }

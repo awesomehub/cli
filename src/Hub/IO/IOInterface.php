@@ -2,9 +2,9 @@
 
 namespace Hub\IO;
 
+use Hub\IO\Output\OverwritableOutputInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console;
-use Hub\IO\Output\OverwritableOutputInterface;
 
 /**
  * Interface for an IO class.

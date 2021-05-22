@@ -2,10 +2,9 @@
 
 namespace Hub\Command;
 
-use Hub\Entry\EntryInterface;
 use Hub\EntryList\EntryListFile;
-use Symfony\Component\Console\Input;
 use Hub\EntryList\EntryListInterface;
+use Symfony\Component\Console\Input;
 
 /**
  * Inspects a fetched list.
@@ -28,7 +27,9 @@ class ListInspectCommand extends Command
             ->setName('list:inspect')
             ->setDescription('Inspects a fetched hub list.')
             ->addArgument(
-                'list', Input\InputArgument::REQUIRED, 'The name of the cached list'
+                'list',
+                Input\InputArgument::REQUIRED,
+                'The name of the cached list'
             )
         ;
     }
@@ -64,32 +65,29 @@ class ListInspectCommand extends Command
     /**
      * Prints list categories in hierarchical order.
      *
-     * @param int $parent
-     * @param int $depth
-     *
      * @return array|bool
      */
     protected function printCategories(int $parent = 0, int $depth = 0)
     {
-        $body  = [];
+        $body = [];
         $total = 0;
         foreach ($this->list->getCategories() as $id => $category) {
             if ($category['parent'] == $parent) {
                 $row = [
                     str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title'],
-                    $category['order']
+                    $category['order'],
                 ];
-                if ($depth === 0) {
+                if (0 === $depth) {
                     $total += $category['count']['all'];
                 }
                 foreach ($category['count'] as $type => $count) {
                     $realCount = 0;
                     foreach ($this->list->getEntries() as $entry) {
-                        if($type !== 'all' && $type !== $entry->getType()){
+                        if ('all' !== $type && $type !== $entry->getType()) {
                             continue;
                         }
 
-                        if (in_array($id, $entry->get('categories'))) {
+                        if (\in_array($id, $entry->get('categories'))) {
                             ++$realCount;
                         }
                     }
@@ -99,12 +97,12 @@ class ListInspectCommand extends Command
                     $row[] = $count;
                 }
                 $body[] = $row;
-                $body   = array_merge($body, $this->printCategories($id, $depth + 1));
+                $body = array_merge($body, $this->printCategories($id, $depth + 1));
             }
         }
 
-        if ($depth === 0) {
-            if (count($body) == 0) {
+        if (0 === $depth) {
+            if (0 == \count($body)) {
                 $this->io->text('No categories found');
 
                 return true;
@@ -117,7 +115,7 @@ class ListInspectCommand extends Command
 
             $this->io->table($header, $body);
 
-            $totalReal = count($this->list->getEntries());
+            $totalReal = \count($this->list->getEntries());
             if ($total !== $totalReal) {
                 $total = sprintf('%d <debug>(%d)</debug>', $total, $totalReal);
             }
@@ -138,13 +136,13 @@ class ListInspectCommand extends Command
     protected function printInfo()
     {
         $data = [
-            'ID'         => $this->list->getId(),
-            'Name'       => $this->list->get('name'),
-            'Sources'    => count($this->list->get('sources')),
-            'Categories' => count($this->list->getCategories()),
-            'Entries'    => count($this->list->getEntries()),
-            'Processed'  => $this->list->isProcessed() ? 'Yes' : 'No',
-            'Resolved'   => $this->list->isResolved() ? 'Yes' : 'No',
+            'ID' => $this->list->getId(),
+            'Name' => $this->list->get('name'),
+            'Sources' => \count($this->list->get('sources')),
+            'Categories' => \count($this->list->getCategories()),
+            'Entries' => \count($this->list->getEntries()),
+            'Processed' => $this->list->isProcessed() ? 'Yes' : 'No',
+            'Resolved' => $this->list->isResolved() ? 'Yes' : 'No',
         ];
 
         $list = [];

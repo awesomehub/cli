@@ -12,25 +12,25 @@ class StartupExceptionHandler implements ExceptionHandlerInterface
      */
     public function handle(\Exception $e)
     {
-        echo sprintf('[%s] %s (%s:%s)', get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()).PHP_EOL;
-        echo 'Stack trace:'.PHP_EOL;
+        echo sprintf('[%s] %s (%s:%s)', \get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()).\PHP_EOL;
+        echo 'Stack trace:'.\PHP_EOL;
         // exception related properties
         $trace = $e->getTrace();
         array_unshift($trace, [
             'function' => '',
-            'file'     => $e->getFile() !== null ? $e->getFile() : 'n/a',
-            'line'     => $e->getLine() !== null ? $e->getLine() : 'n/a',
-            'args'     => [],
+            'file' => null !== $e->getFile() ? $e->getFile() : 'n/a',
+            'line' => null !== $e->getLine() ? $e->getLine() : 'n/a',
+            'args' => [],
         ]);
 
-        for ($i = 0, $count = count($trace); $i < $count; ++$i) {
-            $class    = isset($trace[$i]['class']) ? $trace[$i]['class'] : '';
-            $type     = isset($trace[$i]['type']) ? $trace[$i]['type'] : '';
+        for ($i = 0, $count = \count($trace); $i < $count; ++$i) {
+            $class = $trace[$i]['class'] ?? '';
+            $type = $trace[$i]['type'] ?? '';
             $function = $trace[$i]['function'];
-            $file     = isset($trace[$i]['file']) ? $trace[$i]['file'] : 'n/a';
-            $line     = isset($trace[$i]['line']) ? $trace[$i]['line'] : 'n/a';
+            $file = $trace[$i]['file'] ?? 'n/a';
+            $line = $trace[$i]['line'] ?? 'n/a';
 
-            echo sprintf(' - %s%s%s() at %s:%s', $class, $type, $function, $file, $line).PHP_EOL;
+            echo sprintf(' - %s%s%s() at %s:%s', $class, $type, $function, $file, $line).\PHP_EOL;
         }
     }
 

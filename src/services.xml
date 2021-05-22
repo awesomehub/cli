@@ -66,11 +66,12 @@
             <argument type="service" id="logger" />
         </service>
         <service id="github.client" class="Github\Client">
+            <factory class="Github\Client" method="createWithHttpClient" />
             <argument type="service" id="http.client" />
             <call method="addCache">
                 <argument type="service" id="github.cache" />
                 <argument type="collection">
-                    <argument key="respect_cache_headers">false</argument>
+                    <argument key="respect_response_cache_directives">false</argument>
                 </argument>
             </call>
         </service>

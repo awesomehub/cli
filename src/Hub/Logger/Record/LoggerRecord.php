@@ -33,14 +33,13 @@ class LoggerRecord implements LoggerRecordInterface
      * @param string $level
      * @param string $message
      * @param int    $timstamp
-     * @param array  $context
      */
     public function __construct($level, $message, $timstamp, array $context = [])
     {
-        $this->level    = $level;
-        $this->message  = $message;
+        $this->level = $level;
+        $this->message = $message;
         $this->timstamp = $timstamp;
-        $this->context  = $context;
+        $this->context = $context;
     }
 
     /**

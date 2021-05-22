@@ -9,15 +9,15 @@ use Symfony\Component\Console;
  */
 class ConsoleOutput extends Console\Output\ConsoleOutput implements OverwritableOutputInterface
 {
-    const MAX_LINE_LENGTH = 120;
+    public const MAX_LINE_LENGTH = 120;
 
     protected $overwrite = false;
     protected $options;
     protected $lineLength;
     protected $startTime;
     protected $spinnerCurrent = 0;
-    protected $lastMessage    = '';
-    protected $lastMessageNl  = false;
+    protected $lastMessage = '';
+    protected $lastMessageNl = false;
 
     /**
      * {@inheritdoc}
@@ -26,12 +26,12 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     {
         $this->overwrite = true;
         $this->startTime = time();
-        $this->options   = array_merge([
-            'spinnerValues'   => ['-', '\\', '|', '/'],
+        $this->options = array_merge([
+            'spinnerValues' => ['-', '\\', '|', '/'],
             'fallbackNewline' => true,
         ], $options);
         // Windows cmd wraps lines as soon as the terminal width is reached, whether there are following chars or not.
-        $this->lineLength = min($this->getTerminalWidth() - (int) (DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
+        $this->lineLength = min($this->getTerminalWidth() - (int) (\DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
     }
 
     /**
@@ -67,6 +67,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 if ($this->options['fallbackNewline']) {
                     $newline = true;
                 }
+
                 break;
             }
 
@@ -98,7 +99,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 parent::write('', true, $type);
             }
 
-            $this->lastMessage   = $messages;
+            $this->lastMessage = $messages;
             $this->lastMessageNl = $newline;
 
             return;
@@ -106,7 +107,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
 
         parent::write($messages, $newline, $type);
 
-        $this->lastMessage   = $messages;
+        $this->lastMessage = $messages;
         $this->lastMessageNl = $newline;
     }
 
@@ -121,9 +122,9 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     {
         $formatters = $this->getPlaceholderFormatters();
 
-        return preg_replace_callback("{%([a-z\-_]+)%}i", function ($matches) use ($formatters) {
+        return preg_replace_callback('{%([a-z\\-_]+)%}i', function ($matches) use ($formatters) {
             return isset($formatters[$matches[1]])
-                ? call_user_func($formatters[$matches[1]])
+                ? \call_user_func($formatters[$matches[1]])
                 : $matches[0];
         }, $message);
     }
@@ -142,7 +143,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 'spinner' => function () {
                     $values = $this->options['spinnerValues'];
 
-                    return $values[$this->spinnerCurrent % count($values)];
+                    return $values[$this->spinnerCurrent % \count($values)];
                 },
                 'elapsed' => function () {
                     return Console\Helper\Helper::formatTime(time() - $this->startTime);
@@ -162,7 +163,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     private function getTerminalWidth()
     {
         $application = new Console\Application();
-        $dimensions  = $application->getTerminalDimensions();
+        $dimensions = $application->getTerminalDimensions();
 
         return $dimensions[0] ?: self::MAX_LINE_LENGTH;
     }

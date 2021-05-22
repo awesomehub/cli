@@ -12,33 +12,32 @@ interface SourceProcessorInterface
     /**
      * Fired when the process send a new staus message.
      */
-    const ON_STATUS_UPDATE = 1;
+    public const ON_STATUS_UPDATE = 1;
 
     /**
      * Fired when an entry is created.
      */
-    const ON_ENTRY_CREATED = 2;
+    public const ON_ENTRY_CREATED = 2;
 
     /**
      * Causes the factory to move on to the nexr processor.
      */
-    const ACTION_SKIP = 0;
+    public const ACTION_SKIP = 0;
 
     /**
      * Causes the factory to exclusively use this processor to process the source.
      */
-    const ACTION_PROCESSING = 1;
+    public const ACTION_PROCESSING = 1;
 
     /**
      * Causes the factory to proccess the source with this processor then pass the result to the next prccessor.
      */
-    const ACTION_PARTIAL_PROCESSING = 2;
+    public const ACTION_PARTIAL_PROCESSING = 2;
 
     /**
      * Processes the source and outputs new entry(s).
      *
-     * @param SourceInterface $source
-     * @param \Closure        $callback Should receive 2 args ($event, $payload)
+     * @param \Closure $callback Should receive 2 args ($event, $payload)
      *
      * @throws \Exception
      *
@@ -48,8 +47,6 @@ interface SourceProcessorInterface
 
     /**
      * Determines whether the processor supports the given source.
-     *
-     * @param SourceInterface $source
      *
      * @return int
      */

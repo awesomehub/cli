@@ -27,16 +27,13 @@ class BuildFactory implements BuildFactoryInterface
 
     /**
      * Constructor.
-     *
-     * @param Filesystem         $filesystem
-     * @param WorkspaceInterface $workspace
      */
     public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace)
     {
         $this->filesystem = $filesystem;
-        $this->workspace  = $workspace;
-        $this->path       = [
-            'dist'   => $this->workspace->path('dist'),
+        $this->workspace = $workspace;
+        $this->path = [
+            'dist' => $this->workspace->path('dist'),
             'cached' => $this->workspace->path('cache/dist'),
         ];
     }
@@ -46,7 +43,8 @@ class BuildFactory implements BuildFactoryInterface
      */
     public function create($path = null)
     {
-        $build = new Build($this->filesystem,
+        $build = new Build(
+            $this->filesystem,
             $path ?: $this->path['dist'],
             $this->getNextBuildNumber()
         );
@@ -94,10 +92,10 @@ class BuildFactory implements BuildFactoryInterface
     protected function getNextBuildNumber()
     {
         $number = [date('Ymd'), 0];
-        $file   = $this->workspace->path('.buildnum');
+        $file = $this->workspace->path('.buildnum');
         if (file_exists($file)) {
             $pnumber = explode('.', $this->filesystem->read($file));
-            if (count($pnumber) === 2 && $number[0] == $pnumber[0]) {
+            if (2 === \count($pnumber) && $number[0] == $pnumber[0]) {
                 $number[1] = $pnumber[1] + 1;
             }
         }

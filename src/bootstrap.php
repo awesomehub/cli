@@ -1,9 +1,9 @@
 <?php
 
-if (version_compare('7.0.0', PHP_VERSION, '>')) {
+if (version_compare('7.3.0', \PHP_VERSION, '>')) {
     fwrite(
-        STDERR,
-        'PHP 7.0 or later is needed to run this application.'.PHP_EOL
+        \STDERR,
+        'PHP 7.3 or later is needed to run this application.'.\PHP_EOL
     );
 
     exit(1);
@@ -14,7 +14,7 @@ ini_set('date.timezone', 'UTC');
 date_default_timezone_set('UTC');
 
 // Set error reporting
-error_reporting(E_ALL);
+error_reporting(\E_ALL);
 
 // Ensure errors are displayed correctly
 // CLI - display errors only if they're not already logged to STDERR
@@ -27,16 +27,18 @@ $loader = null;
 foreach ([__DIR__.'/../vendor/autoload.php', __DIR__.'/../../../autoload.php'] as $file) {
     if (file_exists($file)) {
         $loader = $file;
+
         break;
     }
 }
 
 // Check if project is not set up yet
-if (is_null($loader)) {
-    fwrite(STDERR,
-        'You need to set up the project dependencies using the following commands:'.PHP_EOL.
-        'wget http://getcomposer.org/composer.phar'.PHP_EOL.
-        'php composer.phar install'.PHP_EOL
+if (null === $loader) {
+    fwrite(
+        \STDERR,
+        'You need to set up the project dependencies using the following commands:'.\PHP_EOL.
+        'wget https://getcomposer.org/composer.phar'.\PHP_EOL.
+        'php composer.phar install'.\PHP_EOL
     );
 
     exit(1);

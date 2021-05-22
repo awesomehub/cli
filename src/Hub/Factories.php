@@ -2,9 +2,9 @@
 
 namespace Hub;
 
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Github\Utils\GithubTokenFactory;
 use Github\Utils\GithubTokenPool;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 /**
  * Factory methods for creating specific services.
@@ -27,7 +27,6 @@ class Factories
      * Creates a GithubTokenPool instance.
      *
      * @param string $path
-     * @param array  $tokens
      *
      * @return GithubTokenPool
      */

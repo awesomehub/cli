@@ -2,8 +2,8 @@
 
 namespace Hub\EntryList\SourceProcessor;
 
-use Github\Utils\GithubWrapperInterface;
 use Github\Exception\ExceptionInterface as GithubAPIException;
+use Github\Utils\GithubWrapperInterface;
 use Hub\EntryList\Source\Source;
 use Hub\EntryList\Source\SourceInterface;
 
@@ -19,8 +19,6 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
 
     /**
      * Constructor.
-     *
-     * @param GithubWrapperInterface $github
      */
     public function __construct(GithubWrapperInterface $github)
     {
@@ -34,18 +32,16 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
     {
         $author = $source->getData();
         if (empty($author) || empty($author['type']) || empty($author['name'])) {
-            throw new \UnexpectedValueException(sprintf(
-                'Invalid author data scheme; expected [type: user|org, name: string] but got %s',
-                var_export($author, true)
-            ));
+            throw new \UnexpectedValueException(sprintf('Invalid author data scheme; expected [type: user|org, name: string] but got %s', var_export($author, true)));
         }
 
         $callback(self::ON_STATUS_UPDATE, [
-            'type'    => 'info',
+            'type' => 'info',
             'message' => sprintf("Fetching Github author repos '%s/%s'", $author['type'], $author['name']),
         ]);
+
         try {
-            if (in_array($author['type'], ['org', 'organization'])) {
+            if (\in_array($author['type'], ['org', 'organization'])) {
                 $repos = $this->github->api('organization/repositories', [
                     $author['name'],
                     'public',
@@ -73,7 +69,7 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
                 'type' => 'repo.github',
                 'data' => [
                     'author' => $author['name'],
-                    'name'   => $repo['name'],
+                    'name' => $repo['name'],
                 ],
             ];
         }
@@ -89,7 +85,7 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
      */
     public function getAction(SourceInterface $source)
     {
-        return $source->getType() === 'github.author'
+        return 'github.author' === $source->getType()
             ? self::ACTION_PARTIAL_PROCESSING
             : self::ACTION_SKIP;
     }

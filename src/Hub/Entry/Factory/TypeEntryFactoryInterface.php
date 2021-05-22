@@ -12,7 +12,7 @@ interface TypeEntryFactoryInterface
     /**
      * Creates new entry(s) based on input.
      *
-     * @param string|array $type Entry type or an array of entry definitions
+     * @param array|string $type Entry type or an array of entry definitions
      * @param array        $data Entry data
      *
      * @return EntryInterface|EntryInterface[]
@@ -24,7 +24,7 @@ interface TypeEntryFactoryInterface
      *
      * @param string $input Input type to check against
      *
-     * @return bool|array
+     * @return array|bool
      */
     public static function supports($input = null);
 }

@@ -23,16 +23,13 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
             throw new \UnexpectedValueException('Expected non empty entry type');
         }
 
-        if (is_array($type)) {
+        if (\is_array($type)) {
             $instances = [];
             foreach ($type as $i => $entry) {
-                if (empty($entry['type']) || !is_string($entry['type'])
-                    || (isset($entry['data']) && !is_array($entry['data']))
+                if (empty($entry['type']) || !\is_string($entry['type'])
+                    || (isset($entry['data']) && !\is_array($entry['data']))
                 ) {
-                    throw new \UnexpectedValueException(sprintf(
-                        'Expected an array [type: string, data: array], got %s',
-                        var_export($entry, true)
-                    ));
+                    throw new \UnexpectedValueException(sprintf('Expected an array [type: string, data: array], got %s', var_export($entry, true)));
                 }
 
                 $args = [$entry['type']];
@@ -53,10 +50,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
         switch ($class) {
             case RepoGithubEntry::class:
                 if (!isset($data['author']) || !isset($data['name'])) {
-                    throw new EntryCreationFailedException(sprintf(
-                        "Unable to satisfay all required paramaters for type '%s'; Given a data array with keys [%s]",
-                        $type, implode(', ', array_keys($data))
-                    ));
+                    throw new EntryCreationFailedException(sprintf("Unable to satisfay all required paramaters for type '%s'; Given a data array with keys [%s]", $type, implode(', ', array_keys($data))));
                 }
 
                 return new RepoGithubEntry($data['author'], $data['name']);

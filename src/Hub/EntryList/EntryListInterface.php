@@ -3,9 +3,9 @@
 namespace Hub\EntryList;
 
 use Hub\Entry\EntryInterface;
-use Hub\IO\IOInterface;
-use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
+use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
+use Hub\IO\IOInterface;
 
 /**
  * Interface for an EntryList.
@@ -15,7 +15,6 @@ interface EntryListInterface
     /**
      * Processes the list file and creates list entries.
      *
-     * @param IOInterface                $io
      * @param SourceProcessorInterface[] $processors
      */
     public function process(IOInterface $io, array $processors);
@@ -23,16 +22,18 @@ interface EntryListInterface
     /**
      * Resolves the entries within the list.
      *
-     * @param IOInterface              $io
      * @param EntryResolverInterface[] $resolvers
      * @param bool                     $force
      */
     public function resolve(IOInterface $io, array $resolvers, $force = false);
 
     /**
+     * The last perocess of list building.
+     */
+    public function finalize(IOInterface $io);
+
+    /**
      * Removes an entry from the list and recounts category stats.
-     *
-     * @param EntryInterface $entry
      */
     public function removeEntry(EntryInterface $entry);
 
@@ -83,7 +84,7 @@ interface EntryListInterface
     /**
      * Sets the value of a given data key or the whole data array.
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed        $value
      */
     public function set($key, $value = null);

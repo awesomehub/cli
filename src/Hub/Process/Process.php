@@ -3,9 +3,9 @@
 namespace Hub\Process;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Process\Process as BaseProcess;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process as BaseProcess;
 
 /**
  * Process class with additional functionality (eg. logging).
@@ -55,15 +55,15 @@ class Process extends BaseProcess
     {
         $this->command = $command;
         $this->options = array_merge([
-            'input'   => null,
-            'output'  => null,
+            'input' => null,
+            'output' => null,
             'timeout' => 60,
-            'env'     => null,
-            'cwd'     => null,
+            'env' => null,
+            'cwd' => null,
         ], $options);
         $this->logger = $logger;
 
-        $this->logger->debug("[Process] Initializing ($this->command)");
+        $this->logger->debug("[Process] Initializing ({$this->command})");
 
         parent::__construct(
             $this->command,
@@ -97,7 +97,7 @@ class Process extends BaseProcess
     {
         if (!$this->isTerminationLogged) {
             $this->isTerminationLogged = true;
-            $this->logger->debug("[Process] Stopping ($this->command)");
+            $this->logger->debug("[Process] Stopping ({$this->command})");
         }
 
         return parent::stop($timeout, $signal);
@@ -114,9 +114,9 @@ class Process extends BaseProcess
             $this->isTerminationLogged = true;
 
             if ($this->isSuccessful()) {
-                $this->logger->debug("[Process] Execution Successfull ($this->command)");
+                $this->logger->debug("[Process] Execution Successfull ({$this->command})");
             } else {
-                $this->logger->error("[Process] Execution failed ($this->command)");
+                $this->logger->error("[Process] Execution failed ({$this->command})");
             }
         }
 
@@ -126,7 +126,7 @@ class Process extends BaseProcess
     /**
      * Adds output callback to the user defined callback. Logs the starting message.
      *
-     * @param callable|null $callback The user defined PHP callback
+     * @param null|callable $callback The user defined PHP callback
      *
      * @return \Closure A PHP closure
      */
@@ -134,23 +134,23 @@ class Process extends BaseProcess
     {
         if (!$this->isStartingLogged) {
             $this->isStartingLogged = true;
-            $this->logger->debug("[Process] Starting ($this->command)");
+            $this->logger->debug("[Process] Starting ({$this->command})");
         }
 
-        if (!is_callable($callback)) {
+        if (!\is_callable($callback)) {
             $callback = null;
         }
 
         $finalCallback = $callback;
-        /* @var $output OutputInterface|ConsoleOutputInterface */
+        // @var $output OutputInterface|ConsoleOutputInterface
         $output = $this->options['output'];
         if ($output instanceof OutputInterface) {
             $finalCallback = function ($type, $buffer) use ($output, $callback) {
                 if ($callback) {
-                    call_user_func($callback, $type, $buffer);
+                    \call_user_func($callback, $type, $buffer);
                 }
 
-                if ($type === Process::ERR && $output instanceof ConsoleOutputInterface) {
+                if (self::ERR === $type && $output instanceof ConsoleOutputInterface) {
                     $output->getErrorOutput()->write($buffer);
 
                     return;

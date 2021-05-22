@@ -5,7 +5,7 @@ namespace Hub\Util;
 /**
  * Provides helpers to perform operations on nested arrays and array keys of variable depth.
  *
- * @link https://github.com/drupal/drupal/blob/9.x/core/lib/Drupal/Component/Utility/NestedArray.php
+ * @see https://github.com/drupal/drupal/blob/9.x/core/lib/Drupal/Component/Utility/NestedArray.php
  */
 class NestedArray
 {
@@ -49,11 +49,11 @@ class NestedArray
     {
         $ref = &$array;
         foreach ($parents as $parent) {
-            if (is_array($ref) && array_key_exists($parent, $ref)) {
+            if (\is_array($ref) && \array_key_exists($parent, $ref)) {
                 $ref = &$ref[$parent];
             } else {
                 $key_exists = false;
-                $null       = null;
+                $null = null;
 
                 return $null;
             }
@@ -103,7 +103,7 @@ class NestedArray
         foreach ($parents as $parent) {
             // PHP auto-creates container arrays and NULL entries without error if $ref
             // is NULL, but throws an error if $ref is set, but not an array.
-            if ($force && isset($ref) && !is_array($ref)) {
+            if ($force && isset($ref) && !\is_array($ref)) {
                 $ref = [];
             }
             $ref = &$ref[$parent];
@@ -143,8 +143,8 @@ class NestedArray
     public static function unset(array &$array, array $parents, &$key_existed = null)
     {
         $unset_key = array_pop($parents);
-        $ref       = &self::get($array, $parents, $key_existed);
-        if ($key_existed && is_array($ref) && array_key_exists($unset_key, $ref)) {
+        $ref = &self::get($array, $parents, $key_existed);
+        if ($key_existed && \is_array($ref) && \array_key_exists($unset_key, $ref)) {
             $key_existed = true;
             unset($ref[$unset_key]);
         } else {
@@ -221,11 +221,11 @@ class NestedArray
                 // Renumber integer keys as array_merge_recursive() does unless
                 // $preserve_integer_keys is set to TRUE. Note that PHP automatically
                 // converts array keys that are integer strings (e.g., '1') to integers.
-                if (is_integer($key) && !$preserveIntegerKeys) {
+                if (\is_int($key) && !$preserveIntegerKeys) {
                     $result[] = $value;
                 }
                 // Recurse when both values are arrays.
-                elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                elseif (isset($result[$key]) && \is_array($result[$key]) && \is_array($value)) {
                     $result[$key] = self::mergeArray([$result[$key], $value], $preserveIntegerKeys);
                 }
                 // Otherwise, use the latter value, overriding any previous value.

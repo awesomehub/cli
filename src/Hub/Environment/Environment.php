@@ -80,7 +80,7 @@ class Environment implements EnvironmentInterface
      */
     public function isDevelopment()
     {
-        return $this->mode === self::DEVELOPMENT;
+        return self::DEVELOPMENT === $this->mode;
     }
 
     /**
@@ -88,7 +88,7 @@ class Environment implements EnvironmentInterface
      */
     public function isProduction()
     {
-        return $this->mode === self::PRODUCTION;
+        return self::PRODUCTION === $this->mode;
     }
 
     /**
@@ -96,7 +96,7 @@ class Environment implements EnvironmentInterface
      */
     public function isPlatformWindows()
     {
-        return defined('PHP_WINDOWS_VERSION_BUILD');
+        return \defined('PHP_WINDOWS_VERSION_BUILD');
     }
 
     /**
@@ -110,15 +110,15 @@ class Environment implements EnvironmentInterface
     /**
      * Sets the environment mode, tries to autguess if null.
      *
-     * @param string|null $mode
+     * @param null|string $mode
      *
      * @throws \InvalidArgumentException
      */
     protected function setMode($mode = null)
     {
         if ($mode) {
-            if (!in_array($mode, [self::DEVELOPMENT, self::PRODUCTION])) {
-                throw new \InvalidArgumentException("Invalid environment mode supplied '$mode'.");
+            if (!\in_array($mode, [self::DEVELOPMENT, self::PRODUCTION])) {
+                throw new \InvalidArgumentException("Invalid environment mode supplied '{$mode}'.");
             }
 
             $this->mode = $mode;
@@ -126,7 +126,7 @@ class Environment implements EnvironmentInterface
             return;
         }
 
-        // Check if we are inside phat
+        // Check if we are inside phar
         if ('phar:' === substr(__FILE__, 0, 5)) {
             $this->mode = self::PRODUCTION;
 
@@ -135,7 +135,7 @@ class Environment implements EnvironmentInterface
 
         // Check if ENV variable is defined
         if ($envMode = getenv('ENV')) {
-            if (in_array(strtolower($envMode), ['development', 'dev'])) {
+            if (\in_array(strtolower($envMode), ['development', 'dev'])) {
                 $this->mode = self::DEVELOPMENT;
             } else {
                 $this->mode = self::PRODUCTION;
@@ -145,7 +145,7 @@ class Environment implements EnvironmentInterface
         }
 
         // Check if a git repo is present
-        if (file_exists(dirname(dirname($this->getBin())).DIRECTORY_SEPARATOR.'.git')) {
+        if (file_exists(\dirname($this->getBin(), 2).\DIRECTORY_SEPARATOR.'.git')) {
             $this->mode = self::DEVELOPMENT;
 
             return;

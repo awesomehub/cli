@@ -24,8 +24,8 @@ class Source implements SourceInterface
 
     public function __construct($type, $data, array $options = [])
     {
-        $this->type    = $type;
-        $this->data    = $data;
+        $this->type = $type;
+        $this->data = $data;
         $this->options = $options;
     }
 
@@ -58,7 +58,7 @@ class Source implements SourceInterface
      */
     public function hasOption($key)
     {
-        return array_key_exists($key, $this->options);
+        return \array_key_exists($key, $this->options);
     }
 
     /**

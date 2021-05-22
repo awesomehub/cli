@@ -15,26 +15,10 @@ class MakeBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
-    {
-        parent::configure();
-
-        $this
-            ->setName('make:build')
-            ->setDescription('Distributes a new build.')
-            ->addOption(
-                '--release', '-r', Input\InputOption::VALUE_NONE, 'Marks the build as a release'
-            )
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function validate()
     {
         if ($this->input->getOption('release')) {
-            $yes = $this->io->confirm(sprintf('Are you sure you want to mark this build as a release?'));
+            $yes = $this->io->confirm('Are you sure you want to mark this build as a release?');
             if (!$yes) {
                 exit(0);
             }
@@ -44,14 +28,33 @@ class MakeBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
+    protected function configure()
+    {
+        parent::configure();
+
+        $this
+            ->setName('make:build')
+            ->setDescription('Distributes a new build.')
+            ->addOption(
+                '--release',
+                '-r',
+                Input\InputOption::VALUE_NONE,
+                'Marks the build as a release'
+            )
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function exec()
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
-        $build        = $buildFactory->create();
-        $cachedBuild  = $buildFactory->getCached() ?: null;
-        $lists        = EntryListFile::findCachedLists($this->workspace);
+        $build = $buildFactory->create();
+        $cachedBuild = $buildFactory->getCached() ?: null;
+        $lists = EntryListFile::findCachedLists($this->workspace);
 
-        if (count($lists) == 0) {
+        if (0 == \count($lists)) {
             $this->io->note('No cached lists found');
 
             return 0;
@@ -59,7 +62,7 @@ class MakeBuildCommand extends Command
 
         $this->io->title('Building distributable lists');
         $this->io->writeln([
-            ' <comment>* Lists count:</comment> '.count($lists),
+            ' <comment>* Lists count:</comment> '.\count($lists),
             ' <comment>* Build number:</comment> '.$build->getNumber(),
             ' <comment>* Build path:</comment> '.$build->getPath(),
             ' <comment>* Build format:</comment> '.$build->getFormat(),

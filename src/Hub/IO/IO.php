@@ -2,10 +2,10 @@
 
 namespace Hub\IO;
 
+use Hub\Helper\ProgressIndicator;
 use Hub\IO\Output\OverwritableOutputInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console;
-use Hub\Helper\ProgressIndicator;
 
 /**
  * Base I/O class.
@@ -34,17 +34,13 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
 
     /**
      * Constructor.
-     *
-     * @param Console\Input\InputInterface   $input
-     * @param Console\Output\OutputInterface $output
-     * @param LoggerInterface                $logger
      */
     public function __construct(
         Console\Input\InputInterface $input,
         Console\Output\OutputInterface $output,
         LoggerInterface $logger
     ) {
-        $this->input  = $input;
+        $this->input = $input;
         $this->output = $output;
         $this->logger = $logger;
 

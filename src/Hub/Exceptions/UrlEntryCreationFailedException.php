@@ -20,18 +20,17 @@ class UrlEntryCreationFailedException extends EntryCreationFailedException
     private $processor;
 
     /**
-     * @param string                $message
-     * @param string                $url
-     * @param UrlProcessorInterface $processor
-     * @param int                   $code
-     * @param \Exception            $previous
+     * @param string     $message
+     * @param string     $url
+     * @param int        $code
+     * @param \Exception $previous
      */
     public function __construct($message, UrlProcessorInterface $processor, $url, $code = 0, \Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
 
         $this->processor = $processor;
-        $this->url       = $url;
+        $this->url = $url;
     }
 
     /**
@@ -47,6 +46,6 @@ class UrlEntryCreationFailedException extends EntryCreationFailedException
      */
     public function getProcessor()
     {
-        return get_class($this->processor);
+        return \get_class($this->processor);
     }
 }

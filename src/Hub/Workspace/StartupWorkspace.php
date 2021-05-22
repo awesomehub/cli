@@ -2,10 +2,10 @@
 
 namespace Hub\Workspace;
 
-use Symfony\Component\Console\Input\InputInterface;
+use Hub\Application;
 use Hub\Environment\EnvironmentInterface;
 use Hub\Filesystem\Filesystem;
-use Hub\Application;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Represents the default app workspace that is created on startup.
@@ -25,10 +25,7 @@ class StartupWorkspace extends Workspace
     /**
      * Fetches user defined workspace.
      *
-     * @param InputInterface $input
-     * @param Filesystem     $filesystem
-     *
-     * @return string|null
+     * @return null|string
      */
     protected function getInputPath(InputInterface $input, Filesystem $filesystem)
     {
@@ -41,7 +38,7 @@ class StartupWorkspace extends Workspace
         }
 
         if (!$filesystem->isAbsolutePath($path)) {
-            $path = getcwd().DIRECTORY_SEPARATOR.$path;
+            $path = getcwd().\DIRECTORY_SEPARATOR.$path;
         }
 
         try {
@@ -55,17 +52,13 @@ class StartupWorkspace extends Workspace
 
     /**
      * Tries tpo auto-detect the environment worspace based on different factors.
-     *
-     * @param EnvironmentInterface $env
-     *
-     * @return string
      */
-    protected function getEnvironmentPath(EnvironmentInterface $env)
+    protected function getEnvironmentPath(EnvironmentInterface $env): string
     {
         // Check if in development mode
         if ($env->isDevelopment()) {
-            $devPath = dirname(dirname($env->getBin())).DIRECTORY_SEPARATOR.'.'.strtolower(Application::SLUG);
-            if(file_exists($devPath)){
+            $devPath = \dirname($env->getBin(), 2).\DIRECTORY_SEPARATOR.'.'.strtolower(Application::SLUG);
+            if (file_exists($devPath)) {
                 return $devPath;
             }
         }

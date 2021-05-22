@@ -36,25 +36,25 @@ class GithubTokensCommand extends Command
             ++$i;
 
             $github->setToken($token);
-            $ratelimit = $github->api('rateLimit/getRateLimits');
-
+            /** @var \Github\Api\RateLimit\RateLimitResource[] $rsources */
+            $rsources = $github->api('rateLimit/getResources');
             $list = [];
-            foreach ($ratelimit['resources'] as $name => $resource) {
+            foreach ($rsources as $resource) {
                 $list[] = sprintf(
                     '   <comment>* %s</comment>: <debug>Remaining:</debug> %d/%d <debug>Reset</debug>: %s',
-                    $name,
-                    $resource['remaining'],
-                    $resource['limit'],
-                    date('Y-m-d g:i:s A e', $resource['reset'])
+                    $resource->getName(),
+                    $resource->getRemaining(),
+                    $resource->getLimit(),
+                    date('Y-m-d g:i:s A e', $resource->getReset())
                 );
             }
 
-            $this->io->writeln(sprintf('<info>%d. %s</info> [%s]', $i, $token->getId(), get_class($token)));
+            $this->io->writeln(sprintf('<info>%d. %s</info> [%s]', $i, $token->getId(), \get_class($token)));
             $this->io->writeln($list);
             $this->io->writeln('');
         }
 
-        if (count($tokens) == 0) {
+        if (0 == \count($tokens)) {
             $this->io->writeln('No Github token has been defined.');
         }
 

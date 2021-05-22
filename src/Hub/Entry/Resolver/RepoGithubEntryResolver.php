@@ -2,12 +2,12 @@
 
 namespace Hub\Entry\Resolver;
 
-use Github\Utils\RepoInspector\GithubRepoInspectorInterface;
 use Github\Utils\RepoInspector\Exception\RepoInspectorException;
-use Hub\Exceptions\EntryResolveFailedException;
-use Hub\Filesystem\Filesystem;
+use Github\Utils\RepoInspector\GithubRepoInspectorInterface;
 use Hub\Entry\EntryInterface;
 use Hub\Entry\RepoGithubEntryInterface;
+use Hub\Exceptions\EntryResolveFailedException;
+use Hub\Filesystem\Filesystem;
 use Hub\Workspace\WorkspaceInterface;
 
 /**
@@ -32,15 +32,11 @@ class RepoGithubEntryResolver implements EntryResolverInterface
 
     /**
      * Constructor.
-     *
-     * @param GithubRepoInspectorInterface $inspector
-     * @param WorkspaceInterface           $workspace
-     * @param Filesystem                   $filesystem
      */
     public function __construct(GithubRepoInspectorInterface $inspector, Filesystem $filesystem, WorkspaceInterface $workspace)
     {
-        $this->inspector  = $inspector;
-        $this->workspace  = $workspace;
+        $this->inspector = $inspector;
+        $this->workspace = $workspace;
         $this->filesystem = $filesystem;
     }
 
@@ -52,18 +48,22 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     public function resolve(EntryInterface $entry, $force = false)
     {
         $cached = $this->read($entry);
-        if ($cached instanceof RepoGithubEntryInterface && !$force) {
+        if ($cached && !$force) {
             // Only merge the fields that we provide
-            $fields = ['description', 'language', 'scores_avg', 'scores', 'pushed'];
+            $fields = ['author', 'name', 'description', 'language', 'licence', 'scores_avg', 'scores', 'pushed', 'archived'];
             foreach ($fields as $field) {
                 $entry->set($field, $cached->get($field));
+            }
+
+            foreach ($cached->getAliases() as $alias) {
+                $entry->addAlias($alias);
             }
 
             return;
         }
 
         $author = $entry->getAuthor();
-        $name   = $entry->getName();
+        $name = $entry->getName();
 
         try {
             $repo = $this->inspector->inspect($author, $name);
@@ -73,11 +73,23 @@ class RepoGithubEntryResolver implements EntryResolverInterface
 
         $entry->merge([
             'description' => $this->cleanStr($repo['description']),
-            'language'    => $repo['language'],
-            'scores_avg'  => $repo['scores_avg'],
-            'scores'      => $repo['scores'],
-            'pushed'      => strtotime($repo['pushed_at']),
+            'language' => $repo['language'],
+            'licence' => $repo['licence_id'],
+            'scores_avg' => $repo['scores_avg'],
+            'scores' => $repo['scores'],
+            'pushed' => strtotime($repo['pushed_at']),
+            'archived' => $repo['archived'],
         ]);
+
+        $fetchedAuthor = $repo['owner']['login'];
+        $fetchedName = $repo['name'];
+        if ($fetchedAuthor !== $author || $fetchedName !== $name) {
+            $entry->merge([
+                'author' => $fetchedAuthor,
+                'name' => $fetchedName,
+            ]);
+            $entry->addAlias("repo.github:{$fetchedAuthor}/{$fetchedName}");
+        }
 
         try {
             $this->save($entry);
@@ -103,10 +115,6 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      */
     public function isCached(EntryInterface $entry)
     {
-        if (!$this->supports($entry)) {
-            throw new \UnexpectedValueException("Shouldn't receive an unsupported entry");
-        }
-
         $cached = $this->read($entry);
 
         return $cached instanceof RepoGithubEntryInterface;
@@ -115,24 +123,29 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     /**
      * Fetches the cached entry.
      *
-     * @param RepoGithubEntryInterface $entry
-     *
-     * @return RepoGithubEntryInterface|bool
+     * @return bool|RepoGithubEntryInterface
      */
     protected function read(RepoGithubEntryInterface $entry)
     {
+        if (!$this->supports($entry)) {
+            throw new \UnexpectedValueException(sprintf('Should not receive an unsupported entry "%s"', $entry->getId()));
+        }
+
         $path = $this->getPath($entry);
         if (!file_exists($path)) {
             return false;
         }
 
-        return unserialize(file_get_contents($path));
+        $cached = unserialize(file_get_contents($path));
+        if (!$this->supports($cached)) {
+            throw new \UnexpectedValueException(sprintf('Should not receive an unsupported cached entry "%s"', $cached->getId()));
+        }
+
+        return $cached;
     }
 
     /**
      * Saves an entry to file.
-     *
-     * @param RepoGithubEntryInterface $entry
      *
      * @return int
      */
@@ -146,15 +159,13 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     /**
      * Gets the path of the entry cahce file.
      *
-     * @param RepoGithubEntryInterface $entry
-     *
      * @return string
      */
     protected function getPath(RepoGithubEntryInterface $entry)
     {
-        $author = $entry->getAuthor();
+        [$idType, $id] = explode(':', $entry->getId(), 2);
 
-        return $this->workspace->path(['cache/entries', $entry->getType(), $author[0], $author[1], $author, $entry->getName()]);
+        return $this->workspace->path(['cache/entries', $idType, $id[0], $id]);
     }
 
     /**

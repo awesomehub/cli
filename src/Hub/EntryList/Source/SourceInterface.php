@@ -32,7 +32,8 @@ interface SourceInterface
      * Gets an single option.
      *
      * @param string $key
-     * @param mixed $default
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public function getOption($key, $default = null);
@@ -41,6 +42,7 @@ interface SourceInterface
      * Checks whether a source has an option.
      *
      * @param string $key
+     *
      * @return bool
      */
     public function hasOption($key);

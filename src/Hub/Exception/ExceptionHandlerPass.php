@@ -2,8 +2,8 @@
 
 namespace Hub\Exception;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -18,13 +18,13 @@ class ExceptionHandlerPass implements CompilerPassInterface
         }
 
         $definition = $container->findDefinition('exception');
-        $handlers   = [];
+        $handlers = [];
         foreach ($container->findTaggedServiceIds('exception.handler') as $id => $tags) {
             $handlers[] = new Reference($id);
         }
 
         // Overwrite previous handlers
-        if (count($handlers)) {
+        if (\count($handlers)) {
             $definition->addMethodCall('setHandlers', [$handlers]);
         }
     }

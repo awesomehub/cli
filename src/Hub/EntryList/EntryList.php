@@ -2,14 +2,14 @@
 
 namespace Hub\EntryList;
 
-use Symfony\Component\Config as SymfonyConfig;
-use Hub\IO\IOInterface;
 use Hub\Entry\EntryInterface;
+use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\EntryList\Source\SourceInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
-use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\Exceptions\EntryResolveFailedException;
+use Hub\IO\IOInterface;
 use Hub\Util\NestedArray;
+use Symfony\Component\Config as SymfonyConfig;
 
 /**
  * The Base List class.
@@ -45,6 +45,7 @@ class EntryList implements EntryListInterface
      * @var bool
      */
     protected $resolved = false;
+    protected $debug = [];
 
     /**
      * Constructor.
@@ -116,7 +117,7 @@ class EntryList implements EntryListInterface
      */
     public function has($key)
     {
-        return array_key_exists($key, $this->data);
+        return \array_key_exists($key, $this->data);
     }
 
     /**
@@ -128,7 +129,7 @@ class EntryList implements EntryListInterface
             return $this->data;
         }
 
-        if (!array_key_exists($key, $this->data)) {
+        if (!\array_key_exists($key, $this->data)) {
             throw new \InvalidArgumentException(sprintf("Trying to get an undefined list data key '%s'", $key));
         }
 
@@ -140,8 +141,8 @@ class EntryList implements EntryListInterface
      */
     public function set($key, $value = null)
     {
-        if (func_num_args() === 1) {
-            if (!is_array($key)) {
+        if (1 === \func_num_args()) {
+            if (!\is_array($key)) {
                 throw new \UnexpectedValueException(sprintf('Expected array but got %s', var_export($key, true)));
             }
 
@@ -165,46 +166,8 @@ class EntryList implements EntryListInterface
 
         $logger->info('Processing list sources');
         $this->processSources($io, $processors);
-        $logger->info(sprintf('Processed %d entry(s)', count($this->entries)));
-
-        $logger->info('Organizing categories');
-        foreach ($this->entries as $entry) {
-            $categories = [];
-            foreach ($entry->get('categories') as $category) {
-                // Strip non-utf chars
-                $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
-                $category = trim($category);
-                if (!empty($category) && !in_array($category, $categories)) {
-                    $categories[] = $category;
-                }
-            }
-
-            $categoryIds = [];
-            foreach ($categories as $category) {
-                $categoryIds = array_merge(
-                    $categoryIds,
-                    $this->insertCategory($category, [
-                        'all'             => 1,
-                        $entry->getType() => 1,
-                    ])
-                );
-            }
-
-            $entry->set('categories', $categoryIds);
-        }
-
-        // Add category order
-        $categoryOrder = $this->data['options']['categoryOrder'];
-        foreach ($this->categories as $id => $category) {
-            $order = 20;
-            if(array_key_exists($category['path'], $categoryOrder)){
-                $order = (int) $categoryOrder[$category['path']];
-            }
-            $this->categories[$id]['order'] = $order;
-        }
-
         $this->processed = true;
-        $logger->info(sprintf('Organized %d category(s)', count($this->categories)));
+        $logger->info(sprintf('Processed %d entry(s)', \count($this->entries)));
     }
 
     /**
@@ -235,24 +198,30 @@ class EntryList implements EntryListInterface
         foreach ($this->entries as $id => $entry) {
             ++$i;
             $resolvedWith = false;
-            $isCached     = false;
-            /* @var EntryResolverInterface $resolver */
+            $isCached = false;
+            // @var EntryResolverInterface $resolver
             foreach ($resolvers as $resolver) {
-                if ($resolver->supports($entry)) {
-                    $resolvedWith = $resolver;
-                    $isCached     = $resolver->isCached($entry);
-                    $io->write(sprintf($indicator, $i, $id));
-                    try {
-                        $resolver->resolve($entry, $force);
-                    } catch (EntryResolveFailedException $e) {
-                        $this->removeEntry($entry);
-                        $logger->warning(sprintf(
-                            "Failed resolving entry#%d [%s] with '%s'; %s",
-                            $i, $id, get_class($resolver), $e->getMessage()
-                        ));
-                        continue 2;
-                    }
-                    break;
+                if (!$resolver->supports($entry)) {
+                    continue;
+                }
+
+                $resolvedWith = $resolver;
+                $isCached = $resolver->isCached($entry);
+                $io->write(sprintf($indicator, $i, $id));
+
+                try {
+                    $resolver->resolve($entry, $force);
+                } catch (EntryResolveFailedException $e) {
+                    $this->removeEntry($entry);
+                    $logger->warning(sprintf(
+                        "Failed resolving entry#%d [%s] with '%s'; %s",
+                        $i,
+                        $id,
+                        \get_class($resolver),
+                        $e->getMessage()
+                    ));
+
+                    continue 2;
                 }
             }
 
@@ -261,8 +230,11 @@ class EntryList implements EntryListInterface
                 $this->removeEntry($entry);
                 $logger->warning(sprintf(
                     "Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it",
-                    $i, $id, get_class($entry)
+                    $i,
+                    $id,
+                    \get_class($entry)
                 ));
+
                 continue;
             }
 
@@ -274,10 +246,75 @@ class EntryList implements EntryListInterface
         }
 
         $this->resolved = true;
-        $logger->info(sprintf('Resolved %d/%d entry(s) with %d cached entry(s)',
-            $ir, $i, $ic
+        $logger->info(sprintf(
+            'Resolved %d/%d entry(s) with %d cached entry(s)',
+            $ir,
+            $i,
+            $ic
         ));
         $io->endOverwrite();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function finalize(IOInterface $io)
+    {
+        $logger = $io->getLogger();
+
+        $logger->info('Merging entry aliases');
+        $im = 0;
+        foreach ($this->entries as $entry) {
+            $aliases = $entry->getAliases();
+            if (\count($aliases) > 0) {
+                foreach ($aliases as $aliasId) {
+                    if (isset($this->entries[$aliasId])) {
+                        $entry->merge($this->entries[$aliasId]->get());
+                        $this->removeEntry($this->entries[$aliasId]);
+                        ++$im;
+                    }
+                }
+            }
+        }
+        $logger->info(sprintf('Merged %d entry(s) with aliases', $im));
+
+        $logger->info('Organizing categories');
+        foreach ($this->entries as $entry) {
+            $categories = [];
+            foreach ($entry->get('categories') as $category) {
+                // Strip non-utf chars
+                $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
+                $category = trim($category);
+                if (!empty($category) && !\in_array($category, $categories)) {
+                    $categories[] = $category;
+                }
+            }
+
+            $categoryIds = [];
+            foreach ($categories as $category) {
+                $categoryIds = array_merge(
+                    $categoryIds,
+                    $this->insertCategory($category, [
+                        'all' => 1,
+                        $entry->getType() => 1,
+                    ])
+                );
+            }
+
+            $entry->set('categories', $categoryIds);
+        }
+
+        // Add category order
+        $categoryOrder = $this->data['options']['categoryOrder'];
+        foreach ($this->categories as $id => $category) {
+            $order = 20;
+            if (\in_array($category['path'], $categoryOrder, true)) {
+                $order = (int) array_search($category['path'], $categoryOrder, true);
+            }
+            $this->categories[$id]['order'] = $order;
+        }
+
+        $logger->info(sprintf('Organized %d category(s)', \count($this->categories)));
     }
 
     /**
@@ -293,9 +330,13 @@ class EntryList implements EntryListInterface
         // Remove from entries
         unset($this->entries[$entry->getId()]);
 
+        if (0 === \count($this->categories)) {
+            return;
+        }
+
         // Update cat counts
         foreach ($this->categories as $id => $category) {
-            if (in_array($id, $entry->get('categories'))) {
+            if (\in_array($id, $entry->get('categories'))) {
                 --$this->categories[$id]['count']['all'];
                 --$this->categories[$id]['count'][$entry->getType()];
 
@@ -309,16 +350,18 @@ class EntryList implements EntryListInterface
 
     /**
      * Adds an entry to the list.
-     *
-     * @param EntryInterface  $entry
-     * @param SourceInterface $source
      */
     protected function addEntry(EntryInterface $entry, SourceInterface $source)
     {
+        // Santity check
+        if ($this->isProcessed() || $this->isResolved()) {
+            throw new \LogicException('Can not add new entries after the list has been processed');
+        }
+
         $id = $entry->getId();
         if ($source->hasOption('exclude')) {
             foreach ($source->getOption('exclude', []) as $regex) {
-                $regex = $regex[0] !== '/' ? "/${regex}/" : $regex;
+                $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
                 if (false === @preg_match($regex, null)) {
                     throw new \InvalidArgumentException(sprintf("Invalid exclude regex '%s'", $regex));
                 }
@@ -354,19 +397,19 @@ class EntryList implements EntryListInterface
         // Add source categories
         if ($source->hasOption('categories')) {
             foreach ($source->getOption('categories', []) as $category => $regexs) {
-                if (!is_array($regexs)) {
+                if (!\is_array($regexs)) {
                     $regexs = [$regexs];
                 }
 
                 foreach ($regexs as $regex) {
-                    $regex = $regex === '*' ? '.*' : $regex;
-                    $regex = $regex[0] !== '/' ? "/${regex}/" : $regex;
+                    $regex = '*' === $regex ? '.*' : $regex;
+                    $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
                     if (false === @preg_match($regex, null)) {
                         throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
                     }
 
                     if (preg_match($regex, $id)) {
-                        if (!is_array($category)) {
+                        if (!\is_array($category)) {
                             $category = [$category];
                         }
                         $categories = array_merge($categories, $category);
@@ -384,16 +427,15 @@ class EntryList implements EntryListInterface
     /**
      * Recursively processes list sources.
      *
-     * @param IOInterface                $io
      * @param SourceProcessorInterface[] $processors
-     * @param SourceInterface[]|null     $sources
+     * @param null|SourceInterface[]     $sources
      * @param int                        $depth
      */
     protected function processSources(IOInterface $io, array $processors, array $sources = [], $depth = 0)
     {
-        $root      = 0 === $depth;
-        $logger    = $io->getLogger();
-        $depthStr  = $root ? '' : str_repeat('|_ ', $depth);
+        $root = 0 === $depth;
+        $logger = $io->getLogger();
+        $depthStr = $root ? '' : str_repeat('|_ ', $depth);
         $indicator = ' [ %%spinner%% ] %s (%%elapsed%%)';
 
         if ($root) {
@@ -402,84 +444,98 @@ class EntryList implements EntryListInterface
         }
 
         foreach ($sources as $index => $source) {
-            $id            = ($root ? 'index='.$index.' ' : '').'type='.$source->getType();
+            $id = ($root ? 'index='.$index.' ' : '').'type='.$source->getType();
             $processedWith = false;
-            $callback      = function ($event, $payload) use ($source, $io, $indicator) {
+            $callback = function ($event, $payload) use ($source, $io, $indicator) {
                 switch ($event) {
                     case SourceProcessorInterface::ON_STATUS_UPDATE:
-                        if ($payload['type'] === 'error') {
+                        if ('error' === $payload['type']) {
                             $io->getLogger()->warning($payload['message']);
+
                             break;
                         }
                         $io->write(sprintf($indicator, $payload['message']));
+
                         break;
 
                     case SourceProcessorInterface::ON_ENTRY_CREATED:
                         $this->addEntry($payload, $source);
+
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(
-                            sprintf("Unsupported source processor event '%s'", $event)
-                        );
+                        throw new \UnexpectedValueException(sprintf("Unsupported source processor event '%s'", $event));
                 }
             };
 
             foreach ($processors as $processor) {
-                $processorName = basename(str_replace('\\', '/', get_class($processor)));
+                $processorName = basename(str_replace('\\', '/', \get_class($processor)));
+
                 switch ($processor->getAction($source)) {
                     case SourceProcessorInterface::ACTION_PARTIAL_PROCESSING:
                         $processedWith = $processor;
                         $logger->info(sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+
                         try {
                             $childSources = $processor->process($source, $callback);
                         } catch (\Exception $e) {
-                            $logger->critical(sprintf("Failed processing source[%s] with '%s'; %s",
-                                $id, $processorName, $e->getMessage()
+                            $logger->critical(sprintf(
+                                "Failed processing source[%s] with '%s'; %s",
+                                $id,
+                                $processorName,
+                                $e->getMessage()
                             ));
-                            continue;
+
+                            break;
                         }
 
-                        if (!is_array($childSources)) {
+                        if (!\is_array($childSources)) {
                             $childSources = [$childSources];
                         }
 
-                        if (count($childSources) === 0) {
+                        if (0 === \count($childSources)) {
                             $logger->warning(sprintf(
                                 "No child sources from processing source[%s] with '%s'",
-                                $id, $processorName
+                                $id,
+                                $processorName
                             ));
-                            continue;
+
+                            break;
                         }
 
                         $this->processSources($io, $processors, $childSources, $depth + 1);
+
                         break;
 
                     case SourceProcessorInterface::ACTION_PROCESSING:
                         $processedWith = $processor;
                         $logger->info(sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+
                         try {
                             $processor->process($source, $callback);
                         } catch (\Exception $e) {
-                            $logger->critical(sprintf("Failed processing source[%s] with '%s'; %s",
-                                $id, $processorName, $e->getMessage()
+                            $logger->critical(sprintf(
+                                "Failed processing source[%s] with '%s'; %s",
+                                $id,
+                                $processorName,
+                                $e->getMessage()
                             ));
                         }
+
                         break;
 
                     case SourceProcessorInterface::ACTION_SKIP:
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(sprintf(
-                            "Got an invalid processing mode from processor '%s'", get_class($processor)
-                        ));
+                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", \get_class($processor)));
                 }
             }
 
             // Check if no processor can process this source
             if (false === $processedWith) {
                 $logger->critical(sprintf('Ignoring source[%s]; None of the given processors supports it.', $id));
+
                 continue;
             }
 
@@ -512,43 +568,44 @@ class EntryList implements EntryListInterface
      *  ids while adding them if not already added.
      *
      * @param string $category
-     * @param array  $count
      *
      * @return array|bool
      */
     protected function insertCategory($category, array $count = [])
     {
-        $path   = [];
+        $path = [];
         $return = [];
         foreach (explode('/', trim($category, '/')) as $title) {
             $parentPath = implode('/', $path);
-            $title      = ucfirst(trim($title));
-            $path[]     = $this->slugify($title);
+            $title = ucfirst(trim($title));
+            $path[] = $this->slugify($title);
             $pathString = implode('/', $path);
-            $paths      = array_column($this->categories, 'path', 'id');
-            if (in_array($pathString, $paths)) {
+            $paths = array_column($this->categories, 'path', 'id');
+            if (\in_array($pathString, $paths)) {
                 $return[] = $id = array_search($pathString, $paths);
-                $object   = &$this->categories[$id];
+                $object = &$this->categories[$id];
                 // Allow overwriting the category title
                 $object['title'] = $title;
                 foreach ($count as $ckey => $cval) {
                     if (!isset($object['count'][$ckey])) {
                         $object['count'][$ckey] = $cval;
+
                         continue;
                     }
                     $object['count'][$ckey] += $cval;
                 }
+
                 continue;
             }
 
             $return[] = $id = ++$this->categoryLastInsert;
 
             $this->categories[$id] = [
-                'id'     => $id,
-                'title'  => $title,
-                'path'   => $pathString,
+                'id' => $id,
+                'title' => $title,
+                'path' => $pathString,
                 'parent' => (int) array_search($parentPath, $paths),
-                'count'  => $count,
+                'count' => $count,
             ];
         }
 
@@ -563,9 +620,9 @@ class EntryList implements EntryListInterface
     protected function slugify($str)
     {
         $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-        $str = preg_replace('/[^\w\d\-]/', ' ', $str);
+        $str = preg_replace('/[^\w\-]/', ' ', $str);
         $str = str_replace(' ', '-', strtolower(trim($str, '-')));
 
-        return preg_replace('/\-{2,}/', '-', $str);
+        return preg_replace('/-{2,}/', '-', $str);
     }
 }

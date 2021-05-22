@@ -50,8 +50,8 @@ interface BuildInterface
     /**
      * Sets the value of a meta paramater or the whole meta array.
      *
-     * @param string|array $key
-     * @param mixed|null   $value
+     * @param array|string $key
+     * @param null|mixed   $value
      */
     public function set($key, $value = null);
 

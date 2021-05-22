@@ -32,8 +32,6 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
     /**
      * Adds a processor to the stack.
      *
-     * @param UrlProcessorInterface $processor
-     *
      * @return self
      */
     public function addProcessor(UrlProcessorInterface $processor)
@@ -48,11 +46,11 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
      */
     public function create($urls)
     {
-        if (0 === count($this->processors)) {
+        if (0 === \count($this->processors)) {
             throw new \LogicException('No url processors has been defined');
         }
 
-        if (!is_array($urls)) {
+        if (!\is_array($urls)) {
             $urls = [$urls];
         }
 
@@ -64,84 +62,62 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                         try {
                             $childUrls = $processor->process($url);
                         } catch (\Exception $e) {
-                            throw new UrlEntryCreationFailedException(
-                                sprintf(
-                                    "Failed processing url '%s' partially; %s",
-                                    $url, $e->getMessage()
-                                ),
-                                $processor, $url, 0, $e
-                            );
+                            throw new UrlEntryCreationFailedException(sprintf("Failed processing url '%s' partially; %s", $url, $e->getMessage()), $processor, $url, 0, $e);
                         }
 
                         if (!$childUrls) {
                             // Ignore silently if the processor didn't throw an exception
                             break;
-                        } elseif (!is_array($childUrls)) {
+                        }
+                        if (!\is_array($childUrls)) {
                             $childUrls = [$childUrls];
                         }
 
                         // Prevent infinite loop
-                        if (in_array($url, $childUrls)) {
-                            throw new \LogicException(
-                                sprintf(
-                                    "Infinite loop detected; '%s' processor shall not return the same url passed to it '%s'",
-                                    get_class($processor), $url
-                                )
-                            );
+                        if (\in_array($url, $childUrls)) {
+                            throw new \LogicException(sprintf("Infinite loop detected; '%s' processor shall not return the same url passed to it '%s'", \get_class($processor), $url));
                         }
 
                         $entries = array_merge($entries, $this->create($childUrls));
+
                         break;
 
                     case UrlProcessorInterface::ACTION_PROCESSING:
                         try {
                             $result = $processor->process($url);
                         } catch (\Exception $e) {
-                            throw new UrlEntryCreationFailedException(
-                                sprintf(
-                                    "Failed processing url '%s' using '%s' processor; %s",
-                                    $url, get_class($processor), $e->getMessage()
-                                ),
-                                $processor, $url, 0, $e
-                            );
+                            throw new UrlEntryCreationFailedException(sprintf("Failed processing url '%s' using '%s' processor; %s", $url, \get_class($processor), $e->getMessage()), $processor, $url, 0, $e);
                         }
 
                         if (!$result) {
                             // Fail silently if the processor didn't throw an exception
                             break;
-                        } elseif (!is_array($result)) {
+                        }
+                        if (!\is_array($result)) {
                             if ($result instanceof EntryInterface) {
-                                array_push($entries, $result);
+                                $entries[] = $result;
+
                                 break;
                             }
 
-                            throw new \UnexpectedValueException(
-                                sprintf(
-                                    "Invalid processor output of type [%s] for processor '%s'",
-                                    gettype($result), get_class($processor)
-                                )
-                            );
+                            throw new \UnexpectedValueException(sprintf("Invalid processor output of type [%s] for processor '%s'", \gettype($result), \get_class($processor)));
                         }
 
                         array_walk_recursive($result, function ($item, $key) use ($processor) {
                             if (!$item instanceof EntryInterface) {
-                                throw new \UnexpectedValueException(sprintf(
-                                    "Invalid inner processor output value of type [%s] at index[%s] for processor '%s'",
-                                    gettype($item), $key, get_class($processor)
-                                ));
+                                throw new \UnexpectedValueException(sprintf("Invalid inner processor output value of type [%s] at index[%s] for processor '%s'", \gettype($item), $key, \get_class($processor)));
                             }
                         });
 
                         $entries = array_merge($entries, $result);
+
                         break;
 
                     case UrlProcessorInterface::ACTION_SKIP:
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(sprintf(
-                            "Got an invalid processing mode from processor '%s'", get_class($processor)
-                        ));
+                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", \get_class($processor)));
                 }
             }
         }

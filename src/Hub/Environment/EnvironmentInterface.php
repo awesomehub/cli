@@ -7,8 +7,8 @@ namespace Hub\Environment;
  */
 interface EnvironmentInterface
 {
-    const DEVELOPMENT = 'dev';
-    const PRODUCTION  = 'prod';
+    public const DEVELOPMENT = 'dev';
+    public const PRODUCTION = 'prod';
 
     /**
      * Gets the value of an environment variable.
@@ -22,7 +22,7 @@ interface EnvironmentInterface
     /**
      * Gets the user home directory path.
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getUserHome();
 

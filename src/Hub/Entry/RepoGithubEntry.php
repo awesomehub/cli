@@ -13,20 +13,12 @@ class RepoGithubEntry extends AbstractEntry implements RepoGithubEntryInterface
      * @param string $author The repository author
      * @param string $name   The repository name
      */
-    public function __construct($author, $name)
+    public function __construct(string $author, string $name)
     {
-        parent::__construct([
+        parent::__construct(self::getType().':'.$author.'/'.$name, [
             'author' => $author,
-            'name'   => $name,
+            'name' => $name,
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
-    {
-        return $this->getType().':'.$this->data['author'].'/'.$this->data['name'];
     }
 
     /**

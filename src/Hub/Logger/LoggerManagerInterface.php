@@ -2,9 +2,9 @@
 
 namespace Hub\Logger;
 
-use Psr\Log\LoggerInterface;
 use Hub\Logger\Handler\LoggerHandlerInterface;
 use Hub\Logger\Record\LoggerRecordInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Interface for a logger manager.
@@ -13,8 +13,6 @@ interface LoggerManagerInterface extends LoggerInterface
 {
     /**
      * Adds a handler on to the stack.
-     *
-     * @param LoggerHandlerInterface $handler
      *
      * @return self
      */
@@ -34,8 +32,5 @@ interface LoggerManagerInterface extends LoggerInterface
      */
     public function getHandlers();
 
-    /**
-     * @param LoggerRecordInterface $record
-     */
     public function runHandlers(LoggerRecordInterface $record);
 }

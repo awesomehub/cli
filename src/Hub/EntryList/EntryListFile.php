@@ -2,18 +2,18 @@
 
 namespace Hub\EntryList;
 
+use Hub\Filesystem\Filesystem;
 use Hub\IO\IOInterface;
 use Hub\Workspace\WorkspaceInterface;
 use Symfony\Component\Serializer;
-use Hub\Filesystem\Filesystem;
 
 /**
  * Creates list instances from files of different formats.
  */
 class EntryListFile extends EntryList
 {
-    const LISTS_DIR       = 'lists';
-    const LISTS_CACHE_DIR = 'cache/lists';
+    public const LISTS_DIR = 'lists';
+    public const LISTS_CACHE_DIR = 'cache/lists';
 
     /**
      * @var Filesystem
@@ -28,8 +28,6 @@ class EntryListFile extends EntryList
     /**
      * Constructor.
      *
-     * @param Filesystem         $filesystem
-     * @param WorkspaceInterface $workspace
      * @param $path
      * @param $format
      *
@@ -38,7 +36,7 @@ class EntryListFile extends EntryList
     public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace, $path, $format)
     {
         $this->filesystem = $filesystem;
-        $this->workspace  = $workspace;
+        $this->workspace = $workspace;
 
         // Check it it's relative path
         if (!$this->filesystem->isAbsolutePath($path)) {
@@ -92,6 +90,77 @@ class EntryListFile extends EntryList
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function finalize(IOInterface $io)
+    {
+        parent::finalize($io);
+
+        $io->getLogger()->info('Saving list cache file');
+        $this->save();
+    }
+
+    /**
+     * Restores cached list instance from path.
+     *
+     * @param string $id
+     *
+     * @return self
+     */
+    public static function createFromCache(Filesystem $filesystem, WorkspaceInterface $workspace, $id)
+    {
+        $cachedPath = $workspace->path([self::LISTS_CACHE_DIR, $id]);
+        if (!$filesystem->exists($cachedPath)) {
+            throw new \InvalidArgumentException(sprintf("Unable to find the list cache file at '%s'", $cachedPath));
+        }
+
+        $instance = unserialize($filesystem->read($cachedPath));
+        if (!$instance instanceof self) {
+            throw new \UnexpectedValueException('Malformed list cache file');
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Find list definition files.
+     *
+     * @return array
+     */
+    public static function findLists(WorkspaceInterface $workspace)
+    {
+        $lists = [];
+        foreach (scandir($workspace->path(self::LISTS_DIR)) as $file) {
+            if (\in_array($file, ['.', '..']) || is_dir($file)) {
+                continue;
+            }
+
+            $lists[] = $file;
+        }
+
+        return $lists;
+    }
+
+    /**
+     * Find cached list files.
+     *
+     * @return array
+     */
+    public static function findCachedLists(WorkspaceInterface $workspace)
+    {
+        $lists = [];
+        foreach (scandir($workspace->path(self::LISTS_CACHE_DIR)) as $file) {
+            if (\in_array($file, ['.', '..']) || is_dir($file)) {
+                continue;
+            }
+
+            $lists[] = $file;
+        }
+
+        return $lists;
+    }
+
+    /**
      * Decodes given data into an array.
      *
      * @param string $data
@@ -127,71 +196,5 @@ class EntryListFile extends EntryList
             $this->workspace->path([self::LISTS_CACHE_DIR, $this->getId()]),
             serialize($this)
         );
-    }
-
-    /**
-     * Restores cached list instance from path.
-     *
-     * @param Filesystem         $filesystem
-     * @param WorkspaceInterface $workspace
-     * @param string             $id
-     *
-     * @return self
-     */
-    public static function createFromCache(Filesystem $filesystem, WorkspaceInterface $workspace, $id)
-    {
-        $cachedPath = $workspace->path([self::LISTS_CACHE_DIR, $id]);
-        if (!$filesystem->exists($cachedPath)) {
-            throw new \InvalidArgumentException(sprintf("Unable to find the list cache file at '%s'", $cachedPath));
-        }
-
-        $instance = unserialize($filesystem->read($cachedPath));
-        if (!$instance instanceof self) {
-            throw new \UnexpectedValueException('Malformed list cache file');
-        }
-
-        return $instance;
-    }
-
-    /**
-     * Find list definition files.
-     *
-     * @param WorkspaceInterface $workspace
-     *
-     * @return array
-     */
-    public static function findLists(WorkspaceInterface $workspace)
-    {
-        $lists = [];
-        foreach (scandir($workspace->path(self::LISTS_DIR)) as $file) {
-            if (in_array($file, ['.', '..']) || is_dir($file)) {
-                continue;
-            }
-
-            $lists[] = $file;
-        }
-
-        return $lists;
-    }
-
-    /**
-     * Find cached list files.
-     *
-     * @param WorkspaceInterface $workspace
-     *
-     * @return array
-     */
-    public static function findCachedLists(WorkspaceInterface $workspace)
-    {
-        $lists = [];
-        foreach (scandir($workspace->path(self::LISTS_CACHE_DIR)) as $file) {
-            if (in_array($file, ['.', '..']) || is_dir($file)) {
-                continue;
-            }
-
-            $lists[] = $file;
-        }
-
-        return $lists;
     }
 }

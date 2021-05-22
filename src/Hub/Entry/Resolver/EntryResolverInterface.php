@@ -12,15 +12,12 @@ interface EntryResolverInterface
     /**
      * Resolves the given entry and returns the resolved entry.
      *
-     * @param EntryInterface $entry
-     * @param bool           $force
+     * @param bool $force
      */
     public function resolve(EntryInterface $entry, $force = false);
 
     /**
      * Checks if a supported entry is cached.
-     *
-     * @param EntryInterface $entry
      *
      * @return bool
      */
@@ -28,8 +25,6 @@ interface EntryResolverInterface
 
     /**
      * Checks whether the resolver supports the given entry.
-     *
-     * @param EntryInterface $entry
      *
      * @return bool
      */

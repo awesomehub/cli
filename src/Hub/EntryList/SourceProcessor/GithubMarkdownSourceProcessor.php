@@ -19,7 +19,10 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     /**
      * @var array
      */
-    protected $tree = [];
+    protected $tree = [
+        'cs' => [['level' => 0, 'category' => null]],
+        'ci' => [['level' => 0, 'category' => null]],
+    ];
 
     /**
      * @var array
@@ -37,40 +40,69 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         }
 
         $environment = CommonMark\Environment::createCommonMarkEnvironment();
-        $parser      = new CommonMark\DocParser($environment);
-        $document    = $parser->parse($markdown);
+        $parser = new CommonMark\DocParser($environment);
+        $document = $parser->parse($markdown);
 
         // Load category rules definitions
         $this->loadlistRules($source->getOption('markdownCategories', []));
 
-        $category        = '';
-        $categoryRules   = null;
+        $category = null;
+        $categories_with_rules = [];
         $insideListBlock = false;
 
-        $urls   = [];
+        $urls = [];
         $walker = $document->walker();
         while ($event = $walker->next()) {
             $node = $event->getNode();
             if ($node instanceof CommonMark\Block\Element\Heading && $event->isEntering()) {
-                $category      = $node->getStringContent();
-                $categoryRules = $this->getCategoryRules($category, $node->getLevel());
-                $category      = isset($categoryRules['rename'])
-                    ? $categoryRules['rename']
-                    : $category;
+                $textNode = $node->firstChild();
+                $heading = $textNode instanceof CommonMark\Inline\Element\Text
+                    ? trim($textNode->getContent())
+                    : $node->getStringContent();
+                $headingLevel = $node->getLevel();
+                $rules = $this->getCategoryRules($heading, $headingLevel);
+
+                $category = [
+                    'name' => $heading,
+                    'level' => $headingLevel,
+                    'rules' => $rules,
+                ];
+
+                $category_with_rules = end($categories_with_rules);
+                if ($category_with_rules && $category_with_rules['level'] >= $headingLevel) {
+                    array_pop($categories_with_rules);
+                    $category_with_rules = end($categories_with_rules);
+                }
+
+                if ($category_with_rules && empty($rules['force'])) {
+                    $category = $category_with_rules;
+                }
+
+                if (null !== $rules) {
+                    if (!isset($rules['recursive']) || !empty($rules['recursive'])) {
+                        $categories_with_rules[] = $category;
+                    }
+                }
+
+                if (!empty($category['rules']['rename'])) {
+                    $category['name'] = str_replace('{name}', $heading, $category['rules']['rename']);
+                }
+
                 continue;
             }
 
             if ($node instanceof CommonMark\Block\Element\ListBlock) {
                 $insideListBlock = $event->isEntering();
+
                 continue;
             }
 
-            if ($node instanceof CommonMark\Inline\Element\Link && $event->isEntering() && $insideListBlock) {
-                if (!empty($categoryRules['ignore'])) {
+            if ($insideListBlock && $node instanceof CommonMark\Inline\Element\Link && $event->isEntering()) {
+                if (!empty($category['rules']['ignore'])) {
                     continue;
                 }
 
-                $urls[$category][] = $node->getUrl();
+                $urls[$category['name']][] = $node->getUrl();
             }
         }
 
@@ -96,38 +128,49 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      */
     public function getAction(SourceInterface $source)
     {
-        return $source->getType() === 'github.markdown'
+        return 'github.markdown' === $source->getType()
             ? self::ACTION_PARTIAL_PROCESSING
             : self::ACTION_SKIP;
     }
 
     /**
      * Builds list rules from config.
-     *
-     * @param array $rules
      */
     protected function loadlistRules(array $rules)
     {
         foreach ($rules as $path => $rule) {
             $matches = [];
-            if (!preg_match_all('/(^|\/|\:)H([0-9])\((.*?)\)/', $path, $matches) | empty($matches[0])) {
+            if (!preg_match_all('/(^|\/|:)H([\d])\(([^)]+?)\)/i', $path, $matches) || empty($matches[0])) {
                 throw new \RuntimeException(sprintf("Invalid category path regex '%s'", $path));
             }
 
-            $entry = [];
-            for ($i = 0; $i < count($matches[0]); ++$i) {
-                $entry['pathRaw'] = $path;
-                $entry['path'][]  = [
-                    'operator' => $matches[1][$i],
+            $entry = [
+                'pathRaw' => $path,
+                'path' => [],
+                'rules' => $rule,
+            ];
+            for ($i = 0; $i < \count($matches[0]); ++$i) {
+                $operator = $matches[1][$i];
+                $level = (int) $matches[2][$i];
+                $category = $matches[3][$i];
+
+                if ('/' === $operator && 0 === $i) {
+                    $entry['path'][] = [
+                        'operator' => '',
+                        'node' => ['level' => 0, 'category' => null],
+                    ];
+                }
+
+                $entry['path'][] = [
+                    'operator' => $operator,
                     'node' => [
-                        'level'    => (int) $matches[2][$i],
-                        'category' => !empty($rule['cs'])
-                            ? $matches[3][$i]
-                            : strtolower($matches[3][$i]),
-                    ]
+                        'level' => $level,
+                        'category' => !empty($rule['isCaseSensitive'])
+                            ? $category
+                            : strtolower($category),
+                    ],
                 ];
             }
-            $entry['rules'] = $rule;
 
             $this->rules[] = $entry;
         }
@@ -139,7 +182,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      * @param $category
      * @param $level
      *
-     * @return array|null
+     * @return null|array
      */
     protected function getCategoryRules($category, $level)
     {
@@ -149,10 +192,10 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
 
         // Search for a matching path
         foreach ($this->rules as $rule) {
-            $tree = !empty($rule['rules']['cs'])
+            $tree = !empty($rule['rules']['isCaseSensitive'])
                 ? $this->tree['cs']
                 : $this->tree['ci'];
-            $pathSeg  = end($rule['path']);
+            $pathSeg = end($rule['path']);
             $treeNode = end($tree);
             if ($pathSeg['node'] !== $treeNode) {
                 continue;
@@ -160,26 +203,28 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
 
             do {
                 $continue = false;
+
                 switch ($pathSeg['operator']) {
                     // Matches parent node
                     case '/':
                         $maxLevel = $pathSeg['node']['level'];
-                        $pathSeg  = prev($rule['path']);
+                        $pathSeg = prev($rule['path']);
                         while ($treeNode = prev($tree)) {
                             if ($treeNode['level'] < $maxLevel && $pathSeg['node'] === $treeNode) {
                                 $continue = true;
+
                                 break;
                             }
                         }
-                        break;
 
+                        break;
                     // Matches sibling node
                     case ':':
-                        $pathSeg  = prev($rule['path']);
+                        $pathSeg = prev($rule['path']);
                         $treeNode = prev($tree);
                         $continue = $pathSeg['node'] === $treeNode;
-                        break;
 
+                        break;
                     // Marks the end of the path
                     // Technically its the start of the path but we're walking backwards
                     case '':
@@ -204,11 +249,8 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     protected function checkSkippedRules()
     {
         $skippedPaths = array_diff(array_column($this->rules, 'pathRaw'), $this->pathMatches);
-        if (count($skippedPaths) > 0) {
-            throw new \RuntimeException(sprintf("Unable to match category path%s '%s'",
-                count($skippedPaths) > 1 ? 's' : '',
-                implode(', ', $skippedPaths)
-            ));
+        if (\count($skippedPaths) > 0) {
+            throw new \RuntimeException(sprintf("Unable to match category path%s '%s'", \count($skippedPaths) > 1 ? 's' : '', implode(', ', $skippedPaths)));
         }
     }
 }

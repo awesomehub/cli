@@ -2,9 +2,9 @@
 
 namespace Hub\Workspace;
 
-use Symfony\Component\Serializer;
-use Symfony\Component\Config as SymfonyConfig;
 use Hub\Filesystem\Filesystem;
+use Symfony\Component\Config as SymfonyConfig;
+use Symfony\Component\Serializer;
 
 /**
  * Represents an app workspace.
@@ -42,8 +42,8 @@ class Workspace implements WorkspaceInterface
      */
     public function __construct($path, Filesystem $filesystem)
     {
-        $this->path       = rtrim($path, '/\\');
-        $this->config     = [];
+        $this->path = rtrim($path, '/\\');
+        $this->config = [];
         $this->filesystem = $filesystem;
 
         $this->verify();
@@ -59,14 +59,14 @@ class Workspace implements WorkspaceInterface
             return $this->path;
         }
 
-        if (is_array($path)) {
+        if (\is_array($path)) {
             $path = implode('/', $path);
         }
 
         $path = explode('/', str_replace('\\', '/', $path));
         array_unshift($path, $this->path);
 
-        return implode(DIRECTORY_SEPARATOR, $path);
+        return implode(\DIRECTORY_SEPARATOR, $path);
     }
 
     /**
@@ -78,7 +78,7 @@ class Workspace implements WorkspaceInterface
             return $this->config();
         }
 
-        if (array_key_exists($key, $this->config)) {
+        if (\array_key_exists($key, $this->config)) {
             return $this->config[$key];
         }
 
@@ -93,29 +93,29 @@ class Workspace implements WorkspaceInterface
     protected function verify()
     {
         if (!file_exists($this->path)) {
-            $parent = dirname($this->path);
+            $parent = \dirname($this->path);
             if (!is_dir($parent) || !is_writable($parent)) {
-                throw new \RuntimeException("Failed creating workspace directory '$this->path'; Parent directory is not accessible or not writable.");
+                throw new \RuntimeException("Failed creating workspace directory '{$this->path}'; Parent directory is not accessible or not writable.");
             }
 
             try {
                 $this->filesystem->mkdir($this->path);
             } catch (\Exception $e) {
-                throw new \RuntimeException("Failed creating workspace directory '$this->path'.", 0, $e);
+                throw new \RuntimeException("Failed creating workspace directory '{$this->path}'.", 0, $e);
             }
         }
 
         if (!is_dir($this->path)) {
-            throw new \InvalidArgumentException("Workspace directory '$this->path' is not valid.");
+            throw new \InvalidArgumentException("Workspace directory '{$this->path}' is not valid.");
         }
 
         foreach ($this->structure as $dir) {
-            $dirPath = $this->path.DIRECTORY_SEPARATOR.$dir;
+            $dirPath = $this->path.\DIRECTORY_SEPARATOR.$dir;
             if (!is_dir($dirPath)) {
                 try {
                     $this->filesystem->mkdir($dirPath);
                 } catch (\Exception $e) {
-                    throw new \RuntimeException("Failed creating child workspace directory '$dirPath'.", 0, $e);
+                    throw new \RuntimeException("Failed creating child workspace directory '{$dirPath}'.", 0, $e);
                 }
             }
         }
@@ -137,9 +137,10 @@ class Workspace implements WorkspaceInterface
             $encoded = $this->filesystem->read($path);
 
             $decoder = new Serializer\Encoder\JsonDecode(true);
-            $data    = $decoder->decode($encoded, 'json');
 
-            $processor    = new SymfonyConfig\Definition\Processor();
+            $data = $decoder->decode($encoded, 'json');
+
+            $processor = new SymfonyConfig\Definition\Processor();
             $this->config = $processor->processConfiguration(
                 new Config\WorkspaceConfigDefinition(),
                 [$data]
@@ -153,18 +154,17 @@ class Workspace implements WorkspaceInterface
      * Gets the value of a config path separated by dot.
      *
      * @param $path
-     * @param array $config
      *
      * @return bool|mixed
      */
     protected function getConfigPath($path, array $config)
     {
         $split = explode('.', $path, 2);
-        if (!array_key_exists($split[0], $config)) {
+        if (!\array_key_exists($split[0], $config)) {
             return false;
         }
 
-        if (!is_array($config[$split[0]]) || !isset($split[1])) {
+        if (!\is_array($config[$split[0]]) || !isset($split[1])) {
             return $config[$split[0]];
         }
 

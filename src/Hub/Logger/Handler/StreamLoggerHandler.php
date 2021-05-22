@@ -2,8 +2,8 @@
 
 namespace Hub\Logger\Handler;
 
-use Psr\Log\LogLevel;
 use Psr\Log\InvalidArgumentException;
+use Psr\Log\LogLevel;
 
 /**
  * Stores to any stream resource.
@@ -19,13 +19,13 @@ class StreamLoggerHandler implements LoggerHandlerInterface
      */
     public static $severityLevelMap = [
         LogLevel::EMERGENCY => 600,
-        LogLevel::ALERT     => 550,
-        LogLevel::CRITICAL  => 500,
-        LogLevel::ERROR     => 400,
-        LogLevel::WARNING   => 300,
-        LogLevel::NOTICE    => 250,
-        LogLevel::INFO      => 200,
-        LogLevel::DEBUG     => 100,
+        LogLevel::ALERT => 550,
+        LogLevel::CRITICAL => 500,
+        LogLevel::ERROR => 400,
+        LogLevel::WARNING => 300,
+        LogLevel::NOTICE => 250,
+        LogLevel::INFO => 200,
+        LogLevel::DEBUG => 100,
     ];
 
     protected $level;
@@ -43,35 +43,35 @@ class StreamLoggerHandler implements LoggerHandlerInterface
      *
      * @param resource|string $stream
      * @param string          $level          The minimum logging level at which this handler will be triggered
-     * @param int|null        $filePermission Optional file permissions (default (0644) are only for owner read/write)
+     * @param null|int        $filePermission Optional file permissions (default (0644) are only for owner read/write)
      * @param bool            $useLocking     Try to lock log file before doing any writes
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      */
     public function __construct($stream, $level = LogLevel::DEBUG, $filePermission = null, $useLocking = false)
     {
-        if (is_resource($stream)) {
+        if (\is_resource($stream)) {
             $this->stream = $stream;
-        } elseif (is_string($stream)) {
+        } elseif (\is_string($stream)) {
             $this->url = $stream;
         } else {
             throw new \InvalidArgumentException('A stream must either be a resource or a string.');
         }
 
-        if (!array_key_exists($level, static::$severityLevelMap)) {
+        if (!\array_key_exists($level, static::$severityLevelMap)) {
             throw new InvalidArgumentException(sprintf('The log level "%s" does not exist.', $level));
         }
 
-        $this->level          = $level;
-        $this->severity       = static::$severityLevelMap[$level];
+        $this->level = $level;
+        $this->severity = static::$severityLevelMap[$level];
         $this->filePermission = $filePermission;
-        $this->useLocking     = $useLocking;
+        $this->useLocking = $useLocking;
     }
 
     public function __destruct()
     {
         try {
-            if (is_resource($this->stream)) {
+            if (\is_resource($this->stream)) {
                 fclose($this->stream);
             }
 
@@ -86,7 +86,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
      */
     public function isHandling($record)
     {
-        return  static::$severityLevelMap[$record->getLevel()] >= $this->severity;
+        return static::$severityLevelMap[$record->getLevel()] >= $this->severity;
     }
 
     /**
@@ -95,7 +95,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     public function handle($record)
     {
         // check if we have a valid stream
-        if (!is_resource($this->stream)) {
+        if (!\is_resource($this->stream)) {
             // check if we have a valid stream url
             if (!$this->url) {
                 throw new \LogicException('Missing stream url, the stream can not be opened. This may be caused by a premature call to close().');
@@ -110,7 +110,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
 
             // open the file for writing
             $this->stream = fopen($this->url, 'a');
-            if ($this->filePermission !== null) {
+            if (null !== $this->filePermission) {
                 @chmod($this->url, $this->filePermission);
             }
 
@@ -118,22 +118,23 @@ class StreamLoggerHandler implements LoggerHandlerInterface
             restore_error_handler();
 
             // throw exception if stream couldn't be opened
-            if (!is_resource($this->stream)) {
+            if (!\is_resource($this->stream)) {
                 $this->stream = null;
+
                 throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: '.$this->errorMessage, $this->url));
             }
         }
 
         if ($this->useLocking) {
             // ignoring errors here, there's not much we can do about them
-            flock($this->stream, LOCK_EX);
+            flock($this->stream, \LOCK_EX);
         }
 
         // write thre message to the stream resource
         fwrite($this->stream, sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record->getTimestamp()), ucfirst($record->getLevel()), $record->getMessage()));
 
         if ($this->useLocking) {
-            flock($this->stream, LOCK_UN);
+            flock($this->stream, \LOCK_UN);
         }
     }
 
@@ -147,12 +148,12 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     private function getDirFromStream($stream)
     {
         $pos = strpos($stream, '://');
-        if ($pos === false) {
-            return dirname($stream);
+        if (false === $pos) {
+            return \dirname($stream);
         }
 
         if ('file://' === substr($stream, 0, 7)) {
-            return dirname(substr($stream, 7));
+            return \dirname(substr($stream, 7));
         }
 
         return null;

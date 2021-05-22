@@ -38,16 +38,12 @@ class ListDistributer implements ListDistributerInterface
 
     /**
      * Constructor.
-     *
-     * @param BuildInterface      $build
-     * @param BuildInterface|null $cached
-     * @param array|null          $config
      */
     public function __construct(BuildInterface $build, BuildInterface $cached = null, array $config = null)
     {
-        $this->build       = $build;
+        $this->build = $build;
         $this->cachedBuild = $cached;
-        $this->config      = [
+        $this->config = [
             'collections' => [],
         ];
 
@@ -73,12 +69,12 @@ class ListDistributer implements ListDistributerInterface
         $this->addToCollection('all');
 
         foreach ($this->config['collections'] as $collection => $lists) {
-            if (!is_array($lists)) {
-                throw new \UnexpectedValueException(sprintf('Expected array of list names but got %s', gettype($lists)));
+            if (!\is_array($lists)) {
+                throw new \UnexpectedValueException(sprintf('Expected array of list names but got %s', \gettype($lists)));
             }
 
-            foreach ($lists as $list) {
-                if (strtolower($list) == $this->list->getId()) {
+            foreach ($lists as $listId) {
+                if (strtolower($listId) === $this->list->getId()) {
                     $this->addToCollection($collection);
                 }
             }
@@ -92,12 +88,14 @@ class ListDistributer implements ListDistributerInterface
     {
         $updated = false;
         $entries = [];
+        $entries_total_score = 0;
+        $entries_count = 0;
         foreach ($this->list->getEntries() as $entry) {
-            $entryData            = $entry->get();
+            $entryData = $entry->get();
             $entryData['updated'] = time();
-            $entryDataCache       = $this->getCachedObject($entry->getId()) ?: $entryData;
-            $diff                 = $this->deepDiffArray($entryData, $entryDataCache);
-            if (count($diff) == 1) {
+            $entryDataCache = $this->getCachedObject($entry->getId()) ?: $entryData;
+            $diff = $this->deepDiffArray($entryData, $entryDataCache);
+            if (1 === \count($diff)) {
                 $entryData['updated'] = $entryDataCache['updated'];
             } else {
                 $updated = true;
@@ -105,30 +103,35 @@ class ListDistributer implements ListDistributerInterface
             }
 
             if ($entry instanceof RepoGithubEntryInterface) {
-                // Ignore entries with very low score
-                if ($entryData['scores_avg'] <= 15) {
+                $entries_total_score += $entryData['scores_avg'];
+                // Ignore archived entries and entries with no score
+                if (0 === $entryData['scores_avg'] || $entryData['archived']) {
                     $this->list->removeEntry($entry);
+
                     continue;
                 }
                 $entryData = $this->buildEntryRepoGithub($entryData, $entryDataCache);
             }
 
-            $entries[$entry->getType()][] = $entryData;
+            $entries[$entry::getType()][] = $entryData;
+            ++$entries_count;
         }
 
+        $this->list->set('score', (int) ($entries_total_score / $entries_count));
+
         $list = [
-            'id'      => $this->list->getId(),
-            'name'    => $this->list->get('name'),
-            'desc'    => $this->list->get('desc'),
-            'score'   => $this->list->get('score'),
-            'cats'    => array_values($this->list->getCategories()),
+            'id' => $this->list->getId(),
+            'name' => $this->list->get('name'),
+            'desc' => $this->list->get('desc'),
+            'score' => $this->list->get('score'),
+            'cats' => array_values($this->list->getCategories()),
             'updated' => time(),
         ];
 
-        $cid       = 'list:'.$list['id'];
+        $cid = 'list:'.$list['id'];
         $listCache = $this->getCachedObject($cid) ?: $list;
-        $diff      = $this->deepDiffArray($list, $listCache);
-        if (count($diff) == 1 && !$updated) {
+        $diff = $this->deepDiffArray($list, $listCache);
+        if (!$updated && 1 === \count($diff)) {
             $list['updated'] = $listCache['updated'];
         } else {
             $this->setObject($cid, $list);
@@ -142,29 +145,27 @@ class ListDistributer implements ListDistributerInterface
     /**
      * Builds an API consumable output of a RepoGithubEntry.
      *
-     * @param array $current
-     * @param array $cached
-     *
      * @return array
      */
     protected function buildEntryRepoGithub(array $current, array $cached)
     {
         return [
-            'author'   => $current['author'],
-            'name'     => $current['name'],
-            'desc'     => $current['description'],
-            'lang'     => $current['language'],
-            'cats'     => $current['categories'],
-            'score'    => $current['scores_avg'],
-            'scores'   => $current['scores'],
-            'score_d'  => $current['scores_avg'] - $cached['scores_avg'],
+            'author' => $current['author'],
+            'name' => $current['name'],
+            'desc' => $current['description'],
+            'lang' => $current['language'],
+            'lic' => $current['licence'],
+            'cats' => $current['categories'],
+            'score' => $current['scores_avg'],
+            'scores' => $current['scores'],
+            'score_d' => $current['scores_avg'] - $cached['scores_avg'],
             'scores_d' => [
                 'p' => $current['scores']['p'] - $cached['scores']['p'],
                 'h' => $current['scores']['h'] - $cached['scores']['h'],
                 'a' => $current['scores']['a'] - $cached['scores']['a'],
                 'm' => $current['scores']['m'] - $cached['scores']['m'],
             ],
-            'pushed'  => $current['pushed'],
+            'pushed' => $current['pushed'],
             'updated' => $current['updated'],
         ];
     }
@@ -176,7 +177,7 @@ class ListDistributer implements ListDistributerInterface
      */
     protected function addToCollection($collection)
     {
-        $file       = 'lists/'.$collection;
+        $file = 'lists/'.$collection;
         $collection = [
             'lists' => [],
         ];
@@ -185,16 +186,16 @@ class ListDistributer implements ListDistributerInterface
         }
 
         $list = [
-            'id'      => $this->list->getId(),
-            'name'    => $this->list->get('name'),
-            'desc'    => $this->list->get('desc'),
-            'score'   => $this->list->get('score'),
-            'entries' => count($this->list->getEntries()),
+            'id' => $this->list->getId(),
+            'name' => $this->list->get('name'),
+            'desc' => $this->list->get('desc'),
+            'score' => $this->list->get('score'),
+            'entries' => \count($this->list->getEntries()),
             'updated' => $this->updated,
         ];
 
-        if (!in_array($list, $collection['lists'])) {
-            array_push($collection['lists'], $list);
+        if (!\in_array($list, $collection['lists'], true)) {
+            $collection['lists'][] = $list;
         }
 
         $this->build->write($file, $collection);
@@ -213,9 +214,9 @@ class ListDistributer implements ListDistributerInterface
             return false;
         }
 
-        $idsha  = sha1($id);
+        $idsha = sha1($id);
         $cached = null;
-        $file   = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
+        $file = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
         if (!$this->cachedBuild->exists($file, true)) {
             return false;
         }
@@ -232,9 +233,8 @@ class ListDistributer implements ListDistributerInterface
      */
     protected function setObject($id, $data)
     {
-        $idsha  = sha1($id);
-        $cached = null;
-        $file   = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
+        $idsha = sha1($id);
+        $file = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
         $this->build->write($file, serialize($data), true);
     }
 
@@ -253,8 +253,8 @@ class ListDistributer implements ListDistributerInterface
     {
         $difference = [];
         foreach ($array1 as $key => $value) {
-            if (is_array($value)) {
-                if (!array_key_exists($key, $array2) || !is_array($array2[$key])) {
+            if (\is_array($value)) {
+                if (!\array_key_exists($key, $array2) || !\is_array($array2[$key])) {
                     $difference[$key] = $value;
                 } else {
                     $new_diff = $this->deepDiffArray($value, $array2[$key]);
@@ -262,7 +262,7 @@ class ListDistributer implements ListDistributerInterface
                         $difference[$key] = $new_diff;
                     }
                 }
-            } elseif (!array_key_exists($key, $array2) || $array2[$key] !== $value) {
+            } elseif (!\array_key_exists($key, $array2) || $array2[$key] !== $value) {
                 $difference[$key] = $value;
             }
         }

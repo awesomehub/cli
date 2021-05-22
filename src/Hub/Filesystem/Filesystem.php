@@ -2,9 +2,9 @@
 
 namespace Hub\Filesystem;
 
-use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
 
 class Filesystem extends BaseFilesystem
 {
@@ -45,12 +45,12 @@ class Filesystem extends BaseFilesystem
      */
     public function write($path, $contents, $lock = true)
     {
-        $dir = dirname($path);
+        $dir = \dirname($path);
         if (!is_dir($dir)) {
             $this->mkdir($dir);
         }
 
-        $bytes = file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
+        $bytes = file_put_contents($path, $contents, $lock ? \LOCK_EX : 0);
         if (false === $bytes) {
             throw new IOException(sprintf('Failed to write data to file "%s".', $path), 0, null, $path);
         }
@@ -76,7 +76,7 @@ class Filesystem extends BaseFilesystem
             throw new FileNotFoundException(sprintf('Failed to append data to "%s" because file does not exist.', $path), 0, null, $path);
         }
 
-        $bytes = file_put_contents($path, $data, FILE_APPEND | ($lock ? LOCK_EX : 0));
+        $bytes = file_put_contents($path, $data, \FILE_APPEND | ($lock ? \LOCK_EX : 0));
         if (false === $bytes) {
             throw new IOException(sprintf('Failed to append data to file "%s".', $path), 0, null, $path);
         }
@@ -94,7 +94,7 @@ class Filesystem extends BaseFilesystem
      */
     public function hasExtension($path, $ext)
     {
-        return '.'.strtolower($ext) === strtolower(substr($path, -1 * strlen($ext) - 1));
+        return '.'.strtolower($ext) === strtolower(substr($path, -1 * \strlen($ext) - 1));
     }
 
     /**
@@ -110,22 +110,23 @@ class Filesystem extends BaseFilesystem
     {
         $segments = [];
         foreach (preg_split('/[\/\\\\]+/', $path) as $part) {
-            if ($part === '.') {
+            if ('.' === $part) {
                 continue;
             }
 
-            if ($part !== '..') {
-                array_push($segments, $part);
+            if ('..' !== $part) {
+                $segments[] = $part;
+
                 continue;
             }
 
-            if (count($segments) > 0 && end($segments) != '') {
+            if (\count($segments) > 0 && '' !== end($segments)) {
                 array_pop($segments);
             } else {
                 throw new \LogicException('Path is outside of the defined root, path: ['.$path.']');
             }
         }
 
-        return implode(DIRECTORY_SEPARATOR, $segments);
+        return implode(\DIRECTORY_SEPARATOR, $segments);
     }
 }

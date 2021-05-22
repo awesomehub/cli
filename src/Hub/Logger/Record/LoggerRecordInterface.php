@@ -9,8 +9,6 @@ interface LoggerRecordInterface
 {
     /**
      * Gets the log level.
-     *
-     * @return string
      */
     public function getLevel(): string;
 
@@ -18,15 +16,11 @@ interface LoggerRecordInterface
      * Checks whether the record is of a certain level.
      *
      * @param string $level
-     *
-     * @return bool
      */
     public function isLevel($level): bool;
 
     /**
      * Gets the log message.
-     *
-     * @return string
      */
     public function getMessage(): string;
 
@@ -36,14 +30,12 @@ interface LoggerRecordInterface
      *
      * @param string $key
      *
-     * @return string|array
+     * @return array|string
      */
     public function getContext($key = null);
 
     /**
      * Gets the log UNIX timestamp.
-     *
-     * @return int
      */
     public function getTimestamp(): int;
 }

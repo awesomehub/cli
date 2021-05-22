@@ -2,8 +2,8 @@
 
 namespace Hub\Build;
 
-use Symfony\Component\Serializer;
 use Hub\Filesystem\Filesystem;
+use Symfony\Component\Serializer;
 
 /**
  * Represents a build.
@@ -27,24 +27,20 @@ class Build implements BuildInterface
 
     /**
      * Constructor.
-     *
-     * @param Filesystem $filesystem
-     * @param string     $path
-     * @param string     $number
      */
-    public function __construct(Filesystem $filesystem, $path, $number = null)
+    public function __construct(Filesystem $filesystem, string $path, string $number = null)
     {
         if (empty($path)) {
             throw new \InvalidArgumentException('The build path can not be empty');
         }
 
         $this->filesystem = $filesystem;
-        $this->path       = $path;
+        $this->path = $path;
 
         if (!empty($number)) {
             $this->set([
                 'number' => $number,
-                'date'   => date('c'),
+                'date' => date('c'),
                 'format' => $this->getFormat(),
             ]);
 
@@ -73,7 +69,7 @@ class Build implements BuildInterface
             throw new \InvalidArgumentException('Path cannot br empty');
         }
 
-        if (is_array($path)) {
+        if (\is_array($path)) {
             $path = implode('/', $path);
         }
 
@@ -84,7 +80,7 @@ class Build implements BuildInterface
         $path = explode('/', str_replace('\\', '/', $path));
         array_unshift($path, $this->path);
 
-        return implode(DIRECTORY_SEPARATOR, $path);
+        return implode(\DIRECTORY_SEPARATOR, $path);
     }
 
     /**
@@ -108,8 +104,8 @@ class Build implements BuildInterface
      */
     public function set($key, $value = null)
     {
-        if (func_num_args() === 1) {
-            if (!is_array($key)) {
+        if (1 === \func_num_args()) {
+            if (!\is_array($key)) {
                 new \InvalidArgumentException(sprintf('Expected array but got %s', var_export($value, true)));
             }
             $this->meta = $key;
@@ -129,9 +125,8 @@ class Build implements BuildInterface
             return $this->meta;
         }
 
-        return isset($this->meta[$key])
-                ? $this->meta[$key]
-                : false;
+        return $this->meta[$key]
+                ?? false;
     }
 
     /**
@@ -148,10 +143,11 @@ class Build implements BuildInterface
     public function write($path, $data, $raw = false)
     {
         $path = $this->getPath($path, $raw);
+
         try {
             if (!$raw) {
                 $encoder = new Serializer\Encoder\JsonEncode();
-                $data    = $encoder->encode($data, $this->getFormat());
+                $data = $encoder->encode($data, $this->getFormat());
             }
 
             $this->filesystem->write($path, $data);
@@ -166,6 +162,7 @@ class Build implements BuildInterface
     public function read($path, $raw = false)
     {
         $path = $this->getPath($path, $raw);
+
         try {
             $encoded = $this->filesystem->read($path);
             if ($raw) {
