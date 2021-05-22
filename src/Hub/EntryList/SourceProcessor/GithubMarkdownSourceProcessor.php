@@ -61,6 +61,8 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                     : $node->getStringContent();
                 $headingLevel = $node->getLevel();
                 $rules = $this->getCategoryRules($heading, $headingLevel);
+                // Category title can not have slashes, we use it for parent/child relationship
+                $heading = preg_replace('/\s*\/+\s*/', ' & ', $heading);
 
                 $category = [
                     'name' => $heading,
