@@ -622,7 +622,15 @@ class EntryList implements EntryListInterface
         $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
         $str = preg_replace('/[^\w\-]/', ' ', $str);
         $str = str_replace(' ', '-', strtolower(trim($str, '-')));
+        $str = preg_replace('/-{2,}/', '-', $str);
 
-        return preg_replace('/-{2,}/', '-', $str);
+        /*
+         * @todo: fix this temporary workaround
+         * We use 'search' route in the angular app for displaying list search results, therefore
+         *  we can not have categories named 'search'
+         */
+        return 'search' === $str
+            ? $str.'-2'
+            : $str;
     }
 }
