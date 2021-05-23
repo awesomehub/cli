@@ -57,7 +57,7 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
         }
 
         // Source options
-        $includeForks = $source->getOption('includeAuthorForks', true);
+        $includeForks = $source->getOption('includeAuthorForks', false);
 
         $entries = [];
         foreach ($repos as $repo) {
