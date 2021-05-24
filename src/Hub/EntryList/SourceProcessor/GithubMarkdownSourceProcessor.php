@@ -145,7 +145,10 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         foreach ($rules as $path => $rule) {
             $matches = [];
             if (!preg_match_all('/(^|\/|:)H([\d])\(([^)]+?)\)/i', $path, $matches) || empty($matches[0])) {
-                throw new \RuntimeException(sprintf("Invalid category path regex '%s'", $path));
+                $matches = [];
+                if (!preg_match_all('/(^|\/|:)H([\d])\[([^]]+?)\]/i', $path, $matches) || empty($matches[0])) {
+                    throw new \RuntimeException(sprintf("Invalid category path regex '%s'", $path));
+                }
             }
 
             $entry = [
