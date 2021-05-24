@@ -199,7 +199,7 @@ class EntryList implements EntryListInterface
             ++$i;
             $resolvedWith = false;
             $isCached = false;
-            // @var EntryResolverInterface $resolver
+            /** @var EntryResolverInterface $resolver */
             foreach ($resolvers as $resolver) {
                 if (!$resolver->supports($entry)) {
                     continue;
@@ -340,7 +340,7 @@ class EntryList implements EntryListInterface
 
         // Update cat counts
         foreach ($this->categories as $i => $category) {
-            if (\in_array($category['id'], $entry->get('categories'))) {
+            if (\in_array($category['id'], $entry->get('categories'), true)) {
                 --$this->categories[$i]['count']['all'];
                 --$this->categories[$i]['count'][$entry->getType()];
 
