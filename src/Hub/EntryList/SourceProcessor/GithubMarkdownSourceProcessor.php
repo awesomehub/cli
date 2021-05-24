@@ -115,6 +115,9 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         $this->checkSkippedRules();
 
         $options = $source->getOptions();
+        $options['exclude'] = $source->getOption('exclude', []);
+        $options['exclude'][] = '\/awesome-';
+
         unset($options['markdownCategories']);
 
         $sources = [];
