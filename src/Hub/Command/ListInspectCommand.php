@@ -71,7 +71,8 @@ class ListInspectCommand extends Command
     {
         $body = [];
         $total = 0;
-        foreach ($this->list->getCategories() as $id => $category) {
+        foreach ($this->list->getCategories() as $category) {
+            $id = $category['id'];
             if ($category['parent'] == $parent) {
                 $row = [
                     str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title'],

@@ -306,12 +306,12 @@ class EntryList implements EntryListInterface
 
         // Add category order
         $categoryOrder = $this->data['options']['categoryOrder'];
-        foreach ($this->categories as $id => $category) {
+        foreach ($this->categories as $i => $category) {
             $order = 20;
             if (\in_array($category['path'], $categoryOrder, true)) {
                 $order = (int) array_search($category['path'], $categoryOrder, true);
             }
-            $this->categories[$id]['order'] = $order;
+            $this->categories[$i]['order'] = $order;
         }
 
         $logger->info(sprintf('Organized %d category(s)', \count($this->categories)));
@@ -335,14 +335,14 @@ class EntryList implements EntryListInterface
         }
 
         // Update cat counts
-        foreach ($this->categories as $id => $category) {
-            if (\in_array($id, $entry->get('categories'))) {
-                --$this->categories[$id]['count']['all'];
-                --$this->categories[$id]['count'][$entry->getType()];
+        foreach ($this->categories as $i => $category) {
+            if (\in_array($category['id'], $entry->get('categories'))) {
+                --$this->categories[$i]['count']['all'];
+                --$this->categories[$i]['count'][$entry->getType()];
 
                 // Remove the category if it hs no entries
-                if (1 > $this->categories[$id]['count']['all']) {
-                    unset($this->categories[$id]);
+                if (1 > $this->categories[$i]['count']['all']) {
+                    unset($this->categories[$i]);
                 }
             }
         }
@@ -586,9 +586,10 @@ class EntryList implements EntryListInterface
             $path[] = $this->slugify($title);
             $pathString = implode('/', $path);
             $paths = array_column($this->categories, 'path', 'id');
-            if (\in_array($pathString, $paths)) {
-                $return[] = $id = array_search($pathString, $paths);
-                $object = &$this->categories[$id];
+            if (\in_array($pathString, $paths, true)) {
+                $return[] = $id = array_search($pathString, $paths, true);
+                $indexes = array_column($this->categories, 'id');
+                $object = &$this->categories[array_search($id, $indexes, true)];
                 // Allow overwriting the category title
                 $object['title'] = $title;
                 foreach ($count as $ckey => $cval) {
@@ -605,11 +606,11 @@ class EntryList implements EntryListInterface
 
             $return[] = $id = ++$this->categoryLastInsert;
 
-            $this->categories[$id] = [
+            $this->categories[] = [
                 'id' => $id,
                 'title' => $title,
                 'path' => $pathString,
-                'parent' => (int) array_search($parentPath, $paths),
+                'parent' => (int) array_search($parentPath, $paths, true),
                 'count' => $count,
             ];
         }
