@@ -73,19 +73,19 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                 while ($category_with_rules = end($categories_with_rules)) {
                     if ($category_with_rules && $category_with_rules['level'] >= $headingLevel) {
                         array_pop($categories_with_rules);
+
                         continue;
                     }
-                    break;
-                }
 
-                if ($category_with_rules && empty($rules['force'])) {
-                    $category = $category_with_rules;
+                    break;
                 }
 
                 if (null !== $rules) {
                     if (!isset($rules['recursive']) || !empty($rules['recursive'])) {
                         $categories_with_rules[] = $category;
                     }
+                } elseif ($category_with_rules) {
+                    $category = $category_with_rules;
                 }
 
                 if (!empty($category['rules']['rename'])) {
