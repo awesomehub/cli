@@ -2,7 +2,7 @@
   "name": "awesomehub/cli",
   "type": "project",
   "description": "Awesomehub command line interface for genrating API Ddata",
-  "keywords": ["cli", "console", "github"],
+  "keywords": ["cli", "console", "github", "api"],
   "homepage": "https://awesomehub.js.org/",
   "license": "MIT",
   "authors": [
@@ -11,8 +11,12 @@
       "email": "mohatt@pm.me"
     }
   ],
+  "scripts": {
+    "hub": "hub"
+  },
   "require": {
     "php": ">=7.3",
+    "ext-iconv": "*",
     "psr/log": "^1.0",
     "symfony/console": "^3.4",
     "symfony/dependency-injection": "^3.4",

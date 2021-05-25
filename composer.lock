@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac431a6f736ef21e8862ebe8e9439bd1",
+    "content-hash": "1b5f8d9ea969e017922ac0337a7d7724",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -428,10 +428,16 @@
         {
             "name": "mohatt/github-api-utils",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mohatt/github-api-utils.git",
+                "reference": "cd8db08ddabb2bbd71760a29e243a34fa335d3a9"
+            },
             "dist": {
-                "type": "path",
-                "url": "/projects/github-api-utils",
-                "reference": "7814d7c65db6a0dd20617340c010bae86ada949e"
+                "type": "zip",
+                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/cd8db08ddabb2bbd71760a29e243a34fa335d3a9",
+                "reference": "cd8db08ddabb2bbd71760a29e243a34fa335d3a9",
+                "shasum": ""
             },
             "require": {
                 "knplabs/github-api": "^2.11",
@@ -453,17 +459,14 @@
                 "symfony/css-selector": "Used by Github Inspector class",
                 "symfony/dom-crawler": "Used by Github Inspector class"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Github\\Utils\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Github\\Utils\\Tests\\": "test/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -481,9 +484,11 @@
                 "github",
                 "utils"
             ],
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "issues": "https://github.com/mohatt/github-api-utils/issues",
+                "source": "https://github.com/mohatt/github-api-utils/tree/master"
+            },
+            "time": "2021-05-22T03:02:22+00:00"
         },
         {
             "name": "php-http/cache-plugin",
@@ -804,16 +809,16 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.11.0",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "fb0dbce7355cad4f4f6a225f537c34d013571f29"
+                "reference": "887734d9c515ad9a564f6581a682fff87a6253cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/fb0dbce7355cad4f4f6a225f537c34d013571f29",
-                "reference": "fb0dbce7355cad4f4f6a225f537c34d013571f29",
+                "url": "https://api.github.com/repos/php-http/message/zipball/887734d9c515ad9a564f6581a682fff87a6253cc",
+                "reference": "887734d9c515ad9a564f6581a682fff87a6253cc",
                 "shasum": ""
             },
             "require": {
@@ -872,9 +877,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/message/issues",
-                "source": "https://github.com/php-http/message/tree/1.11.0"
+                "source": "https://github.com/php-http/message/tree/1.11.1"
             },
-            "time": "2021-02-01T08:54:58+00:00"
+            "time": "2021-05-24T18:11:08+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -3027,7 +3032,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.3"
+        "php": ">=7.3",
+        "ext-iconv": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
