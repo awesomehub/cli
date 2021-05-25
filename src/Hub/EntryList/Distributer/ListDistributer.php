@@ -196,6 +196,7 @@ class ListDistributer implements ListDistributerInterface
 
         if (!\in_array($list, $collection['lists'], true)) {
             $collection['lists'][] = $list;
+            $collection['entries'] = ($collection['entries'] ?? 0) + $list['entries'];
         }
 
         $this->build->write($file, $collection);
