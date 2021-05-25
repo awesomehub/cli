@@ -631,7 +631,7 @@ class EntryList implements EntryListInterface
     {
         $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
         $str = preg_replace('/[^\w\-]/', ' ', $str);
-        $str = str_replace(' ', '-', strtolower(trim($str, '-')));
+        $str = str_replace(' ', '-', strtolower(trim($str)));
         $str = preg_replace('/-{2,}/', '-', $str);
 
         /*
