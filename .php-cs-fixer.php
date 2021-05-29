@@ -16,7 +16,7 @@ return (new PhpCsFixer\Config())
         '@Symfony' => true,
         '@PhpCsFixer' => true,
         '@Symfony:risky' => true,
-        '@PHP73Migration' => true,
+        '@PHP80Migration' => true,
         //'header_comment' => ['comment_type' => 'comment', 'header' => $header],
     ])
     ->setFinder(PhpCsFixer\Finder::create()

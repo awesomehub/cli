@@ -12,10 +12,13 @@
     }
   ],
   "scripts": {
-    "hub": "hub"
+    "hub": "hub",
+    "lint": "composer run cs-fixer fix -- --dry-run --format=checkstyle",
+    "lint:fix": "composer run cs-fixer fix",
+    "cs-fixer": "PHP_CS_FIXER_FUTURE_MODE=1 php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer"
   },
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "ext-iconv": "*",
     "psr/log": "^1.0",
     "symfony/console": "^3.4",

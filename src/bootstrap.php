@@ -1,9 +1,9 @@
 <?php
 
-if (version_compare('7.3.0', \PHP_VERSION, '>')) {
+if (version_compare('8.0.0', \PHP_VERSION, '>')) {
     fwrite(
         \STDERR,
-        'PHP 7.3 or later is needed to run this application.'.\PHP_EOL
+        'PHP 8.0 or later is needed to run this application.'.\PHP_EOL
     );
 
     exit(1);

@@ -47,7 +47,6 @@ abstract class Kernel implements KernelInterface
      *  - EnvironmentInterface::PRODUCTION
      *
      * @param EnvironmentInterface $environment
-     * @param string|null $mode
      */
     public function __construct(EnvironmentInterface $environment = null, string $mode = null)
     {
@@ -147,8 +146,6 @@ abstract class Kernel implements KernelInterface
 
     /**
      * Creates the container builder.
-     *
-     * @return ContainerBuilder
      */
     protected function buildContainer(): ContainerBuilder
     {

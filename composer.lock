@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e38b55ab1efbed23b9df9398046b689",
+    "content-hash": "887d85a4d74eecab96c5d9ab5804bd64",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -477,11 +477,11 @@
             "dist": {
                 "type": "path",
                 "url": "/projects/github-api-utils",
-                "reference": "f81c72135adf5eb54db4a3300400e53e4ec6d7e9"
+                "reference": "e741730aa56b69de5b1e6478373a83a4f0d7cf06"
             },
             "require": {
                 "knplabs/github-api": "^3.3",
-                "php": "^7.3",
+                "php": "^8.0",
                 "php-http/client-common": "^2.3",
                 "php-http/discovery": "^1.13",
                 "psr/http-client-implementation": "^1.0",
@@ -2945,7 +2945,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.3",
+        "php": ">=8.0",
         "ext-iconv": "*"
     },
     "platform-dev": [],
