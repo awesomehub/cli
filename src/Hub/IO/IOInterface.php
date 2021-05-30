@@ -4,25 +4,18 @@ namespace Hub\IO;
 
 use Hub\IO\Output\OverwritableOutputInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Console;
+use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Interface for an IO class.
  */
-interface IOInterface extends Console\Output\OutputInterface, Console\Style\StyleInterface, OverwritableOutputInterface
+interface IOInterface extends OutputInterface, StyleInterface, OverwritableOutputInterface
 {
-    /**
-     * @return Console\Input\InputInterface
-     */
-    public function getInput();
+    public function getInput(): InputInterface;
 
-    /**
-     * @return Console\Output\OutputInterface
-     */
-    public function getOutput();
+    public function getOutput(): OutputInterface;
 
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger();
+    public function getLogger(): LoggerInterface;
 }

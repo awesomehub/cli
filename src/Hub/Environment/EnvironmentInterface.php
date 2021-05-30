@@ -12,52 +12,36 @@ interface EnvironmentInterface
 
     /**
      * Gets the value of an environment variable.
-     *
-     * @param string $varname
-     *
-     * @return string
      */
-    public function get($varname);
+    public function get(string $varname): mixed;
 
     /**
      * Gets the user home directory path.
-     *
-     * @return bool|string
      */
-    public function getUserHome();
+    public function getUserHome(): ?string;
 
     /**
      * Gets the current script path.
-     *
-     * @return string
      */
-    public function getBin();
+    public function getBin(): string;
 
     /**
      * Gets the environment mode.
-     *
-     * @return string
      */
-    public function getMode();
+    public function getMode(): string;
 
     /**
      * Checks if running in development mode.
-     *
-     * @return bool
      */
-    public function isDevelopment();
+    public function isDevelopment(): bool;
 
     /**
      * Checks if running in production mode.
-     *
-     * @return bool
      */
-    public function isProduction();
+    public function isProduction(): bool;
 
     /**
      * Checks if running in windows platform.
-     *
-     * @return bool
      */
-    public function isPlatformWindows();
+    public function isPlatformWindows(): bool;
 }

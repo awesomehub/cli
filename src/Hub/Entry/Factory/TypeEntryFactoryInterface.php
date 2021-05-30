@@ -13,18 +13,17 @@ interface TypeEntryFactoryInterface
      * Creates new entry(s) based on input.
      *
      * @param array|string $type Entry type or an array of entry definitions
-     * @param array        $data Entry data
      *
      * @return EntryInterface|EntryInterface[]
      */
-    public static function create($type, array $data = []);
+    public static function create(array|string $type, array $data = []): EntryInterface|array;
 
     /**
      * Gets a list of supported input types or checks whether the given type is supported.
      *
-     * @param string $input Input type to check against
+     * @param string|null $input Input type to check against
      *
-     * @return array|bool
+     * @return array|string|bool
      */
-    public static function supports($input = null);
+    public static function supports(string $input = null): bool|string|array;
 }

@@ -9,27 +9,21 @@ interface BuildFactoryInterface
 {
     /**
      * Creates a new build.
-     *
-     * @return BuildInterface
      */
-    public function create();
+    public function create(): BuildInterface;
 
     /**
      * Caches a build.
      */
-    public function cache(BuildInterface $build);
+    public function cache(BuildInterface $build): void;
 
     /**
      * Gets the currently cached build (most probably the last released build).
-     *
-     * @return BuildInterface
      */
-    public function getCached();
+    public function getCached(): BuildInterface | null;
 
     /**
      * Gets the current build.
-     *
-     * @return BuildInterface
      */
-    public function getCurrent();
+    public function getCurrent(): BuildInterface | null;
 }

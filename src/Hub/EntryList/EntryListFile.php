@@ -15,25 +15,15 @@ class EntryListFile extends EntryList
     public const LISTS_DIR = 'lists';
     public const LISTS_CACHE_DIR = 'cache/lists';
 
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @var WorkspaceInterface
-     */
-    protected $workspace;
+    protected Filesystem $filesystem;
+    protected WorkspaceInterface $workspace;
 
     /**
      * Constructor.
      *
-     * @param $path
-     * @param $format
-     *
      * @throws \RuntimeException
      */
-    public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace, $path, $format)
+    public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace, string $path, string $format)
     {
         $this->filesystem = $filesystem;
         $this->workspace = $workspace;
@@ -69,7 +59,7 @@ class EntryListFile extends EntryList
     /**
      * {@inheritdoc}
      */
-    public function process(IOInterface $io, array $processors)
+    public function process(IOInterface $io, array $processors): void
     {
         parent::process($io, $processors);
 
@@ -81,7 +71,7 @@ class EntryListFile extends EntryList
     /**
      * {@inheritdoc}
      */
-    public function resolve(IOInterface $io, array $resolvers, $force = false)
+    public function resolve(IOInterface $io, array $resolvers, bool $force = false): void
     {
         parent::resolve($io, $resolvers, $force);
 
@@ -92,7 +82,7 @@ class EntryListFile extends EntryList
     /**
      * {@inheritdoc}
      */
-    public function finalize(IOInterface $io)
+    public function finalize(IOInterface $io): void
     {
         parent::finalize($io);
 
@@ -102,12 +92,8 @@ class EntryListFile extends EntryList
 
     /**
      * Restores cached list instance from path.
-     *
-     * @param string $id
-     *
-     * @return self
      */
-    public static function createFromCache(Filesystem $filesystem, WorkspaceInterface $workspace, $id)
+    public static function createFromCache(Filesystem $filesystem, WorkspaceInterface $workspace, string $id): self
     {
         $cachedPath = $workspace->path([self::LISTS_CACHE_DIR, $id]);
         if (!$filesystem->exists($cachedPath)) {
@@ -124,10 +110,8 @@ class EntryListFile extends EntryList
 
     /**
      * Find list definition files.
-     *
-     * @return array
      */
-    public static function findLists(WorkspaceInterface $workspace)
+    public static function findLists(WorkspaceInterface $workspace): array
     {
         $lists = [];
         foreach (scandir($workspace->path(self::LISTS_DIR)) as $file) {
@@ -143,10 +127,8 @@ class EntryListFile extends EntryList
 
     /**
      * Find cached list files.
-     *
-     * @return array
      */
-    public static function findCachedLists(WorkspaceInterface $workspace)
+    public static function findCachedLists(WorkspaceInterface $workspace): array
     {
         $lists = [];
         foreach (scandir($workspace->path(self::LISTS_CACHE_DIR)) as $file) {
@@ -163,16 +145,11 @@ class EntryListFile extends EntryList
     /**
      * Decodes given data into an array.
      *
-     * @param string $data
-     * @param string $format
-     *
      * @throws \InvalidArgumentException
      * @throws \LogicException
      * @throws \RuntimeException
-     *
-     * @return array
      */
-    protected function decode($data, $format)
+    protected function decode(string $data, string $format): array
     {
         $serializer = new Serializer\Encoder\ChainDecoder([
             new Serializer\Encoder\JsonDecode(true),
@@ -187,10 +164,8 @@ class EntryListFile extends EntryList
 
     /**
      * Caches the list instance to file.
-     *
-     * @return int
      */
-    protected function save()
+    protected function save(): int
     {
         return $this->filesystem->write(
             $this->workspace->path([self::LISTS_CACHE_DIR, $this->getId()]),

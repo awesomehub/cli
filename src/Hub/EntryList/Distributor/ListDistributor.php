@@ -1,6 +1,6 @@
 <?php
 
-namespace Hub\EntryList\Distributer;
+namespace Hub\EntryList\Distributor;
 
 use Hub\Build\BuildInterface;
 use Hub\Entry\RepoGithubEntryInterface;
@@ -9,36 +9,14 @@ use Hub\EntryList\EntryListInterface;
 /**
  * Distributes lists into API consumable files.
  */
-class ListDistributer implements ListDistributerInterface
+class ListDistributor implements ListDistributorInterface
 {
-    /**
-     * @var BuildInterface
-     */
-    protected $build;
+    protected BuildInterface $build;
+    protected ?BuildInterface $cachedBuild;
+    protected EntryListInterface $list;
+    protected array $config;
+    protected string $updated;
 
-    /**
-     * @var BuildInterface
-     */
-    protected $cachedBuild;
-
-    /**
-     * @var EntryListInterface
-     */
-    protected $list;
-
-    /**
-     * @var array
-     */
-    protected $config;
-
-    /**
-     * @var string
-     */
-    protected $updated;
-
-    /**
-     * Constructor.
-     */
     public function __construct(BuildInterface $build, BuildInterface $cached = null, array $config = null)
     {
         $this->build = $build;
@@ -55,7 +33,7 @@ class ListDistributer implements ListDistributerInterface
     /**
      * {@inheritdoc}
      */
-    public function distribute(EntryListInterface $list)
+    public function distribute(EntryListInterface $list): void
     {
         if (!$list->isResolved()) {
             throw new \LogicException('Cannot distribute a list that is not yet resolved');
@@ -84,7 +62,7 @@ class ListDistributer implements ListDistributerInterface
     /**
      * Builds the current list.
      */
-    protected function buildList()
+    protected function buildList(): void
     {
         $updated = false;
         $entries = [];
@@ -144,10 +122,8 @@ class ListDistributer implements ListDistributerInterface
 
     /**
      * Builds an API consumable output of a RepoGithubEntry.
-     *
-     * @return array
      */
-    protected function buildEntryRepoGithub(array $current, array $cached)
+    protected function buildEntryRepoGithub(array $current, array $cached): array
     {
         return [
             'author' => $current['author'],
@@ -172,12 +148,10 @@ class ListDistributer implements ListDistributerInterface
 
     /**
      * Adds the current list to a collection.
-     *
-     * @param $collection
      */
-    protected function addToCollection($collection)
+    protected function addToCollection(string $id): void
     {
-        $file = 'lists/'.$collection;
+        $file = 'lists/'.$id;
         $collection = [
             'lists' => [],
         ];
@@ -204,19 +178,14 @@ class ListDistributer implements ListDistributerInterface
 
     /**
      * Gets the value of a cached object.
-     *
-     * @param string $id
-     *
-     * @return mixed
      */
-    protected function getCachedObject($id)
+    protected function getCachedObject(string $id): mixed
     {
         if (!$this->cachedBuild) {
             return false;
         }
 
         $idsha = sha1($id);
-        $cached = null;
         $file = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
         if (!$this->cachedBuild->exists($file, true)) {
             return false;
@@ -228,11 +197,8 @@ class ListDistributer implements ListDistributerInterface
 
     /**
      * Writes an object data.
-     *
-     * @param string $id
-     * @param mixed  $data
      */
-    protected function setObject($id, $data)
+    protected function setObject(string $id, mixed $data): void
     {
         $idsha = sha1($id);
         $file = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
@@ -245,25 +211,26 @@ class ListDistributer implements ListDistributerInterface
      * This is a version of array_diff_assoc() that supports multidimensional
      * arrays.
      *
-     * @param array $array1 The array to compare from
-     * @param array $array2 The array to compare to
+     * @param array $source The array to compare from
+     * @param array $dest   The array to compare to
      *
      * @return array Returns an array containing all the values from array1 that are not present in array2
      */
-    protected function deepDiffArray($array1, $array2)
+    protected function deepDiffArray(array $source, array $dest): array
     {
         $difference = [];
-        foreach ($array1 as $key => $value) {
+        foreach ($source as $key => $value) {
+            $keyDiff = !\array_key_exists($key, $dest);
             if (\is_array($value)) {
-                if (!\array_key_exists($key, $array2) || !\is_array($array2[$key])) {
+                if ($keyDiff || !\is_array($dest[$key])) {
                     $difference[$key] = $value;
                 } else {
-                    $new_diff = $this->deepDiffArray($value, $array2[$key]);
+                    $new_diff = $this->deepDiffArray($value, $dest[$key]);
                     if (!empty($new_diff)) {
                         $difference[$key] = $new_diff;
                     }
                 }
-            } elseif (!\array_key_exists($key, $array2) || $array2[$key] !== $value) {
+            } elseif ($keyDiff || $dest[$key] !== $value) {
                 $difference[$key] = $value;
             }
         }

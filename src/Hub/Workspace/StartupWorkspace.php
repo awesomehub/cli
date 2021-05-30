@@ -12,9 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
  */
 class StartupWorkspace extends Workspace
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(EnvironmentInterface $env, InputInterface $input, Filesystem $filesystem)
     {
         $path = $this->getInputPath($input, $filesystem) ?: $this->getEnvironmentPath($env);
@@ -24,10 +21,8 @@ class StartupWorkspace extends Workspace
 
     /**
      * Fetches user defined workspace.
-     *
-     * @return null|string
      */
-    protected function getInputPath(InputInterface $input, Filesystem $filesystem)
+    protected function getInputPath(InputInterface $input, Filesystem $filesystem): ?string
     {
         if ($input->hasParameterOption('--workspace', true)) {
             $path = $input->getParameterOption('--workspace', null, true);
@@ -51,7 +46,7 @@ class StartupWorkspace extends Workspace
     }
 
     /**
-     * Tries tpo auto-detect the environment worspace based on different factors.
+     * Tries tpo auto-detect the environment workspace based on different factors.
      */
     protected function getEnvironmentPath(EnvironmentInterface $env): string
     {
@@ -69,7 +64,7 @@ class StartupWorkspace extends Workspace
         }
 
         $home = $env->getUserHome();
-        if (!$home) {
+        if (empty($home)) {
             throw new \RuntimeException('The HOME, APPDATA or '.$envWorkspaceVar.' environment variable must be set for '.Application::NAME.' to run correctly.');
         }
 

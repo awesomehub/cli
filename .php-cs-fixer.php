@@ -3,7 +3,7 @@
 $header = <<<'EOF'
     This file is part of AwesomeHub CLI.
 
-    (c) Mohamed Kholy <mohatt@pm.me>
+    (c) Mohamed Elkholy <mohatt@pm.me>
 
     This source file is subject to the MIT license that is bundled
     with this source code in the file LICENSE.
@@ -21,5 +21,9 @@ return (new PhpCsFixer\Config())
     ])
     ->setFinder(PhpCsFixer\Finder::create()
     ->exclude('vendor')
+    ->notPath([
+        'Hub/EntryList/EntryListDefinition.php',
+        'Hub/Workspace/Config/WorkspaceConfigDefinition.php',
+    ])
     ->in(__DIR__))
     ;

@@ -10,24 +10,10 @@ use Hub\Workspace\WorkspaceInterface;
  */
 class BuildFactory implements BuildFactoryInterface
 {
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
+    protected Filesystem $filesystem;
+    protected WorkspaceInterface $workspace;
+    protected array $path;
 
-    /**
-     * @var WorkspaceInterface
-     */
-    protected $workspace;
-
-    /**
-     * @var string
-     */
-    protected $path;
-
-    /**
-     * Constructor.
-     */
     public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace)
     {
         $this->filesystem = $filesystem;
@@ -41,7 +27,7 @@ class BuildFactory implements BuildFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create($path = null)
+    public function create($path = null): BuildInterface
     {
         $build = new Build(
             $this->filesystem,
@@ -57,7 +43,7 @@ class BuildFactory implements BuildFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function cache(BuildInterface $build)
+    public function cache(BuildInterface $build): void
     {
         $this->filesystem->mirror($build->getPath(), $this->path['cached']);
     }
@@ -65,38 +51,38 @@ class BuildFactory implements BuildFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrent()
+    public function getCurrent(): BuildInterface | null
     {
         try {
             return new Build($this->filesystem, $this->path['dist']);
         } catch (\Exception $e) {
-            return false;
+            return null;
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCached()
+    public function getCached(): BuildInterface | null
     {
         try {
             return new Build($this->filesystem, $this->path['cached']);
         } catch (\Exception $e) {
-            return false;
+            return null;
         }
     }
 
     /**
      * Gets the next build number.
      */
-    protected function getNextBuildNumber()
+    protected function getNextBuildNumber(): string
     {
         $number = [date('Ymd'), 0];
         $file = $this->workspace->path('.buildnum');
         if (file_exists($file)) {
             $pnumber = explode('.', $this->filesystem->read($file));
-            if (2 === \count($pnumber) && $number[0] == $pnumber[0]) {
-                $number[1] = $pnumber[1] + 1;
+            if (2 === \count($pnumber) && $number[0] === $pnumber[0]) {
+                $number[1] = (int) $pnumber[1] + 1;
             }
         }
 

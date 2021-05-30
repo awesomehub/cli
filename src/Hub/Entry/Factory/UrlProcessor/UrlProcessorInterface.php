@@ -10,7 +10,7 @@ use Hub\Entry\EntryInterface;
 interface UrlProcessorInterface
 {
     /**
-     * Causes the factory to move on to the nexr processor.
+     * Causes the factory to move on to the next processor.
      */
     public const ACTION_SKIP = 0;
 
@@ -20,28 +20,21 @@ interface UrlProcessorInterface
     public const ACTION_PROCESSING = 1;
 
     /**
-     * Causes the factory to proccess the url with this processor then pass the result to the next prccessor.
+     * Causes the factory to process the url with this processor then pass the result to the next processor.
      */
     public const ACTION_PARTIAL_PROCESSING = 2;
 
     /**
      * Processes the url then outputs new entry(s).
      *
-     * @param string $url
-     *
-     * @return bool|EntryInterface|EntryInterface[]|string|string[] When success it returns new entries or a single
-     *                                                              entry, on partial processing it returns child
-     *                                                              urls or a single child url, on failure
-     *                                                              it returns FALSE
+     * @return bool|EntryInterface|EntryInterface[]|string|string[]
+     *  When success it returns new entries or a single entry, on partial processing it returns child
+     *    urls or a single child url, on failure it returns FALSE
      */
-    public function process($url);
+    public function process(string $url);
 
     /**
      * Determines whether the processor supports this url.
-     *
-     * @param string $url
-     *
-     * @return int
      */
-    public function getAction($url);
+    public function getAction(string $url);
 }

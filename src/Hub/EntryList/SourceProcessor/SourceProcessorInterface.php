@@ -10,7 +10,7 @@ use Hub\EntryList\Source\SourceInterface;
 interface SourceProcessorInterface
 {
     /**
-     * Fired when the process send a new staus message.
+     * Fired when the process send a new status message.
      */
     public const ON_STATUS_UPDATE = 1;
 
@@ -20,7 +20,7 @@ interface SourceProcessorInterface
     public const ON_ENTRY_CREATED = 2;
 
     /**
-     * Causes the factory to move on to the nexr processor.
+     * Causes the factory to move on to the next processor.
      */
     public const ACTION_SKIP = 0;
 
@@ -30,7 +30,7 @@ interface SourceProcessorInterface
     public const ACTION_PROCESSING = 1;
 
     /**
-     * Causes the factory to proccess the source with this processor then pass the result to the next prccessor.
+     * Causes the factory to process the source with this processor then pass the result to the next processor.
      */
     public const ACTION_PARTIAL_PROCESSING = 2;
 

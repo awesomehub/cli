@@ -10,20 +10,9 @@ use Symfony\Component\Serializer;
  */
 class Build implements BuildInterface
 {
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @var string
-     */
-    protected $path;
-
-    /**
-     * @var array
-     */
-    protected $meta;
+    protected Filesystem $filesystem;
+    protected string $path;
+    protected array $meta;
 
     /**
      * Constructor.
@@ -59,14 +48,14 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function getPath($path = null, $raw = false)
+    public function getPath(array | string $path = null, bool $raw = false): string
     {
         if (null === $path) {
             return $this->path;
         }
 
         if (empty($path)) {
-            throw new \InvalidArgumentException('Path cannot br empty');
+            throw new \InvalidArgumentException('Path can not be empty');
         }
 
         if (\is_array($path)) {
@@ -86,7 +75,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function getNumber()
+    public function getNumber(): string
     {
         return $this->meta['number'];
     }
@@ -94,7 +83,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function getDate()
+    public function getDate(): string
     {
         return $this->meta['date'];
     }
@@ -102,7 +91,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value = null)
+    public function set(array | string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
@@ -119,7 +108,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key = null)
+    public function get(string $key = null): mixed
     {
         if (null === $key) {
             return $this->meta;
@@ -132,7 +121,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return 'json';
     }
@@ -140,7 +129,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function write($path, $data, $raw = false)
+    public function write(string $path, mixed $data, bool $raw = false): void
     {
         $path = $this->getPath($path, $raw);
 
@@ -159,7 +148,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function read($path, $raw = false)
+    public function read(string $path, bool $raw = false): array | string
     {
         $path = $this->getPath($path, $raw);
 
@@ -180,7 +169,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function exists($path = null, $raw = false)
+    public function exists(string $path = null, bool $raw = false): bool
     {
         return file_exists($this->getPath($path, $raw));
     }
@@ -188,7 +177,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function finalize()
+    public function finalize(): void
     {
         $this->write('build', $this->meta);
     }
@@ -196,7 +185,7 @@ class Build implements BuildInterface
     /**
      * {@inheritdoc}
      */
-    public function clean()
+    public function clean(): void
     {
         $this->filesystem->remove($this->path);
         $this->filesystem->mkdir($this->path);

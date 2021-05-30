@@ -19,50 +19,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 abstract class Command extends BaseCommand
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var EnvironmentInterface
-     */
-    protected $environment;
-
-    /**
-     * @var WorkspaceInterface
-     */
-    protected $workspace;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @var InputInterface
-     */
-    protected $input;
-
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
-
-    /**
-     * @var IOInterface
-     */
-    protected $io;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * @var ProcessFactoryInterface
-     */
-    protected $process;
+    protected ContainerInterface $container;
+    protected EnvironmentInterface $environment;
+    protected WorkspaceInterface $workspace;
+    protected Filesystem $filesystem;
+    protected InputInterface $input;
+    protected OutputInterface $output;
+    protected IOInterface $io;
+    protected LoggerInterface $logger;
+    protected ProcessFactoryInterface $process;
 
     /**
      * {@inheritdoc}
@@ -85,10 +50,8 @@ abstract class Command extends BaseCommand
 
     /**
      * Gets the application instance for this command.
-     *
-     * @return Application|\Symfony\Component\Console\Application
      */
-    public function getApplication()
+    public function getApplication(): Application | \Symfony\Component\Console\Application
     {
         return parent::getApplication();
     }
@@ -96,23 +59,23 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
-        return $this->init();
+        $this->init();
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
-        return $this->validate();
+        $this->validate();
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->logger->debug(sprintf("Current command '%s'", implode(' ', $_SERVER['argv'])));
         $this->logger->debug(sprintf("Current workspace '%s'", $this->workspace->path()));
@@ -123,14 +86,14 @@ abstract class Command extends BaseCommand
     /**
      * Initializes the command just after the input has been validated.
      */
-    protected function init()
+    protected function init(): void
     {
     }
 
     /**
      * This is where the command can interactively ask for values of missing required arguments..
      */
-    protected function validate()
+    protected function validate(): void
     {
     }
 
@@ -139,5 +102,5 @@ abstract class Command extends BaseCommand
      *
      * @return null|int null or 0 if everything went fine, or an error code
      */
-    abstract protected function exec();
+    abstract protected function exec(): ?int;
 }

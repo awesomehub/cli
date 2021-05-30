@@ -10,7 +10,7 @@ class GithubTokensCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -23,7 +23,7 @@ class GithubTokensCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function exec()
+    protected function exec(): int
     {
         /** @var \Github\Utils\GithubWrapperInterface $github */
         $github = $this->container->get('github');
@@ -54,7 +54,7 @@ class GithubTokensCommand extends Command
             $this->io->writeln('');
         }
 
-        if (0 == \count($tokens)) {
+        if (0 === \count($tokens)) {
             $this->io->writeln('No Github token has been defined.');
         }
 

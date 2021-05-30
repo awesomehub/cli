@@ -11,36 +11,15 @@ use Symfony\Component\Serializer;
  */
 class Workspace implements WorkspaceInterface
 {
-    /**
-     * @var string
-     */
-    protected $path;
-
-    /**
-     * @var array
-     */
-    protected $config;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @var array
-     */
-    protected $structure = [
+    protected string $path;
+    protected array $config;
+    protected Filesystem $filesystem;
+    protected array $structure = [
         'lists',
         'cache',
     ];
 
-    /**
-     * Constructor.
-     *
-     * @param $path string Workspace path
-     * @param $filesystem Filesystem
-     */
-    public function __construct($path, Filesystem $filesystem)
+    public function __construct(string $path, Filesystem $filesystem)
     {
         $this->path = rtrim($path, '/\\');
         $this->config = [];
@@ -53,7 +32,7 @@ class Workspace implements WorkspaceInterface
     /**
      * {@inheritdoc}
      */
-    public function path($path = null)
+    public function path(array | string $path = null): string
     {
         if (null === $path) {
             return $this->path;
@@ -72,25 +51,31 @@ class Workspace implements WorkspaceInterface
     /**
      * {@inheritdoc}
      */
-    public function config($key = null)
+    public function config(string $key = null, mixed $default = null): mixed
     {
-        if (null === $key) {
-            return $this->config();
+        if (0 === \func_num_args()) {
+            return $this->config;
         }
 
         if (\array_key_exists($key, $this->config)) {
             return $this->config[$key];
         }
 
-        return $this->getConfigPath($key, $this->config);
+        try {
+            return $this->getConfigPath($key);
+        } catch (\InvalidArgumentException $e) {
+            if (1 === \func_num_args()) {
+                throw new \InvalidArgumentException("Can not find workspace config key '{$key}': {$e->getMessage()}");
+            }
+
+            return $default;
+        }
     }
 
     /**
      * Verifies the workspace directory structure.
-     *
-     * @param void
      */
-    protected function verify()
+    protected function verify(): void
     {
         if (!file_exists($this->path)) {
             $parent = \dirname($this->path);
@@ -126,7 +111,7 @@ class Workspace implements WorkspaceInterface
      *
      * @throws \RuntimeException
      */
-    protected function setConfig()
+    protected function setConfig(): void
     {
         $path = $this->path('config.json');
         if (!$this->filesystem->exists($path)) {
@@ -153,15 +138,17 @@ class Workspace implements WorkspaceInterface
     /**
      * Gets the value of a config path separated by dot.
      *
-     * @param $path
-     *
-     * @return bool|mixed
+     * @throws \InvalidArgumentException
      */
-    protected function getConfigPath($path, array $config)
+    protected function getConfigPath(string $path, array $config = null): mixed
     {
+        if (1 === \func_num_args()) {
+            $config = $this->config;
+        }
+
         $split = explode('.', $path, 2);
         if (!\array_key_exists($split[0], $config)) {
-            return false;
+            throw new \InvalidArgumentException("Invalid config path directive '{$split[0]}'");
         }
 
         if (!\is_array($config[$split[0]]) || !isset($split[1])) {

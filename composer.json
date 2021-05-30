@@ -1,7 +1,7 @@
 {
   "name": "awesomehub/cli",
   "type": "project",
-  "description": "Awesomehub command line interface for genrating API Ddata",
+  "description": "Awesomehub command line interface for generating API Data",
   "keywords": ["cli", "console", "github", "api"],
   "homepage": "https://awesomehub.js.org/",
   "license": "MIT",

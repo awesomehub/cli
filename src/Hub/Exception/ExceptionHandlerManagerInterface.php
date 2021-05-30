@@ -10,41 +10,38 @@ use Hub\Exception\Handler\ExceptionHandlerInterface;
 interface ExceptionHandlerManagerInterface
 {
     /**
-     * Adds a handler on to the stack.
-     *
-     * @return self
+     * Adds a handler to the stack.
      */
-    public function addHandler(ExceptionHandlerInterface $handler);
+    public function addHandler(ExceptionHandlerInterface $handler): self;
 
     /**
-     * Set handlers, replacing all existing ones.
+     * Replaces current handlers with the given handlers array.
      *
      * @param ExceptionHandlerInterface[] $handlers
-     *
-     * @return self
      */
-    public function setHandlers(array $handlers);
+    public function setHandlers(array $handlers): self;
 
     /**
+     * Gets current active handlers.
+     *
      * @return ExceptionHandlerInterface[]
      */
-    public function getHandlers();
+    public function getHandlers(): array;
 
+    /**
+     * Runs current active handlers on the given exception.
+     */
     public function runHandlers(\Exception $exception);
 
     /**
      * Registers the current exception handler manager as
      *  the default php exception handler.
-     *
-     * @return self
      */
-    public function register();
+    public function register(): self;
 
     /**
      * Singleton helper method to allow having one manager instance
      *  along the app live cycle.
-     *
-     * @return self
      */
-    public static function getInstance();
+    public static function getInstance(): self;
 }

@@ -7,22 +7,10 @@ namespace Hub\Environment;
  */
 class Environment implements EnvironmentInterface
 {
-    /**
-     * @var string
-     */
-    protected $bin;
+    protected string $bin;
+    protected string $mode;
 
-    /**
-     * @var string
-     */
-    protected $mode;
-
-    /**
-     * Constructor.
-     *
-     * @param $mode string Environment mode
-     */
-    public function __construct($mode = null)
+    public function __construct(string $mode = null)
     {
         $this->setBin();
         $this->setMode($mode);
@@ -31,7 +19,7 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function get($varname)
+    public function get(string $varname): bool|array|string
     {
         return getenv($varname);
     }
@@ -39,7 +27,7 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function getBin()
+    public function getBin(): string
     {
         return $this->bin;
     }
@@ -47,7 +35,7 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function getMode()
+    public function getMode(): string
     {
         return $this->mode;
     }
@@ -55,30 +43,30 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function getUserHome()
+    public function getUserHome(): ?string
     {
         // Check if on Windows platform
         if ($this->isPlatformWindows()) {
-            $envAppData = $this->get('APPDATA');
+            $envAppData = (string) $this->get('APPDATA');
             if (!$envAppData) {
-                return false;
+                return null;
             }
 
-            return rtrim(strtr($envAppData, '/', '\\'), '\\');
+            return rtrim(str_replace('/', '\\', $envAppData), '\\');
         }
 
-        $envHome = $this->get('HOME');
+        $envHome = (string) $this->get('HOME');
         if (!$envHome) {
-            return false;
+            return null;
         }
 
-        return rtrim(strtr($envHome, '\\', '/'), '/');
+        return rtrim(str_replace('\\', '/', $envHome), '/');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isDevelopment()
+    public function isDevelopment(): bool
     {
         return self::DEVELOPMENT === $this->mode;
     }
@@ -86,7 +74,7 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function isProduction()
+    public function isProduction(): bool
     {
         return self::PRODUCTION === $this->mode;
     }
@@ -94,7 +82,7 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function isPlatformWindows()
+    public function isPlatformWindows(): bool
     {
         return \defined('PHP_WINDOWS_VERSION_BUILD');
     }
@@ -102,22 +90,20 @@ class Environment implements EnvironmentInterface
     /**
      * Sets the current script path.
      */
-    protected function setBin()
+    protected function setBin(): void
     {
         $this->bin = realpath($_SERVER['argv'][0]);
     }
 
     /**
-     * Sets the environment mode, tries to autguess if null.
-     *
-     * @param null|string $mode
+     * Sets the environment mode, tries to auto guess if null.
      *
      * @throws \InvalidArgumentException
      */
-    protected function setMode($mode = null)
+    protected function setMode(string $mode = null): void
     {
         if ($mode) {
-            if (!\in_array($mode, [self::DEVELOPMENT, self::PRODUCTION])) {
+            if (!\in_array($mode, [self::DEVELOPMENT, self::PRODUCTION], true)) {
                 throw new \InvalidArgumentException("Invalid environment mode supplied '{$mode}'.");
             }
 
@@ -127,7 +113,7 @@ class Environment implements EnvironmentInterface
         }
 
         // Check if we are inside phar
-        if ('phar:' === substr(__FILE__, 0, 5)) {
+        if (str_starts_with(__FILE__, 'phar:')) {
             $this->mode = self::PRODUCTION;
 
             return;

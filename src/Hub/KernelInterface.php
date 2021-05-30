@@ -2,6 +2,7 @@
 
 namespace Hub;
 
+use Hub\Environment\EnvironmentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,31 +13,27 @@ interface KernelInterface
     /**
      * Boots the kernel.
      */
-    public function boot();
+    public function boot(): void;
 
     /**
      * Shutdowns the kernel.
      */
-    public function shutdown();
+    public function shutdown(): void;
 
     /**
      * Checks whether the kernel is booted up.
-     *
-     * @return bool
      */
-    public function isBooted();
+    public function isBooted(): bool;
 
     /**
      * Gets the current container.
-     *
-     * @return ContainerInterface
      */
-    public function getContainer();
+    public function getContainer(): ContainerInterface;
 
     /**
      * Gets the environment.
      *
-     * @return string The current environment
+     * @return EnvironmentInterface The current environment
      */
-    public function getEnvironment();
+    public function getEnvironment(): EnvironmentInterface;
 }

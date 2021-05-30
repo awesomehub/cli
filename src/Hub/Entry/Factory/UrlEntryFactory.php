@@ -11,10 +11,8 @@ use Hub\Exceptions\UrlEntryCreationFailedException;
  */
 class UrlEntryFactory implements UrlEntryFactoryInterface
 {
-    /**
-     * @var UrlProcessorInterface[]
-     */
-    private $processors;
+    /** @var UrlProcessorInterface[] */
+    private array $processors;
 
     /**
      * Constructor.
@@ -31,10 +29,8 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
 
     /**
      * Adds a processor to the stack.
-     *
-     * @return self
      */
-    public function addProcessor(UrlProcessorInterface $processor)
+    public function addProcessor(UrlProcessorInterface $processor): self
     {
         $this->processors[] = $processor;
 
@@ -44,18 +40,18 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create($urls)
+    public function create(array|string $input): array
     {
         if (0 === \count($this->processors)) {
             throw new \LogicException('No url processors has been defined');
         }
 
-        if (!\is_array($urls)) {
-            $urls = [$urls];
+        if (!\is_array($input)) {
+            $input = [$input];
         }
 
         $entries = [];
-        foreach ($urls as $url) {
+        foreach ($input as $url) {
             foreach ($this->processors as $processor) {
                 switch ($processor->getAction($url)) {
                     case UrlProcessorInterface::ACTION_PARTIAL_PROCESSING:
@@ -74,7 +70,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                         }
 
                         // Prevent infinite loop
-                        if (\in_array($url, $childUrls)) {
+                        if (\in_array($url, $childUrls, true)) {
                             throw new \LogicException(sprintf("Infinite loop detected; '%s' processor shall not return the same url passed to it '%s'", \get_class($processor), $url));
                         }
 
@@ -90,7 +86,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                         }
 
                         if (!$result) {
-                            // Fail silently if the processor didn't throw an exception
+                            // Ignore silently if the processor didn't throw an exception
                             break;
                         }
                         if (!\is_array($result)) {
@@ -103,7 +99,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                             throw new \UnexpectedValueException(sprintf("Invalid processor output of type [%s] for processor '%s'", \gettype($result), \get_class($processor)));
                         }
 
-                        array_walk_recursive($result, function ($item, $key) use ($processor) {
+                        array_walk_recursive($result, static function ($item, $key) use ($processor) {
                             if (!$item instanceof EntryInterface) {
                                 throw new \UnexpectedValueException(sprintf("Invalid inner processor output value of type [%s] at index[%s] for processor '%s'", \gettype($item), $key, \get_class($processor)));
                             }

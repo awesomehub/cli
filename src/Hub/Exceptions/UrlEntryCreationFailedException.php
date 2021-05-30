@@ -9,23 +9,10 @@ use Hub\Entry\Factory\UrlProcessor\UrlProcessorInterface;
  */
 class UrlEntryCreationFailedException extends EntryCreationFailedException
 {
-    /**
-     * @var string
-     */
-    private $url;
+    private string $url;
+    private UrlProcessorInterface $processor;
 
-    /**
-     * @var UrlProcessorInterface
-     */
-    private $processor;
-
-    /**
-     * @param string     $message
-     * @param string     $url
-     * @param int        $code
-     * @param \Exception $previous
-     */
-    public function __construct($message, UrlProcessorInterface $processor, $url, $code = 0, \Exception $previous = null)
+    public function __construct(string $message, UrlProcessorInterface $processor, $url, int $code = 0, \Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
 
@@ -36,7 +23,7 @@ class UrlEntryCreationFailedException extends EntryCreationFailedException
     /**
      * @return string The url failed to be processed
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -44,7 +31,7 @@ class UrlEntryCreationFailedException extends EntryCreationFailedException
     /**
      * @return string The class name of the processor
      */
-    public function getProcessor()
+    public function getProcessor(): string
     {
         return \get_class($this->processor);
     }

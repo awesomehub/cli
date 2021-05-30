@@ -11,14 +11,8 @@ use Hub\Exceptions\EntryCreationFailedException;
  */
 class UrlListSourceProcessor implements SourceProcessorInterface
 {
-    /**
-     * @var UrlEntryFactoryInterface;
-     */
-    protected $entryFactory;
+    protected UrlEntryFactoryInterface $entryFactory;
 
-    /**
-     * Constructor.
-     */
     public function __construct(UrlEntryFactoryInterface $entryFactory)
     {
         $this->entryFactory = $entryFactory;
@@ -34,7 +28,7 @@ class UrlListSourceProcessor implements SourceProcessorInterface
             throw new \UnexpectedValueException(sprintf('Unexpected source data type; Expected [array] but got [%s]', \gettype($urls)));
         }
 
-        foreach ($urls as $i => $url) {
+        foreach ($urls as $url) {
             $callback(self::ON_STATUS_UPDATE, [
                 'type' => 'info',
                 'message' => sprintf("Attempting to create an entry from url '%s'", $url),

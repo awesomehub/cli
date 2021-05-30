@@ -11,14 +11,8 @@ use Hub\EntryList\Source\SourceInterface;
  */
 class GithubListSourceProcessor implements SourceProcessorInterface
 {
-    /**
-     * @var HttpMethodsClient;
-     */
-    protected $http;
+    protected HttpMethodsClient $http;
 
-    /**
-     * Sets the logger and the entry factory.
-     */
     public function __construct(HttpMethodsClient $httpClient)
     {
         $this->http = $httpClient;
@@ -66,13 +60,9 @@ class GithubListSourceProcessor implements SourceProcessorInterface
     /**
      * Fetch the markdown string from an url.
      *
-     * @param $url
-     *
      * @throws \Exception When http request fails
-     *
-     * @return string
      */
-    protected function fetchMarkdownUrl($url)
+    protected function fetchMarkdownUrl(string $url): string
     {
         $response = $this->http->get($url);
 

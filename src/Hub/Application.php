@@ -16,14 +16,8 @@ class Application extends Console\Application
     public const SLUG = 'awesomeHub';
     public const VERSION = '0.1.0';
 
-    /**
-     * @var KernelInterface
-     */
-    protected $kernel;
+    protected KernelInterface $kernel;
 
-    /**
-     * Constructor.
-     */
     public function __construct(KernelInterface $kernel)
     {
         parent::__construct(self::NAME, self::VERSION);
@@ -35,7 +29,7 @@ class Application extends Console\Application
     /**
      * {@inheritdoc}
      */
-    public function run(Input\InputInterface $input = null, Output\OutputInterface $output = null)
+    public function run(Input\InputInterface $input = null, Output\OutputInterface $output = null): int
     {
         $container = $this->getContainer();
 
@@ -58,7 +52,7 @@ class Application extends Console\Application
     /**
      * {@inheritdoc}
      */
-    public function getDefaultCommands()
+    public function getDefaultCommands(): array
     {
         return [
             new Console\Command\HelpCommand(),
@@ -74,20 +68,16 @@ class Application extends Console\Application
 
     /**
      * Gets the DI Container instance.
-     *
-     * @return ContainerInterface
      */
-    public function getContainer()
+    public function getContainer(): ContainerInterface
     {
         return $this->kernel->getContainer();
     }
 
     /**
      * Gets the Kernel instance.
-     *
-     * @return KernelInterface
      */
-    public function getKernel()
+    public function getKernel(): KernelInterface
     {
         return $this->kernel;
     }
@@ -95,7 +85,7 @@ class Application extends Console\Application
     /**
      * {@inheritdoc}
      */
-    protected function getDefaultInputDefinition()
+    protected function getDefaultInputDefinition(): Input\InputDefinition
     {
         return new Input\InputDefinition([
             new Input\InputArgument('command', Input\InputArgument::REQUIRED, 'The command to execute'),

@@ -24,20 +24,9 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  */
 abstract class Kernel implements KernelInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var EnvironmentInterface
-     */
-    protected $environment;
-
-    /**
-     * @var bool
-     */
-    protected $booted = false;
+    protected ContainerInterface $container;
+    protected Environment | EnvironmentInterface $environment;
+    protected bool $booted = false;
 
     /**
      * Kernel constructor.
@@ -45,8 +34,6 @@ abstract class Kernel implements KernelInterface
      * Possible values for the mode are:
      *  - EnvironmentInterface::DEVELOPMENT
      *  - EnvironmentInterface::PRODUCTION
-     *
-     * @param EnvironmentInterface $environment
      */
     public function __construct(EnvironmentInterface $environment = null, string $mode = null)
     {
@@ -110,7 +97,7 @@ abstract class Kernel implements KernelInterface
     /**
      * {@inheritdoc}
      */
-    public function getEnvironment()
+    public function getEnvironment(): EnvironmentInterface
     {
         return $this->environment;
     }
@@ -153,9 +140,7 @@ abstract class Kernel implements KernelInterface
         $container->addObjectResource($this);
         $container->addObjectResource($this->environment);
 
-        if (null !== $cont = $this->registerContainerConfiguration($this->getContainerLoader($container))) {
-            $container->merge($cont);
-        }
+        $this->registerContainerConfiguration($this->getContainerLoader($container));
 
         // These are just placeholders to allow the container to compile
         // without errors about non-existing services
@@ -175,7 +160,7 @@ abstract class Kernel implements KernelInterface
      * @param ContainerBuilder $container The service container
      * @param string           $class     The name of the class to generate
      */
-    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class): void
+    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, string $class): void
     {
         $dumper = new PhpDumper($container);
         $content = $dumper->dump([
@@ -188,11 +173,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * Returns a loader for the container.
-     *
-     * @param ContainerBuilder $container The service container
-     *
-     * @return DelegatingLoader The loader
+     * Returns a loader for the service container.
      */
     protected function getContainerLoader(ContainerBuilder $container): DelegatingLoader
     {
@@ -209,8 +190,6 @@ abstract class Kernel implements KernelInterface
 
     /**
      * Loads the container configuration.
-     *
-     * @param LoaderInterface $loader A LoaderInterface instance
      */
-    abstract protected function registerContainerConfiguration(LoaderInterface $loader);
+    abstract protected function registerContainerConfiguration(LoaderInterface $loader): void;
 }

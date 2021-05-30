@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class ExceptionHandlerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has('exception')) {
             return;

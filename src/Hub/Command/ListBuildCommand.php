@@ -21,15 +21,12 @@ use Symfony\Component\Console\Input;
  */
 class ListBuildCommand extends Command
 {
-    /**
-     * @var EntryListInterface
-     */
-    protected $list;
+    protected EntryListInterface $list;
 
     /**
      * {@inheritdoc}
      */
-    public function validate()
+    public function validate(): void
     {
         if (null === $this->input->getArgument('list')) {
             $all = $this->io->confirm('Are you sure you want to build all lists?');
@@ -42,7 +39,7 @@ class ListBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -79,7 +76,7 @@ class ListBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function exec()
+    protected function exec(): int
     {
         $path = $this->input->getArgument('list');
         $format = strtolower($this->input->getOption('format'));
@@ -89,7 +86,7 @@ class ListBuildCommand extends Command
         // Build all lists
         if (empty($path)) {
             $paths = EntryListFile::findLists($this->workspace);
-            if (0 == \count($paths)) {
+            if (0 === \count($paths)) {
                 $this->io->note('No lists found to build');
 
                 exit(0);
@@ -124,13 +121,8 @@ class ListBuildCommand extends Command
 
     /**
      * Builds a list.
-     *
-     * @param string $path
-     * @param string $format
-     * @param bool   $noResolve
-     * @param bool   $noCache
      */
-    protected function build($path, $format, $noResolve, $noCache)
+    protected function build(string $path, string $format, bool $noResolve, bool $noCache): void
     {
         $list = new EntryListFile($this->filesystem, $this->workspace, $path, $format);
         $this->io->title('Building list: '.$path);
@@ -145,7 +137,7 @@ class ListBuildCommand extends Command
     /**
      * Processes the list.
      */
-    protected function process(EntryListInterface $list)
+    protected function process(EntryListInterface $list): void
     {
         // Create needed entry factories
         $entryFromUrlFactory = new UrlEntryFactory([
@@ -166,10 +158,8 @@ class ListBuildCommand extends Command
 
     /**
      * Resolves the list.
-     *
-     * @param bool $force
      */
-    protected function resolve(EntryListInterface $list, $force = false)
+    protected function resolve(EntryListInterface $list, bool $force = false): void
     {
         $list->resolve($this->io, [
             new RepoGithubEntryResolver($this->container->get('github.inspector'), $this->filesystem, $this->workspace),

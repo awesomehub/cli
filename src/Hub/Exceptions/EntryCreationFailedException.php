@@ -3,7 +3,7 @@
 namespace Hub\Exceptions;
 
 /**
- * Represents a failed entry creation attemp.
+ * Represents a failed entry creation attempt.
  */
 class EntryCreationFailedException extends \RuntimeException
 {

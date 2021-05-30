@@ -10,15 +10,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleLoggerHandler implements LoggerHandlerInterface
 {
-    /**
-     * @var OutputInterface
-     */
-    private $output;
-
-    /**
-     * @var array
-     */
-    private $verbosityLevelMap = [
+    private OutputInterface $output;
+    private array $verbosityLevelMap = [
         LogLevel::EMERGENCY => OutputInterface::VERBOSITY_NORMAL,
         LogLevel::ALERT => OutputInterface::VERBOSITY_NORMAL,
         LogLevel::CRITICAL => OutputInterface::VERBOSITY_NORMAL,
@@ -28,11 +21,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         LogLevel::INFO => OutputInterface::VERBOSITY_NORMAL,
         LogLevel::DEBUG => OutputInterface::VERBOSITY_VERBOSE,
     ];
-
-    /**
-     * @var array
-     */
-    private $formatLevelMap = [
+    private array $formatLevelMap = [
         LogLevel::EMERGENCY => 'danger',
         LogLevel::ALERT => 'danger',
         LogLevel::CRITICAL => 'danger',
@@ -43,9 +32,6 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         LogLevel::DEBUG => 'debug',
     ];
 
-    /**
-     * Handle Constructor.
-     */
     public function __construct(OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
     {
         $this->output = $output;
@@ -56,7 +42,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function handle($record)
+    public function handle(LoggerRecordInterface $record): void
     {
         // Check if an explicit level is defined for the console
         $level = $this->getExplicitLevel($record);
@@ -90,37 +76,29 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function isHandling($record)
+    public function isHandling(LoggerRecordInterface $record): bool
     {
         return $this->output->getVerbosity() >= $this->verbosityLevelMap[$this->getExplicitLevel($record)];
     }
 
     /**
      * Checks if a log level is an error.
-     *
-     * @param string $level
-     *
-     * @return bool
      */
-    protected function isErrorLevel($level)
+    protected function isErrorLevel(string $level): bool
     {
         return \in_array($level, [
             LogLevel::EMERGENCY,
             LogLevel::ALERT,
             LogLevel::CRITICAL,
             LogLevel::ERROR,
-        ]);
+        ], true);
     }
 
     /**
      * Checks if a record explicitly defined a log level for the console,
      *  otherwise gets the original level.
-     *
-     * @param LoggerRecordInterface $record;
-     *
-     * @return string
      */
-    protected function getExplicitLevel(LoggerRecordInterface $record)
+    protected function getExplicitLevel(LoggerRecordInterface $record): string
     {
         return $record->getContext('console.level') ?? $record->getLevel();
     }

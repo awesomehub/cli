@@ -11,15 +11,12 @@ use Symfony\Component\Console\Input;
  */
 class ListInspectCommand extends Command
 {
-    /**
-     * @var EntryListInterface
-     */
-    protected $list;
+    protected EntryListInterface $list;
 
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -37,7 +34,7 @@ class ListInspectCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function exec()
+    protected function exec(): int
     {
         $name = $this->input->getArgument('list');
 
@@ -64,16 +61,14 @@ class ListInspectCommand extends Command
 
     /**
      * Prints list categories in hierarchical order.
-     *
-     * @return array|bool
      */
-    protected function printCategories(int $parent = 0, int $depth = 0)
+    protected function printCategories(int $parent = 0, int $depth = 0): array
     {
         $body = [];
         $total = 0;
         foreach ($this->list->getCategories() as $category) {
             $id = $category['id'];
-            if ($category['parent'] == $parent) {
+            if ($category['parent'] === $parent) {
                 $row = [
                     str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title'],
                     $category['order'],
@@ -84,11 +79,11 @@ class ListInspectCommand extends Command
                 foreach ($category['count'] as $type => $count) {
                     $realCount = 0;
                     foreach ($this->list->getEntries() as $entry) {
-                        if ('all' !== $type && $type !== $entry->getType()) {
+                        if ('all' !== $type && $type !== $entry::getType()) {
                             continue;
                         }
 
-                        if (\in_array($id, $entry->get('categories'))) {
+                        if (\in_array($id, $entry->get('categories'), false)) {
                             ++$realCount;
                         }
                     }
@@ -103,10 +98,10 @@ class ListInspectCommand extends Command
         }
 
         if (0 === $depth) {
-            if (0 == \count($body)) {
+            if (0 === \count($body)) {
                 $this->io->text('No categories found');
 
-                return true;
+                return [];
             }
 
             $header = ['Category', 'Order'];
@@ -125,7 +120,7 @@ class ListInspectCommand extends Command
                 sprintf('<info>Total Count:</info> %s', $total),
             ]);
 
-            return true;
+            return [];
         }
 
         return $body;
@@ -134,7 +129,7 @@ class ListInspectCommand extends Command
     /**
      * Print list basic info.
      */
-    protected function printInfo()
+    protected function printInfo(): void
     {
         $data = [
             'ID' => $this->list->getId(),

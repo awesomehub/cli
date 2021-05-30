@@ -9,13 +9,10 @@ use Psr\Log\LoggerInterface;
  */
 class ProcessFactory implements ProcessFactoryInterface
 {
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
-     * Constructor.
+     * {@inheritdoc}
      */
     public function __construct(LoggerInterface $logger)
     {
@@ -23,27 +20,17 @@ class ProcessFactory implements ProcessFactoryInterface
     }
 
     /**
-     * Creates a new Process.
-     *
-     * @param string $command
-     * @param array  $options Process options, includes:
-     *
-     * @return Process
+     * {@inheritdoc}
      */
-    public function create($command, array $options = [])
+    public function create(string $command, array $options = []): Process
     {
-        return new Process($command, $options, $this->logger);
+        return new Process($this->logger, $command, $options);
     }
 
     /**
-     * Creates and runs a new Process.
-     *
-     * @param string $command
-     * @param array  $options Process options, includes:
-     *
-     * @return Process
+     * {@inheritdoc}
      */
-    public function run($command, array $options = [])
+    public function run(string $command, array $options = []): Process
     {
         $proc = $this->create($command, $options);
         $proc->run();
@@ -52,14 +39,9 @@ class ProcessFactory implements ProcessFactoryInterface
     }
 
     /**
-     * Creates and starts a new Process.
-     *
-     * @param string $command
-     * @param array  $options Process options, includes:
-     *
-     * @return Process
+     * {@inheritdoc}
      */
-    public function start($command, array $options = [])
+    public function start($command, array $options = []): Process
     {
         $proc = $this->create($command, $options);
         $proc->start();

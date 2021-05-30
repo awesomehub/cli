@@ -16,36 +16,14 @@ use Symfony\Component\Config as SymfonyConfig;
  */
 class EntryList implements EntryListInterface
 {
-    /**
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * @var EntryInterface[]
-     */
-    protected $entries = [];
-
-    /**
-     * @var array
-     */
-    protected $categories = [];
-
-    /**
-     * @var int
-     */
-    protected $categoryLastInsert = 0;
-
-    /**
-     * @var bool
-     */
-    protected $processed = false;
-
-    /**
-     * @var bool
-     */
-    protected $resolved = false;
-    protected $debug = [];
+    protected array $data;
+    /** @var EntryInterface[] */
+    protected array $entries = [];
+    protected array $categories = [];
+    protected int $categoryLastInsert = 0;
+    protected bool $processed = false;
+    protected bool $resolved = false;
+    protected array $debug = [];
 
     /**
      * Constructor.
@@ -66,7 +44,7 @@ class EntryList implements EntryListInterface
         foreach ($this->data['sources'] as $i => $source) {
             $options = isset($this->data['options']['source'])
                 // Merge top-level source options
-                ? NestedArray::merge($this->data['options']['source'], $source['options'])
+                ? NestedArray::mergeDeep($this->data['options']['source'], $source['options'])
                 : $source['options'];
             $this->data['sources'][$i] = new Source\Source($source['type'], $source['data'], $options);
         }
@@ -75,7 +53,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function getId()
+    public function getId(): string
     {
         return strtolower($this->get('id'));
     }
@@ -83,7 +61,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function getCategories()
+    public function getCategories(): array
     {
         return $this->categories;
     }
@@ -91,7 +69,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function getEntries()
+    public function getEntries(): array
     {
         return $this->entries;
     }
@@ -99,7 +77,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function isProcessed()
+    public function isProcessed(): bool
     {
         return $this->processed;
     }
@@ -107,7 +85,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function isResolved()
+    public function isResolved(): bool
     {
         return $this->resolved;
     }
@@ -115,7 +93,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function has($key): bool
     {
         return \array_key_exists($key, $this->data);
     }
@@ -123,9 +101,9 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key = null)
+    public function get(string $key = null): mixed
     {
-        if (null === $key) {
+        if (0 === func_num_args()) {
             return $this->data;
         }
 
@@ -139,7 +117,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value = null)
+    public function set(array|string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
@@ -157,7 +135,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function process(IOInterface $io, array $processors)
+    public function process(IOInterface $io, array $processors): void
     {
         if (empty($processors)) {
             throw new \LogicException('Cannot process the list; No source processors has been provided.');
@@ -173,11 +151,11 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function resolve(IOInterface $io, array $resolvers, $force = false)
+    public function resolve(IOInterface $io, array $resolvers, bool $force = false): void
     {
-        // Santity check
+        // Sanity check
         if (!$this->isProcessed()) {
-            throw new \LogicException('Can not resolve the listt while it is not processed');
+            throw new \LogicException('Can not resolve the list while it is not processed');
         }
 
         if (empty($resolvers)) {
@@ -258,7 +236,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function finalize(IOInterface $io)
+    public function finalize(IOInterface $io): void
     {
         $logger = $io->getLogger();
 
@@ -285,7 +263,7 @@ class EntryList implements EntryListInterface
                 // Strip non-utf chars
                 $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
                 $category = trim($category);
-                if (!empty($category) && !\in_array($category, $categories)) {
+                if (!empty($category) && !\in_array($category, $categories, true)) {
                     $categories[] = $category;
                 }
             }
@@ -296,7 +274,7 @@ class EntryList implements EntryListInterface
                     $categoryIds,
                     $this->insertCategory($category, [
                         'all' => 1,
-                        $entry->getType() => 1,
+                        $entry::getType() => 1,
                     ])
                 );
             }
@@ -324,9 +302,9 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function removeEntry(EntryInterface $entry)
+    public function removeEntry(EntryInterface $entry): void
     {
-        // Santity check
+        // Sanity check
         if (!$this->isProcessed()) {
             throw new \LogicException('Can not remove an entry while the list is not processed');
         }
@@ -355,9 +333,9 @@ class EntryList implements EntryListInterface
     /**
      * Adds an entry to the list.
      */
-    protected function addEntry(EntryInterface $entry, SourceInterface $source)
+    protected function addEntry(EntryInterface $entry, SourceInterface $source): void
     {
-        // Santity check
+        // Sanity check
         if ($this->isProcessed() || $this->isResolved()) {
             throw new \LogicException('Can not add new entries after the list has been processed');
         }
@@ -436,11 +414,12 @@ class EntryList implements EntryListInterface
     /**
      * Recursively processes list sources.
      *
+     * @param IOInterface $io
      * @param SourceProcessorInterface[] $processors
-     * @param null|SourceInterface[]     $sources
-     * @param int                        $depth
+     * @param null|SourceInterface[] $sources
+     * @param int $depth
      */
-    protected function processSources(IOInterface $io, array $processors, array $sources = [], $depth = 0)
+    protected function processSources(IOInterface $io, array $processors, array $sources = [], int $depth = 0): void
     {
         $root = 0 === $depth;
         $logger = $io->getLogger();
@@ -563,7 +542,7 @@ class EntryList implements EntryListInterface
      *
      * @return array Processed list definition array
      */
-    protected function verify($data)
+    protected function verify(array $data): array
     {
         return (new SymfonyConfig\Definition\Processor())->processConfiguration(
             new EntryListDefinition(),
@@ -573,14 +552,10 @@ class EntryList implements EntryListInterface
 
     /**
      * Adds a new category.
-     *  Takes a category path like 'Category/Sub Category/Demo' and returns their
-     *  ids while adding them if not already added.
-     *
-     * @param string $category
-     *
-     * @return array|bool
+     *  Takes a category path like 'Category/Sub Category/Demo', insert it into the
+     *   current list categories array then returns the created categories ids as array.
      */
-    protected function insertCategory($category, array $count = [])
+    protected function insertCategory(string $category, array $count = []): array
     {
         $path = [];
         $return = [];
@@ -623,11 +598,9 @@ class EntryList implements EntryListInterface
     }
 
     /**
-     * @param string $str
-     *
-     * @return mixed|string
+     * Slugifies a given arbitrary string.
      */
-    protected function slugify($str)
+    protected function slugify(string $str): string
     {
         $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
         $str = preg_replace('/[^\w\-]/', ' ', $str);

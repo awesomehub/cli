@@ -10,12 +10,9 @@ use Psr\Log\LogLevel;
  */
 class LoggerExceptionHandler implements ExceptionHandlerInterface
 {
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    private static $errorSeverityMap = [
+    private static array $errorSeverityMap = [
         \E_DEPRECATED => LogLevel::INFO,
         \E_USER_DEPRECATED => LogLevel::INFO,
         \E_NOTICE => LogLevel::WARNING,
@@ -33,9 +30,6 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
         \E_CORE_ERROR => LogLevel::CRITICAL,
     ];
 
-    /**
-     * Constructor.
-     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -44,7 +38,7 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(\Exception $e)
+    public function handle(\Exception $e): void
     {
         $logLevel = LogLevel::CRITICAL;
         if ($e instanceof \ErrorException) {
@@ -64,17 +58,17 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
         $trace = $e->getTrace();
         array_unshift($trace, [
             'function' => '',
-            'file' => null !== $e->getFile() ? $e->getFile() : 'n/a',
-            'line' => null !== $e->getLine() ? $e->getLine() : 'n/a',
+            'file' => $e->getFile() ?? 'n/a',
+            'line' => $e->getLine() ?? 'n/a',
             'args' => [],
         ]);
 
-        for ($i = 0, $count = \count($trace); $i < $count; ++$i) {
-            $class = $trace[$i]['class'] ?? '';
-            $type = $trace[$i]['type'] ?? '';
-            $function = $trace[$i]['function'];
-            $file = $trace[$i]['file'] ?? 'n/a';
-            $line = $trace[$i]['line'] ?? 'n/a';
+        foreach ($trace as $record) {
+            $class = $record['class'] ?? '';
+            $type = $record['type'] ?? '';
+            $function = $record['function'];
+            $file = $record['file'] ?? 'n/a';
+            $line = $record['line'] ?? 'n/a';
 
             $this->logger->log($logLevel, sprintf('- %s%s%s() at %s:%s', $class, $type, $function, $file, $line), ['console.level' => LogLevel::DEBUG]);
         }
@@ -83,7 +77,7 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function isHandling(\Exception $e)
+    public function isHandling(\Exception $e): bool
     {
         return true;
     }

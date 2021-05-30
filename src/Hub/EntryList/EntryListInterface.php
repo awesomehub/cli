@@ -15,86 +15,69 @@ interface EntryListInterface
     /**
      * Processes the list file and creates list entries.
      *
+     * @param IOInterface $io
      * @param SourceProcessorInterface[] $processors
      */
-    public function process(IOInterface $io, array $processors);
+    public function process(IOInterface $io, array $processors): void;
 
     /**
      * Resolves the entries within the list.
      *
+     * @param IOInterface $io
      * @param EntryResolverInterface[] $resolvers
-     * @param bool                     $force
+     * @param bool $force
      */
-    public function resolve(IOInterface $io, array $resolvers, $force = false);
+    public function resolve(IOInterface $io, array $resolvers, bool $force = false): void;
 
     /**
-     * The last perocess of list building.
+     * The last process of list building.
      */
-    public function finalize(IOInterface $io);
+    public function finalize(IOInterface $io): void;
 
     /**
      * Removes an entry from the list and recounts category stats.
      */
-    public function removeEntry(EntryInterface $entry);
+    public function removeEntry(EntryInterface $entry): void;
 
     /**
      * Checks whether the list has been processed.
-     *
-     * @return bool
      */
-    public function isProcessed();
+    public function isProcessed(): bool;
 
     /**
      * Checks whether the list has been resolved.
-     *
-     * @return bool
      */
-    public function isResolved();
+    public function isResolved(): bool;
 
     /**
      * Gets the list ID.
-     *
-     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * Gets the list categories.
-     *
-     * @return array
      */
-    public function getCategories();
+    public function getCategories(): array;
 
     /**
-     * Gets the list ientries.
+     * Gets the list entries.
      *
      * @return EntryInterface[]
      */
-    public function getEntries();
+    public function getEntries(): array;
 
     /**
-     * Gets the value of a given data key. If the key is omitted, the whole data will be returned.
-     *
-     * @param string $key
-     *
-     * @return array
+     * Gets the value of a given data key. If the key is omitted, the whole list data will be returned.
      */
-    public function get($key = null);
+    public function get(string $key = null): mixed;
 
     /**
-     * Sets the value of a given data key or the whole data array.
-     *
-     * @param array|string $key
-     * @param mixed        $value
+     * Sets the value of a given data key or the whole list data array.
      */
-    public function set($key, $value = null);
+    public function set(array|string $key, mixed $value = null): void;
 
     /**
      * Checks if a given key exists in list data.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    public function has($key);
+    public function has(string $key): bool;
 }

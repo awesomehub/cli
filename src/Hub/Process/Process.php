@@ -12,46 +12,23 @@ use Symfony\Component\Process\Process as BaseProcess;
  */
 class Process extends BaseProcess
 {
-    /**
-     * @var string
-     */
-    protected $command;
-
-    /**
-     * @var array
-     */
-    protected $options;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * @var bool
-     */
-    protected $isTerminationLogged;
-
-    /**
-     * @var bool
-     */
-    protected $isStartingLogged;
+    protected string $command;
+    protected array $options;
+    protected LoggerInterface $logger;
+    protected bool $isTerminationLogged;
+    protected bool $isStartingLogged;
 
     /**
      * Constructor.
      *
-     *  Process oprtions include:
+     *  Process options include:
      *      [output]    OutputInterface|ConsoleOutputInterface
      *      [timeout]   int
      *      [input]     string|resource|\Traversable
      *      [env]       array
      *      [cwd]       string
-     *
-     * @param string          $command
-     * @param array           $options Process options:
-     * @param LoggerInterface $logger
      */
-    public function __construct($command, array $options = [], LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger, $command, array $options = [])
     {
         $this->command = $command;
         $this->options = array_merge([
@@ -77,15 +54,15 @@ class Process extends BaseProcess
     /**
      * {@inheritdoc}
      */
-    public function start(callable $callback = null)
+    public function start(callable $callback = null): void
     {
-        return parent::start($this->getOutputCallback($callback));
+        parent::start($this->getOutputCallback($callback));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function wait(callable $callback = null)
+    public function wait(callable $callback = null): int
     {
         return parent::wait($this->getOutputCallback($callback));
     }
@@ -93,7 +70,7 @@ class Process extends BaseProcess
     /**
      * {@inheritdoc}
      */
-    public function stop($timeout = 10, $signal = null)
+    public function stop($timeout = 10, $signal = null): ?int
     {
         if (!$this->isTerminationLogged) {
             $this->isTerminationLogged = true;
@@ -106,15 +83,15 @@ class Process extends BaseProcess
     /**
      * {@inheritdoc}
      */
-    public function isRunning()
+    public function isRunning(): bool
     {
         $running = parent::isRunning();
 
-        if ($this->isTerminated() && !$this->isTerminationLogged) {
+        if (!$this->isTerminationLogged && $this->isTerminated()) {
             $this->isTerminationLogged = true;
 
             if ($this->isSuccessful()) {
-                $this->logger->debug("[Process] Execution Successfull ({$this->command})");
+                $this->logger->debug("[Process] Execution successful ({$this->command})");
             } else {
                 $this->logger->error("[Process] Execution failed ({$this->command})");
             }
@@ -124,13 +101,11 @@ class Process extends BaseProcess
     }
 
     /**
-     * Adds output callback to the user defined callback. Logs the starting message.
+     * Adds output callback to the user defined callback and logs the starting message.
      *
      * @param null|callable $callback The user defined PHP callback
-     *
-     * @return \Closure A PHP closure
      */
-    protected function getOutputCallback(callable $callback = null)
+    protected function getOutputCallback(callable $callback = null): ?callable
     {
         if (!$this->isStartingLogged) {
             $this->isStartingLogged = true;
@@ -142,12 +117,12 @@ class Process extends BaseProcess
         }
 
         $finalCallback = $callback;
-        // @var $output OutputInterface|ConsoleOutputInterface
+        /** @var $output OutputInterface|ConsoleOutputInterface */
         $output = $this->options['output'];
         if ($output instanceof OutputInterface) {
-            $finalCallback = function ($type, $buffer) use ($output, $callback) {
+            $finalCallback = static function ($type, $buffer) use ($output, $callback) {
                 if ($callback) {
-                    \call_user_func($callback, $type, $buffer);
+                    $callback($type, $buffer);
                 }
 
                 if (self::ERR === $type && $output instanceof ConsoleOutputInterface) {

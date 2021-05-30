@@ -2,6 +2,7 @@
 
 namespace Hub\Logger\Handler;
 
+use Hub\Logger\Record\LoggerRecordInterface;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
 
@@ -12,12 +13,12 @@ use Psr\Log\LogLevel;
  */
 class StreamLoggerHandler implements LoggerHandlerInterface
 {
+    protected const MAX_CHUNK_SIZE = 2147483647;
+
     /**
      * Log levels severities.
-     *
-     * @var array
      */
-    public static $severityLevelMap = [
+    public static array $severityLevelMap = [
         LogLevel::EMERGENCY => 600,
         LogLevel::ALERT => 550,
         LogLevel::CRITICAL => 500,
@@ -28,30 +29,32 @@ class StreamLoggerHandler implements LoggerHandlerInterface
         LogLevel::DEBUG => 100,
     ];
 
-    protected $level;
-    protected $severity;
-    protected $stream;
-    protected $url;
-    protected $filePermission;
-    protected $useLocking;
+    protected string $level;
+    protected int $severity;
+    protected ?int $filePermission;
+    protected bool $useLocking;
 
-    private $errorMessage;
-    private $dirCreated;
+    /** @var resource|null */
+    protected $stream;
+    protected ?string $url = null;
+    private ?string $errorMessage = null;
+    private bool $dirCreated = false;
 
     /**
-     * Handle Constructor.
+     * Constructor.
      *
      * @param resource|string $stream
-     * @param string          $level          The minimum logging level at which this handler will be triggered
-     * @param null|int        $filePermission Optional file permissions (default (0644) are only for owner read/write)
-     * @param bool            $useLocking     Try to lock log file before doing any writes
+     * @param string $level The minimum logging level at which this handler will be triggered
+     * @param int|null $filePermission Optional file permissions (default (0644) are only for owner read/write)
+     * @param bool $useLocking Try to lock log file before doing any writes
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      */
-    public function __construct($stream, $level = LogLevel::DEBUG, $filePermission = null, $useLocking = false)
+    public function __construct(mixed $stream, string $level = LogLevel::DEBUG, int $filePermission = null, bool $useLocking = false)
     {
         if (\is_resource($stream)) {
             $this->stream = $stream;
+            stream_set_chunk_size($this->stream, self::MAX_CHUNK_SIZE);
         } elseif (\is_string($stream)) {
             $this->url = $stream;
         } else {
@@ -84,7 +87,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function isHandling($record)
+    public function isHandling(LoggerRecordInterface $record): bool
     {
         return static::$severityLevelMap[$record->getLevel()] >= $this->severity;
     }
@@ -92,12 +95,12 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function handle($record)
+    public function handle(LoggerRecordInterface $record): void
     {
         // check if we have a valid stream
         if (!\is_resource($this->stream)) {
             // check if we have a valid stream url
-            if (!$this->url) {
+            if (empty($this->url)) {
                 throw new \LogicException('Missing stream url, the stream can not be opened. This may be caused by a premature call to close().');
             }
 
@@ -121,38 +124,35 @@ class StreamLoggerHandler implements LoggerHandlerInterface
             if (!\is_resource($this->stream)) {
                 $this->stream = null;
 
-                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: '.$this->errorMessage, $this->url));
+                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened in append mode: %s', $this->url, $this->errorMessage));
             }
+            stream_set_chunk_size($this->stream, self::MAX_CHUNK_SIZE);
         }
 
         if ($this->useLocking) {
             // ignoring errors here, there's not much we can do about them
-            flock($this->stream, \LOCK_EX);
+            flock($this->stream, LOCK_EX);
         }
 
-        // write thre message to the stream resource
+        // write the message to the stream resource
         fwrite($this->stream, sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record->getTimestamp()), ucfirst($record->getLevel()), $record->getMessage()));
 
         if ($this->useLocking) {
-            flock($this->stream, \LOCK_UN);
+            flock($this->stream, LOCK_UN);
         }
     }
 
     /**
      * Gets the directory name from the stream.
-     *
-     * @param string $stream
-     *
-     * @return null|string
      */
-    private function getDirFromStream($stream)
+    private function getDirFromStream(string $stream): ?string
     {
         $pos = strpos($stream, '://');
         if (false === $pos) {
             return \dirname($stream);
         }
 
-        if ('file://' === substr($stream, 0, 7)) {
+        if (str_starts_with($stream, 'file://')) {
             return \dirname(substr($stream, 7));
         }
 
@@ -160,16 +160,14 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     }
 
     /**
-     * Attemps to creat the log directory if not exist.
-     *
-     * @param void
+     * Attempts to create the log directory if not exist.
      *
      * @throws \UnexpectedValueException If a missing directory is not buildable
      */
-    private function createDir()
+    private function createDir(): void
     {
         // Do not try to create dir if it has already been tried.
-        if ($this->dirCreated) {
+        if (!empty($this->dirCreated)) {
             return;
         }
 
@@ -179,15 +177,15 @@ class StreamLoggerHandler implements LoggerHandlerInterface
             $this->errorMessage = null;
             set_error_handler([$this, '_customErrorHandler']);
 
-            // Attemp to creat the directory
+            // Attempt to creat the directory
             $status = mkdir($dir, 0777, true);
 
             // restore the error handler
             restore_error_handler();
 
             // throw exception if directory couldn't be created
-            if (false === $status) {
-                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and its not buildable: '.$this->errorMessage, $dir));
+            if (false === $status && !\is_dir($dir)) {
+                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: %s', $dir, $this->errorMessage));
             }
         }
 
@@ -196,12 +194,9 @@ class StreamLoggerHandler implements LoggerHandlerInterface
 
     /**
      * Custom error handler used for catching filesystem errors.
-     *
-     * @param bool   $errno
-     * @param string $errstr
      */
-    private function _customErrorHandler($errno, $errstr)
+    private function _customErrorHandler(int $level, string $message): void
     {
-        $this->errorMessage = preg_replace('{^(fopen|mkdir)\(.*?\): }', '', $errstr);
+        $this->errorMessage = preg_replace('{^(fopen|mkdir)\(.*?\): }', '', $message);
     }
 }

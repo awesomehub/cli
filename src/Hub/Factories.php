@@ -13,24 +13,16 @@ class Factories
 {
     /**
      * Creates a Filesystem cache adaptor.
-     *
-     * @param string $path
-     *
-     * @return FilesystemAdapter
      */
-    public static function createFilesystemCache($path)
+    public static function createFilesystemCache(string $path): FilesystemAdapter
     {
         return new FilesystemAdapter(null, 0, $path);
     }
 
     /**
      * Creates a GithubTokenPool instance.
-     *
-     * @param string $path
-     *
-     * @return GithubTokenPool
      */
-    public static function createGithubTokenPool($path, array $tokens)
+    public static function createGithubTokenPool(string $path, array $tokens): GithubTokenPool
     {
         return new GithubTokenPool($path, GithubTokenFactory::create($tokens));
     }

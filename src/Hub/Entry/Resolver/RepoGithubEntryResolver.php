@@ -15,24 +15,10 @@ use Hub\Workspace\WorkspaceInterface;
  */
 class RepoGithubEntryResolver implements EntryResolverInterface
 {
-    /**
-     * @var GithubRepoInspectorInterface
-     */
-    protected $inspector;
+    protected GithubRepoInspectorInterface $inspector;
+    protected WorkspaceInterface $workspace;
+    protected Filesystem $filesystem;
 
-    /**
-     * @var WorkspaceInterface
-     */
-    protected $workspace;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * Constructor.
-     */
     public function __construct(GithubRepoInspectorInterface $inspector, Filesystem $filesystem, WorkspaceInterface $workspace)
     {
         $this->inspector = $inspector;
@@ -45,7 +31,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      *
      * @param RepoGithubEntryInterface $entry
      */
-    public function resolve(EntryInterface $entry, $force = false)
+    public function resolve(EntryInterface $entry, bool $force = false): void
     {
         $cached = $this->read($entry);
         if ($cached && !$force) {
@@ -103,7 +89,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      *
      * @param RepoGithubEntryInterface $entry
      */
-    public function supports(EntryInterface $entry)
+    public function supports(EntryInterface $entry): bool
     {
         return $entry instanceof RepoGithubEntryInterface;
     }
@@ -113,7 +99,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
      *
      * @param RepoGithubEntryInterface $entry
      */
-    public function isCached(EntryInterface $entry)
+    public function isCached(EntryInterface $entry): bool
     {
         $cached = $this->read($entry);
 
@@ -122,10 +108,8 @@ class RepoGithubEntryResolver implements EntryResolverInterface
 
     /**
      * Fetches the cached entry.
-     *
-     * @return bool|RepoGithubEntryInterface
      */
-    protected function read(RepoGithubEntryInterface $entry)
+    protected function read(RepoGithubEntryInterface $entry): bool|RepoGithubEntryInterface
     {
         if (!$this->supports($entry)) {
             throw new \UnexpectedValueException(sprintf('Should not receive an unsupported entry "%s"', $entry->getId()));
@@ -146,10 +130,8 @@ class RepoGithubEntryResolver implements EntryResolverInterface
 
     /**
      * Saves an entry to file.
-     *
-     * @return int
      */
-    protected function save(RepoGithubEntryInterface $entry)
+    protected function save(RepoGithubEntryInterface $entry): int
     {
         $path = $this->getPath($entry);
 
@@ -157,11 +139,9 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     }
 
     /**
-     * Gets the path of the entry cahce file.
-     *
-     * @return string
+     * Gets the path of the entry cache file.
      */
-    protected function getPath(RepoGithubEntryInterface $entry)
+    protected function getPath(RepoGithubEntryInterface $entry): string
     {
         [$idType, $id] = explode(':', $entry->getId(), 2);
 
@@ -169,17 +149,13 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     }
 
     /**
-     * Remove all non printable characters in a string.
-     *
-     * @param $string
-     *
-     * @return mixed
+     * Removes all non printable characters in a string.
      */
-    protected function cleanStr($string)
+    protected function cleanStr(string $string): string
     {
         // Strip non-utf chars
         $string = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $string);
         // Strip github emoticons
-        return trim(preg_replace('/\:[^\:]+\:/', '', $string));
+        return trim(preg_replace('/:[^:]+:/', '', $string));
     }
 }

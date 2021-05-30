@@ -9,73 +9,49 @@ interface EntryInterface
 {
     /**
      * Gets the id of the entry.
-     *
-     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * Gets the type of the entry.
-     *
-     * @return string
      */
-    public static function getType();
+    public static function getType(): string;
 
     /**
      * Marks another entry id as an alias to thid entry.
-     *
-     * @param string $id
      */
-    public function addAlias($id);
+    public function addAlias(string $id);
 
     /**
      * Gets a list of other entry ids that are marked as aliases to this entry.
-     *
-     * @return array
      */
-    public function getAliases();
+    public function getAliases(): array;
 
     /**
      * Checks if a given key exists in entry data.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    public function has($key);
+    public function has(string $key): bool;
 
     /**
      * Gets the value of a given data key. If the key is omitted, the whole data will be returned.
      *
-     * @param string $key
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return mixed
      */
-    public function get($key = null);
+    public function get(string $key = null): mixed;
 
     /**
      * Sets the value of a given data key or the whole data array.
-     *
-     * @param array|string $key
-     * @param mixed        $value
      */
-    public function set($key, $value = null);
+    public function set(array|string $key, mixed $value = null);
 
     /**
-     * Merges the value of a given data key and if an array is given
+     * Merges the value of a given data key. If an array is given
      *  it should merge it with the main data array.
-     *
-     * @param array|string $key
-     * @param mixed        $value
      */
-    public function merge($key, $value = null);
+    public function merge(array|string $key, mixed $value = null);
 
     /**
-     * Delets a given data key.
-     *
-     * @param string $key
+     * Deletes a given data key.
      */
-    public function unset($key);
+    public function unset(string $key);
 }

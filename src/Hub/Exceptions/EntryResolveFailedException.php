@@ -3,7 +3,7 @@
 namespace Hub\Exceptions;
 
 /**
- * Represents a failed entry resolve attemp.
+ * Represents a failed entry resolve attempt.
  */
 class EntryResolveFailedException extends \RuntimeException
 {

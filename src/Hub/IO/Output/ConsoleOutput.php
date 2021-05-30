@@ -11,18 +11,18 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
 {
     public const MAX_LINE_LENGTH = 120;
 
-    protected $overwrite = false;
-    protected $options;
-    protected $lineLength;
-    protected $startTime;
-    protected $spinnerCurrent = 0;
-    protected $lastMessage = '';
-    protected $lastMessageNl = false;
+    protected bool $overwrite = false;
+    protected array $options;
+    protected int $lineLength;
+    protected int $startTime;
+    protected int $spinnerCurrent = 0;
+    protected string|array $lastMessage = '';
+    protected bool $lastMessageNl = false;
 
     /**
      * {@inheritdoc}
      */
-    public function startOverwrite(array $options = [])
+    public function startOverwrite(array $options = []): void
     {
         $this->overwrite = true;
         $this->startTime = time();
@@ -37,7 +37,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     /**
      * {@inheritdoc}
      */
-    public function endOverwrite()
+    public function endOverwrite(): void
     {
         $this->overwrite = false;
     }
@@ -45,7 +45,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     /**
      * {@inheritdoc}
      */
-    public function isOverwritable()
+    public function isOverwritable(): bool
     {
         return $this->overwrite;
     }
@@ -53,7 +53,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     /**
      * {@inheritdoc}
      */
-    public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
+    public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL): void
     {
         while ($this->isOverwritable()) {
             ++$this->spinnerCurrent;
@@ -80,7 +80,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 break;
             }
 
-            // "\x1B [ 1 F" can move the cusrsor to the previous line
+            // "\x1B [ 1 F" can move the cursor to the previous line
             // ...let's fill its length with backspaces
             parent::write(str_repeat("\x08", $size), false, $type);
 
@@ -113,16 +113,12 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
 
     /**
      * Replaces message placeholders with their values.
-     *
-     * @param string $message
-     *
-     * @return string
      */
-    protected function processPlaceholders($message)
+    protected function processPlaceholders(string|array $message): string|array
     {
         $formatters = $this->getPlaceholderFormatters();
 
-        return preg_replace_callback('{%([a-z\\-_]+)%}i', function ($matches) use ($formatters) {
+        return preg_replace_callback('{%([a-z\\-_]+)%}i', static function ($matches) use ($formatters) {
             return isset($formatters[$matches[1]])
                 ? \call_user_func($formatters[$matches[1]])
                 : $matches[0];
@@ -131,10 +127,8 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
 
     /**
      * Gets the available message placeholders and their callbacks.
-     *
-     * @return array
      */
-    protected function getPlaceholderFormatters()
+    protected function getPlaceholderFormatters(): array
     {
         static $formatters;
 
@@ -157,10 +151,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
         return $formatters;
     }
 
-    /**
-     * @return int
-     */
-    private function getTerminalWidth()
+    private function getTerminalWidth(): int
     {
         $application = new Console\Application();
         $dimensions = $application->getTerminalDimensions();

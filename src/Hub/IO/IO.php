@@ -2,44 +2,23 @@
 
 namespace Hub\IO;
 
-use Hub\Helper\ProgressIndicator;
 use Hub\IO\Output\OverwritableOutputInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Console;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Base I/O class.
  */
-class IO extends Console\Style\SymfonyStyle implements IOInterface
+class IO extends SymfonyStyle implements IOInterface
 {
-    /**
-     * @var Console\Input\InputInterface
-     */
-    protected $input;
+    protected InputInterface $input;
+    protected OutputInterface $output;
+    protected LoggerInterface $logger;
 
-    /**
-     * @var Console\Output\OutputInterface
-     */
-    protected $output;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * @var ProgressIndicator
-     */
-    protected $progressIndicator;
-
-    /**
-     * Constructor.
-     */
-    public function __construct(
-        Console\Input\InputInterface $input,
-        Console\Output\OutputInterface $output,
-        LoggerInterface $logger
-    ) {
+    public function __construct(InputInterface $input, OutputInterface $output, LoggerInterface $logger)
+    {
         $this->input = $input;
         $this->output = $output;
         $this->logger = $logger;
@@ -50,7 +29,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * {@inheritdoc}
      */
-    public function getInput()
+    public function getInput(): InputInterface
     {
         return $this->input;
     }
@@ -58,7 +37,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * {@inheritdoc}
      */
-    public function getOutput()
+    public function getOutput(): OutputInterface
     {
         return $this->output;
     }
@@ -66,7 +45,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * {@inheritdoc}
      */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
@@ -74,7 +53,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * {@inheritdoc}
      */
-    public function startOverwrite(array $options = [])
+    public function startOverwrite(array $options = []): void
     {
         if ($this->output instanceof OverwritableOutputInterface) {
             $this->output->startOverwrite($options);
@@ -84,7 +63,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * {@inheritdoc}
      */
-    public function endOverwrite()
+    public function endOverwrite(): void
     {
         if ($this->output instanceof OverwritableOutputInterface) {
             $this->output->endOverwrite();
@@ -94,7 +73,7 @@ class IO extends Console\Style\SymfonyStyle implements IOInterface
     /**
      * {@inheritdoc}
      */
-    public function isOverwritable()
+    public function isOverwritable(): bool
     {
         if ($this->output instanceof OverwritableOutputInterface) {
             return $this->output->isOverwritable();

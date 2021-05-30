@@ -14,7 +14,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     /**
      * @var ExceptionHandlerInterface[]
      */
-    private $handlers;
+    private array $handlers;
 
     /**
      * Logger constructor.
@@ -39,7 +39,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setHandlers(array $handlers)
+    public function setHandlers(array $handlers): self
     {
         $this->handlers = [];
         foreach ($handlers as $handler) {
@@ -52,7 +52,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getHandlers()
+    public function getHandlers(): array
     {
         return $this->handlers;
     }
@@ -60,7 +60,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function runHandlers(\Exception $exception)
+    public function runHandlers(\Exception $exception): void
     {
         if (0 === \count($this->handlers)) {
             throw new \LogicException('No exception handler has been defined.');

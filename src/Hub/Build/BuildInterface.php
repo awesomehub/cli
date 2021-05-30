@@ -10,89 +10,65 @@ interface BuildInterface
     /**
      * Gets a build path.
      *
-     * @param array|string $path Path segments as array or string
-     * @param bool         $raw  Ignores file format extension
-     *
-     * @return string
+     * @param null|array|string $path Path segments as array or string
+     * @param bool              $raw  Ignores file format extension
      */
-    public function getPath($path = null, $raw = false);
+    public function getPath(array | string $path = null, bool $raw = false): string;
 
     /**
      * Gets the build number.
-     *
-     * @return string
      */
-    public function getNumber();
+    public function getNumber(): string;
 
     /**
      * Gets the build date.
-     *
-     * @return string
      */
-    public function getDate();
+    public function getDate(): string;
 
     /**
      * Gets the build format.
-     *
-     * @return string
      */
-    public function getFormat();
+    public function getFormat(): string;
 
     /**
-     * Gets a meta paramater.
-     *
-     * @param string $key
-     *
-     * @return mixed
+     * Gets a meta parameter.
      */
-    public function get($key = null);
+    public function get(string $key = null): mixed;
 
     /**
-     * Sets the value of a meta paramater or the whole meta array.
-     *
-     * @param array|string $key
-     * @param null|mixed   $value
+     * Sets the value of a meta parameter or the whole meta array.
      */
-    public function set($key, $value = null);
+    public function set(array | string $key, mixed $value = null): void;
 
     /**
      * Writes a file into the build directory.
      *
-     * @param string $path
-     * @param string $data
-     * @param bool   $raw  Ignores file encoding
-     *
-     * @return bool
+     * @param bool $raw Ignore data serialization
      */
-    public function write($path, $data, $raw = false);
+    public function write(string $path, mixed $data, bool $raw = false): void;
 
     /**
      * Reads a file from the build directory.
      *
-     * @param string $path
-     * @param bool   $raw  Ignores file decoding
-     *
-     * @return string
+     * @param string $path File path
+     * @param bool   $raw  Prefer raw data
      */
-    public function read($path, $raw = false);
+    public function read(string $path, bool $raw = false): array | string;
 
     /**
      * Checks if a file from the build directory does exist.
      *
-     * @param string $path
-     * @param bool   $raw  Ignores file format extension
-     *
-     * @return bool
+     * @param bool $raw Ignores file format extension
      */
-    public function exists($path = null, $raw = false);
+    public function exists(string $path = null, bool $raw = false): bool;
 
     /**
      * Finalizes the build at the end of the build process.
      */
-    public function finalize();
+    public function finalize(): void;
 
     /**
      * Cleans the build directory.
      */
-    public function clean();
+    public function clean(): void;
 }

@@ -12,7 +12,7 @@ class ConsoleKernel extends Kernel
     /**
      * {@inheritdoc}
      */
-    protected function registerContainerConfiguration(LoaderInterface $loader)
+    protected function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load('services.xml');
     }

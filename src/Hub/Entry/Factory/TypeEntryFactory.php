@@ -2,6 +2,7 @@
 
 namespace Hub\Entry\Factory;
 
+use Hub\Entry\EntryInterface;
 use Hub\Entry\RepoGithubEntry;
 use Hub\Exceptions\EntryCreationFailedException;
 
@@ -10,14 +11,14 @@ use Hub\Exceptions\EntryCreationFailedException;
  */
 class TypeEntryFactory implements TypeEntryFactoryInterface
 {
-    private static $supports = [
+    private static array $supports = [
         RepoGithubEntry::class,
     ];
 
     /**
      * {@inheritdoc}
      */
-    public static function create($type, array $data = [])
+    public static function create(array|string $type, array $data = []): array|EntryInterface
     {
         if (empty($type)) {
             throw new \UnexpectedValueException('Expected non empty entry type');
@@ -43,39 +44,35 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
             return $instances;
         }
 
-        if (!$class = self::supports($type)) {
-            throw new EntryCreationFailedException(sprintf("Unsupported entry type '%s'", $type));
+        $class = self::supports($type);
+        if ($class === RepoGithubEntry::class) {
+            if (!isset($data['author'], $data['name'])) {
+                throw new EntryCreationFailedException(sprintf("Unable to satisfy all required parameters for type '%s'; Given a data array with keys [%s]", $type, implode(', ', array_keys($data))));
+            }
+
+            return new RepoGithubEntry($data['author'], $data['name']);
         }
 
-        switch ($class) {
-            case RepoGithubEntry::class:
-                if (!isset($data['author']) || !isset($data['name'])) {
-                    throw new EntryCreationFailedException(sprintf("Unable to satisfay all required paramaters for type '%s'; Given a data array with keys [%s]", $type, implode(', ', array_keys($data))));
-                }
-
-                return new RepoGithubEntry($data['author'], $data['name']);
-        }
+        throw new EntryCreationFailedException(sprintf("Unsupported entry type '%s'", $type));
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function supports($type = null)
+    public static function supports(string $input = null): bool|string|array
     {
         $types = self::getTypeMap();
-        if (null === $type) {
+        if (0 === \func_num_args()) {
             return $types;
         }
 
-        return $types[$type] ?? false;
+        return $types[$input] ?? false;
     }
 
     /**
      * Gets type class map for all supported types.
-     *
-     * @return array
      */
-    private static function getTypeMap()
+    private static function getTypeMap(): array
     {
         static $types;
 

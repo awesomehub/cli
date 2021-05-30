@@ -11,14 +11,10 @@ class Filesystem extends BaseFilesystem
     /**
      * Reads the contents of a file.
      *
-     * @param string $path
-     *
-     * @throws FileNotFoundException
      * @throws IOException
-     *
-     * @return string
+     * @throws FileNotFoundException
      */
-    public function read($path)
+    public function read(string $path): string
     {
         if (!is_file($path)) {
             throw new FileNotFoundException(sprintf('Failed to read "%s" because file does not exist.', $path), 0, null, $path);
@@ -35,15 +31,9 @@ class Filesystem extends BaseFilesystem
     /**
      * Write the contents of a file.
      *
-     * @param string $path
-     * @param string $contents
-     * @param bool   $lock
-     *
      * @throws IOException
-     *
-     * @return int
      */
-    public function write($path, $contents, $lock = true)
+    public function write(string $path, string $contents, bool $lock = true): int
     {
         $dir = \dirname($path);
         if (!is_dir($dir)) {
@@ -61,16 +51,10 @@ class Filesystem extends BaseFilesystem
     /**
      * Appends data to a file.
      *
-     * @param string $path
-     * @param string $data
-     * @param bool   $lock
-     *
-     * @throws FileNotFoundException
      * @throws IOException
-     *
-     * @return int
+     * @throws FileNotFoundException
      */
-    public function append($path, $data, $lock = true)
+    public function append(string $path, string $data, bool $lock = true): int
     {
         if (!is_file($path)) {
             throw new FileNotFoundException(sprintf('Failed to append data to "%s" because file does not exist.', $path), 0, null, $path);
@@ -86,13 +70,8 @@ class Filesystem extends BaseFilesystem
 
     /**
      * Checks whether the path has the given extension or not.
-     *
-     * @param string $path
-     * @param string $ext
-     *
-     * @return bool
      */
-    public function hasExtension($path, $ext)
+    public function hasExtension(string $path, string $ext): bool
     {
         return '.'.strtolower($ext) === strtolower(substr($path, -1 * \strlen($ext) - 1));
     }
@@ -100,13 +79,9 @@ class Filesystem extends BaseFilesystem
     /**
      * Normalize path.
      *
-     * @param string $path
-     *
      * @throws \LogicException
-     *
-     * @return string
      */
-    public function normalizePath($path)
+    public function normalizePath(string $path): string
     {
         $segments = [];
         foreach (preg_split('/[\/\\\\]+/', $path) as $part) {

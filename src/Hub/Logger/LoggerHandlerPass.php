@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class LoggerHandlerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has('logger')) {
             return;

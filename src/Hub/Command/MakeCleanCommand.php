@@ -12,7 +12,7 @@ class MakeCleanCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -25,7 +25,7 @@ class MakeCleanCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function exec()
+    protected function exec(): int
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
         $build = $buildFactory->getCurrent();

@@ -11,18 +11,16 @@ interface OverwritableOutputInterface extends Console\Output\OutputInterface
 {
     /**
      * Enables output overwriting.
-     *
-     * @return bool Previous state
      */
-    public function startOverwrite(array $options = []);
+    public function startOverwrite(array $options = []): void;
 
     /**
      * Disables output overwriting.
      */
-    public function endOverwrite();
+    public function endOverwrite(): void;
 
     /**
      * Check if overwritable output is enabled.
      */
-    public function isOverwritable();
+    public function isOverwritable(): bool;
 }

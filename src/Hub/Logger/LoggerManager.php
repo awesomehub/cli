@@ -15,7 +15,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * @var LoggerHandlerInterface[]
      */
-    private $handlers;
+    protected array $handlers;
 
     /**
      * Logger constructor.
@@ -30,7 +30,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function addHandler(LoggerHandlerInterface $handler)
+    public function addHandler(LoggerHandlerInterface $handler): self
     {
         $this->handlers[] = $handler;
 
@@ -40,7 +40,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setHandlers(array $handlers)
+    public function setHandlers(array $handlers): self
     {
         $this->handlers = [];
         foreach ($handlers as $handler) {
@@ -53,7 +53,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getHandlers()
+    public function getHandlers(): array
     {
         return $this->handlers;
     }
@@ -61,7 +61,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function runHandlers(LoggerRecordInterface $record)
+    public function runHandlers(LoggerRecordInterface $record): void
     {
         if (0 === \count($this->handlers)) {
             throw new \LogicException('No logger handler has been defined.');
@@ -79,7 +79,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $this->runHandlers(new LoggerRecord(
             $level,
@@ -91,16 +91,10 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
 
     /**
      * Interpolates context values into the message placeholders.
-     *
-     * @author PHP Framework Interoperability Group
-     *
-     * @param string $message
-     *
-     * @return string
      */
-    private function interpolate($message, array $context)
+    protected function interpolate(string $message, array $context): string
     {
-        // build a replacement array with braces around the context keys
+        // Build a replacement array with braces around the context keys
         $replace = [];
         foreach ($context as $key => $val) {
             if (!\is_array($val) && (!\is_object($val) || method_exists($val, '__toString'))) {
@@ -108,7 +102,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
             }
         }
 
-        // interpolate replacement values into the message and return
+        // Interpolate replacement values into the message and return
         return strtr($message, $replace);
     }
 }

@@ -14,10 +14,8 @@ interface LoggerRecordInterface
 
     /**
      * Checks whether the record is of a certain level.
-     *
-     * @param string $level
      */
-    public function isLevel($level): bool;
+    public function isLevel(string $level): bool;
 
     /**
      * Gets the log message.
@@ -26,13 +24,9 @@ interface LoggerRecordInterface
 
     /**
      * Gets a specific value from the log context or the whole
-     *  array if the key is ommited.
-     *
-     * @param string $key
-     *
-     * @return array|string
+     *  array if the key is omitted.
      */
-    public function getContext($key = null);
+    public function getContext(string $key = null): mixed;
 
     /**
      * Gets the log UNIX timestamp.

@@ -5,19 +5,16 @@ namespace Hub\Exception;
 use Symfony\Component\Debug\ErrorHandler;
 
 /**
- * Exception handler manager registerer trit.
+ * Exception handler manager registerer trait.
  */
 trait ExceptionHandlerManagerRegistererTrait
 {
-    /**
-     * @var ExceptionHandlerManagerInterface
-     */
-    private static $instance;
+    private static ?ExceptionHandlerManagerInterface $instance = null;
 
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): ExceptionHandlerManagerInterface
     {
         $handler = [$this, 'runHandlers'];
 
@@ -36,7 +33,7 @@ trait ExceptionHandlerManagerRegistererTrait
     /**
      * {@inheritdoc}
      */
-    public static function getInstance()
+    public static function getInstance(): ExceptionHandlerManagerInterface
     {
         if (null === static::$instance) {
             static::$instance = new static();

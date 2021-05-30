@@ -3,7 +3,7 @@
 namespace Hub\Command;
 
 use Hub\Build\BuildFactory;
-use Hub\EntryList\Distributer\ListDistributer;
+use Hub\EntryList\Distributor\ListDistributor;
 use Hub\EntryList\EntryListFile;
 use Symfony\Component\Console\Input;
 
@@ -15,7 +15,7 @@ class MakeBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function validate()
+    public function validate(): void
     {
         if ($this->input->getOption('release')) {
             $yes = $this->io->confirm('Are you sure you want to mark this build as a release?');
@@ -28,7 +28,7 @@ class MakeBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -47,14 +47,14 @@ class MakeBuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function exec()
+    protected function exec(): int
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
         $build = $buildFactory->create();
         $cachedBuild = $buildFactory->getCached() ?: null;
         $lists = EntryListFile::findCachedLists($this->workspace);
 
-        if (0 == \count($lists)) {
+        if (0 === \count($lists)) {
             $this->io->note('No cached lists found');
 
             return 0;
@@ -69,9 +69,9 @@ class MakeBuildCommand extends Command
             '',
         ]);
 
-        $this->logger->info(sprintf('Initiating list distributer %s cached build', $cachedBuild ? 'with' : 'without'));
-        $dist = new ListDistributer($build, $cachedBuild, [
-            'collections' => $this->workspace->config('dist.listCollections'),
+        $this->logger->info(sprintf('Initiating list distributor %s cached build', $cachedBuild ? 'with' : 'without'));
+        $dist = new ListDistributor($build, $cachedBuild, [
+            'collections' => $this->workspace->config('dist.listCollections', []),
         ]);
         foreach ($lists as $list) {
             try {

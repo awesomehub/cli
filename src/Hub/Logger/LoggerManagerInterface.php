@@ -12,25 +12,26 @@ use Psr\Log\LoggerInterface;
 interface LoggerManagerInterface extends LoggerInterface
 {
     /**
-     * Adds a handler on to the stack.
-     *
-     * @return self
+     * Adds a handler to the stack.
      */
-    public function addHandler(LoggerHandlerInterface $handler);
+    public function addHandler(LoggerHandlerInterface $handler): self;
 
     /**
-     * Set handlers, replacing all existing ones.
+     * Replaces current handlers with the given handlers array.
      *
      * @param LoggerHandlerInterface[] $handlers
-     *
-     * @return self
      */
-    public function setHandlers(array $handlers);
+    public function setHandlers(array $handlers): self;
 
     /**
+     * Gets current active handlers.
+     *
      * @return LoggerHandlerInterface[]
      */
-    public function getHandlers();
+    public function getHandlers(): array;
 
-    public function runHandlers(LoggerRecordInterface $record);
+    /**
+     * Runs current active handlers on the given log record.
+     */
+    public function runHandlers(LoggerRecordInterface $record): void;
 }

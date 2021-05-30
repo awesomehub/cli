@@ -9,20 +9,9 @@ use Hub\Util\NestedArray;
  */
 abstract class AbstractEntry implements EntryInterface
 {
-    /**
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * @var array
-     */
-    protected $aliases;
-
-    /**
-     * @var string
-     */
-    private $id;
+    protected array $data;
+    protected array $aliases;
+    private string $id;
 
     /**
      * Constructor.
@@ -40,7 +29,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    final public function getId()
+    final public function getId(): string
     {
         return $this->id;
     }
@@ -48,7 +37,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function addAlias($id)
+    public function addAlias(string $id): void
     {
         if (!\in_array($id, $this->aliases, true)) {
             $this->aliases[] = $id;
@@ -58,7 +47,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function getAliases()
+    public function getAliases(): array
     {
         return $this->aliases;
     }
@@ -66,7 +55,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         return \array_key_exists($key, $this->data);
     }
@@ -74,9 +63,9 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key = null)
+    public function get(string $key = null): mixed
     {
-        if (!$key) {
+        if (0 === \func_num_args()) {
             return $this->data;
         }
 
@@ -90,7 +79,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value = null)
+    public function set(array|string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
@@ -108,19 +97,19 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function merge($key, $value = null)
+    public function merge(array|string $key, mixed $value = null): void
     {
         if (!\is_array($key)) {
             $key = [$key => $value];
         }
 
-        $this->data = NestedArray::merge($this->data, $key);
+        $this->data = NestedArray::mergeDeep($this->data, $key);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function unset($key)
+    public function unset(string $key): void
     {
         if (!\array_key_exists($key, $this->data)) {
             throw new \InvalidArgumentException(sprintf("Trying to unset an undefined entry data key '%s'", $key));

@@ -9,41 +9,26 @@ interface SourceInterface
 {
     /**
      * Gets the source type.
-     *
-     * @return string
      */
-    public function getType();
+    public function getType(): string;
 
     /**
      * Gets the source data.
-     *
-     * @return mixed
      */
-    public function getData();
+    public function getData(): mixed;
 
     /**
      * Gets all source options.
-     *
-     * @return array
      */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * Gets an single option.
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
      */
-    public function getOption($key, $default = null);
+    public function getOption(string $key, mixed $default = null): mixed;
 
     /**
      * Checks whether a source has an option.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    public function hasOption($key);
+    public function hasOption(string $key): bool;
 }

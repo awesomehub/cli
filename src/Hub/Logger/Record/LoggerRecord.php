@@ -7,38 +7,16 @@ namespace Hub\Logger\Record;
  */
 class LoggerRecord implements LoggerRecordInterface
 {
-    /**
-     * @var string
-     */
-    protected $level;
+    protected string $level;
+    protected string $message;
+    protected array $context;
+    protected int $timestamp;
 
-    /**
-     * @var string
-     */
-    protected $message;
-
-    /**
-     * @var array
-     */
-    protected $context;
-
-    /**
-     * @var int
-     */
-    protected $timstamp;
-
-    /**
-     * Constructor.
-     *
-     * @param string $level
-     * @param string $message
-     * @param int    $timstamp
-     */
-    public function __construct($level, $message, $timstamp, array $context = [])
+    public function __construct(string $level, string $message, int $timestamp, array $context = [])
     {
         $this->level = $level;
         $this->message = $message;
-        $this->timstamp = $timstamp;
+        $this->timestamp = $timestamp;
         $this->context = $context;
     }
 
@@ -53,7 +31,7 @@ class LoggerRecord implements LoggerRecordInterface
     /**
      * {@inheritdoc}
      */
-    public function isLevel($level): bool
+    public function isLevel(string $level): bool
     {
         return $level === $this->level;
     }
@@ -69,7 +47,7 @@ class LoggerRecord implements LoggerRecordInterface
     /**
      * {@inheritdoc}
      */
-    public function getContext($key = null)
+    public function getContext(string $key = null): mixed
     {
         if ($key) {
             return $this->context[$key] ?? null;
@@ -83,6 +61,6 @@ class LoggerRecord implements LoggerRecordInterface
      */
     public function getTimestamp(): int
     {
-        return $this->timstamp;
+        return $this->timestamp;
     }
 }

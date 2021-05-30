@@ -11,23 +11,12 @@ use League\CommonMark as CommonMark;
  */
 class GithubMarkdownSourceProcessor implements SourceProcessorInterface
 {
-    /**
-     * @var array
-     */
-    protected $rules = [];
-
-    /**
-     * @var array
-     */
-    protected $tree = [
+    protected array $rules = [];
+    protected array $tree = [
         'cs' => [['level' => 0, 'category' => null]],
         'ci' => [['level' => 0, 'category' => null]],
     ];
-
-    /**
-     * @var array
-     */
-    protected $pathMatches = [];
+    protected array $pathMatches = [];
 
     /**
      * {@inheritdoc}
@@ -143,7 +132,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     /**
      * Builds list rules from config.
      */
-    protected function loadlistRules(array $rules)
+    protected function loadlistRules(array $rules): void
     {
         foreach ($rules as $path => $rule) {
             $matches = [];
@@ -188,13 +177,8 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
 
     /**
      * Get a list category rules if defined.
-     *
-     * @param $category
-     * @param $level
-     *
-     * @return null|array
      */
-    protected function getCategoryRules($category, $level)
+    protected function getCategoryRules(string $category, int $level): ?array
     {
         // Add the category to to the tree
         $this->tree['cs'][] = ['level' => $level, 'category' => $category];
@@ -256,7 +240,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
      *
      * @throws \RuntimeException
      */
-    protected function checkSkippedRules()
+    protected function checkSkippedRules(): void
     {
         $skippedPaths = array_diff(array_column($this->rules, 'pathRaw'), $this->pathMatches);
         if (\count($skippedPaths) > 0) {

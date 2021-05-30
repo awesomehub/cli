@@ -11,17 +11,11 @@ interface LoggerHandlerInterface
 {
     /**
      * Handles the log record.
-     *
-     * @param LoggerRecordInterface $record
      */
-    public function handle($record);
+    public function handle(LoggerRecordInterface $record): void;
 
     /**
      * Determines if the handler is going to handle this log level.
-     *
-     * @param LoggerRecordInterface $record
-     *
-     * @return bool
      */
-    public function isHandling($record);
+    public function isHandling(LoggerRecordInterface $record): bool;
 }

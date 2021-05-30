@@ -9,15 +9,11 @@ interface RepoEntryInterface extends EntryInterface
 {
     /**
      * Gets the author of the repo.
-     *
-     * @return string
      */
-    public function getAuthor();
+    public function getAuthor(): string;
 
     /**
      * Gets the name of the repo.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 }

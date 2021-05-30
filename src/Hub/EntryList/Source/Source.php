@@ -7,22 +7,11 @@ namespace Hub\EntryList\Source;
  */
 class Source implements SourceInterface
 {
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
+    protected mixed $data;
+    protected array $options;
 
-    /**
-     * @var mixed
-     */
-    protected $data;
-
-    /**
-     * @var array
-     */
-    protected $options;
-
-    public function __construct($type, $data, array $options = [])
+    public function __construct(string $type, mixed $data, array $options = [])
     {
         $this->type = $type;
         $this->data = $data;
@@ -32,7 +21,7 @@ class Source implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -40,7 +29,7 @@ class Source implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }
@@ -48,7 +37,7 @@ class Source implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
@@ -56,7 +45,7 @@ class Source implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function hasOption($key)
+    public function hasOption(string $key): bool
     {
         return \array_key_exists($key, $this->options);
     }
@@ -64,7 +53,7 @@ class Source implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getOption($key, $default = null)
+    public function getOption(string $key, $default = null): mixed
     {
         if (!$this->hasOption($key)) {
             return $default;

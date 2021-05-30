@@ -11,14 +11,8 @@ use Hub\Exceptions\EntryCreationFailedException;
  */
 class EntriesSourceProcessor implements SourceProcessorInterface
 {
-    /**
-     * @var TypeEntryFactoryInterface;
-     */
-    protected $entryFactory;
+    protected TypeEntryFactoryInterface $entryFactory;
 
-    /**
-     * Sets the logger and the entry factory.
-     */
     public function __construct(TypeEntryFactoryInterface $entryFactory)
     {
         $this->entryFactory = $entryFactory;
@@ -45,7 +39,7 @@ class EntriesSourceProcessor implements SourceProcessorInterface
             ]);
 
             try {
-                $entryInstance = $this->entryFactory->create($entry['type'], $entry['data']);
+                $entryInstance = $this->entryFactory::create($entry['type'], $entry['data']);
             } catch (EntryCreationFailedException $e) {
                 $callback(self::ON_STATUS_UPDATE, [
                     'type' => 'error',

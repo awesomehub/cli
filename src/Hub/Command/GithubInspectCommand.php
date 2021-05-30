@@ -13,7 +13,7 @@ class GithubInspectCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -31,7 +31,7 @@ class GithubInspectCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function exec()
+    protected function exec(): int
     {
         /** @var RepoInspector\GithubRepoInspectorInterface $inspector */
         $inspector = $this->container->get('github.inspector');
