@@ -18,7 +18,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function create(array|string $type, array $data = []): array|EntryInterface
+    public static function create(array | string $type, array $data = []): array | EntryInterface
     {
         if (empty($type)) {
             throw new \UnexpectedValueException('Expected non empty entry type');
@@ -45,7 +45,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
         }
 
         $class = self::supports($type);
-        if ($class === RepoGithubEntry::class) {
+        if (RepoGithubEntry::class === $class) {
             if (!isset($data['author'], $data['name'])) {
                 throw new EntryCreationFailedException(sprintf("Unable to satisfy all required parameters for type '%s'; Given a data array with keys [%s]", $type, implode(', ', array_keys($data))));
             }
@@ -59,7 +59,7 @@ class TypeEntryFactory implements TypeEntryFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function supports(string $input = null): bool|string|array
+    public static function supports(string $input = null): bool | string | array
     {
         $types = self::getTypeMap();
         if (0 === \func_num_args()) {

@@ -40,7 +40,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(array|string $input): array
+    public function create(array | string $input): array
     {
         if (0 === \count($this->processors)) {
             throw new \LogicException('No url processors has been defined');

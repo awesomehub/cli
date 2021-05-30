@@ -4,9 +4,9 @@ namespace Hub\IO;
 
 use Hub\IO\Output\OverwritableOutputInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Base I/O class.

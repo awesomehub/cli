@@ -16,7 +16,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     protected int $lineLength;
     protected int $startTime;
     protected int $spinnerCurrent = 0;
-    protected string|array $lastMessage = '';
+    protected string | array $lastMessage = '';
     protected bool $lastMessageNl = false;
 
     /**
@@ -114,7 +114,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     /**
      * Replaces message placeholders with their values.
      */
-    protected function processPlaceholders(string|array $message): string|array
+    protected function processPlaceholders(string | array $message): string | array
     {
         $formatters = $this->getPlaceholderFormatters();
 

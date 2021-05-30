@@ -109,7 +109,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     /**
      * Fetches the cached entry.
      */
-    protected function read(RepoGithubEntryInterface $entry): bool|RepoGithubEntryInterface
+    protected function read(RepoGithubEntryInterface $entry): bool | RepoGithubEntryInterface
     {
         if (!$this->supports($entry)) {
             throw new \UnexpectedValueException(sprintf('Should not receive an unsupported entry "%s"', $entry->getId()));

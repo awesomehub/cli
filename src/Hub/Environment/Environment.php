@@ -19,7 +19,7 @@ class Environment implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
-    public function get(string $varname): bool|array|string
+    public function get(string $varname): bool | array | string
     {
         return getenv($varname);
     }

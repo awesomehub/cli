@@ -26,6 +26,8 @@ interface ProcessFactoryInterface
 
     /**
      * Creates and starts a new Process.
+     *
+     * @param mixed $command
      */
     public function start($command, array $options = []): Process;
 }

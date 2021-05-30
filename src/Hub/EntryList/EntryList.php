@@ -103,7 +103,7 @@ class EntryList implements EntryListInterface
      */
     public function get(string $key = null): mixed
     {
-        if (0 === func_num_args()) {
+        if (0 === \func_num_args()) {
             return $this->data;
         }
 
@@ -117,7 +117,7 @@ class EntryList implements EntryListInterface
     /**
      * {@inheritdoc}
      */
-    public function set(array|string $key, mixed $value = null): void
+    public function set(array | string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
@@ -414,10 +414,8 @@ class EntryList implements EntryListInterface
     /**
      * Recursively processes list sources.
      *
-     * @param IOInterface $io
      * @param SourceProcessorInterface[] $processors
-     * @param null|SourceInterface[] $sources
-     * @param int $depth
+     * @param null|SourceInterface[]     $sources
      */
     protected function processSources(IOInterface $io, array $processors, array $sources = [], int $depth = 0): void
     {

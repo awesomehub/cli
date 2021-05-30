@@ -15,7 +15,6 @@ interface EntryListInterface
     /**
      * Processes the list file and creates list entries.
      *
-     * @param IOInterface $io
      * @param SourceProcessorInterface[] $processors
      */
     public function process(IOInterface $io, array $processors): void;
@@ -23,9 +22,7 @@ interface EntryListInterface
     /**
      * Resolves the entries within the list.
      *
-     * @param IOInterface $io
      * @param EntryResolverInterface[] $resolvers
-     * @param bool $force
      */
     public function resolve(IOInterface $io, array $resolvers, bool $force = false): void;
 
@@ -74,7 +71,7 @@ interface EntryListInterface
     /**
      * Sets the value of a given data key or the whole list data array.
      */
-    public function set(array|string $key, mixed $value = null): void;
+    public function set(array | string $key, mixed $value = null): void;
 
     /**
      * Checks if a given key exists in list data.

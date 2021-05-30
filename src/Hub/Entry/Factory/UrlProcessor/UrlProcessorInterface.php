@@ -27,9 +27,8 @@ interface UrlProcessorInterface
     /**
      * Processes the url then outputs new entry(s).
      *
-     * @return bool|EntryInterface|EntryInterface[]|string|string[]
-     *  When success it returns new entries or a single entry, on partial processing it returns child
-     *    urls or a single child url, on failure it returns FALSE
+     * @return bool|EntryInterface|EntryInterface[]|string|string[] When success it returns new entries or a single entry, on partial processing it returns child
+     *                                                              urls or a single child url, on failure it returns FALSE
      */
     public function process(string $url);
 

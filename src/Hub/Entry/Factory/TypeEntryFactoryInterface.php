@@ -16,14 +16,14 @@ interface TypeEntryFactoryInterface
      *
      * @return EntryInterface|EntryInterface[]
      */
-    public static function create(array|string $type, array $data = []): EntryInterface|array;
+    public static function create(array | string $type, array $data = []): EntryInterface | array;
 
     /**
      * Gets a list of supported input types or checks whether the given type is supported.
      *
-     * @param string|null $input Input type to check against
+     * @param null|string $input Input type to check against
      *
-     * @return array|string|bool
+     * @return array|bool|string
      */
-    public static function supports(string $input = null): bool|string|array;
+    public static function supports(string $input = null): bool | string | array;
 }

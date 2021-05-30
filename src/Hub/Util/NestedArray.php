@@ -6,6 +6,7 @@ namespace Hub\Util;
  * Provides helpers to perform operations on nested arrays and array keys of variable depth.
  *
  * @ingroup utility
+ *
  * @see https://github.com/drupal/drupal/blob/9.3.x/core/lib/Drupal/Component/Utility/NestedArray.php
  */
 class NestedArray
@@ -19,6 +20,7 @@ class NestedArray
      *
      * Without this helper function the only way to get a nested array value with
      * variable depth in one line would be using eval(), which should be avoided:
+     *
      * @code
      * // Do not do this! Avoid eval().
      * // May also throw a PHP notice, if the variable array keys do not exist.
@@ -49,20 +51,16 @@ class NestedArray
      * $value = $form['signature_settings']['signature'];
      * @endcode
      *
-     * @param array $array
-     *   The array from which to get the value.
-     * @param array $parents
-     *   An array of parent keys of the value, starting with the outermost key.
-     * @param bool $key_exists
-     *   (optional) If given, an already defined variable that is altered by
-     *   reference.
+     * @param array $array      The array from which to get the value
+     * @param array $parents    An array of parent keys of the value, starting with the outermost key
+     * @param bool  $key_exists (optional) If given, an already defined variable that is altered by
+     *                          reference
      *
-     * @return mixed
-     *   The requested nested value. Possibly NULL if the value is NULL or not all
-     *   nested parent keys exist. $key_exists is altered by reference and is a
-     *   Boolean that indicates whether all nested parent keys exist (TRUE) or not
-     *   (FALSE). This allows to distinguish between the two possibilities when
-     *   NULL is returned.
+     * @return mixed The requested nested value. Possibly NULL if the value is NULL or not all
+     *               nested parent keys exist. $key_exists is altered by reference and is a
+     *               Boolean that indicates whether all nested parent keys exist (TRUE) or not
+     *               (FALSE). This allows to distinguish between the two possibilities when
+     *               NULL is returned.
      *
      * @see NestedArray::setValue()
      * @see NestedArray::unsetValue()
@@ -71,15 +69,17 @@ class NestedArray
     {
         $ref = &$array;
         foreach ($parents as $parent) {
-            if (is_array($ref) && (isset($ref[$parent]) || array_key_exists($parent, $ref))) {
+            if (\is_array($ref) && (isset($ref[$parent]) || \array_key_exists($parent, $ref))) {
                 $ref = &$ref[$parent];
             } else {
                 $key_exists = false;
                 $null = null;
+
                 return $null;
             }
         }
         $key_exists = true;
+
         return $ref;
     }
 
@@ -91,6 +91,7 @@ class NestedArray
      * is primarily used for form structures and renderable arrays.
      *
      * Example:
+     *
      * @code
      * // Assume you have a 'signature' element somewhere in a form. It might be:
      * $form['signature_settings']['signature'] = array(
@@ -130,17 +131,13 @@ class NestedArray
      * $form['signature_settings']['signature'] = $element;
      * @endcode
      *
-     * @param array $array
-     *   A reference to the array to modify.
-     * @param array $parents
-     *   An array of parent keys, starting with the outermost key.
-     * @param mixed $value
-     *   The value to set.
-     * @param bool $force
-     *   (optional) If TRUE, the value is forced into the structure even if it
-     *   requires the deletion of an already existing non-array parent value. If
-     *   FALSE, PHP throws an error if trying to add into a value that is not an
-     *   array. Defaults to FALSE.
+     * @param array $array   A reference to the array to modify
+     * @param array $parents An array of parent keys, starting with the outermost key
+     * @param mixed $value   The value to set
+     * @param bool  $force   (optional) If TRUE, the value is forced into the structure even if it
+     *                       requires the deletion of an already existing non-array parent value. If
+     *                       FALSE, PHP throws an error if trying to add into a value that is not an
+     *                       array. Defaults to FALSE.
      *
      * @see NestedArray::unsetValue()
      * @see NestedArray::getValue()
@@ -151,7 +148,7 @@ class NestedArray
         foreach ($parents as $parent) {
             // PHP auto-creates container arrays and NULL entries without error if $ref
             // is NULL, but throws an error if $ref is set, but not an array.
-            if ($force && isset($ref) && !is_array($ref)) {
+            if ($force && isset($ref) && !\is_array($ref)) {
                 $ref = [];
             }
             $ref = &$ref[$parent];
@@ -167,6 +164,7 @@ class NestedArray
      * is primarily used for form structures and renderable arrays.
      *
      * Example:
+     *
      * @code
      * // Assume you have a 'signature' element somewhere in a form. It might be:
      * $form['signature_settings']['signature'] = array(
@@ -206,14 +204,11 @@ class NestedArray
      * unset($form['signature_settings']['signature']);
      * @endcode
      *
-     * @param array $array
-     *   A reference to the array to modify.
-     * @param array $parents
-     *   An array of parent keys, starting with the outermost key and including
-     *   the key to be unset.
-     * @param bool $key_existed
-     *   (optional) If given, an already defined variable that is altered by
-     *   reference.
+     * @param array $array       A reference to the array to modify
+     * @param array $parents     An array of parent keys, starting with the outermost key and including
+     *                           the key to be unset
+     * @param bool  $key_existed (optional) If given, an already defined variable that is altered by
+     *                           reference
      *
      * @see NestedArray::setValue()
      * @see NestedArray::getValue()
@@ -222,7 +217,7 @@ class NestedArray
     {
         $unset_key = array_pop($parents);
         $ref = &self::getValue($array, $parents, $key_existed);
-        if ($key_existed && is_array($ref) && (isset($ref[$unset_key]) || array_key_exists($unset_key, $ref))) {
+        if ($key_existed && \is_array($ref) && (isset($ref[$unset_key]) || \array_key_exists($unset_key, $ref))) {
             $key_existed = true;
             unset($ref[$unset_key]);
         } else {
@@ -243,18 +238,16 @@ class NestedArray
      *
      * If the number of array parent keys is static, this helper function is
      * unnecessary and the following code can be used instead:
+     *
      * @code
      * $value_exists = isset($form['signature_settings']['signature']);
      * $key_exists = array_key_exists('signature', $form['signature_settings']);
      * @endcode
      *
-     * @param array $array
-     *   The array with the value to check for.
-     * @param array $parents
-     *   An array of parent keys of the value, starting with the outermost key.
+     * @param array $array   The array with the value to check for
+     * @param array $parents An array of parent keys of the value, starting with the outermost key
      *
-     * @return bool
-     *   TRUE if all the parent keys exist, FALSE otherwise.
+     * @return bool TRUE if all the parent keys exist, FALSE otherwise
      *
      * @see NestedArray::getValue()
      */
@@ -264,6 +257,7 @@ class NestedArray
         // arguments should be consistent with getValue().
         $key_exists = null;
         self::getValue($array, $parents, $key_exists);
+
         return $key_exists;
     }
 
@@ -275,6 +269,7 @@ class NestedArray
      * arrays, the latter value replaces the former rather than merging with it.
      *
      * Example:
+     *
      * @code
      * $link_options_1 = array('fragment' => 'x', 'attributes' => array('title' => t('X'), 'class' => array('a', 'b')));
      * $link_options_2 = array('fragment' => 'y', 'attributes' => array('title' => t('Y'), 'class' => array('c', 'd')));
@@ -286,17 +281,15 @@ class NestedArray
      * $correct = NestedArray::mergeDeep($link_options_1, $link_options_2);
      * @endcode
      *
-     * @param array ...
-     *   Arrays to merge.
+     * @param array ... Arrays to merge.
      *
-     * @return array
-     *   The merged array.
+     * @return array The merged array
      *
      * @see NestedArray::mergeDeepArray()
      */
     public static function mergeDeep()
     {
-        return self::mergeDeepArray(func_get_args());
+        return self::mergeDeepArray(\func_get_args());
     }
 
     /**
@@ -314,14 +307,11 @@ class NestedArray
      * - call_user_func_array('NestedArray::mergeDeep', $arrays_to_merge);
      * - NestedArray::mergeDeepArray($arrays_to_merge);
      *
-     * @param array $arrays
-     *   An arrays of arrays to merge.
-     * @param bool $preserve_integer_keys
-     *   (optional) If given, integer keys will be preserved and merged instead of
-     *   appended. Defaults to FALSE.
+     * @param array $arrays                An arrays of arrays to merge
+     * @param bool  $preserve_integer_keys (optional) If given, integer keys will be preserved and merged instead of
+     *                                     appended. Defaults to FALSE.
      *
-     * @return array
-     *   The merged array.
+     * @return array The merged array
      *
      * @see NestedArray::mergeDeep()
      */
@@ -333,11 +323,11 @@ class NestedArray
                 // Renumber integer keys as array_merge_recursive() does unless
                 // $preserve_integer_keys is set to TRUE. Note that PHP automatically
                 // converts array keys that are integer strings (e.g., '1') to integers.
-                if (is_int($key) && !$preserve_integer_keys) {
+                if (\is_int($key) && !$preserve_integer_keys) {
                     $result[] = $value;
                 }
                 // Recurse when both values are arrays.
-                elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                elseif (isset($result[$key]) && \is_array($result[$key]) && \is_array($value)) {
                     $result[$key] = self::mergeDeepArray([$result[$key], $value], $preserve_integer_keys);
                 }
                 // Otherwise, use the latter value, overriding any previous value.
@@ -346,25 +336,23 @@ class NestedArray
                 }
             }
         }
+
         return $result;
     }
 
     /**
      * Filters a nested array recursively.
      *
-     * @param array $array
-     *   The filtered nested array.
-     * @param callable|null $callable
-     *   The callable to apply for filtering.
+     * @param array         $array    The filtered nested array
+     * @param null|callable $callable The callable to apply for filtering
      *
-     * @return array
-     *   The filtered array.
+     * @return array The filtered array
      */
     public static function filter(array $array, callable $callable = null)
     {
-        $array = is_callable($callable) ? array_filter($array, $callable) : array_filter($array);
+        $array = \is_callable($callable) ? array_filter($array, $callable) : array_filter($array);
         foreach ($array as &$element) {
-            if (is_array($element)) {
+            if (\is_array($element)) {
                 $element = static::filter($element, $callable);
             }
         }

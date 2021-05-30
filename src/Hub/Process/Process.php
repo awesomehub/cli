@@ -28,7 +28,7 @@ class Process extends BaseProcess
      *      [env]       array
      *      [cwd]       string
      */
-    public function __construct(LoggerInterface $logger, $command, array $options = [])
+    public function __construct(LoggerInterface $logger, string $command, array $options = [])
     {
         $this->command = $command;
         $this->options = array_merge([
@@ -117,7 +117,7 @@ class Process extends BaseProcess
         }
 
         $finalCallback = $callback;
-        /** @var $output OutputInterface|ConsoleOutputInterface */
+        /** @var ConsoleOutputInterface|OutputInterface $output */
         $output = $this->options['output'];
         if ($output instanceof OutputInterface) {
             $finalCallback = static function ($type, $buffer) use ($output, $callback) {

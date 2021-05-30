@@ -79,7 +79,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function set(array|string $key, mixed $value = null): void
+    public function set(array | string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
@@ -97,7 +97,7 @@ abstract class AbstractEntry implements EntryInterface
     /**
      * {@inheritdoc}
      */
-    public function merge(array|string $key, mixed $value = null): void
+    public function merge(array | string $key, mixed $value = null): void
     {
         if (!\is_array($key)) {
             $key = [$key => $value];

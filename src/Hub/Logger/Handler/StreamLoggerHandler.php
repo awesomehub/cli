@@ -34,7 +34,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     protected ?int $filePermission;
     protected bool $useLocking;
 
-    /** @var resource|null */
+    /** @var null|resource */
     protected $stream;
     protected ?string $url = null;
     private ?string $errorMessage = null;
@@ -44,9 +44,9 @@ class StreamLoggerHandler implements LoggerHandlerInterface
      * Constructor.
      *
      * @param resource|string $stream
-     * @param string $level The minimum logging level at which this handler will be triggered
-     * @param int|null $filePermission Optional file permissions (default (0644) are only for owner read/write)
-     * @param bool $useLocking Try to lock log file before doing any writes
+     * @param string          $level          The minimum logging level at which this handler will be triggered
+     * @param null|int        $filePermission Optional file permissions (default (0644) are only for owner read/write)
+     * @param bool            $useLocking     Try to lock log file before doing any writes
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      */
@@ -131,14 +131,14 @@ class StreamLoggerHandler implements LoggerHandlerInterface
 
         if ($this->useLocking) {
             // ignoring errors here, there's not much we can do about them
-            flock($this->stream, LOCK_EX);
+            flock($this->stream, \LOCK_EX);
         }
 
         // write the message to the stream resource
         fwrite($this->stream, sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record->getTimestamp()), ucfirst($record->getLevel()), $record->getMessage()));
 
         if ($this->useLocking) {
-            flock($this->stream, LOCK_UN);
+            flock($this->stream, \LOCK_UN);
         }
     }
 
@@ -184,7 +184,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
             restore_error_handler();
 
             // throw exception if directory couldn't be created
-            if (false === $status && !\is_dir($dir)) {
+            if (false === $status && !is_dir($dir)) {
                 throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: %s', $dir, $this->errorMessage));
             }
         }
