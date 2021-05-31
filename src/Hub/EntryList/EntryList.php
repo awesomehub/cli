@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\EntryList;
 
 use Hub\Entry\EntryInterface;
@@ -343,7 +345,7 @@ class EntryList implements EntryListInterface
         if ($source->hasOption('exclude')) {
             foreach ($source->getOption('exclude', []) as $regex) {
                 $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
-                if (false === @preg_match($regex, null)) {
+                if (false === @preg_match($regex, '')) {
                     throw new \InvalidArgumentException(sprintf("Invalid exclude regex '%s'", $regex));
                 }
 
@@ -389,7 +391,7 @@ class EntryList implements EntryListInterface
 
                     $regex = '*' === $regex ? '.*' : $regex;
                     $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
-                    if (false === @preg_match($regex, null)) {
+                    if (false === @preg_match($regex, '')) {
                         throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
                     }
 

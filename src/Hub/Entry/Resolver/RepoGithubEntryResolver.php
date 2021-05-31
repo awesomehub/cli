@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\Entry\Resolver;
 
 use Github\Utils\RepoInspector\Exception\RepoInspectorException;

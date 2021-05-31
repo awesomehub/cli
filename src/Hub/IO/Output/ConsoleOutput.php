@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\IO\Output;
 
 use Symfony\Component\Console;

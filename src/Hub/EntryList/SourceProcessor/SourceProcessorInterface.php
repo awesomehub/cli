@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\EntryList\SourceProcessor;
 
 use Hub\EntryList\Source\SourceInterface;

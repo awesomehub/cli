@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\EntryList\Distributor;
 
 use Hub\Build\BuildInterface;
@@ -13,7 +15,7 @@ class ListDistributor implements ListDistributorInterface
 {
     protected EntryListInterface $list;
     protected array $config;
-    protected string $updated;
+    protected int $updated;
 
     public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, array $config = null)
     {

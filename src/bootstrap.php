@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 if (80000 > \PHP_VERSION_ID) {
     fwrite(
         \STDERR,
@@ -19,7 +21,7 @@ error_reporting(\E_ALL);
 // Ensure errors are displayed correctly
 // CLI - display errors only if they're not already logged to STDERR
 if (function_exists('ini_set') && (!ini_get('log_errors') || ini_get('error_log'))) {
-    ini_set('display_errors', 1);
+    ini_set('display_errors', '1');
 }
 
 // Find composer's autoload.php file

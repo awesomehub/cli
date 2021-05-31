@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\Entry\Factory\UrlProcessor;
 
 use Hub\Entry\RepoGithubEntry;
@@ -10,7 +12,7 @@ use Hub\Entry\RepoGithubEntryInterface;
  */
 class GithubUrlProcessor implements UrlProcessorInterface
 {
-    protected array $matches;
+    protected array $matches = [];
 
     /**
      * {@inheritdoc}

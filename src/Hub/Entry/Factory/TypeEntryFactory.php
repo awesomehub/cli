@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hub\Entry\Factory;
 
 use Hub\Entry\EntryInterface;
