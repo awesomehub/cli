@@ -31,7 +31,7 @@
     "symfony/config": "^3.4",
     "symfony/dom-crawler": "^3.4",
     "symfony/css-selector": "^3.4",
-    "league/commonmark": "^0.15",
+    "league/commonmark": "^1.6",
     "php-http/client-common": "^2.3",
     "guzzlehttp/guzzle": "^7.1",
     "guzzlehttp/psr7": "2.0.0-rc1",

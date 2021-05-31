@@ -30,7 +30,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
             throw new \RuntimeException('Failed processing an empty markdown data');
         }
 
-        $environment = CommonMark\Environment::createCommonMarkEnvironment();
+        $environment = CommonMark\Environment::createGFMEnvironment();
         $parser = new CommonMark\DocParser($environment);
         $document = $parser->parse($markdown);
 
