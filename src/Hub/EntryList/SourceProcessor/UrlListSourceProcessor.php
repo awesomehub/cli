@@ -20,7 +20,7 @@ class UrlListSourceProcessor implements SourceProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function process(SourceInterface $source, \Closure $callback = null)
+    public function process(SourceInterface $source, \Closure $callback = null): void
     {
         $urls = $source->getData();
         if (!\is_array($urls)) {

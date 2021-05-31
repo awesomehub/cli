@@ -118,7 +118,7 @@ class Process extends BaseProcess
         /** @var ConsoleOutputInterface|OutputInterface $output */
         $output = $this->options['output'];
         if ($output instanceof OutputInterface) {
-            $finalCallback = static function ($type, $buffer) use ($output, $callback) {
+            $finalCallback = static function ($type, $buffer) use ($output, $callback): void {
                 if ($callback) {
                     $callback($type, $buffer);
                 }

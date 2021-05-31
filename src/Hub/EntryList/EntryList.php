@@ -282,9 +282,7 @@ class EntryList implements EntryListInterface
             $entry->set('categories', $categoryIds);
         }
 
-        usort($this->categories, static function ($x, $y): int {
-            return strcmp($x['path'], $y['path']);
-        });
+        usort($this->categories, static fn ($x, $y): int => strcmp($x['path'], $y['path']));
 
         // Add category order
         $categoryOrder = $this->data['options']['categoryOrder'];

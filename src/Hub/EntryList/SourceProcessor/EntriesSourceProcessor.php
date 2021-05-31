@@ -20,7 +20,7 @@ class EntriesSourceProcessor implements SourceProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function process(SourceInterface $source, \Closure $callback = null)
+    public function process(SourceInterface $source, \Closure $callback = null): void
     {
         $entries = $source->getData();
         if (!\is_array($entries)) {

@@ -101,11 +101,12 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                             throw new \UnexpectedValueException(sprintf("Invalid processor output of type [%s] for processor '%s'", \gettype($result), $processor::class));
                         }
 
-                        array_walk_recursive($result, static function ($item, $key) use ($processor) {
-                            if (!$item instanceof EntryInterface) {
-                                throw new \UnexpectedValueException(sprintf("Invalid inner processor output value of type [%s] at index[%s] for processor '%s'", \gettype($item), $key, $processor::class));
-                            }
-                        });
+                        array_walk_recursive(
+                            $result,
+                            static fn ($item, $key) => $item instanceof EntryInterface
+                                ? null
+                                : throw new \UnexpectedValueException(sprintf("Invalid inner processor output value of type [%s] at index[%s] for processor '%s'", \gettype($item), $key, $processor::class))
+                        );
 
                         $entries = array_merge($entries, $result);
 

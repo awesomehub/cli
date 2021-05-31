@@ -120,11 +120,13 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     {
         $formatters = $this->getPlaceholderFormatters();
 
-        return preg_replace_callback('{%([a-z\\-_]+)%}i', static function ($matches) use ($formatters) {
-            return isset($formatters[$matches[1]])
+        return preg_replace_callback(
+            '{%([a-z\\-_]+)%}i',
+            static fn ($matches) => isset($formatters[$matches[1]])
                 ? \call_user_func($formatters[$matches[1]])
-                : $matches[0];
-        }, $message);
+                : $matches[0],
+            $message
+        );
     }
 
     /**
@@ -141,12 +143,8 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
 
                     return $values[$this->spinnerCurrent % \count($values)];
                 },
-                'elapsed' => function () {
-                    return Console\Helper\Helper::formatTime(time() - $this->startTime);
-                },
-                'memory' => function () {
-                    return Console\Helper\Helper::formatMemory(memory_get_usage(true));
-                },
+                'elapsed' => fn () => Console\Helper\Helper::formatTime(time() - $this->startTime),
+                'memory' => fn () => Console\Helper\Helper::formatMemory(memory_get_usage(true)),
             ];
         }
 
