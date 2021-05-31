@@ -31,8 +31,6 @@ class StreamLoggerHandler implements LoggerHandlerInterface
 
     protected string $level;
     protected int $severity;
-    protected ?int $filePermission;
-    protected bool $useLocking;
 
     /** @var null|resource */
     protected $stream;
@@ -50,7 +48,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      */
-    public function __construct(mixed $stream, string $level = LogLevel::DEBUG, int $filePermission = null, bool $useLocking = false)
+    public function __construct(mixed $stream, string $level = LogLevel::DEBUG, protected ?int $filePermission = null, protected bool $useLocking = false)
     {
         if (\is_resource($stream)) {
             $this->stream = $stream;
@@ -67,8 +65,6 @@ class StreamLoggerHandler implements LoggerHandlerInterface
 
         $this->level = $level;
         $this->severity = static::$severityLevelMap[$level];
-        $this->filePermission = $filePermission;
-        $this->useLocking = $useLocking;
     }
 
     public function __destruct()
@@ -143,23 +139,6 @@ class StreamLoggerHandler implements LoggerHandlerInterface
     }
 
     /**
-     * Gets the directory name from the stream.
-     */
-    private function getDirFromStream(string $stream): ?string
-    {
-        $pos = strpos($stream, '://');
-        if (false === $pos) {
-            return \dirname($stream);
-        }
-
-        if (str_starts_with($stream, 'file://')) {
-            return \dirname(substr($stream, 7));
-        }
-
-        return null;
-    }
-
-    /**
      * Attempts to create the log directory if not exist.
      *
      * @throws \UnexpectedValueException If a missing directory is not buildable
@@ -184,12 +163,29 @@ class StreamLoggerHandler implements LoggerHandlerInterface
             restore_error_handler();
 
             // throw exception if directory couldn't be created
-            if (false === $status && !is_dir($dir)) {
+            if (!$status && !is_dir($dir)) {
                 throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: %s', $dir, $this->errorMessage));
             }
         }
 
         $this->dirCreated = true;
+    }
+
+    /**
+     * Gets the directory name from the stream.
+     */
+    private function getDirFromStream(string $stream): ?string
+    {
+        $pos = strpos($stream, '://');
+        if (false === $pos) {
+            return \dirname($stream);
+        }
+
+        if (str_starts_with($stream, 'file://')) {
+            return \dirname(substr($stream, 7));
+        }
+
+        return null;
     }
 
     /**

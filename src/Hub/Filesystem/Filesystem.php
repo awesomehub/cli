@@ -95,7 +95,7 @@ class Filesystem extends BaseFilesystem
                 continue;
             }
 
-            if (\count($segments) > 0 && '' !== end($segments)) {
+            if ([] !== $segments && '' !== end($segments)) {
                 array_pop($segments);
             } else {
                 throw new \LogicException('Path is outside of the defined root, path: ['.$path.']');

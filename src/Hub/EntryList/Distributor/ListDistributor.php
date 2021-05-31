@@ -11,16 +11,12 @@ use Hub\EntryList\EntryListInterface;
  */
 class ListDistributor implements ListDistributorInterface
 {
-    protected BuildInterface $build;
-    protected ?BuildInterface $cachedBuild;
     protected EntryListInterface $list;
     protected array $config;
     protected string $updated;
 
-    public function __construct(BuildInterface $build, BuildInterface $cached = null, array $config = null)
+    public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, array $config = null)
     {
-        $this->build = $build;
-        $this->cachedBuild = $cached;
         $this->config = [
             'collections' => [],
         ];
@@ -181,7 +177,7 @@ class ListDistributor implements ListDistributorInterface
      */
     protected function getCachedObject(string $id): mixed
     {
-        if (!$this->cachedBuild) {
+        if (null === $this->cachedBuild) {
             return false;
         }
 

@@ -10,14 +10,10 @@ use Hub\Workspace\WorkspaceInterface;
  */
 class BuildFactory implements BuildFactoryInterface
 {
-    protected Filesystem $filesystem;
-    protected WorkspaceInterface $workspace;
     protected array $path;
 
-    public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace)
+    public function __construct(protected Filesystem $filesystem, protected WorkspaceInterface $workspace)
     {
-        $this->filesystem = $filesystem;
-        $this->workspace = $workspace;
         $this->path = [
             'dist' => $this->workspace->path('dist'),
             'cached' => $this->workspace->path('cache/dist'),

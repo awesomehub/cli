@@ -63,7 +63,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
      */
     public function runHandlers(LoggerRecordInterface $record): void
     {
-        if (0 === \count($this->handlers)) {
+        if ([] === $this->handlers) {
             throw new \LogicException('No logger handler has been defined.');
         }
 
@@ -83,7 +83,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
     {
         $this->runHandlers(new LoggerRecord(
             $level,
-            $this->interpolate((string) $message, $context),
+            $this->interpolate($message, $context),
             time(),
             $context
         ));

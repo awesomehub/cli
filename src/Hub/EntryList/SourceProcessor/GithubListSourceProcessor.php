@@ -11,11 +11,8 @@ use Hub\EntryList\Source\SourceInterface;
  */
 class GithubListSourceProcessor implements SourceProcessorInterface
 {
-    protected HttpMethodsClient $http;
-
-    public function __construct(HttpMethodsClient $httpClient)
+    public function __construct(protected HttpMethodsClient $http)
     {
-        $this->http = $httpClient;
     }
 
     /**
@@ -41,7 +38,7 @@ class GithubListSourceProcessor implements SourceProcessorInterface
             $response = $this->http->get($url);
             $markdown = (string) $response->getBody();
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Failed fetching url '%s'; %s", $url, $e->getMessage()));
+            throw new \RuntimeException(sprintf("Failed fetching url '%s'; %s", $url, $e->getMessage()), $e->getCode(), $e);
         }
 
         return new Source('github.markdown', $markdown, $source->getOptions());

@@ -9,15 +9,9 @@ use Hub\Entry\Factory\UrlProcessor\UrlProcessorInterface;
  */
 class UrlEntryCreationFailedException extends EntryCreationFailedException
 {
-    private string $url;
-    private UrlProcessorInterface $processor;
-
-    public function __construct(string $message, UrlProcessorInterface $processor, $url, int $code = 0, \Exception $previous = null)
+    public function __construct(string $message, private UrlProcessorInterface $processor, private string $url, int $code = 0, \Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
-
-        $this->processor = $processor;
-        $this->url = $url;
     }
 
     /**
@@ -33,6 +27,6 @@ class UrlEntryCreationFailedException extends EntryCreationFailedException
      */
     public function getProcessor(): string
     {
-        return \get_class($this->processor);
+        return $this->processor::class;
     }
 }

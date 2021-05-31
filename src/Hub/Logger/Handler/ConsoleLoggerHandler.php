@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleLoggerHandler implements LoggerHandlerInterface
 {
-    private OutputInterface $output;
     private array $verbosityLevelMap = [
         LogLevel::EMERGENCY => OutputInterface::VERBOSITY_NORMAL,
         LogLevel::ALERT => OutputInterface::VERBOSITY_NORMAL,
@@ -32,9 +31,8 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         LogLevel::DEBUG => 'debug',
     ];
 
-    public function __construct(OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
+    public function __construct(private OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
     {
-        $this->output = $output;
         $this->verbosityLevelMap = $verbosityLevelMap + $this->verbosityLevelMap;
         $this->formatLevelMap = $formatLevelMap + $this->formatLevelMap;
     }

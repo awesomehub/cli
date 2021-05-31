@@ -7,17 +7,8 @@ namespace Hub\Logger\Record;
  */
 class LoggerRecord implements LoggerRecordInterface
 {
-    protected string $level;
-    protected string $message;
-    protected array $context;
-    protected int $timestamp;
-
-    public function __construct(string $level, string $message, int $timestamp, array $context = [])
+    public function __construct(protected string $level, protected string $message, protected int $timestamp, protected array $context = [])
     {
-        $this->level = $level;
-        $this->message = $message;
-        $this->timestamp = $timestamp;
-        $this->context = $context;
     }
 
     /**

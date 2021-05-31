@@ -11,11 +11,8 @@ use Hub\Exceptions\EntryCreationFailedException;
  */
 class EntriesSourceProcessor implements SourceProcessorInterface
 {
-    protected TypeEntryFactoryInterface $entryFactory;
-
-    public function __construct(TypeEntryFactoryInterface $entryFactory)
+    public function __construct(protected TypeEntryFactoryInterface $entryFactory)
     {
-        $this->entryFactory = $entryFactory;
     }
 
     /**

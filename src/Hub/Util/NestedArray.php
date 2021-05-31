@@ -142,7 +142,7 @@ class NestedArray
      * @see NestedArray::unsetValue()
      * @see NestedArray::getValue()
      */
-    public static function setValue(array &$array, array $parents, $value, $force = false)
+    public static function setValue(array &$array, array $parents, mixed $value, bool $force = false): void
     {
         $ref = &$array;
         foreach ($parents as $parent) {
@@ -213,7 +213,7 @@ class NestedArray
      * @see NestedArray::setValue()
      * @see NestedArray::getValue()
      */
-    public static function unsetValue(array &$array, array $parents, &$key_existed = null)
+    public static function unsetValue(array &$array, array $parents, bool &$key_existed = null): void
     {
         $unset_key = array_pop($parents);
         $ref = &self::getValue($array, $parents, $key_existed);
@@ -251,7 +251,7 @@ class NestedArray
      *
      * @see NestedArray::getValue()
      */
-    public static function keyExists(array $array, array $parents)
+    public static function keyExists(array $array, array $parents): bool
     {
         // Although this function is similar to PHP's array_key_exists(), its
         // arguments should be consistent with getValue().
@@ -287,7 +287,7 @@ class NestedArray
      *
      * @see NestedArray::mergeDeepArray()
      */
-    public static function mergeDeep()
+    public static function mergeDeep(): array
     {
         return self::mergeDeepArray(\func_get_args());
     }
@@ -315,7 +315,7 @@ class NestedArray
      *
      * @see NestedArray::mergeDeep()
      */
-    public static function mergeDeepArray(array $arrays, $preserve_integer_keys = false)
+    public static function mergeDeepArray(array $arrays, bool $preserve_integer_keys = false): array
     {
         $result = [];
         foreach ($arrays as $array) {
@@ -348,7 +348,7 @@ class NestedArray
      *
      * @return array The filtered array
      */
-    public static function filter(array $array, callable $callable = null)
+    public static function filter(array $array, callable $callable = null): array
     {
         $array = \is_callable($callable) ? array_filter($array, $callable) : array_filter($array);
         foreach ($array as &$element) {

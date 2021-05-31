@@ -7,13 +7,11 @@ namespace Hub\EntryList\Source;
  */
 class Source implements SourceInterface
 {
-    protected string $type;
     protected mixed $data;
     protected array $options;
 
-    public function __construct(string $type, mixed $data, array $options = [])
+    public function __construct(protected string $type, mixed $data, array $options = [])
     {
-        $this->type = $type;
         $this->data = $data;
         $this->options = $options;
     }

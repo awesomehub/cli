@@ -13,17 +13,15 @@ class Workspace implements WorkspaceInterface
 {
     protected string $path;
     protected array $config;
-    protected Filesystem $filesystem;
     protected array $structure = [
         'lists',
         'cache',
     ];
 
-    public function __construct(string $path, Filesystem $filesystem)
+    public function __construct(string $path, protected Filesystem $filesystem)
     {
         $this->path = rtrim($path, '/\\');
         $this->config = [];
-        $this->filesystem = $filesystem;
 
         $this->verify();
         $this->setConfig();
@@ -65,7 +63,7 @@ class Workspace implements WorkspaceInterface
             return $this->getConfigPath($key);
         } catch (\InvalidArgumentException $e) {
             if (1 === \func_num_args()) {
-                throw new \InvalidArgumentException("Can not find workspace config key '{$key}': {$e->getMessage()}");
+                throw new \InvalidArgumentException("Can not find workspace config key '{$key}': {$e->getMessage()}", $e->getCode(), $e);
             }
 
             return $default;

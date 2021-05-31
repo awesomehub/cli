@@ -29,7 +29,7 @@ class MakeCleanCommand extends Command
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
         $build = $buildFactory->getCurrent();
-        if ($build) {
+        if (null !== $build) {
             $build->clean();
         }
 

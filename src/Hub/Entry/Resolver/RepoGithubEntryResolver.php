@@ -15,15 +15,8 @@ use Hub\Workspace\WorkspaceInterface;
  */
 class RepoGithubEntryResolver implements EntryResolverInterface
 {
-    protected GithubRepoInspectorInterface $inspector;
-    protected WorkspaceInterface $workspace;
-    protected Filesystem $filesystem;
-
-    public function __construct(GithubRepoInspectorInterface $inspector, Filesystem $filesystem, WorkspaceInterface $workspace)
+    public function __construct(protected GithubRepoInspectorInterface $inspector, protected Filesystem $filesystem, protected WorkspaceInterface $workspace)
     {
-        $this->inspector = $inspector;
-        $this->workspace = $workspace;
-        $this->filesystem = $filesystem;
     }
 
     /**

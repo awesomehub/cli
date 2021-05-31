@@ -86,7 +86,7 @@ class ListBuildCommand extends Command
         // Build all lists
         if (empty($path)) {
             $paths = EntryListFile::findLists($this->workspace);
-            if (0 === \count($paths)) {
+            if ([] === $paths) {
                 $this->io->note('No lists found to build');
 
                 exit(0);

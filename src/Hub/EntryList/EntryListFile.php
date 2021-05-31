@@ -15,19 +15,13 @@ class EntryListFile extends EntryList
     public const LISTS_DIR = 'lists';
     public const LISTS_CACHE_DIR = 'cache/lists';
 
-    protected Filesystem $filesystem;
-    protected WorkspaceInterface $workspace;
-
     /**
      * Constructor.
      *
      * @throws \RuntimeException
      */
-    public function __construct(Filesystem $filesystem, WorkspaceInterface $workspace, string $path, string $format)
+    public function __construct(protected Filesystem $filesystem, protected WorkspaceInterface $workspace, string $path, string $format)
     {
-        $this->filesystem = $filesystem;
-        $this->workspace = $workspace;
-
         // Check it it's relative path
         if (!$this->filesystem->isAbsolutePath($path)) {
             $path = $this->workspace->path([self::LISTS_DIR, $path]);
@@ -44,13 +38,13 @@ class EntryListFile extends EntryList
                 throw new \InvalidArgumentException(sprintf("File contents shall not be empty at '%s'", $path));
             }
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Unable to read list definition file '%s'; %s", $path, $e->getMessage()));
+            throw new \RuntimeException(sprintf("Unable to read list definition file '%s'; %s", $path, $e->getMessage()), $e->getCode(), $e);
         }
 
         try {
             $data = $this->decode($encodedData, $format);
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Unable to encode list definition file '%s'; %s", $path, $e->getMessage()));
+            throw new \RuntimeException(sprintf("Unable to encode list definition file '%s'; %s", $path, $e->getMessage()), $e->getCode(), $e);
         }
 
         parent::__construct($data);

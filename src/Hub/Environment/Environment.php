@@ -121,11 +121,7 @@ class Environment implements EnvironmentInterface
 
         // Check if ENV variable is defined
         if ($envMode = getenv('ENV')) {
-            if (\in_array(strtolower($envMode), ['development', 'dev'])) {
-                $this->mode = self::DEVELOPMENT;
-            } else {
-                $this->mode = self::PRODUCTION;
-            }
+            $this->mode = \in_array(strtolower($envMode), ['development', 'dev']) ? self::DEVELOPMENT : self::PRODUCTION;
 
             return;
         }

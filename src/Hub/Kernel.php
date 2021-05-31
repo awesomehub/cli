@@ -91,7 +91,7 @@ abstract class Kernel implements KernelInterface
      */
     public function isBooted(): bool
     {
-        return true === $this->booted;
+        return $this->booted;
     }
 
     /**
@@ -109,6 +109,11 @@ abstract class Kernel implements KernelInterface
     {
         return $this->container;
     }
+
+    /**
+     * Loads the container configuration.
+     */
+    abstract protected function registerContainerConfiguration(LoaderInterface $loader): void;
 
     /**
      * Initializes the service container.
@@ -187,9 +192,4 @@ abstract class Kernel implements KernelInterface
 
         return new DelegatingLoader($resolver);
     }
-
-    /**
-     * Loads the container configuration.
-     */
-    abstract protected function registerContainerConfiguration(LoaderInterface $loader): void;
 }

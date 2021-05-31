@@ -12,11 +12,8 @@ use Hub\EntryList\Source\SourceInterface;
  */
 class GithubAuthorSourceProcessor implements SourceProcessorInterface
 {
-    protected GithubWrapperInterface $github;
-
-    public function __construct(GithubWrapperInterface $github)
+    public function __construct(protected GithubWrapperInterface $github)
     {
-        $this->github = $github;
     }
 
     /**

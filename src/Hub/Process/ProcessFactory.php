@@ -9,14 +9,11 @@ use Psr\Log\LoggerInterface;
  */
 class ProcessFactory implements ProcessFactoryInterface
 {
-    protected LoggerInterface $logger;
-
     /**
      * {@inheritdoc}
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(protected LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**

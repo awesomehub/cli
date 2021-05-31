@@ -10,8 +10,6 @@ use Psr\Log\LogLevel;
  */
 class LoggerExceptionHandler implements ExceptionHandlerInterface
 {
-    private LoggerInterface $logger;
-
     private static array $errorSeverityMap = [
         \E_DEPRECATED => LogLevel::INFO,
         \E_USER_DEPRECATED => LogLevel::INFO,
@@ -30,9 +28,8 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
         \E_CORE_ERROR => LogLevel::CRITICAL,
     ];
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**
@@ -49,7 +46,7 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
         }
 
         // log the main error
-        $this->logger->log($logLevel, sprintf('[%s] %s (%s:%s)', \get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()));
+        $this->logger->log($logLevel, sprintf('[%s] %s (%s:%s)', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()));
 
         // generate stack trace
         $this->logger->log($logLevel, 'Stack trace:', ['console.level' => LogLevel::DEBUG]);

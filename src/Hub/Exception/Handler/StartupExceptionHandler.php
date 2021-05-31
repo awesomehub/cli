@@ -12,7 +12,7 @@ class StartupExceptionHandler implements ExceptionHandlerInterface
      */
     public function handle(\Exception $e): void
     {
-        echo sprintf('[%s] %s (%s:%s)', \get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()).\PHP_EOL;
+        echo sprintf('[%s] %s (%s:%s)', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()).\PHP_EOL;
         echo 'Stack trace:'.\PHP_EOL;
         // exception related properties
         $trace = $e->getTrace();

@@ -19,12 +19,12 @@ class ExceptionHandlerPass implements CompilerPassInterface
 
         $definition = $container->findDefinition('exception');
         $handlers = [];
-        foreach ($container->findTaggedServiceIds('exception.handler') as $id => $tags) {
+        foreach (array_keys($container->findTaggedServiceIds('exception.handler')) as $id) {
             $handlers[] = new Reference($id);
         }
 
         // Overwrite previous handlers
-        if (\count($handlers)) {
+        if ([] !== $handlers) {
             $definition->addMethodCall('setHandlers', [$handlers]);
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-if (version_compare('8.0.0', \PHP_VERSION, '>')) {
+if (80000 > \PHP_VERSION_ID) {
     fwrite(
         \STDERR,
         'PHP 8.0 or later is needed to run this application.'.\PHP_EOL

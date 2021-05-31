@@ -148,7 +148,8 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                 'path' => [],
                 'rules' => $rule,
             ];
-            for ($i = 0; $i < \count($matches[0]); ++$i) {
+            $itemsCount = \count($matches[0]);
+            for ($i = 0; $i < $itemsCount; ++$i) {
                 $operator = $matches[1][$i];
                 $level = (int) $matches[2][$i];
                 $category = $matches[3][$i];
@@ -164,9 +165,9 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                     'operator' => $operator,
                     'node' => [
                         'level' => $level,
-                        'category' => !empty($rule['isCaseSensitive'])
-                            ? $category
-                            : strtolower($category),
+                        'category' => empty($rule['isCaseSensitive'])
+                            ? strtolower($category)
+                            : $category,
                     ],
                 ];
             }
@@ -186,9 +187,9 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
 
         // Search for a matching path
         foreach ($this->rules as $rule) {
-            $tree = !empty($rule['rules']['isCaseSensitive'])
-                ? $this->tree['cs']
-                : $this->tree['ci'];
+            $tree = empty($rule['rules']['isCaseSensitive'])
+                ? $this->tree['ci']
+                : $this->tree['cs'];
             $pathSeg = end($rule['path']);
             $treeNode = end($tree);
             if ($pathSeg['node'] !== $treeNode) {
@@ -243,7 +244,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     protected function checkSkippedRules(): void
     {
         $skippedPaths = array_diff(array_column($this->rules, 'pathRaw'), $this->pathMatches);
-        if (\count($skippedPaths) > 0) {
+        if ([] !== $skippedPaths) {
             throw new \RuntimeException(sprintf("Unable to match category path%s '%s'", \count($skippedPaths) > 1 ? 's' : '', implode(', ', $skippedPaths)));
         }
     }

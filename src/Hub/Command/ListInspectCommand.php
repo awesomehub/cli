@@ -98,14 +98,14 @@ class ListInspectCommand extends Command
         }
 
         if (0 === $depth) {
-            if (0 === \count($body)) {
+            if ([] === $body) {
                 $this->io->text('No categories found');
 
                 return [];
             }
 
             $header = ['Category', 'Order'];
-            foreach (current($this->list->getCategories())['count'] as $type => $count) {
+            foreach (array_keys(current($this->list->getCategories())['count']) as $type) {
                 $header[] = 'Count['.$type.']';
             }
 

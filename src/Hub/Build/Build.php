@@ -10,20 +10,17 @@ use Symfony\Component\Serializer;
  */
 class Build implements BuildInterface
 {
-    protected Filesystem $filesystem;
     protected string $path;
     protected array $meta;
 
     /**
      * Constructor.
      */
-    public function __construct(Filesystem $filesystem, string $path, string $number = null)
+    public function __construct(protected Filesystem $filesystem, string $path, string $number = null)
     {
         if (empty($path)) {
             throw new \InvalidArgumentException('The build path can not be empty');
         }
-
-        $this->filesystem = $filesystem;
         $this->path = $path;
 
         if (!empty($number)) {

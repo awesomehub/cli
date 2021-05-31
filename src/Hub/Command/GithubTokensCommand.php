@@ -49,12 +49,12 @@ class GithubTokensCommand extends Command
                 );
             }
 
-            $this->io->writeln(sprintf('<info>%d. %s</info> [%s]', $i, $token->getId(), \get_class($token)));
+            $this->io->writeln(sprintf('<info>%d. %s</info> [%s]', $i, $token->getId(), $token::class));
             $this->io->writeln($list);
             $this->io->writeln('');
         }
 
-        if (0 === \count($tokens)) {
+        if ([] === $tokens) {
             $this->io->writeln('No Github token has been defined.');
         }
 

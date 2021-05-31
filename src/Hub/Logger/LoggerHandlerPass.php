@@ -15,7 +15,7 @@ class LoggerHandlerPass implements CompilerPassInterface
         }
 
         $definition = $container->findDefinition('logger');
-        foreach ($container->findTaggedServiceIds('logger.handler') as $id => $tags) {
+        foreach (array_keys($container->findTaggedServiceIds('logger.handler')) as $id) {
             $definition->addMethodCall('addHandler', [
                 new Reference($id),
             ]);

@@ -195,7 +195,7 @@ class EntryList implements EntryListInterface
                         "Failed resolving entry#%d [%s] with '%s'; %s",
                         $i,
                         $id,
-                        \get_class($resolver),
+                        $resolver::class,
                         $e->getMessage()
                     ));
 
@@ -210,7 +210,7 @@ class EntryList implements EntryListInterface
                     "Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it",
                     $i,
                     $id,
-                    \get_class($entry)
+                    $entry::class
                 ));
 
                 continue;
@@ -244,13 +244,11 @@ class EntryList implements EntryListInterface
         $im = 0;
         foreach ($this->entries as $entry) {
             $aliases = $entry->getAliases();
-            if (\count($aliases) > 0) {
-                foreach ($aliases as $aliasId) {
-                    if (isset($this->entries[$aliasId])) {
-                        $entry->merge($this->entries[$aliasId]->get());
-                        $this->removeEntry($this->entries[$aliasId]);
-                        ++$im;
-                    }
+            foreach ($aliases as $aliasId) {
+                if (isset($this->entries[$aliasId])) {
+                    $entry->merge($this->entries[$aliasId]->get());
+                    $this->removeEntry($this->entries[$aliasId]);
+                    ++$im;
                 }
             }
         }
@@ -282,7 +280,7 @@ class EntryList implements EntryListInterface
             $entry->set('categories', $categoryIds);
         }
 
-        usort($this->categories, static function ($x, $y) {
+        usort($this->categories, static function ($x, $y): int {
             return strcmp($x['path'], $y['path']);
         });
 
@@ -312,13 +310,14 @@ class EntryList implements EntryListInterface
         // Remove from entries
         unset($this->entries[$entry->getId()]);
 
-        if (0 === \count($this->categories)) {
+        $entryCategories = $entry->get('categories');
+        if ([] === $this->categories || [] === $entryCategories) {
             return;
         }
 
         // Update cat counts
         foreach ($this->categories as $i => $category) {
-            if (\in_array($category['id'], $entry->get('categories'), true)) {
+            if (\in_array($category['id'], $entryCategories, true)) {
                 --$this->categories[$i]['count']['all'];
                 --$this->categories[$i]['count'][$entry->getType()];
 
@@ -432,7 +431,7 @@ class EntryList implements EntryListInterface
         foreach ($sources as $index => $source) {
             $id = ($root ? 'index='.$index.' ' : '').'type='.$source->getType();
             $processedWith = false;
-            $callback = function ($event, $payload) use ($source, $io, $indicator) {
+            $callback = function ($event, $payload) use ($source, $io, $indicator): void {
                 switch ($event) {
                     case SourceProcessorInterface::ON_STATUS_UPDATE:
                         if ('error' === $payload['type']) {
@@ -455,7 +454,7 @@ class EntryList implements EntryListInterface
             };
 
             foreach ($processors as $processor) {
-                $processorName = basename(str_replace('\\', '/', \get_class($processor)));
+                $processorName = basename(str_replace('\\', '/', $processor::class));
 
                 switch ($processor->getAction($source)) {
                     case SourceProcessorInterface::ACTION_PARTIAL_PROCESSING:
@@ -479,7 +478,7 @@ class EntryList implements EntryListInterface
                             $childSources = [$childSources];
                         }
 
-                        if (0 === \count($childSources)) {
+                        if ([] === $childSources) {
                             $logger->warning(sprintf(
                                 "No child sources from processing source[%s] with '%s'",
                                 $id,
@@ -514,7 +513,7 @@ class EntryList implements EntryListInterface
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", \get_class($processor)));
+                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", $processor::class));
                 }
             }
 

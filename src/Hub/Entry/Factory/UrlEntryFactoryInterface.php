@@ -13,8 +13,6 @@ interface UrlEntryFactoryInterface
     /**
      * Creates new entry(s) based on input url(s).
      *
-     * @param array|string $input
-     *
      * @throws UrlEntryCreationFailedException
      *
      * @return EntryInterface[] Returns new entries on success or FALSE on failure

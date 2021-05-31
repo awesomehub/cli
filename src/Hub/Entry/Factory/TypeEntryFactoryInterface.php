@@ -22,8 +22,6 @@ interface TypeEntryFactoryInterface
      * Gets a list of supported input types or checks whether the given type is supported.
      *
      * @param null|string $input Input type to check against
-     *
-     * @return array|bool|string
      */
     public static function supports(string $input = null): bool | string | array;
 }

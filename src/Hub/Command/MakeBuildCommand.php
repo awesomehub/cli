@@ -54,7 +54,7 @@ class MakeBuildCommand extends Command
         $cachedBuild = $buildFactory->getCached() ?: null;
         $lists = EntryListFile::findCachedLists($this->workspace);
 
-        if (0 === \count($lists)) {
+        if ([] === $lists) {
             $this->io->note('No cached lists found');
 
             return 0;
@@ -69,7 +69,7 @@ class MakeBuildCommand extends Command
             '',
         ]);
 
-        $this->logger->info(sprintf('Initiating list distributor %s cached build', $cachedBuild ? 'with' : 'without'));
+        $this->logger->info(sprintf('Initiating list distributor %s cached build', null !== $cachedBuild ? 'with' : 'without'));
         $dist = new ListDistributor($build, $cachedBuild, [
             'collections' => $this->workspace->config('dist.listCollections', []),
         ]);

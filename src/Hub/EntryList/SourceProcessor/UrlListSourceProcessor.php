@@ -11,11 +11,8 @@ use Hub\Exceptions\EntryCreationFailedException;
  */
 class UrlListSourceProcessor implements SourceProcessorInterface
 {
-    protected UrlEntryFactoryInterface $entryFactory;
-
-    public function __construct(UrlEntryFactoryInterface $entryFactory)
+    public function __construct(protected UrlEntryFactoryInterface $entryFactory)
     {
-        $this->entryFactory = $entryFactory;
     }
 
     /**

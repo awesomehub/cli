@@ -42,7 +42,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
      */
     public function create(array | string $input): array
     {
-        if (0 === \count($this->processors)) {
+        if ([] === $this->processors) {
             throw new \LogicException('No url processors has been defined');
         }
 
@@ -71,7 +71,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
 
                         // Prevent infinite loop
                         if (\in_array($url, $childUrls, true)) {
-                            throw new \LogicException(sprintf("Infinite loop detected; '%s' processor shall not return the same url passed to it '%s'", \get_class($processor), $url));
+                            throw new \LogicException(sprintf("Infinite loop detected; '%s' processor shall not return the same url passed to it '%s'", $processor::class, $url));
                         }
 
                         $entries = array_merge($entries, $this->create($childUrls));
@@ -82,7 +82,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                         try {
                             $result = $processor->process($url);
                         } catch (\Exception $e) {
-                            throw new UrlEntryCreationFailedException(sprintf("Failed processing url '%s' using '%s' processor; %s", $url, \get_class($processor), $e->getMessage()), $processor, $url, 0, $e);
+                            throw new UrlEntryCreationFailedException(sprintf("Failed processing url '%s' using '%s' processor; %s", $url, $processor::class, $e->getMessage()), $processor, $url, 0, $e);
                         }
 
                         if (!$result) {
@@ -96,12 +96,12 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                                 break;
                             }
 
-                            throw new \UnexpectedValueException(sprintf("Invalid processor output of type [%s] for processor '%s'", \gettype($result), \get_class($processor)));
+                            throw new \UnexpectedValueException(sprintf("Invalid processor output of type [%s] for processor '%s'", \gettype($result), $processor::class));
                         }
 
                         array_walk_recursive($result, static function ($item, $key) use ($processor) {
                             if (!$item instanceof EntryInterface) {
-                                throw new \UnexpectedValueException(sprintf("Invalid inner processor output value of type [%s] at index[%s] for processor '%s'", \gettype($item), $key, \get_class($processor)));
+                                throw new \UnexpectedValueException(sprintf("Invalid inner processor output value of type [%s] at index[%s] for processor '%s'", \gettype($item), $key, $processor::class));
                             }
                         });
 
@@ -113,7 +113,7 @@ class UrlEntryFactory implements UrlEntryFactoryInterface
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", \get_class($processor)));
+                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", $processor::class));
                 }
             }
         }

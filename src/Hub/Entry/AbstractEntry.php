@@ -11,7 +11,6 @@ abstract class AbstractEntry implements EntryInterface
 {
     protected array $data;
     protected array $aliases;
-    private string $id;
 
     /**
      * Constructor.
@@ -19,19 +18,10 @@ abstract class AbstractEntry implements EntryInterface
      * @param string $id   Entry id
      * @param array  $data Initial entry data
      */
-    public function __construct(string $id, array $data = [])
+    public function __construct(private string $id, array $data = [])
     {
-        $this->id = $id;
         $this->data = $data;
         $this->aliases = [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    final public function getId(): string
-    {
-        return $this->id;
     }
 
     /**
@@ -116,5 +106,13 @@ abstract class AbstractEntry implements EntryInterface
         }
 
         unset($this->data[$key]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    final public function getId(): string
+    {
+        return $this->id;
     }
 }

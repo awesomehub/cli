@@ -13,16 +13,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class IO extends SymfonyStyle implements IOInterface
 {
-    protected InputInterface $input;
-    protected OutputInterface $output;
-    protected LoggerInterface $logger;
-
-    public function __construct(InputInterface $input, OutputInterface $output, LoggerInterface $logger)
+    public function __construct(protected InputInterface $input, protected OutputInterface $output, protected LoggerInterface $logger)
     {
-        $this->input = $input;
-        $this->output = $output;
-        $this->logger = $logger;
-
         parent::__construct($input, $output);
     }
 

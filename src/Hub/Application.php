@@ -16,14 +16,11 @@ class Application extends Console\Application
     public const SLUG = 'awesomeHub';
     public const VERSION = '0.1.0';
 
-    protected KernelInterface $kernel;
-
-    public function __construct(KernelInterface $kernel)
+    public function __construct(protected KernelInterface $kernel)
     {
         parent::__construct(self::NAME, self::VERSION);
 
         $this->setDefaultCommand('commands');
-        $this->kernel = $kernel;
     }
 
     /**
@@ -38,32 +35,15 @@ class Application extends Console\Application
             $this->setCatchExceptions(false);
         }
 
-        if (!$input) {
+        if (null === $input) {
             $input = $container->get('input');
         }
 
-        if (!$output) {
+        if (null === $output) {
             $output = $container->get('output');
         }
 
         return parent::run($input, $output);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultCommands(): array
-    {
-        return [
-            new Console\Command\HelpCommand(),
-            new Command\CommandsCommand(),
-            new Command\MakeBuildCommand(),
-            new Command\MakeCleanCommand(),
-            new Command\ListBuildCommand(),
-            new Command\ListInspectCommand(),
-            new Command\GithubInspectCommand(),
-            new Command\GithubTokensCommand(),
-        ];
     }
 
     /**
@@ -80,6 +60,23 @@ class Application extends Console\Application
     public function getKernel(): KernelInterface
     {
         return $this->kernel;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getDefaultCommands(): array
+    {
+        return [
+            new Console\Command\HelpCommand(),
+            new Command\CommandsCommand(),
+            new Command\MakeBuildCommand(),
+            new Command\MakeCleanCommand(),
+            new Command\ListBuildCommand(),
+            new Command\ListInspectCommand(),
+            new Command\GithubInspectCommand(),
+            new Command\GithubTokensCommand(),
+        ];
     }
 
     /**

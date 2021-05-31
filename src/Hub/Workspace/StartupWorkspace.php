@@ -39,7 +39,7 @@ class StartupWorkspace extends Workspace
         try {
             $path = $filesystem->normalizePath($path);
         } catch (\Exception $e) {
-            throw new \InvalidArgumentException("Invalid environment workspace supplied; {$e->getMessage()}");
+            throw new \InvalidArgumentException("Invalid environment workspace supplied; {$e->getMessage()}", $e->getCode(), $e);
         }
 
         return $path;

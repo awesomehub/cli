@@ -12,9 +12,7 @@ use Symfony\Component\Process\Process as BaseProcess;
  */
 class Process extends BaseProcess
 {
-    protected string $command;
     protected array $options;
-    protected LoggerInterface $logger;
     protected bool $isTerminationLogged;
     protected bool $isStartingLogged;
 
@@ -28,9 +26,8 @@ class Process extends BaseProcess
      *      [env]       array
      *      [cwd]       string
      */
-    public function __construct(LoggerInterface $logger, string $command, array $options = [])
+    public function __construct(protected LoggerInterface $logger, protected string $command, array $options = [])
     {
-        $this->command = $command;
         $this->options = array_merge([
             'input' => null,
             'output' => null,
@@ -38,7 +35,6 @@ class Process extends BaseProcess
             'env' => null,
             'cwd' => null,
         ], $options);
-        $this->logger = $logger;
 
         $this->logger->debug("[Process] Initializing ({$this->command})");
 
