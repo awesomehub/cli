@@ -132,15 +132,7 @@ class ListDistributor implements ListDistributorInterface
             'cats' => $current['categories'],
             'score' => $current['scores_avg'],
             'scores' => $current['scores'],
-            'score_d' => $current['scores_avg'] - $cached['scores_avg'],
-            'scores_d' => [
-                'p' => $current['scores']['p'] - $cached['scores']['p'],
-                'h' => $current['scores']['h'] - $cached['scores']['h'],
-                'a' => $current['scores']['a'] - $cached['scores']['a'],
-                'm' => $current['scores']['m'] - $cached['scores']['m'],
-            ],
-            'pushed' => $current['pushed'],
-            'updated' => $current['updated'],
+            'pushed' => $current['pushed']
         ];
     }
 
