@@ -55,16 +55,4 @@ class GithubListSourceProcessor implements SourceProcessorInterface
             ? self::ACTION_PARTIAL_PROCESSING
             : self::ACTION_SKIP;
     }
-
-    /**
-     * Fetch the markdown string from an url.
-     *
-     * @throws \Exception When http request fails
-     */
-    protected function fetchMarkdownUrl(string $url): string
-    {
-        $response = $this->http->get($url);
-
-        return (string) $response->getBody();
-    }
 }
