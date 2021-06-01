@@ -37,27 +37,20 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
             if (\in_array($author['type'], ['org', 'organization'])) {
                 $repos = $this->github->api('organization/repositories', [
                     $author['name'],
-                    'public',
+                    'sources',
                 ], true);
             } else {
                 $repos = $this->github->api('user/repositories', [
                     $author['name'],
-                    'all',
+                    'owner',
                 ], true);
             }
         } catch (GithubAPIException $e) {
             throw new \RuntimeException(sprintf('Github API request failed; %s', $e->getMessage()), 0, $e);
         }
 
-        // Source options
-        $includeForks = $source->getOption('includeAuthorForks', false);
-
         $entries = [];
         foreach ($repos as $repo) {
-            if (!$includeForks && $repo['fork']) {
-                continue;
-            }
-
             $entries[] = [
                 'type' => 'repo.github',
                 'data' => [
@@ -67,10 +60,7 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
             ];
         }
 
-        $options = $source->getOptions();
-        unset($options['includeAuthorForks']);
-
-        return new Source('entries', $entries, $options);
+        return new Source('entries', $entries, $source->getOptions());
     }
 
     /**
