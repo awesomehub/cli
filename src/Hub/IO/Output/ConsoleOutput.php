@@ -11,8 +11,6 @@ use Symfony\Component\Console;
  */
 class ConsoleOutput extends Console\Output\ConsoleOutput implements OverwritableOutputInterface
 {
-    public const MAX_LINE_LENGTH = 120;
-
     protected bool $overwrite = false;
     protected array $options;
     protected int $lineLength;
@@ -32,8 +30,8 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
             'spinnerValues' => ['-', '\\', '|', '/'],
             'fallbackNewline' => true,
         ], $options);
-        // Windows cmd wraps lines as soon as the terminal width is reached, whether there are following chars or not.
-        $this->lineLength = min($this->getTerminalWidth() - (int) (\DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
+
+        $this->lineLength = self::getTerminalWidth();
     }
 
     /**
@@ -77,7 +75,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
                 break;
             }
 
-            $size = Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $this->lastMessage);
+            $size = $this->strlenWithoutDecoration($this->lastMessage);
             if (!$size) {
                 break;
             }
@@ -89,7 +87,7 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
             // write the new message
             parent::write($messages, false, $type);
 
-            $fill = $size - Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $messages);
+            $fill = $size - $this->strlenWithoutDecoration($messages);
             if ($fill > 0) {
                 // whitespace whatever has left
                 parent::write(str_repeat("\x20", $fill), false, $type);
@@ -151,11 +149,21 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
         return $formatters;
     }
 
-    private function getTerminalWidth(): int
+    /**
+     * Gets the width of a string without decorations using mb_strwidth.
+     *
+     * @param mixed $string
+     */
+    protected function strlenWithoutDecoration($string): int
     {
-        $application = new Console\Application();
-        $dimensions = $application->getTerminalDimensions();
+        return Console\Helper\Helper::width(Console\Helper\Helper::removeDecoration($this->getFormatter(), $string));
+    }
 
-        return $dimensions[0] ?: self::MAX_LINE_LENGTH;
+    /**
+     * Gets the terminal width.
+     */
+    private static function getTerminalWidth(): int
+    {
+        return (new Console\Terminal())->getWidth();
     }
 }

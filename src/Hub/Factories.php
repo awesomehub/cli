@@ -18,7 +18,7 @@ class Factories
      */
     public static function createFilesystemCache(string $path): FilesystemAdapter
     {
-        return new FilesystemAdapter(null, 0, $path);
+        return new FilesystemAdapter('', 0, $path);
     }
 
     /**

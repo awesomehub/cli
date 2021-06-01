@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hub\Exception;
 
-use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\ErrorHandler\ErrorHandler;
 
 /**
  * Exception handler manager registerer trait.

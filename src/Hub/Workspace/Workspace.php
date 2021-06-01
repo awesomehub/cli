@@ -121,7 +121,9 @@ class Workspace implements WorkspaceInterface
         try {
             $encoded = $this->filesystem->read($path);
 
-            $decoder = new Serializer\Encoder\JsonDecode(true);
+            $decoder = new Serializer\Encoder\JsonDecode([
+                Serializer\Encoder\JsonDecode::ASSOCIATIVE => true,
+            ]);
 
             $data = $decoder->decode($encoded, 'json');
 

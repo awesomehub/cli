@@ -20,7 +20,7 @@ class MakeCleanCommand extends Command
 
         $this
             ->setName('make:clean')
-            ->setDescription('Clean the dist directory.')
+            ->setDescription('Clean the dist directory')
         ;
     }
 

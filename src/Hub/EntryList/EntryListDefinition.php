@@ -15,8 +15,8 @@ class EntryListDefinition implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('list');
+        $treeBuilder = new TreeBuilder('list');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
@@ -93,8 +93,8 @@ class EntryListDefinition implements ConfigurationInterface
      */
     protected function getSourceCategoryNode(): NodeDefinition
     {
-        return (new TreeBuilder())
-            ->root('category', 'scalar')
+        return (new TreeBuilder('category', 'scalar'))
+            ->getRootNode()
                 ->info('A single category to map all entries to it discarding any other category')
                 ->cannotBeEmpty()
             ;
@@ -105,8 +105,8 @@ class EntryListDefinition implements ConfigurationInterface
      */
     protected function getSourceCategoriesNode(): ArrayNodeDefinition
     {
-        return (new TreeBuilder())
-            ->root('categories')
+        return (new TreeBuilder('categories'))
+            ->getRootNode()
                 ->info('A map of category => regex pattern(s) to match against entry ids')
                 ->useAttributeAsKey('name')
                 ->normalizeKeys(false)
@@ -120,8 +120,8 @@ class EntryListDefinition implements ConfigurationInterface
      */
     protected function getSourceExcludeNode(): ArrayNodeDefinition
     {
-        return (new TreeBuilder())
-            ->root('exclude')
+        return (new TreeBuilder('exclude'))
+            ->getRootNode()
                 ->info('An array of regex patterns to match against entry ids')
                 ->prototype('scalar')
             ->end()

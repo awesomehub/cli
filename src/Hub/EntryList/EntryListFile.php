@@ -148,7 +148,9 @@ class EntryListFile extends EntryList
     protected function decode(string $data, string $format): array
     {
         $serializer = new Serializer\Encoder\ChainDecoder([
-            new Serializer\Encoder\JsonDecode(true),
+            new Serializer\Encoder\JsonDecode([
+                Serializer\Encoder\JsonDecode::ASSOCIATIVE => true,
+            ]),
         ]);
 
         if (!$serializer->supportsDecoding($format)) {

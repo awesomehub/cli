@@ -11,7 +11,7 @@ use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Exceptions\EntryResolveFailedException;
 use Hub\IO\IOInterface;
 use Hub\Util\NestedArray;
-use Symfony\Component\Config as SymfonyConfig;
+use Symfony\Component\Config\Definition as ConfigDefinition;
 
 /**
  * The Base List class.
@@ -39,8 +39,8 @@ class EntryList implements EntryListInterface
     {
         try {
             $this->data = $this->verify($data);
-        } catch (SymfonyConfig\Definition\Exception\Exception $e) {
-            throw new \InvalidArgumentException("Unable to process the list definition data; {$e->getMessage()}.", 0, $e);
+        } catch (ConfigDefinition\Exception\Exception $e) {
+            throw new \InvalidArgumentException("Unable to process the list definition file; {$e->getMessage()}", 0, $e);
         }
 
         foreach ($this->data['sources'] as $i => $source) {
@@ -140,7 +140,7 @@ class EntryList implements EntryListInterface
     public function process(IOInterface $io, array $processors): void
     {
         if (empty($processors)) {
-            throw new \LogicException('Cannot process the list; No source processors has been provided.');
+            throw new \LogicException('Cannot process the list; No source processors has been provided');
         }
         $logger = $io->getLogger();
 
@@ -519,7 +519,7 @@ class EntryList implements EntryListInterface
 
             // Check if no processor can process this source
             if (false === $processedWith) {
-                $logger->critical(sprintf('Ignoring source[%s]; None of the given processors supports it.', $id));
+                $logger->critical(sprintf('Ignoring source[%s]; None of the given processors supports it', $id));
 
                 continue;
             }
@@ -541,7 +541,7 @@ class EntryList implements EntryListInterface
      */
     protected function verify(array $data): array
     {
-        return (new SymfonyConfig\Definition\Processor())->processConfiguration(
+        return (new ConfigDefinition\Processor())->processConfiguration(
             new EntryListDefinition(),
             [$data]
         );

@@ -18,7 +18,7 @@ class GithubTokensCommand extends Command
 
         $this
             ->setName('github:tokens')
-            ->setDescription('Inspects github tokens status.')
+            ->setDescription('Displays the status of the currently active Github tokens')
         ;
     }
 

@@ -14,8 +14,8 @@ class WorkspaceConfigDefinition implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('config');
+        $treeBuilder = new TreeBuilder('config');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()

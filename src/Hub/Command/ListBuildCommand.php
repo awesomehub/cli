@@ -47,7 +47,7 @@ class ListBuildCommand extends Command
 
         $this
             ->setName('list:build')
-            ->setDescription('Build a hub list using a given list definition file.')
+            ->setDescription('Build a hub list using a given list definition file')
             ->addArgument(
                 'list',
                 Input\InputArgument::OPTIONAL,

@@ -90,13 +90,12 @@ class Application extends Console\Application
             new Input\InputArgument('command', Input\InputArgument::REQUIRED, 'The command to execute'),
 
             new Input\InputOption('--workspace', '-w', Input\InputOption::VALUE_REQUIRED, 'Sets the workspace directory'),
-            new Input\InputOption('--help', '-h', Input\InputOption::VALUE_NONE, 'Display this help message'),
+            new Input\InputOption('--help', '-h', Input\InputOption::VALUE_NONE, 'Display help for the given command. When no command is given display this help message'),
             new Input\InputOption('--quiet', '-q', Input\InputOption::VALUE_NONE, 'Do not output any message'),
             // we don't need the 3 verbosity level, only one level is enough
             new Input\InputOption('--verbose', '-v', Input\InputOption::VALUE_NONE, 'Increase the verbosity of messages'),
             new Input\InputOption('--version', '-V', Input\InputOption::VALUE_NONE, 'Display this application version'),
-            new Input\InputOption('--ansi', '', Input\InputOption::VALUE_NONE, 'Force ANSI output'),
-            new Input\InputOption('--no-ansi', '', Input\InputOption::VALUE_NONE, 'Disable ANSI output'),
+            new Input\InputOption('--ansi', '', Input\InputOption::VALUE_NEGATABLE, 'Force (or disable --no-ansi) ANSI output', false),
             new Input\InputOption('--no-interaction', '-n', Input\InputOption::VALUE_NONE, 'Do not ask any interactive question'),
         ]);
     }

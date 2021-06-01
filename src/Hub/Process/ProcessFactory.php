@@ -7,7 +7,7 @@ namespace Hub\Process;
 use Psr\Log\LoggerInterface;
 
 /**
- * A Factory for creating Process instances.
+ * Helper class for creating and running processes.
  */
 class ProcessFactory implements ProcessFactoryInterface
 {
@@ -21,15 +21,15 @@ class ProcessFactory implements ProcessFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(string $command, array $options = []): Process
+    public function create(array $command, array $options = []): Process
     {
-        return new Process($this->logger, $command, $options);
+        return new Process($command, array_merge(['logger' => $this->logger], $options));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function run(string $command, array $options = []): Process
+    public function run(array $command, array $options = []): Process
     {
         $proc = $this->create($command, $options);
         $proc->run();
@@ -40,7 +40,7 @@ class ProcessFactory implements ProcessFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function start($command, array $options = []): Process
+    public function start(array $command, array $options = []): Process
     {
         $proc = $this->create($command, $options);
         $proc->start();

@@ -36,7 +36,7 @@ class MakeBuildCommand extends Command
 
         $this
             ->setName('make:build')
-            ->setDescription('Distributes a new build.')
+            ->setDescription('Distributes a new build')
             ->addOption(
                 '--release',
                 '-r',

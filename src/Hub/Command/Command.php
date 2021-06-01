@@ -12,6 +12,7 @@ use Hub\Process\ProcessFactoryInterface;
 use Hub\Workspace\WorkspaceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command as BaseCommand;
+use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,6 +48,9 @@ abstract class Command extends BaseCommand
         $this->logger = $this->container->get('logger');
         $this->process = $this->container->get('process.factory');
 
+        $this->logger->debug(sprintf("Current command '%s'", implode(' ', $_SERVER['argv'])));
+        $this->logger->debug(sprintf("Current workspace '%s'", $this->workspace->path()));
+
         return parent::run($input, $output);
     }
 
@@ -77,11 +81,8 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->logger->debug(sprintf("Current command '%s'", implode(' ', $_SERVER['argv'])));
-        $this->logger->debug(sprintf("Current workspace '%s'", $this->workspace->path()));
-
         return $this->exec();
     }
 
@@ -102,7 +103,10 @@ abstract class Command extends BaseCommand
     /**
      * Executes the current command.
      *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @return int 0 if everything went fine, or an error code
      */
-    abstract protected function exec(): ?int;
+    protected function exec(): int
+    {
+        throw new LogicException('You must override the exec() method in the concrete command class');
+    }
 }

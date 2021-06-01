@@ -157,7 +157,9 @@ class Build implements BuildInterface
                 return $encoded;
             }
 
-            $decoder = new Serializer\Encoder\JsonDecode(true);
+            $decoder = new Serializer\Encoder\JsonDecode([
+                Serializer\Encoder\JsonDecode::ASSOCIATIVE => true,
+            ]);
 
             return $decoder->decode($encoded, $this->getFormat());
         } catch (\Exception $e) {

@@ -106,7 +106,7 @@ class Environment implements EnvironmentInterface
     {
         if ($mode) {
             if (!\in_array($mode, [self::DEVELOPMENT, self::PRODUCTION], true)) {
-                throw new \InvalidArgumentException("Invalid environment mode supplied '{$mode}'.");
+                throw new \InvalidArgumentException(sprintf('Invalid environment mode provided "%s"', $mode));
             }
 
             $this->mode = $mode;

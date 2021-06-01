@@ -19,17 +19,17 @@ interface ProcessFactoryInterface
     /**
      * Creates a new Process.
      */
-    public function create(string $command, array $options = []): Process;
+    public function create(array $command, array $options = []): Process;
 
     /**
      * Creates and runs a new Process.
      */
-    public function run(string $command, array $options = []): Process;
+    public function run(array $command, array $options = []): Process;
 
     /**
      * Creates and starts a new Process.
      *
      * @param mixed $command
      */
-    public function start($command, array $options = []): Process;
+    public function start(array $command, array $options = []): Process;
 }

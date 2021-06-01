@@ -21,11 +21,11 @@ class GithubInspectCommand extends Command
 
         $this
             ->setName('github:inspect')
-            ->setDescription('Inspects github repository.')
+            ->setDescription('Inspects a Github repository')
             ->addArgument(
                 'repo',
                 Input\InputArgument::REQUIRED,
-                'Github repository to be inspeced, should be formatted like {author}/{name}'
+                'The Github repository to be inspected (eg. octocat/hello-world)'
             )
         ;
     }
@@ -38,8 +38,8 @@ class GithubInspectCommand extends Command
         /** @var RepoInspector\GithubRepoInspectorInterface $inspector */
         $inspector = $this->container->get('github.inspector');
         $name = explode('/', trim($this->input->getArgument('repo')), 2);
-        if (2 != \count($name)) {
-            $this->io->error('Invalid Github repository provided. It should be formatted like {author}/{name}');
+        if (2 !== \count($name)) {
+            $this->io->error('Invalid Github repository provided. Expected "{author}/{name}" combination.');
 
             return 1;
         }

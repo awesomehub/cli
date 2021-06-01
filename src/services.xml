@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
         <parameter key="output.verbosity.normal" type="constant">Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL</parameter>
@@ -9,83 +9,83 @@
     </parameters>
 
     <services>
-        <service id="factories" class="Hub\Factories" public="false" />
-        <service id="application" class="Hub\Application">
+        <service id="factories" class="Hub\Factories" />
+        <service id="application" class="Hub\Application" public="true">
             <argument type="service" id="kernel" />
         </service>
-        <service id="workspace" class="Hub\Workspace\StartupWorkspace">
+        <service id="workspace" class="Hub\Workspace\StartupWorkspace" public="true">
             <argument type="service" id="environment"/>
             <argument type="service" id="input"/>
             <argument type="service" id="filesystem"/>
         </service>
-        <service id="input" class="Symfony\Component\Console\Input\ArgvInput" />
-        <service id="output" class="Hub\IO\Output\ConsoleOutput">
+        <service id="input" class="Symfony\Component\Console\Input\ArgvInput" public="true" />
+        <service id="output" class="Hub\IO\Output\ConsoleOutput" public="true">
             <argument type="expression">service('environment').isDevelopment() ? parameter('output.verbosity.verbose') : parameter('output.verbosity.normal')</argument>
             <argument>null</argument>
             <argument type="service" id="output.formatter" />
         </service>
-        <service id="output.formatter" class="Hub\IO\Output\OutputFormatter" />
-        <service id="filesystem" class="Hub\Filesystem\Filesystem" />
-        <service id="logger" class="Hub\Logger\LoggerManager" />
-        <service id="logger.console" class="Hub\Logger\Handler\ConsoleLoggerHandler" public="false">
+        <service id="output.formatter" class="Hub\IO\Output\OutputFormatter" public="true" />
+        <service id="filesystem" class="Hub\Filesystem\Filesystem" public="true" />
+        <service id="logger" class="Hub\Logger\LoggerManager" public="true" />
+        <service id="logger.console" class="Hub\Logger\Handler\ConsoleLoggerHandler">
             <argument type="service" id="output" />
             <tag name="logger.handler" />
         </service>
-        <service id="logger.file.debug" class="Hub\Logger\Handler\StreamLoggerHandler" public="false">
+        <service id="logger.file.debug" class="Hub\Logger\Handler\StreamLoggerHandler">
             <argument type="expression">service('workspace').path('debug.log')</argument>
             <argument type="constant">Psr\Log\LogLevel::DEBUG</argument>
             <tag name="logger.handler" />
         </service>
-        <service id="logger.file.error" class="Hub\Logger\Handler\StreamLoggerHandler" public="false">
+        <service id="logger.file.error" class="Hub\Logger\Handler\StreamLoggerHandler">
             <argument type="expression">service('workspace').path('error.log')</argument>
             <argument type="constant">Psr\Log\LogLevel::ERROR</argument>
             <tag name="logger.handler" />
         </service>
-        <service id="io" class="Hub\IO\IO">
+        <service id="io" class="Hub\IO\IO" public="true">
             <argument type="service" id="input" />
             <argument type="service" id="output" />
             <argument type="service" id="logger" />
         </service>
-        <service id="exception" class="Hub\Exception\ExceptionHandlerManager">
+        <service id="exception" class="Hub\Exception\ExceptionHandlerManager" public="true">
             <factory class="Hub\Exception\ExceptionHandlerManager" method="getInstance" />
             <call method="register" />
         </service>
-        <service id="exception.logger" class="Hub\Exception\Handler\LoggerExceptionHandler" public="false">
+        <service id="exception.logger" class="Hub\Exception\Handler\LoggerExceptionHandler">
             <argument type="service" id="logger" />
             <tag name="exception.handler" />
         </service>
-        <service id="http" class="Http\Client\Common\HttpMethodsClient">
+        <service id="http" class="Http\Client\Common\HttpMethodsClient" public="true">
             <argument type="service" id="http.client" />
             <argument type="service" id="http.factory" />
         </service>
-        <service id="http.client" class="GuzzleHttp\Client" />
-        <service id="http.factory" class="GuzzleHttp\Psr7\HttpFactory" public="false" />
-        <service id="github" class="Github\Utils\GithubWrapper">
+        <service id="http.client" class="GuzzleHttp\Client" public="true" />
+        <service id="http.factory" class="GuzzleHttp\Psr7\HttpFactory" />
+        <service id="github" class="Github\Utils\GithubWrapper" public="true">
             <argument type="service" id="github.client" />
             <argument type="service" id="github.tokens" />
             <argument type="service" id="logger" />
         </service>
-        <service id="github.client" class="Github\Client">
+        <service id="github.client" class="Github\Client" public="true">
             <factory class="Github\Client" method="createWithHttpClient" />
             <argument type="service" id="http.client" />
             <call method="addCache">
                 <argument type="service" id="github.cache" />
             </call>
         </service>
-        <service id="github.cache" class="Symfony\Component\Cache\Adapter\FilesystemAdapter" public="false">
+        <service id="github.cache" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
             <factory service="factories" method="createFilesystemCache" />
             <argument type="expression">service('workspace').path('cache/github')</argument>
         </service>
-        <service id="github.tokens" class="Github\Utils\GithubTokenPool" public="false">
+        <service id="github.tokens" class="Github\Utils\GithubTokenPool">
             <factory service="factories" method="createGithubTokenPool" />
             <argument type="expression">service('workspace').path('cache/github/tokens.pool')</argument>
             <argument type="expression">service('workspace').config('github.tokens')</argument>
         </service>
-        <service id="github.inspector" class="Github\Utils\RepoInspector\GithubRepoInspector">
+        <service id="github.inspector" class="Github\Utils\RepoInspector\GithubRepoInspector" public="true">
             <argument type="service" id="github" />
             <argument type="service" id="http" />
         </service>
-        <service id="process.factory" class="Hub\Process\ProcessFactory">
+        <service id="process.factory" class="Hub\Process\ProcessFactory" public="true">
             <argument type="service" id="logger" />
         </service>
     </services>

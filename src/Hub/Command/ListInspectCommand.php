@@ -24,7 +24,7 @@ class ListInspectCommand extends Command
 
         $this
             ->setName('list:inspect')
-            ->setDescription('Inspects a fetched hub list.')
+            ->setDescription('Inspects a cached hub list')
             ->addArgument(
                 'list',
                 Input\InputArgument::REQUIRED,

@@ -6,7 +6,7 @@ namespace Hub\EntryList\SourceProcessor;
 
 use Hub\EntryList\Source\Source;
 use Hub\EntryList\Source\SourceInterface;
-use League\CommonMark as CommonMark;
+use League\CommonMark;
 
 /**
  * Processes github markdown and outputs new entries.

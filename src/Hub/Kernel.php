@@ -27,15 +27,13 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 abstract class Kernel implements KernelInterface
 {
     protected ContainerInterface $container;
-    protected Environment | EnvironmentInterface $environment;
+    protected EnvironmentInterface $environment;
     protected bool $booted = false;
 
     /**
-     * Kernel constructor.
-     *
-     * Possible values for the mode are:
-     *  - EnvironmentInterface::DEVELOPMENT
-     *  - EnvironmentInterface::PRODUCTION
+     * @param null|string $mode Possible values are:
+     *                          - EnvironmentInterface::DEVELOPMENT
+     *                          - EnvironmentInterface::PRODUCTION
      */
     public function __construct(EnvironmentInterface $environment = null, string $mode = null)
     {
@@ -43,7 +41,7 @@ abstract class Kernel implements KernelInterface
     }
 
     /**
-     * Kernel destructor.
+     * Destructor.
      */
     public function __destruct()
     {
@@ -80,7 +78,7 @@ abstract class Kernel implements KernelInterface
      */
     public function shutdown(): void
     {
-        // Chck if we are not booted
+        // Check if we are not booted
         if (!$this->isBooted()) {
             return;
         }
