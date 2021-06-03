@@ -53,7 +53,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         }
 
         $entry->merge([
-            'description' => $this->cleanStr($repo['description']),
+            'description' => $this->cleanStr((string) $repo['description']),
             'language' => $repo['language'],
             'licence' => $repo['licence_id'],
             'scores_avg' => $repo['scores_avg'],
