@@ -505,12 +505,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mohatt/github-api-utils.git",
-                "reference": "2e4a2d0104549bd3212b2c10c7d37e96131acf07"
+                "reference": "387b03f46446895be1b120515a361cff9c8b06ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/2e4a2d0104549bd3212b2c10c7d37e96131acf07",
-                "reference": "2e4a2d0104549bd3212b2c10c7d37e96131acf07",
+                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/387b03f46446895be1b120515a361cff9c8b06ac",
+                "reference": "387b03f46446895be1b120515a361cff9c8b06ac",
                 "shasum": ""
             },
             "require": {
@@ -561,7 +561,7 @@
                 "issues": "https://github.com/mohatt/github-api-utils/issues",
                 "source": "https://github.com/mohatt/github-api-utils/tree/master"
             },
-            "time": "2021-06-01T04:42:11+00:00"
+            "time": "2021-06-03T13:55:56+00:00"
         },
         {
             "name": "php-http/cache-plugin",
