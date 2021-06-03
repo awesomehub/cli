@@ -505,12 +505,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mohatt/github-api-utils.git",
-                "reference": "338e105331728f39f18286ba0c3bd2be74f24057"
+                "reference": "2e4a2d0104549bd3212b2c10c7d37e96131acf07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/338e105331728f39f18286ba0c3bd2be74f24057",
-                "reference": "338e105331728f39f18286ba0c3bd2be74f24057",
+                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/2e4a2d0104549bd3212b2c10c7d37e96131acf07",
+                "reference": "2e4a2d0104549bd3212b2c10c7d37e96131acf07",
                 "shasum": ""
             },
             "require": {
@@ -525,8 +525,8 @@
             "require-dev": {
                 "guzzlehttp/guzzle": "^7.1",
                 "guzzlehttp/psr7": "2.0.0-rc1",
-                "symfony/css-selector": "^3.1",
-                "symfony/dom-crawler": "^3.1"
+                "symfony/css-selector": "^5.3",
+                "symfony/dom-crawler": "^5.3"
             },
             "suggest": {
                 "symfony/css-selector": "Used by Github Inspector class",
@@ -561,7 +561,7 @@
                 "issues": "https://github.com/mohatt/github-api-utils/issues",
                 "source": "https://github.com/mohatt/github-api-utils/tree/master"
             },
-            "time": "2021-05-31T12:48:47+00:00"
+            "time": "2021-06-01T04:42:11+00:00"
         },
         {
             "name": "php-http/cache-plugin",
@@ -699,16 +699,16 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "788f72d64c43dc361e7fcc7464c3d947c64984a7"
+                "reference": "778f722e29250c1fac0bbdef2c122fa5d038c9eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/788f72d64c43dc361e7fcc7464c3d947c64984a7",
-                "reference": "788f72d64c43dc361e7fcc7464c3d947c64984a7",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/778f722e29250c1fac0bbdef2c122fa5d038c9eb",
+                "reference": "778f722e29250c1fac0bbdef2c122fa5d038c9eb",
                 "shasum": ""
             },
             "require": {
@@ -725,8 +725,7 @@
                 "puli/composer-plugin": "1.0.0-beta10"
             },
             "suggest": {
-                "php-http/message": "Allow to use Guzzle, Diactoros or Slim Framework factories",
-                "puli/composer-plugin": "Sets up Puli which is recommended for Discovery to work. Check http://docs.php-http.org/en/latest/discovery.html for more details."
+                "php-http/message": "Allow to use Guzzle, Diactoros or Slim Framework factories"
             },
             "type": "library",
             "extra": {
@@ -762,9 +761,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/discovery/issues",
-                "source": "https://github.com/php-http/discovery/tree/1.13.0"
+                "source": "https://github.com/php-http/discovery/tree/1.14.0"
             },
-            "time": "2020-11-27T14:49:42+00:00"
+            "time": "2021-06-01T14:30:21+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -2897,16 +2896,16 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v5.3.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "c8b06eeea68ea0fd0878cde880e65d5d6fa01464"
+                "reference": "ebb3dc397af77a08d734eea7305e0b2ec8c5e875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/c8b06eeea68ea0fd0878cde880e65d5d6fa01464",
-                "reference": "c8b06eeea68ea0fd0878cde880e65d5d6fa01464",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/ebb3dc397af77a08d734eea7305e0b2ec8c5e875",
+                "reference": "ebb3dc397af77a08d734eea7305e0b2ec8c5e875",
                 "shasum": ""
             },
             "require": {
@@ -2921,7 +2920,7 @@
                 "phpdocumentor/type-resolver": "<1.4.0",
                 "symfony/dependency-injection": "<4.4",
                 "symfony/property-access": "<4.4",
-                "symfony/property-info": "<4.4",
+                "symfony/property-info": "<5.3",
                 "symfony/yaml": "<4.4"
             },
             "require-dev": {
@@ -2979,7 +2978,7 @@
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/serializer/tree/v5.3.0"
+                "source": "https://github.com/symfony/serializer/tree/v5.3.1"
             },
             "funding": [
                 {
@@ -2995,7 +2994,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T17:43:10+00:00"
+            "time": "2021-06-02T09:36:17+00:00"
         },
         {
             "name": "symfony/service-contracts",
