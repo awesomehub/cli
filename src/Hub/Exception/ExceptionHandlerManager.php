@@ -62,7 +62,7 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function runHandlers(\Exception $exception): void
+    public function runHandlers(\Throwable $exception): void
     {
         if ([] === $this->handlers) {
             throw new \LogicException('No exception handler has been defined');

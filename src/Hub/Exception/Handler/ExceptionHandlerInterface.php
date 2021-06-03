@@ -12,10 +12,10 @@ interface ExceptionHandlerInterface
     /**
      * Handles the exception.
      */
-    public function handle(\Exception $exception): void;
+    public function handle(\Throwable $exception): void;
 
     /**
      * Determines if the handler is going to handle this exception.
      */
-    public function isHandling(\Exception $exception): bool;
+    public function isHandling(\Throwable $exception): bool;
 }

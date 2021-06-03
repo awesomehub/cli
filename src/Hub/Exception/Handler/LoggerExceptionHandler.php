@@ -37,7 +37,7 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(\Exception $e): void
+    public function handle(\Throwable $e): void
     {
         $logLevel = LogLevel::CRITICAL;
         if ($e instanceof \ErrorException) {
@@ -76,7 +76,7 @@ class LoggerExceptionHandler implements ExceptionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function isHandling(\Exception $e): bool
+    public function isHandling(\Throwable $e): bool
     {
         return true;
     }

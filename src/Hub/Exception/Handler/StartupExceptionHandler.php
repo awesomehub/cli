@@ -12,7 +12,7 @@ class StartupExceptionHandler implements ExceptionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(\Exception $e): void
+    public function handle(\Throwable $e): void
     {
         echo sprintf('[%s] %s (%s:%s)', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()).\PHP_EOL;
         echo 'Stack trace:'.\PHP_EOL;
@@ -39,7 +39,7 @@ class StartupExceptionHandler implements ExceptionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function isHandling(\Exception $e): bool
+    public function isHandling(\Throwable $e): bool
     {
         return true;
     }

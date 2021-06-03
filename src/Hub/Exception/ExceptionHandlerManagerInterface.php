@@ -33,7 +33,7 @@ interface ExceptionHandlerManagerInterface
     /**
      * Runs current active handlers on the given exception.
      */
-    public function runHandlers(\Exception $exception);
+    public function runHandlers(\Throwable $exception);
 
     /**
      * Registers the current exception handler manager as
