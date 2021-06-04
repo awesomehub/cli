@@ -13,9 +13,9 @@
   ],
   "scripts": {
     "hub": "hub",
-    "lint": "composer run cs-fixer fix -- --dry-run --format=checkstyle",
-    "lint:fix": "composer run cs-fixer fix",
-    "cs-fixer": "PHP_CS_FIXER_FUTURE_MODE=1 php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer"
+    "lint": "@cs-fixer --dry-run --format=checkstyle",
+    "lint:fix": "@cs-fixer",
+    "cs-fixer": "PHP_CS_FIXER_FUTURE_MODE=1 php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --verbose"
   },
   "require": {
     "php": ">=8.0",
