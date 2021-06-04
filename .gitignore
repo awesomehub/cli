@@ -1,5 +1,20 @@
-vendor
-.idea
-*.cache
-.awesomehub
-src/Hub/CachedContainer.*
+# Logs
+logs/
+*.log
+
+# IDE stuff
+.idea/
+.vscode/
+
+# Generic files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dependencies
+vendor/
+.php-cs-fixer.cache
+
+# Project specific files
+/.awesomehub/
+/src/Hub/CachedContainer.*
