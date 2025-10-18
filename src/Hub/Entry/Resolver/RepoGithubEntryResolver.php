@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hub\Entry\Resolver;
 
+use Hub\CachedContainer;
+use Hub\Environment\Environment;
 use Github\Utils\RepoInspector\Exception\RepoInspectorException;
 use Github\Utils\RepoInspector\GithubRepoInspectorInterface;
 use Hub\Entry\EntryInterface;
@@ -15,7 +17,7 @@ use Hub\Workspace\WorkspaceInterface;
 /**
  * Resolver for github repos.
  */
-class RepoGithubEntryResolver implements EntryResolverInterface
+class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverInterface
 {
     public function __construct(protected GithubRepoInspectorInterface $inspector, protected Filesystem $filesystem, protected WorkspaceInterface $workspace) {}
 
@@ -145,5 +147,69 @@ class RepoGithubEntryResolver implements EntryResolverInterface
 
         // Strip github emoticons
         return trim(preg_replace('/:[^:]+:/', '', $string));
+    }
+
+    public function getAsyncContext(): array
+    {
+        $bin = $_SERVER['argv'][0] ?? null;
+        if (!\is_string($bin) || '' === $bin) {
+            $bin = dirname(__DIR__, 4).'/bin/hub';
+        }
+
+        return [
+            'workspace' => $this->workspace->path(),
+            'bin' => $bin,
+        ];
+    }
+
+    public static function createAsyncResolver(array $context): static
+    {
+        if (empty($context['workspace']) || !\is_string($context['workspace'])) {
+            throw new \InvalidArgumentException('Async resolver context is missing a valid workspace path.');
+        }
+
+        $bin = $context['bin'] ?? dirname(__DIR__, 4).'/bin/hub';
+        if (!\is_string($bin) || '' === $bin) {
+            $bin = dirname(__DIR__, 4).'/bin/hub';
+        }
+
+        if (!file_exists($bin)) {
+            $bin = dirname(__DIR__, 4).'/bin/hub';
+        }
+
+        $_SERVER['argv'] = [$bin, '--workspace', $context['workspace']];
+        $_SERVER['argc'] = 3;
+
+        static $containers = [];
+
+        if (!isset($containers[$context['workspace']])) {
+            $environment = new Environment();
+            $container = new CachedContainer();
+            $container->set('environment', $environment);
+            $containers[$context['workspace']] = $container;
+        }
+
+        /** @var CachedContainer $container */
+        $container = $containers[$context['workspace']];
+
+        $workspace = $container->get('workspace');
+        $filesystem = $container->get('filesystem');
+
+        try {
+            $inspector = $container->get('github.inspector');
+        } catch (\UnexpectedValueException $e) {
+            if (str_contains($e->getMessage(), 'Unexpected token pool data')) {
+                $poolPath = $workspace->path('cache/github/tokens.pool');
+                if (file_exists($poolPath)) {
+                    $filesystem->write($poolPath, serialize([]), true);
+                }
+
+                $inspector = $container->get('github.inspector');
+            } else {
+                throw $e;
+            }
+        }
+
+        return new static($inspector, $filesystem, $workspace);
     }
 }

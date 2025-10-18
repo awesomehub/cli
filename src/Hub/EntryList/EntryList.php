@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Hub\EntryList;
 
 use Hub\Entry\EntryInterface;
+use Hub\Entry\Resolver\AsyncResolverInterface;
 use Hub\Entry\Resolver\EntryResolverInterface;
 use Hub\EntryList\Source\SourceInterface;
 use Hub\EntryList\SourceProcessor\SourceProcessorInterface;
 use Hub\Exceptions\EntryResolveFailedException;
 use Hub\IO\IOInterface;
 use Hub\Util\NestedArray;
+use Spatie\Async\Pool;
 use Symfony\Component\Config\Definition as ConfigDefinition;
 
 /**
@@ -27,6 +29,9 @@ class EntryList implements EntryListInterface
     protected bool $processed = false;
     protected bool $resolved = false;
     protected array $debug = [];
+    protected int $concurrentStatusLines = 0;
+    protected int $concurrentSpinnerIndex = 0;
+    protected array $concurrentSpinnerFrames = ['-', '\\', '|', '/'];
 
     /**
      * Constructor.
@@ -140,18 +145,52 @@ class EntryList implements EntryListInterface
         }
 
         $logger = $io->getLogger();
-
         $logger->info('Resolving list entries');
-        $io->startOverwrite();
-        $indicator = ' [ %%spinner%% ] Resolving entry#%d => %s (%%elapsed%%)';
 
+        $concurrency = (int) ($this->data['options']['resolve']['concurrency'] ?? 1);
+        $canResolveConcurrently = $concurrency > 1 && $this->resolversSupportAsync($resolvers);
+        if ($concurrency > 1 && !$canResolveConcurrently) {
+            $logger->debug('Parallel resolve disabled; at least one resolver does not support async execution.');
+        }
+
+        if ($canResolveConcurrently) {
+            [$i, $ir, $ic] = $this->resolveConcurrently($io, $resolvers, $force, $concurrency);
+        } else {
+            $io->startOverwrite();
+            $useOverwrite = $io->isOverwritable();
+
+            [$i, $ir, $ic] = $this->resolveSerial($io, $resolvers, $force);
+
+            if ($useOverwrite) {
+                $io->endOverwrite();
+            }
+        }
+
+        $this->resolved = true;
+        $logger->info(\sprintf(
+            'Resolved %d/%d entry(s) with %d cached entry(s)',
+            $ir,
+            $i,
+            $ic
+        ));
+    }
+
+    /**
+     * @param EntryResolverInterface[] $resolvers
+     *
+     * @return array{int,int,int}
+     */
+    protected function resolveSerial(IOInterface $io, array $resolvers, bool $force): array
+    {
+        $logger = $io->getLogger();
+        $indicator = ' [ %%spinner%% ] Resolving entry#%d => %s (completed %d/%d)';
+        $totalEntries = \count($this->entries);
         $i = $ir = $ic = 0;
         foreach ($this->entries as $id => $entry) {
             ++$i;
             $resolvedWith = false;
             $isCached = false;
 
-            /** @var EntryResolverInterface $resolver */
             foreach ($resolvers as $resolver) {
                 if (!$resolver->supports($entry)) {
                     continue;
@@ -159,7 +198,7 @@ class EntryList implements EntryListInterface
 
                 $resolvedWith = $resolver;
                 $isCached = $resolver->isCached($entry);
-                $io->write(\sprintf($indicator, $i, $id));
+                $io->write(\sprintf($indicator, $i, $id, $ir, $totalEntries));
 
                 try {
                     $resolver->resolve($entry, $force);
@@ -197,14 +236,281 @@ class EntryList implements EntryListInterface
             ++$ir;
         }
 
-        $this->resolved = true;
-        $logger->info(\sprintf(
-            'Resolved %d/%d entry(s) with %d cached entry(s)',
-            $ir,
-            $i,
-            $ic
-        ));
-        $io->endOverwrite();
+        return [$i, $ir, $ic];
+    }
+
+    /**
+     * @param EntryResolverInterface[] $resolvers
+     *
+     * @return array{int,int,int}
+     */
+    protected function resolveConcurrently(IOInterface $io, array $resolvers, bool $force, int $concurrency): array
+    {
+        $logger = $io->getLogger();
+        $pool = Pool::create()->concurrency($concurrency);
+        $this->concurrentStatusLines = 0;
+        $this->concurrentSpinnerIndex = 0;
+
+        $i = 0;
+        $resolved = 0;
+        $cached = 0;
+        $meta = [];
+        $active = [];
+        $pending = [];
+        $total = \count($this->entries);
+
+        $logger->info(\sprintf('Resolving %d entry(s) using %d worker(s)', $total, $concurrency));
+
+        $decorated = $io->isDecorated();
+
+        foreach ($this->entries as $id => $entry) {
+            ++$i;
+
+            $resolverData = $this->prepareAsyncResolver($resolvers, $entry);
+            if (null === $resolverData) {
+                $this->removeEntry($entry);
+                $logger->warning(\sprintf(
+                    "Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it",
+                    $i,
+                    $id,
+                    $entry::class
+                ));
+
+                continue;
+            }
+
+            $trackProgress = !$resolverData['cached'] || $force;
+
+            $meta[$id] = [
+                'index' => $i,
+                'resolver' => $resolverData['class'],
+                'cached' => $resolverData['cached'],
+                'track' => $trackProgress,
+                'tracked' => false,
+            ];
+
+            $completed = $resolved;
+
+            if ($decorated && $trackProgress) {
+                if (\count($active) < $concurrency) {
+                    $active[$id] = \sprintf('entry#%d/%d %s', $i, $total, $id);
+                    $meta[$id]['tracked'] = true;
+                    $this->renderConcurrentStatus($io, $active, $total, $completed);
+                } else {
+                    $pending[] = $id;
+                }
+            } elseif ($trackProgress) {
+                $io->writeln(\sprintf(
+                    'Resolving entry#%d/%d => %s (completed %d/%d)',
+                    $i,
+                    $total,
+                    $id,
+                    $completed,
+                    $total
+                ));
+            }
+
+            $payload = serialize($entry);
+
+            $pool
+                ->add(function () use ($resolverData, $payload, $force) {
+                    /** @var AsyncResolverInterface $resolverClass */
+                    $resolverClass = $resolverData['class'];
+                    $resolver = $resolverClass::createAsyncResolver($resolverData['context']);
+
+                    /** @var EntryInterface $taskEntry */
+                    $taskEntry = unserialize($payload, ['allowed_classes' => true]);
+                    $resolver->resolve($taskEntry, $force);
+
+                    return serialize($taskEntry);
+                })
+                ->then(function (string $result) use ($id, &$resolved, &$cached, &$meta, &$active, &$pending, $decorated, $io, $total, $concurrency) {
+                    /** @var EntryInterface $updatedEntry */
+                    $updatedEntry = unserialize($result, ['allowed_classes' => true]);
+                    $this->entries[$id] = $updatedEntry;
+                    ++$resolved;
+
+                    if (!empty($meta[$id]['cached'])) {
+                        ++$cached;
+                    }
+
+                    $completed = $resolved;
+
+                    if ($decorated && !empty($meta[$id]['track']) && !empty($meta[$id]['tracked'])) {
+                        unset($active[$id]);
+
+                        while (!empty($pending)) {
+                            $nextId = array_shift($pending);
+                            if (empty($meta[$nextId]['track'])) {
+                                continue;
+                            }
+
+                            $meta[$nextId]['tracked'] = true;
+                            $active[$nextId] = \sprintf('entry#%d/%d %s', $meta[$nextId]['index'], $total, $nextId);
+                            break;
+                        }
+
+                        $this->renderConcurrentStatus($io, $active, $total, $completed);
+                    } elseif ($decorated) {
+                        $this->renderConcurrentStatus($io, $active, $total, $completed);
+                    }
+
+                    unset($meta[$id]);
+                })
+                ->catch(function (\Throwable $throwable) use ($id, &$resolved, &$cached, &$meta, $logger, &$active, &$pending, $decorated, $io, $total, $concurrency) {
+                    if (isset($this->entries[$id])) {
+                        $this->removeEntry($this->entries[$id]);
+                    }
+
+                    $details = $meta[$id] ?? ['index' => '?', 'resolver' => 'unknown'];
+                    $completed = $resolved;
+
+                    if ($decorated && !empty($meta[$id]['track']) && !empty($meta[$id]['tracked'])) {
+                        unset($active[$id]);
+
+                        while (!empty($pending)) {
+                            $nextId = array_shift($pending);
+                            if (empty($meta[$nextId]['track'])) {
+                                continue;
+                            }
+
+                            $meta[$nextId]['tracked'] = true;
+                            $active[$nextId] = \sprintf('entry#%d/%d %s', $meta[$nextId]['index'], $total, $nextId);
+                            break;
+                        }
+
+                        $this->renderConcurrentStatus($io, $active, $total, $completed);
+                    } elseif ($decorated) {
+                        $this->renderConcurrentStatus($io, $active, $total, $completed);
+                    }
+
+                    $logger->warning(\sprintf(
+                        "Failed resolving entry#%s [%s] with '%s'; %s",
+                        $details['index'],
+                        $id,
+                        $details['resolver'],
+                        $throwable->getMessage()
+                    ));
+
+                    unset($meta[$id]);
+                });
+        }
+
+        $pool->wait();
+
+        if ($decorated) {
+            $this->renderConcurrentStatus($io, [], $total, $resolved);
+        }
+
+        return [$i, $resolved, $cached];
+    }
+
+    /**
+     * @param EntryResolverInterface[] $resolvers
+     */
+    protected function resolversSupportAsync(array $resolvers): bool
+    {
+        foreach ($resolvers as $resolver) {
+            if (!$resolver instanceof AsyncResolverInterface) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param EntryResolverInterface[] $resolvers
+     *
+     * @return array{class: class-string<AsyncResolverInterface>, cached: bool, context: array<string, mixed>}|null
+     */
+    protected function prepareAsyncResolver(array $resolvers, EntryInterface $entry): ?array
+    {
+        foreach ($resolvers as $resolver) {
+            if (!$resolver->supports($entry)) {
+                continue;
+            }
+
+            if (!$resolver instanceof AsyncResolverInterface) {
+                throw new \LogicException(\sprintf(
+                    "Resolver '%s' must implement %s to be used in async mode.",
+                    $resolver::class,
+                    AsyncResolverInterface::class
+                ));
+            }
+
+            return [
+                'class' => $resolver::class,
+                'cached' => $resolver->isCached($entry),
+                'context' => $resolver->getAsyncContext(),
+            ];
+        }
+
+        return null;
+    }
+
+    protected function renderConcurrentStatus(IOInterface $io, array $active, int $total, int $completed): void
+    {
+        $output = $io->getOutput();
+        $decorated = $output->isDecorated();
+
+        if (!$decorated) {
+            $message = empty($active)
+                ? \sprintf('Resolving (0 active/%d total, %d completed)', $total, $completed)
+                : \sprintf(
+                    'Resolving (%d active/%d total, %d completed): %s',
+                    \count($active),
+                    $total,
+                    $completed,
+                    implode(', ', array_values($active))
+                );
+
+            $io->writeln($message);
+
+            return;
+        }
+
+        if ($this->concurrentStatusLines > 0) {
+            $output->write(str_repeat("\x1B[1A\x1B[2K", $this->concurrentStatusLines));
+            $this->concurrentStatusLines = 0;
+        }
+
+        $lines = $this->formatConcurrentStatusLines($active, $total, $completed);
+        $output->writeln($lines);
+        $this->concurrentStatusLines = \count($lines);
+    }
+
+    protected function formatConcurrentStatusLines(array $active, int $total, int $completed): array
+    {
+        $spinner = $this->concurrentSpinnerFrames[$this->concurrentSpinnerIndex % \count($this->concurrentSpinnerFrames)];
+        ++$this->concurrentSpinnerIndex;
+
+        if (empty($active)) {
+            return [
+                \sprintf(
+                    ' [ %s ] Completed %d/%d entries',
+                    $spinner,
+                    $completed,
+                    $total
+                ),
+            ];
+        }
+
+        $lines = [
+            \sprintf(
+                ' [ %s ] Resolving %d in-flight entries | %d/%d completed',
+                $spinner,
+                \count($active),
+                $completed,
+                $total
+            ),
+        ];
+
+        foreach ($active as $entry) {
+            $lines[] = '   • '.$entry;
+        }
+
+        return $lines;
     }
 
     public function finalize(IOInterface $io): void

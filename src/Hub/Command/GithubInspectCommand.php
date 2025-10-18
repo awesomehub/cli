@@ -47,12 +47,15 @@ class GithubInspectCommand extends Command
         }
 
         $this->io->section(\sprintf('Repository: %s', $repo['full_name']));
+        if ($repo['archived']) {
+            $this->io->warning('This repository is archived');
+        }
 
         $list = [
             \sprintf(' <info>* URL:</info> %s', $repo['url']),
-            \sprintf(' <info>* Homepage:</info> %s', $repo['homepage'] ?? 'None'),
-            \sprintf(' <info>* Language:</info> %s', $repo['language'] ?? 'None'),
-            \sprintf(' <info>* License:</info> %s', $repo['license_id'] ?? 'None'),
+            \sprintf(' <info>* Homepage:</info> %s', $repo['homepage'] ?: '--'),
+            \sprintf(' <info>* Language:</info> %s', $repo['language'] ?: '--'),
+            \sprintf(' <info>* License:</info> %s', $repo['license_id'] ?: '--'),
             \sprintf(' <info>* Created:</info> %s', date('Y-m-d', strtotime($repo['created_at']))),
             \sprintf(' <info>* Pushed:</info> %s', date('Y-m-d g:i:s A e', strtotime($repo['pushed_at']))),
             \sprintf(' <info>* Average Score:</info> %d', $repo['scores_avg']),
