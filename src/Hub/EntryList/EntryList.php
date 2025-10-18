@@ -367,19 +367,17 @@ class EntryList implements EntryListInterface
                 continue;
             }
 
-            $trackProgress = !$resolverData['cached'] || $force;
-
             $meta[$id] = [
                 'index' => $i,
                 'resolver' => $resolverData['class'],
                 'cached' => $resolverData['cached'],
-                'track' => $trackProgress,
+                'track' => true,
                 'tracked' => false,
             ];
 
             $completed = $resolved;
 
-            if ($decorated && $trackProgress) {
+            if ($decorated) {
                 if (\count($active) < $concurrency) {
                     $active[$id] = \sprintf('entry#%d/%d %s', $i, $total, $id);
                     $meta[$id]['tracked'] = true;
@@ -387,7 +385,7 @@ class EntryList implements EntryListInterface
                 } else {
                     $pending[] = $id;
                 }
-            } elseif ($trackProgress) {
+            } else {
                 $io->writeln(\sprintf(
                     'Resolving entry#%d/%d => %s (completed %d/%d)',
                     $i,
