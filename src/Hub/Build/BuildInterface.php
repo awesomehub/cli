@@ -15,7 +15,7 @@ interface BuildInterface
      * @param null|array|string $path Path segments as array or string
      * @param bool              $raw  Ignores file format extension
      */
-    public function getPath(array | string $path = null, bool $raw = false): string;
+    public function getPath(array|string|null $path = null, bool $raw = false): string;
 
     /**
      * Gets the build number.
@@ -35,12 +35,12 @@ interface BuildInterface
     /**
      * Gets a meta parameter.
      */
-    public function get(string $key = null): mixed;
+    public function get(?string $key = null): mixed;
 
     /**
      * Sets the value of a meta parameter or the whole meta array.
      */
-    public function set(array | string $key, mixed $value = null): void;
+    public function set(array|string $key, mixed $value = null): void;
 
     /**
      * Writes a file into the build directory.
@@ -55,14 +55,14 @@ interface BuildInterface
      * @param string $path File path
      * @param bool   $raw  Prefer raw data
      */
-    public function read(string $path, bool $raw = false): array | string;
+    public function read(string $path, bool $raw = false): array|string;
 
     /**
      * Checks if a file from the build directory does exist.
      *
      * @param bool $raw Ignores file format extension
      */
-    public function exists(string $path = null, bool $raw = false): bool;
+    public function exists(?string $path = null, bool $raw = false): bool;
 
     /**
      * Finalizes the build at the end of the build process.

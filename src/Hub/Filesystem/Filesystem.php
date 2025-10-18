@@ -19,12 +19,12 @@ class Filesystem extends BaseFilesystem
     public function read(string $path): string
     {
         if (!is_file($path)) {
-            throw new FileNotFoundException(sprintf('Failed to read "%s" because file does not exist.', $path), 0, null, $path);
+            throw new FileNotFoundException(\sprintf('Failed to read "%s" because file does not exist.', $path), 0, null, $path);
         }
 
         $data = file_get_contents($path);
         if (false === $data) {
-            throw new IOException(sprintf('Failed to read data from file "%s".', $path), 0, null, $path);
+            throw new IOException(\sprintf('Failed to read data from file "%s".', $path), 0, null, $path);
         }
 
         return $data;
@@ -44,7 +44,7 @@ class Filesystem extends BaseFilesystem
 
         $bytes = file_put_contents($path, $contents, $lock ? \LOCK_EX : 0);
         if (false === $bytes) {
-            throw new IOException(sprintf('Failed to write data to file "%s".', $path), 0, null, $path);
+            throw new IOException(\sprintf('Failed to write data to file "%s".', $path), 0, null, $path);
         }
 
         return $bytes;
@@ -59,12 +59,12 @@ class Filesystem extends BaseFilesystem
     public function append(string $path, string $data, bool $lock = true): int
     {
         if (!is_file($path)) {
-            throw new FileNotFoundException(sprintf('Failed to append data to "%s" because file does not exist.', $path), 0, null, $path);
+            throw new FileNotFoundException(\sprintf('Failed to append data to "%s" because file does not exist.', $path), 0, null, $path);
         }
 
         $bytes = file_put_contents($path, $data, \FILE_APPEND | ($lock ? \LOCK_EX : 0));
         if (false === $bytes) {
-            throw new IOException(sprintf('Failed to append data to file "%s".', $path), 0, null, $path);
+            throw new IOException(\sprintf('Failed to append data to file "%s".', $path), 0, null, $path);
         }
 
         return $bytes;
@@ -86,7 +86,7 @@ class Filesystem extends BaseFilesystem
     public function normalizePath(string $path): string
     {
         $segments = [];
-        foreach (preg_split('/[\/\\\\]+/', $path) as $part) {
+        foreach (preg_split('/[\/\\\]+/', $path) as $part) {
             if ('.' === $part) {
                 continue;
             }

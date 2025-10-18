@@ -13,9 +13,6 @@ trait ExceptionHandlerManagerRegistererTrait
 {
     private static ?ExceptionHandlerManagerInterface $instance = null;
 
-    /**
-     * {@inheritdoc}
-     */
     public function register(): ExceptionHandlerManagerInterface
     {
         $handler = [$this, 'runHandlers'];
@@ -32,9 +29,6 @@ trait ExceptionHandlerManagerRegistererTrait
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getInstance(): ExceptionHandlerManagerInterface
     {
         if (null === static::$instance) {

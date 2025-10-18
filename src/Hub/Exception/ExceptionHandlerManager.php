@@ -28,9 +28,6 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
         $this->setHandlers($handlers);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addHandler(ExceptionHandlerInterface $handler): self
     {
         $this->handlers[] = $handler;
@@ -38,9 +35,6 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setHandlers(array $handlers): self
     {
         $this->handlers = [];
@@ -51,17 +45,11 @@ class ExceptionHandlerManager implements ExceptionHandlerManagerInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHandlers(): array
     {
         return $this->handlers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function runHandlers(\Throwable $exception): void
     {
         if ([] === $this->handlers) {

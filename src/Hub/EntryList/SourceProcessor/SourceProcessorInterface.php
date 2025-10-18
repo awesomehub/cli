@@ -41,9 +41,9 @@ interface SourceProcessorInterface
      *
      * @param \Closure $callback Should receive 2 args ($event, $payload)
      *
-     * @throws \Exception
-     *
      * @return SourceInterface|SourceInterface[]|void On partial processing it returns a child source(s)
+     *
+     * @throws \Exception
      */
     public function process(SourceInterface $source, \Closure $callback);
 

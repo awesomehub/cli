@@ -11,9 +11,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
  */
 class ConsoleKernel extends Kernel
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load('services.xml');

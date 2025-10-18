@@ -9,9 +9,6 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class OutputFormatter extends BaseFormatter
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __construct($decorated = false, array $styles = [])
     {
         $styles = array_merge([

@@ -11,9 +11,6 @@ use Symfony\Component\Console\Command\ListCommand;
  */
 class CommandsCommand extends ListCommand
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         parent::configure();

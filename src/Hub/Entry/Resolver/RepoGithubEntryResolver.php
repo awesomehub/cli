@@ -17,13 +17,9 @@ use Hub\Workspace\WorkspaceInterface;
  */
 class RepoGithubEntryResolver implements EntryResolverInterface
 {
-    public function __construct(protected GithubRepoInspectorInterface $inspector, protected Filesystem $filesystem, protected WorkspaceInterface $workspace)
-    {
-    }
+    public function __construct(protected GithubRepoInspectorInterface $inspector, protected Filesystem $filesystem, protected WorkspaceInterface $workspace) {}
 
     /**
-     * {@inheritdoc}
-     *
      * @param RepoGithubEntryInterface $entry
      */
     public function resolve(EntryInterface $entry, bool $force = false): void
@@ -31,7 +27,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         $cached = $this->read($entry);
         if ($cached && !$force) {
             // Only merge the fields that we provide
-            $fields = ['author', 'name', 'description', 'language', 'licence', 'scores_avg', 'scores', 'pushed', 'archived'];
+            $fields = ['author', 'name', 'description', 'language', 'license', 'scores_avg', 'scores', 'pushed', 'archived'];
             foreach ($fields as $field) {
                 $entry->set($field, $cached->get($field));
             }
@@ -49,13 +45,13 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         try {
             $repo = $this->inspector->inspect($author, $name);
         } catch (RepoInspectorException $e) {
-            throw new EntryResolveFailedException(sprintf('Github Repo Inspector failed; %s', $e->getMessage()), 0, $e);
+            throw new EntryResolveFailedException(\sprintf('Github Repo Inspector failed; %s', $e->getMessage()), 0, $e);
         }
 
         $entry->merge([
             'description' => $this->cleanStr((string) $repo['description']),
             'language' => $repo['language'],
-            'licence' => $repo['licence_id'],
+            'license' => $repo['license_id'],
             'scores_avg' => $repo['scores_avg'],
             'scores' => $repo['scores'],
             'pushed' => strtotime($repo['pushed_at']),
@@ -75,13 +71,11 @@ class RepoGithubEntryResolver implements EntryResolverInterface
         try {
             $this->save($entry);
         } catch (\Exception $e) {
-            throw new EntryResolveFailedException(sprintf('Failed caching Github repo; %s', $e->getMessage()), 0, $e);
+            throw new EntryResolveFailedException(\sprintf('Failed caching Github repo; %s', $e->getMessage()), 0, $e);
         }
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param RepoGithubEntryInterface $entry
      */
     public function supports(EntryInterface $entry): bool
@@ -90,8 +84,6 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param RepoGithubEntryInterface $entry
      */
     public function isCached(EntryInterface $entry): bool
@@ -104,10 +96,10 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     /**
      * Fetches the cached entry.
      */
-    protected function read(RepoGithubEntryInterface $entry): bool | RepoGithubEntryInterface
+    protected function read(RepoGithubEntryInterface $entry): bool|RepoGithubEntryInterface
     {
         if (!$this->supports($entry)) {
-            throw new \UnexpectedValueException(sprintf('Should not receive an unsupported entry "%s"', $entry->getId()));
+            throw new \UnexpectedValueException(\sprintf('Should not receive an unsupported entry "%s"', $entry->getId()));
         }
 
         $path = $this->getPath($entry);
@@ -117,7 +109,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
 
         $cached = unserialize(file_get_contents($path));
         if (!$this->supports($cached)) {
-            throw new \UnexpectedValueException(sprintf('Should not receive an unsupported cached entry "%s"', $cached->getId()));
+            throw new \UnexpectedValueException(\sprintf('Should not receive an unsupported cached entry "%s"', $cached->getId()));
         }
 
         return $cached;
@@ -150,6 +142,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface
     {
         // Strip non-utf chars
         $string = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $string);
+
         // Strip github emoticons
         return trim(preg_replace('/:[^:]+:/', '', $string));
     }

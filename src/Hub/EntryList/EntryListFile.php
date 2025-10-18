@@ -37,24 +37,21 @@ class EntryListFile extends EntryList
         try {
             $encodedData = $filesystem->read($path);
             if (empty($encodedData)) {
-                throw new \InvalidArgumentException(sprintf("File contents shall not be empty at '%s'", $path));
+                throw new \InvalidArgumentException(\sprintf("File contents shall not be empty at '%s'", $path));
             }
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Unable to read list definition file '%s'; %s", $path, $e->getMessage()), $e->getCode(), $e);
+            throw new \RuntimeException(\sprintf("Unable to read list definition file '%s'; %s", $path, $e->getMessage()), $e->getCode(), $e);
         }
 
         try {
             $data = $this->decode($encodedData, $format);
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Unable to encode list definition file '%s'; %s", $path, $e->getMessage()), $e->getCode(), $e);
+            throw new \RuntimeException(\sprintf("Unable to encode list definition file '%s'; %s", $path, $e->getMessage()), $e->getCode(), $e);
         }
 
         parent::__construct($data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(IOInterface $io, array $processors): void
     {
         parent::process($io, $processors);
@@ -64,9 +61,6 @@ class EntryListFile extends EntryList
         $this->save();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolve(IOInterface $io, array $resolvers, bool $force = false): void
     {
         parent::resolve($io, $resolvers, $force);
@@ -75,9 +69,6 @@ class EntryListFile extends EntryList
         $this->save();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function finalize(IOInterface $io): void
     {
         parent::finalize($io);
@@ -93,7 +84,7 @@ class EntryListFile extends EntryList
     {
         $cachedPath = $workspace->path([self::LISTS_CACHE_DIR, $id]);
         if (!$filesystem->exists($cachedPath)) {
-            throw new \InvalidArgumentException(sprintf("Unable to find the list cache file at '%s'", $cachedPath));
+            throw new \InvalidArgumentException(\sprintf("Unable to find the list cache file at '%s'", $cachedPath));
         }
 
         $instance = unserialize($filesystem->read($cachedPath));
@@ -154,7 +145,7 @@ class EntryListFile extends EntryList
         ]);
 
         if (!$serializer->supportsDecoding($format)) {
-            throw new \LogicException(sprintf("Unsupported list definition file format '%s'", $format));
+            throw new \LogicException(\sprintf("Unsupported list definition file format '%s'", $format));
         }
 
         return $serializer->decode($data, $format);

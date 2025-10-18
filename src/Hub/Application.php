@@ -25,10 +25,7 @@ class Application extends Console\Application
         $this->setDefaultCommand('commands');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function run(Input\InputInterface $input = null, Output\OutputInterface $output = null): int
+    public function run(?Input\InputInterface $input = null, ?Output\OutputInterface $output = null): int
     {
         $container = $this->getContainer();
 
@@ -64,9 +61,6 @@ class Application extends Console\Application
         return $this->kernel;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDefaultCommands(): array
     {
         return [
@@ -81,9 +75,6 @@ class Application extends Console\Application
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDefaultInputDefinition(): Input\InputDefinition
     {
         return new Input\InputDefinition([

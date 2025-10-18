@@ -9,12 +9,9 @@ namespace Hub\Exception\Handler;
  */
 class StartupExceptionHandler implements ExceptionHandlerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function handle(\Throwable $e): void
     {
-        echo sprintf('[%s] %s (%s:%s)', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()).\PHP_EOL;
+        echo \sprintf('[%s] %s (%s:%s)', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()).\PHP_EOL;
         echo 'Stack trace:'.\PHP_EOL;
         // exception related properties
         $trace = $e->getTrace();
@@ -32,13 +29,10 @@ class StartupExceptionHandler implements ExceptionHandlerInterface
             $file = $record['file'] ?? 'n/a';
             $line = $record['line'] ?? 'n/a';
 
-            echo sprintf(' - %s%s%s() at %s:%s', $class, $type, $function, $file, $line).\PHP_EOL;
+            echo \sprintf(' - %s%s%s() at %s:%s', $class, $type, $function, $file, $line).\PHP_EOL;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isHandling(\Throwable $e): bool
     {
         return true;

@@ -29,10 +29,7 @@ class Workspace implements WorkspaceInterface
         $this->setConfig();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function path(array | string $path = null): string
+    public function path(array|string|null $path = null): string
     {
         if (null === $path) {
             return $this->path;
@@ -48,10 +45,7 @@ class Workspace implements WorkspaceInterface
         return implode(\DIRECTORY_SEPARATOR, $path);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function config(string $key = null, mixed $default = null): mixed
+    public function config(?string $key = null, mixed $default = null): mixed
     {
         if (0 === \func_num_args()) {
             return $this->config;
@@ -142,7 +136,7 @@ class Workspace implements WorkspaceInterface
      *
      * @throws \InvalidArgumentException
      */
-    protected function getConfigPath(string $path, array $config = null): mixed
+    protected function getConfigPath(string $path, ?array $config = null): mixed
     {
         if (1 === \func_num_args()) {
             $config = $this->config;

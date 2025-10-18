@@ -25,9 +25,6 @@ class ListBuildCommand extends Command
 {
     protected EntryListInterface $list;
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate(): void
     {
         if (null === $this->input->getArgument('list')) {
@@ -38,9 +35,6 @@ class ListBuildCommand extends Command
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -75,9 +69,6 @@ class ListBuildCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function exec(): int
     {
         $path = $this->input->getArgument('list');
@@ -94,12 +85,12 @@ class ListBuildCommand extends Command
                 exit(0);
             }
 
-            $this->io->title(sprintf('Building %d list(s)', \count($paths)));
+            $this->io->title(\sprintf('Building %d list(s)', \count($paths)));
             foreach ($paths as $singlePath) {
                 try {
                     $this->build($singlePath, $format, $noResolve, $noCache);
                 } catch (\Exception $e) {
-                    $this->io->getLogger()->warning(sprintf(
+                    $this->io->getLogger()->warning(\sprintf(
                         "Ignoring list '%s'; %s",
                         $singlePath,
                         $e->getMessage()

@@ -16,12 +16,9 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     protected int $lineLength;
     protected int $startTime;
     protected int $spinnerCurrent = 0;
-    protected string | array $lastMessage = '';
+    protected array|string $lastMessage = '';
     protected bool $lastMessageNl = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function startOverwrite(array $options = []): void
     {
         $this->overwrite = true;
@@ -34,25 +31,16 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
         $this->lineLength = self::getTerminalWidth();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function endOverwrite(): void
     {
         $this->overwrite = false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isOverwritable(): bool
     {
         return $this->overwrite;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL): void
     {
         while ($this->isOverwritable()) {
@@ -114,12 +102,12 @@ class ConsoleOutput extends Console\Output\ConsoleOutput implements Overwritable
     /**
      * Replaces message placeholders with their values.
      */
-    protected function processPlaceholders(string | array $message): string | array
+    protected function processPlaceholders(array|string $message): array|string
     {
         $formatters = $this->getPlaceholderFormatters();
 
         return preg_replace_callback(
-            '{%([a-z\\-_]+)%}i',
+            '{%([a-z\-_]+)%}i',
             static fn ($matches) => isset($formatters[$matches[1]])
                 ? \call_user_func($formatters[$matches[1]])
                 : $matches[0],

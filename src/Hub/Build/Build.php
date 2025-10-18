@@ -18,7 +18,7 @@ class Build implements BuildInterface
     /**
      * Constructor.
      */
-    public function __construct(protected Filesystem $filesystem, string $path, string $number = null)
+    public function __construct(protected Filesystem $filesystem, string $path, ?string $number = null)
     {
         if (empty($path)) {
             throw new \InvalidArgumentException('The build path can not be empty');
@@ -44,10 +44,7 @@ class Build implements BuildInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getPath(array | string $path = null, bool $raw = false): string
+    public function getPath(array|string|null $path = null, bool $raw = false): string
     {
         if (null === $path) {
             return $this->path;
@@ -71,30 +68,21 @@ class Build implements BuildInterface
         return implode(\DIRECTORY_SEPARATOR, $path);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNumber(): string
     {
         return $this->meta['number'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDate(): string
     {
         return $this->meta['date'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function set(array | string $key, mixed $value = null): void
+    public function set(array|string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
-                new \InvalidArgumentException(sprintf('Expected array but got %s', var_export($value, true)));
+                new \InvalidArgumentException(\sprintf('Expected array but got %s', var_export($value, true)));
             }
             $this->meta = $key;
         } else {
@@ -104,10 +92,7 @@ class Build implements BuildInterface
         $this->write('build', $this->meta);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function get(string $key = null): mixed
+    public function get(?string $key = null): mixed
     {
         if (null === $key) {
             return $this->meta;
@@ -117,17 +102,11 @@ class Build implements BuildInterface
                 ?? false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFormat(): string
     {
         return 'json';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function write(string $path, mixed $data, bool $raw = false): void
     {
         $path = $this->getPath($path, $raw);
@@ -140,14 +119,11 @@ class Build implements BuildInterface
 
             $this->filesystem->write($path, $data);
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Failed writing '%s'; %s", $path, $e->getMessage()), 0, $e);
+            throw new \RuntimeException(\sprintf("Failed writing '%s'; %s", $path, $e->getMessage()), 0, $e);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function read(string $path, bool $raw = false): array | string
+    public function read(string $path, bool $raw = false): array|string
     {
         $path = $this->getPath($path, $raw);
 
@@ -163,29 +139,20 @@ class Build implements BuildInterface
 
             return $decoder->decode($encoded, $this->getFormat());
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Failed reading '%s'; %s", $path, $e->getMessage()), 0, $e);
+            throw new \RuntimeException(\sprintf("Failed reading '%s'; %s", $path, $e->getMessage()), 0, $e);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function exists(string $path = null, bool $raw = false): bool
+    public function exists(?string $path = null, bool $raw = false): bool
     {
         return file_exists($this->getPath($path, $raw));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function finalize(): void
     {
         $this->write('build', $this->meta);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clean(): void
     {
         $this->filesystem->remove($this->path);

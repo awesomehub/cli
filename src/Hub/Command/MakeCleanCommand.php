@@ -11,9 +11,6 @@ use Hub\Build\BuildFactory;
  */
 class MakeCleanCommand extends Command
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -24,9 +21,6 @@ class MakeCleanCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function exec(): int
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);

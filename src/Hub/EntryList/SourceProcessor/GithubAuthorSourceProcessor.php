@@ -14,23 +14,18 @@ use Hub\EntryList\Source\SourceInterface;
  */
 class GithubAuthorSourceProcessor implements SourceProcessorInterface
 {
-    public function __construct(protected GithubWrapperInterface $github)
-    {
-    }
+    public function __construct(protected GithubWrapperInterface $github) {}
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(SourceInterface $source, \Closure $callback)
     {
         $author = $source->getData();
         if (empty($author) || empty($author['type']) || empty($author['name'])) {
-            throw new \UnexpectedValueException(sprintf('Invalid author data scheme; expected [type: user|org, name: string] but got %s', var_export($author, true)));
+            throw new \UnexpectedValueException(\sprintf('Invalid author data scheme; expected [type: user|org, name: string] but got %s', var_export($author, true)));
         }
 
         $callback(self::ON_STATUS_UPDATE, [
             'type' => 'info',
-            'message' => sprintf("Fetching Github author repos '%s/%s'", $author['type'], $author['name']),
+            'message' => \sprintf("Fetching Github author repos '%s/%s'", $author['type'], $author['name']),
         ]);
 
         try {
@@ -46,7 +41,7 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
                 ], true);
             }
         } catch (GithubAPIException $e) {
-            throw new \RuntimeException(sprintf('Github API request failed; %s', $e->getMessage()), 0, $e);
+            throw new \RuntimeException(\sprintf('Github API request failed; %s', $e->getMessage()), 0, $e);
         }
 
         $entries = [];
@@ -63,9 +58,6 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
         return new Source('entries', $entries, $source->getOptions());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAction(SourceInterface $source)
     {
         return 'github.author' === $source->getType()

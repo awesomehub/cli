@@ -15,9 +15,9 @@ interface UrlEntryFactoryInterface
     /**
      * Creates new entry(s) based on input url(s).
      *
-     * @throws UrlEntryCreationFailedException
-     *
      * @return EntryInterface[] Returns new entries on success or FALSE on failure
+     *
+     * @throws UrlEntryCreationFailedException
      */
-    public function create(array | string $input): array;
+    public function create(array|string $input): array;
 }

@@ -26,9 +26,6 @@ abstract class AbstractEntry implements EntryInterface
         $this->aliases = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addAlias(string $id): void
     {
         if (!\in_array($id, $this->aliases, true)) {
@@ -36,46 +33,34 @@ abstract class AbstractEntry implements EntryInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAliases(): array
     {
         return $this->aliases;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has(string $key): bool
     {
         return \array_key_exists($key, $this->data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function get(string $key = null): mixed
+    public function get(?string $key = null): mixed
     {
         if (0 === \func_num_args()) {
             return $this->data;
         }
 
         if (!\array_key_exists($key, $this->data)) {
-            throw new \InvalidArgumentException(sprintf("Trying to get an undefined entry data key '%s'", $key));
+            throw new \InvalidArgumentException(\sprintf("Trying to get an undefined entry data key '%s'", $key));
         }
 
         return $this->data[$key];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function set(array | string $key, mixed $value = null): void
+    public function set(array|string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
-                throw new \UnexpectedValueException(sprintf('Expected array but got %s', var_export($key, true)));
+                throw new \UnexpectedValueException(\sprintf('Expected array but got %s', var_export($key, true)));
             }
 
             $this->data = $key;
@@ -86,10 +71,7 @@ abstract class AbstractEntry implements EntryInterface
         $this->data[$key] = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function merge(array | string $key, mixed $value = null): void
+    public function merge(array|string $key, mixed $value = null): void
     {
         if (!\is_array($key)) {
             $key = [$key => $value];
@@ -98,21 +80,15 @@ abstract class AbstractEntry implements EntryInterface
         $this->data = NestedArray::mergeDeep($this->data, $key);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function unset(string $key): void
     {
         if (!\array_key_exists($key, $this->data)) {
-            throw new \InvalidArgumentException(sprintf("Trying to unset an undefined entry data key '%s'", $key));
+            throw new \InvalidArgumentException(\sprintf("Trying to unset an undefined entry data key '%s'", $key));
         }
 
         unset($this->data[$key]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     final public function getId(): string
     {
         return $this->id;

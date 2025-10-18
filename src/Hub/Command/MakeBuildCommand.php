@@ -14,9 +14,6 @@ use Symfony\Component\Console\Input;
  */
 class MakeBuildCommand extends Command
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(): void
     {
         if ($this->input->getOption('release')) {
@@ -27,9 +24,6 @@ class MakeBuildCommand extends Command
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -46,9 +40,6 @@ class MakeBuildCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function exec(): int
     {
         $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
@@ -71,17 +62,17 @@ class MakeBuildCommand extends Command
             '',
         ]);
 
-        $this->logger->info(sprintf('Initiating list distributor %s cached build', null !== $cachedBuild ? 'with' : 'without'));
+        $this->logger->info(\sprintf('Initiating list distributor %s cached build', null !== $cachedBuild ? 'with' : 'without'));
         $dist = new ListDistributor($build, $cachedBuild, [
             'collections' => $this->workspace->config('dist.listCollections', []),
         ]);
         foreach ($lists as $list) {
             try {
-                $this->logger->info(sprintf("Building list '%s'", $list));
+                $this->logger->info(\sprintf("Building list '%s'", $list));
                 $listInstance = EntryListFile::createFromCache($this->filesystem, $this->workspace, $list);
                 $dist->distribute($listInstance);
             } catch (\Exception $e) {
-                $this->logger->critical(sprintf("Unable to build list '%s'; %s", $list, $e->getMessage()));
+                $this->logger->critical(\sprintf("Unable to build list '%s'; %s", $list, $e->getMessage()));
             }
         }
 

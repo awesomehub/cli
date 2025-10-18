@@ -72,6 +72,6 @@ class StartupWorkspace extends Workspace
 
         return $env->isPlatformWindows()
             ? $home.'\\'.ucfirst(Application::SLUG)
-            : $home.'/'.'.'.strtolower(Application::SLUG);
+            : $home.'/.'.strtolower(Application::SLUG);
     }
 }

@@ -22,10 +22,10 @@ interface BuildFactoryInterface
     /**
      * Gets the currently cached build (most probably the last released build).
      */
-    public function getCached(): BuildInterface | null;
+    public function getCached(): ?BuildInterface;
 
     /**
      * Gets the current build.
      */
-    public function getCurrent(): BuildInterface | null;
+    public function getCurrent(): ?BuildInterface;
 }

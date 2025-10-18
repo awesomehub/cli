@@ -39,9 +39,6 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         $this->formatLevelMap = $formatLevelMap + $this->formatLevelMap;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(LoggerRecordInterface $record): void
     {
         // Check if an explicit level is defined for the console
@@ -63,7 +60,7 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         $tag = $this->formatLevelMap[$level];
         $label_tag = $tag.'_label';
 
-        $output->writeln(sprintf(
+        $output->writeln(\sprintf(
             ' <%1$s>[%3$s]</%1$s>%5$s<%2$s>%4$s</%2$s>',
             $label_tag,
             $tag,
@@ -73,9 +70,6 @@ class ConsoleLoggerHandler implements LoggerHandlerInterface
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isHandling(LoggerRecordInterface $record): bool
     {
         return $this->output->getVerbosity() >= $this->verbosityLevelMap[$this->getExplicitLevel($record)];

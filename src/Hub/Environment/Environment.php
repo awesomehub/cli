@@ -12,39 +12,27 @@ class Environment implements EnvironmentInterface
     protected string $bin;
     protected string $mode;
 
-    public function __construct(string $mode = null)
+    public function __construct(?string $mode = null)
     {
         $this->setBin();
         $this->setMode($mode);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function get(string $varname): bool | array | string
+    public function get(string $varname): array|bool|string
     {
         return getenv($varname);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBin(): string
     {
         return $this->bin;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMode(): string
     {
         return $this->mode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUserHome(): ?string
     {
         // Check if on Windows platform
@@ -65,25 +53,16 @@ class Environment implements EnvironmentInterface
         return rtrim(str_replace('\\', '/', $envHome), '/');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isDevelopment(): bool
     {
         return self::DEVELOPMENT === $this->mode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isProduction(): bool
     {
         return self::PRODUCTION === $this->mode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isPlatformWindows(): bool
     {
         return \defined('PHP_WINDOWS_VERSION_BUILD');
@@ -102,11 +81,11 @@ class Environment implements EnvironmentInterface
      *
      * @throws \InvalidArgumentException
      */
-    protected function setMode(string $mode = null): void
+    protected function setMode(?string $mode = null): void
     {
         if ($mode) {
             if (!\in_array($mode, [self::DEVELOPMENT, self::PRODUCTION], true)) {
-                throw new \InvalidArgumentException(sprintf('Invalid environment mode provided "%s"', $mode));
+                throw new \InvalidArgumentException(\sprintf('Invalid environment mode provided "%s"', $mode));
             }
 
             $this->mode = $mode;

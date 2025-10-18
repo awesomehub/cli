@@ -35,7 +35,7 @@ abstract class Kernel implements KernelInterface
      *                          - EnvironmentInterface::DEVELOPMENT
      *                          - EnvironmentInterface::PRODUCTION
      */
-    public function __construct(EnvironmentInterface $environment = null, string $mode = null)
+    public function __construct(?EnvironmentInterface $environment = null, ?string $mode = null)
     {
         $this->environment = $environment ?: new Environment($mode);
     }
@@ -48,9 +48,6 @@ abstract class Kernel implements KernelInterface
         $this->shutdown();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         // Check it it's already booted up
@@ -73,9 +70,6 @@ abstract class Kernel implements KernelInterface
         $this->booted = true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function shutdown(): void
     {
         // Check if we are not booted
@@ -86,25 +80,16 @@ abstract class Kernel implements KernelInterface
         $this->booted = false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isBooted(): bool
     {
         return $this->booted;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEnvironment(): EnvironmentInterface
     {
         return $this->environment;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContainer(): ContainerInterface
     {
         return $this->container;

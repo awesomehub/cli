@@ -9,7 +9,7 @@ namespace Hub\Exceptions;
  */
 class ServiceNotFoundException extends \RuntimeException
 {
-    public function __construct(string $service, \Exception $previous = null)
+    public function __construct(string $service, ?\Exception $previous = null)
     {
         parent::__construct("Service container cannot find a valid instance of '".ucfirst($service)."' service.", 0, $previous);
     }

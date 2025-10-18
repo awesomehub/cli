@@ -17,7 +17,7 @@ class ListDistributor implements ListDistributorInterface
     protected array $config;
     protected int $updated;
 
-    public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, array $config = null)
+    public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, ?array $config = null)
     {
         $this->config = [
             'collections' => [],
@@ -28,9 +28,6 @@ class ListDistributor implements ListDistributorInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function distribute(EntryListInterface $list): void
     {
         if (!$list->isResolved()) {
@@ -46,7 +43,7 @@ class ListDistributor implements ListDistributorInterface
 
         foreach ($this->config['collections'] as $collection => $lists) {
             if (!\is_array($lists)) {
-                throw new \UnexpectedValueException(sprintf('Expected array of list names but got %s', \gettype($lists)));
+                throw new \UnexpectedValueException(\sprintf('Expected array of list names but got %s', \gettype($lists)));
             }
 
             foreach ($lists as $listId) {
@@ -128,7 +125,7 @@ class ListDistributor implements ListDistributorInterface
             'name' => $current['name'],
             'desc' => $current['description'],
             'lang' => $current['language'],
-            'lic' => $current['licence'],
+            'lic' => $current['license'],
             'cats' => $current['categories'],
             'score' => $current['scores_avg'],
             'scores' => $current['scores'],
@@ -176,7 +173,7 @@ class ListDistributor implements ListDistributorInterface
         }
 
         $idsha = sha1($id);
-        $file = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
+        $file = \sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
         if (!$this->cachedBuild->exists($file, true)) {
             return false;
         }
@@ -191,7 +188,7 @@ class ListDistributor implements ListDistributorInterface
     protected function setObject(string $id, mixed $data): void
     {
         $idsha = sha1($id);
-        $file = sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
+        $file = \sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
         $this->build->write($file, serialize($data), true);
     }
 

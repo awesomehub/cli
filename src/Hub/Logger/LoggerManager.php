@@ -29,9 +29,6 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         $this->setHandlers($handlers);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addHandler(LoggerHandlerInterface $handler): self
     {
         $this->handlers[] = $handler;
@@ -39,9 +36,6 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setHandlers(array $handlers): self
     {
         $this->handlers = [];
@@ -52,17 +46,11 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHandlers(): array
     {
         return $this->handlers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function runHandlers(LoggerRecordInterface $record): void
     {
         if ([] === $this->handlers) {
@@ -78,9 +66,6 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function log($level, $message, array $context = []): void
     {
         $this->runHandlers(new LoggerRecord(
@@ -100,7 +85,7 @@ class LoggerManager extends AbstractLogger implements LoggerManagerInterface
         $replace = [];
         foreach ($context as $key => $val) {
             if (!\is_array($val) && (!\is_object($val) || method_exists($val, '__toString'))) {
-                $replace[sprintf('{%s}', $key)] = $val;
+                $replace[\sprintf('{%s}', $key)] = $val;
             }
         }
 

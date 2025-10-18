@@ -13,18 +13,13 @@ use Hub\EntryList\Source\SourceInterface;
  */
 class GithubListSourceProcessor implements SourceProcessorInterface
 {
-    public function __construct(protected HttpMethodsClient $http)
-    {
-    }
+    public function __construct(protected HttpMethodsClient $http) {}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function process(SourceInterface $source, \Closure $callback = null)
+    public function process(SourceInterface $source, ?\Closure $callback = null)
     {
         $url = $source->getData();
         if (preg_match('/^(?!https?:\/\/)([^\/]+)\/(.*)$/', $source->getData(), $matches)) {
-            $url = sprintf(
+            $url = \sprintf(
                 'https://raw.githubusercontent.com/%s/%s/master/README.md',
                 $matches[1],
                 $matches[2]
@@ -33,22 +28,19 @@ class GithubListSourceProcessor implements SourceProcessorInterface
 
         $callback(self::ON_STATUS_UPDATE, [
             'type' => 'info',
-            'message' => sprintf("Fetching '%s'", $url),
+            'message' => \sprintf("Fetching '%s'", $url),
         ]);
 
         try {
             $response = $this->http->get($url);
             $markdown = (string) $response->getBody();
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf("Failed fetching url '%s'; %s", $url, $e->getMessage()), $e->getCode(), $e);
+            throw new \RuntimeException(\sprintf("Failed fetching url '%s'; %s", $url, $e->getMessage()), $e->getCode(), $e);
         }
 
         return new Source('github.markdown', $markdown, $source->getOptions());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAction(SourceInterface $source)
     {
         return 'github.list' === $source->getType()

@@ -15,9 +15,6 @@ class ListInspectCommand extends Command
 {
     protected EntryListInterface $list;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -33,9 +30,6 @@ class ListInspectCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function exec(): int
     {
         $name = $this->input->getArgument('list');
@@ -72,7 +66,7 @@ class ListInspectCommand extends Command
             $id = $category['id'];
             if ($category['parent'] === $parent) {
                 $row = [
-                    str_repeat('-', $depth + 1).' '.sprintf('%02d', $id).'. '.$category['title'],
+                    str_repeat('-', $depth + 1).' '.\sprintf('%02d', $id).'. '.$category['title'],
                     $category['order'],
                 ];
                 if (0 === $depth) {
@@ -90,7 +84,7 @@ class ListInspectCommand extends Command
                         }
                     }
                     if ($count !== $realCount) {
-                        $count = sprintf('%d <debug>(%d)</debug>', $count, $realCount);
+                        $count = \sprintf('%d <debug>(%d)</debug>', $count, $realCount);
                     }
                     $row[] = $count;
                 }
@@ -115,11 +109,11 @@ class ListInspectCommand extends Command
 
             $totalReal = \count($this->list->getEntries());
             if ($total !== $totalReal) {
-                $total = sprintf('%d <debug>(%d)</debug>', $total, $totalReal);
+                $total = \sprintf('%d <debug>(%d)</debug>', $total, $totalReal);
             }
 
             $this->io->listing([
-                sprintf('<info>Total Count:</info> %s', $total),
+                \sprintf('<info>Total Count:</info> %s', $total),
             ]);
 
             return [];
@@ -145,7 +139,7 @@ class ListInspectCommand extends Command
 
         $list = [];
         foreach ($data as $key => $value) {
-            $list[] = sprintf('<info>%1$s:</info> %2$s', $key, $value);
+            $list[] = \sprintf('<info>%1$s:</info> %2$s', $key, $value);
         }
 
         $this->io->listing($list);

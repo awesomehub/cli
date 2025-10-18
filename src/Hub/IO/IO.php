@@ -20,33 +20,21 @@ class IO extends SymfonyStyle implements IOInterface
         parent::__construct($input, $output);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getInput(): InputInterface
     {
         return $this->input;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getOutput(): OutputInterface
     {
         return $this->output;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function startOverwrite(array $options = []): void
     {
         if ($this->output instanceof OverwritableOutputInterface) {
@@ -54,9 +42,6 @@ class IO extends SymfonyStyle implements IOInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function endOverwrite(): void
     {
         if ($this->output instanceof OverwritableOutputInterface) {
@@ -64,9 +49,6 @@ class IO extends SymfonyStyle implements IOInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isOverwritable(): bool
     {
         if ($this->output instanceof OverwritableOutputInterface) {

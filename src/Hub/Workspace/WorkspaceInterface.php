@@ -14,10 +14,10 @@ interface WorkspaceInterface
      *
      * @param null|array|string $path Path segments as array or string
      */
-    public function path(array | string $path = null): string;
+    public function path(array|string|null $path = null): string;
 
     /**
      * Gets the value of a config key or gets the whole config array.
      */
-    public function config(string $key = null, mixed $default = null): mixed;
+    public function config(?string $key = null, mixed $default = null): mixed;
 }

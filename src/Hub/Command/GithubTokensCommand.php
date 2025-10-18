@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hub\Command;
 
+use Github\Api\RateLimit\RateLimitResource;
+use Github\Utils\GithubWrapperInterface;
+
 /**
  * Inspects github tokens status.
  */
 class GithubTokensCommand extends Command
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -22,12 +22,9 @@ class GithubTokensCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function exec(): int
     {
-        /** @var \Github\Utils\GithubWrapperInterface $github */
+        /** @var GithubWrapperInterface $github */
         $github = $this->container->get('github');
         $tokens = $github->getTokenPool()->getTokens();
 
@@ -38,11 +35,12 @@ class GithubTokensCommand extends Command
             ++$i;
 
             $github->setToken($token);
-            /** @var \Github\Api\RateLimit\RateLimitResource[] $resources */
+
+            /** @var RateLimitResource[] $resources */
             $resources = $github->api('rateLimit/getResources');
             $list = [];
             foreach ($resources as $resource) {
-                $list[] = sprintf(
+                $list[] = \sprintf(
                     '   <comment>* %s</comment>: <debug>Remaining:</debug> %d/%d <debug>Reset</debug>: %s',
                     $resource->getName(),
                     $resource->getRemaining(),
@@ -51,7 +49,7 @@ class GithubTokensCommand extends Command
                 );
             }
 
-            $this->io->writeln(sprintf('<info>%d. %s</info> [%s]', $i, $token->getId(), $token::class));
+            $this->io->writeln(\sprintf('<info>%d. %s</info> [%s]', $i, $token->getId(), $token::class));
             $this->io->writeln($list);
             $this->io->writeln('');
         }

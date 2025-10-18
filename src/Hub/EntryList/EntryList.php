@@ -19,6 +19,7 @@ use Symfony\Component\Config\Definition as ConfigDefinition;
 class EntryList implements EntryListInterface
 {
     protected array $data;
+
     /** @var EntryInterface[] */
     protected array $entries = [];
     protected array $categories = [];
@@ -52,78 +53,54 @@ class EntryList implements EntryListInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getId(): string
     {
         return strtolower($this->get('id'));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCategories(): array
     {
         return $this->categories;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEntries(): array
     {
         return $this->entries;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isProcessed(): bool
     {
         return $this->processed;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isResolved(): bool
     {
         return $this->resolved;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has($key): bool
     {
         return \array_key_exists($key, $this->data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function get(string $key = null): mixed
+    public function get(?string $key = null): mixed
     {
         if (0 === \func_num_args()) {
             return $this->data;
         }
 
         if (!\array_key_exists($key, $this->data)) {
-            throw new \InvalidArgumentException(sprintf("Trying to get an undefined list data key '%s'", $key));
+            throw new \InvalidArgumentException(\sprintf("Trying to get an undefined list data key '%s'", $key));
         }
 
         return $this->data[$key];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function set(array | string $key, mixed $value = null): void
+    public function set(array|string $key, mixed $value = null): void
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
-                throw new \UnexpectedValueException(sprintf('Expected array but got %s', var_export($key, true)));
+                throw new \UnexpectedValueException(\sprintf('Expected array but got %s', var_export($key, true)));
             }
 
             $this->data = $key;
@@ -134,9 +111,6 @@ class EntryList implements EntryListInterface
         $this->data[$key] = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(IOInterface $io, array $processors): void
     {
         if (empty($processors)) {
@@ -147,12 +121,9 @@ class EntryList implements EntryListInterface
         $logger->info('Processing list sources');
         $this->processSources($io, $processors);
         $this->processed = true;
-        $logger->info(sprintf('Processed %d entry(s)', \count($this->entries)));
+        $logger->info(\sprintf('Processed %d entry(s)', \count($this->entries)));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolve(IOInterface $io, array $resolvers, bool $force = false): void
     {
         // Sanity check
@@ -179,6 +150,7 @@ class EntryList implements EntryListInterface
             ++$i;
             $resolvedWith = false;
             $isCached = false;
+
             /** @var EntryResolverInterface $resolver */
             foreach ($resolvers as $resolver) {
                 if (!$resolver->supports($entry)) {
@@ -187,13 +159,13 @@ class EntryList implements EntryListInterface
 
                 $resolvedWith = $resolver;
                 $isCached = $resolver->isCached($entry);
-                $io->write(sprintf($indicator, $i, $id));
+                $io->write(\sprintf($indicator, $i, $id));
 
                 try {
                     $resolver->resolve($entry, $force);
                 } catch (EntryResolveFailedException $e) {
                     $this->removeEntry($entry);
-                    $logger->warning(sprintf(
+                    $logger->warning(\sprintf(
                         "Failed resolving entry#%d [%s] with '%s'; %s",
                         $i,
                         $id,
@@ -208,7 +180,7 @@ class EntryList implements EntryListInterface
             // Check if no resolver can resolve this entry
             if (false === $resolvedWith) {
                 $this->removeEntry($entry);
-                $logger->warning(sprintf(
+                $logger->warning(\sprintf(
                     "Ignoring entry#%d [%s] of type '%s'; None of the given resolvers supports it",
                     $i,
                     $id,
@@ -226,7 +198,7 @@ class EntryList implements EntryListInterface
         }
 
         $this->resolved = true;
-        $logger->info(sprintf(
+        $logger->info(\sprintf(
             'Resolved %d/%d entry(s) with %d cached entry(s)',
             $ir,
             $i,
@@ -235,9 +207,6 @@ class EntryList implements EntryListInterface
         $io->endOverwrite();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function finalize(IOInterface $io): void
     {
         $logger = $io->getLogger();
@@ -254,7 +223,7 @@ class EntryList implements EntryListInterface
                 }
             }
         }
-        $logger->info(sprintf('Merged %d entry(s) with aliases', $im));
+        $logger->info(\sprintf('Merged %d entry(s) with aliases', $im));
 
         $logger->info('Organizing categories');
         foreach ($this->entries as $entry) {
@@ -294,12 +263,9 @@ class EntryList implements EntryListInterface
             $this->categories[$i]['order'] = $order;
         }
 
-        $logger->info(sprintf('Organized %d category(s)', \count($this->categories)));
+        $logger->info(\sprintf('Organized %d category(s)', \count($this->categories)));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeEntry(EntryInterface $entry): void
     {
         // Sanity check
@@ -344,7 +310,7 @@ class EntryList implements EntryListInterface
             foreach ($source->getOption('exclude', []) as $regex) {
                 $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
                 if (false === @preg_match($regex, '')) {
-                    throw new \InvalidArgumentException(sprintf("Invalid exclude regex '%s'", $regex));
+                    throw new \InvalidArgumentException(\sprintf("Invalid exclude regex '%s'", $regex));
                 }
 
                 if (preg_match($regex, $id)) {
@@ -390,7 +356,7 @@ class EntryList implements EntryListInterface
                     $regex = '*' === $regex ? '.*' : $regex;
                     $regex = '/' !== $regex[0] ? "/{$regex}/" : $regex;
                     if (false === @preg_match($regex, '')) {
-                        throw new \InvalidArgumentException(sprintf("Invalid category regex '%s'", $regex));
+                        throw new \InvalidArgumentException(\sprintf("Invalid category regex '%s'", $regex));
                     }
 
                     $assert = preg_match($regex, $id);
@@ -439,7 +405,7 @@ class EntryList implements EntryListInterface
 
                             break;
                         }
-                        $io->write(sprintf($indicator, $payload['message']));
+                        $io->write(\sprintf($indicator, $payload['message']));
 
                         break;
 
@@ -449,7 +415,7 @@ class EntryList implements EntryListInterface
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(sprintf("Unsupported source processor event '%s'", $event));
+                        throw new \UnexpectedValueException(\sprintf("Unsupported source processor event '%s'", $event));
                 }
             };
 
@@ -459,12 +425,12 @@ class EntryList implements EntryListInterface
                 switch ($processor->getAction($source)) {
                     case SourceProcessorInterface::ACTION_PARTIAL_PROCESSING:
                         $processedWith = $processor;
-                        $logger->info(sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+                        $logger->info(\sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
 
                         try {
                             $childSources = $processor->process($source, $callback);
                         } catch (\Exception $e) {
-                            $logger->critical(sprintf(
+                            $logger->critical(\sprintf(
                                 "Failed processing source[%s] with '%s'; %s",
                                 $id,
                                 $processorName,
@@ -479,7 +445,7 @@ class EntryList implements EntryListInterface
                         }
 
                         if ([] === $childSources) {
-                            $logger->warning(sprintf(
+                            $logger->warning(\sprintf(
                                 "No child sources from processing source[%s] with '%s'",
                                 $id,
                                 $processorName
@@ -494,12 +460,12 @@ class EntryList implements EntryListInterface
 
                     case SourceProcessorInterface::ACTION_PROCESSING:
                         $processedWith = $processor;
-                        $logger->info(sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+                        $logger->info(\sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
 
                         try {
                             $processor->process($source, $callback);
                         } catch (\Exception $e) {
-                            $logger->critical(sprintf(
+                            $logger->critical(\sprintf(
                                 "Failed processing source[%s] with '%s'; %s",
                                 $id,
                                 $processorName,
@@ -513,18 +479,18 @@ class EntryList implements EntryListInterface
                         break;
 
                     default:
-                        throw new \UnexpectedValueException(sprintf("Got an invalid processing mode from processor '%s'", $processor::class));
+                        throw new \UnexpectedValueException(\sprintf("Got an invalid processing mode from processor '%s'", $processor::class));
                 }
             }
 
             // Check if no processor can process this source
             if (false === $processedWith) {
-                $logger->critical(sprintf('Ignoring source[%s]; None of the given processors supports it', $id));
+                $logger->critical(\sprintf('Ignoring source[%s]; None of the given processors supports it', $id));
 
                 continue;
             }
 
-            $logger->info(sprintf('%sFinished processing source[%s]', $depthStr, $id));
+            $logger->info(\sprintf('%sFinished processing source[%s]', $depthStr, $id));
         }
 
         if ($root) {

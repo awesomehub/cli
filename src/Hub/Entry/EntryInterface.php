@@ -39,18 +39,18 @@ interface EntryInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function get(string $key = null): mixed;
+    public function get(?string $key = null): mixed;
 
     /**
      * Sets the value of a given data key or the whole data array.
      */
-    public function set(array | string $key, mixed $value = null);
+    public function set(array|string $key, mixed $value = null);
 
     /**
      * Merges the value of a given data key. If an array is given
      *  it should merge it with the main data array.
      */
-    public function merge(array | string $key, mixed $value = null);
+    public function merge(array|string $key, mixed $value = null);
 
     /**
      * Deletes a given data key.

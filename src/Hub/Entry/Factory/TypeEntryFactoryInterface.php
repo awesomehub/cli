@@ -18,12 +18,12 @@ interface TypeEntryFactoryInterface
      *
      * @return EntryInterface|EntryInterface[]
      */
-    public static function create(array | string $type, array $data = []): EntryInterface | array;
+    public static function create(array|string $type, array $data = []): array|EntryInterface;
 
     /**
      * Gets a list of supported input types or checks whether the given type is supported.
      *
      * @param null|string $input Input type to check against
      */
-    public static function supports(string $input = null): bool | string | array;
+    public static function supports(?string $input = null): array|bool|string;
 }

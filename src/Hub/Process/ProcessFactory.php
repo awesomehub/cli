@@ -11,24 +11,13 @@ use Psr\Log\LoggerInterface;
  */
 class ProcessFactory implements ProcessFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(protected LoggerInterface $logger)
-    {
-    }
+    public function __construct(protected LoggerInterface $logger) {}
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(array $command, array $options = []): Process
     {
         return new Process($command, array_merge(['logger' => $this->logger], $options));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function run(array $command, array $options = []): Process
     {
         $proc = $this->create($command, $options);
@@ -37,9 +26,6 @@ class ProcessFactory implements ProcessFactoryInterface
         return $proc;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function start(array $command, array $options = []): Process
     {
         $proc = $this->create($command, $options);

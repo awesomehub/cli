@@ -27,30 +27,37 @@ class NestedArray
      * // Do not do this! Avoid eval().
      * // May also throw a PHP notice, if the variable array keys do not exist.
      * eval('$value = $array[\'' . implode("']['", $parents) . "'];");
+     *
      * @endcode
      *
      * Instead, use this helper function:
+     *
      * @code
      * $value = NestedArray::getValue($form, $parents);
+     *
      * @endcode
      *
      * A return value of NULL is ambiguous, and can mean either that the requested
      * key does not exist, or that the actual value is NULL. If it is required to
      * know whether the nested array key actually exists, pass a third argument
      * that is altered by reference:
+     *
      * @code
      * $key_exists = NULL;
      * $value = NestedArray::getValue($form, $parents, $key_exists);
      * if ($key_exists) {
      *   // Do something with $value.
      * }
+     *
      * @endcode
      *
      * However if the number of array parent keys is static, the value should
      * always be retrieved directly rather than calling this function.
      * For instance:
+     *
      * @code
      * $value = $form['signature_settings']['signature'];
+     *
      * @endcode
      *
      * @param array $array      The array from which to get the value
@@ -105,10 +112,12 @@ class NestedArray
      *   '#type' => 'text_format',
      *   '#title' => t('Signature'),
      * );
+     *
      * @endcode
      *
      * To deal with the situation, the code needs to figure out the route to the
      * element, given an array of parents that is either
+     *
      * @code array('signature_settings', 'signature') @endcode
      * in the first case or
      * @code array('signature_settings', 'user', 'signature') @endcode
@@ -119,18 +128,23 @@ class NestedArray
      * @code
      * // Do not do this! Avoid eval().
      * eval('$form[\'' . implode("']['", $parents) . '\'] = $element;');
+     *
      * @endcode
      *
      * Instead, use this helper function:
+     *
      * @code
      * NestedArray::setValue($form, $parents, $element);
+     *
      * @endcode
      *
      * However if the number of array parent keys is static, the value should
      * always be set directly rather than calling this function. For instance,
      * for the first example we could just do:
+     *
      * @code
      * $form['signature_settings']['signature'] = $element;
+     *
      * @endcode
      *
      * @param array $array   A reference to the array to modify
@@ -178,10 +192,12 @@ class NestedArray
      *   '#type' => 'text_format',
      *   '#title' => t('Signature'),
      * );
+     *
      * @endcode
      *
      * To deal with the situation, the code needs to figure out the route to the
      * element, given an array of parents that is either
+     *
      * @code array('signature_settings', 'signature') @endcode
      * in the first case or
      * @code array('signature_settings', 'user', 'signature') @endcode
@@ -192,18 +208,23 @@ class NestedArray
      * @code
      * // Do not do this! Avoid eval().
      * eval('unset($form[\'' . implode("']['", $parents) . '\']);');
+     *
      * @endcode
      *
      * Instead, use this helper function:
+     *
      * @code
      * NestedArray::unset_nested_value($form, $parents, $element);
+     *
      * @endcode
      *
      * However if the number of array parent keys is static, the value should
      * always be set directly rather than calling this function. For instance, for
      * the first example we could just do:
+     *
      * @code
      * unset($form['signature_settings']['signature']);
+     *
      * @endcode
      *
      * @param array $array       A reference to the array to modify
@@ -215,7 +236,7 @@ class NestedArray
      * @see NestedArray::setValue()
      * @see NestedArray::getValue()
      */
-    public static function unsetValue(array &$array, array $parents, bool &$key_existed = null): void
+    public static function unsetValue(array &$array, array $parents, ?bool &$key_existed = null): void
     {
         $unset_key = array_pop($parents);
         $ref = &self::getValue($array, $parents, $key_existed);
@@ -244,6 +265,7 @@ class NestedArray
      * @code
      * $value_exists = isset($form['signature_settings']['signature']);
      * $key_exists = array_key_exists('signature', $form['signature_settings']);
+     *
      * @endcode
      *
      * @param array $array   The array with the value to check for
@@ -281,6 +303,7 @@ class NestedArray
      *
      * // This results in array('fragment' => 'y', 'attributes' => array('title' => t('Y'), 'class' => array('a', 'b', 'c', 'd'))).
      * $correct = NestedArray::mergeDeep($link_options_1, $link_options_2);
+     *
      * @endcode
      *
      * @param array ... Arrays to merge.
@@ -350,7 +373,7 @@ class NestedArray
      *
      * @return array The filtered array
      */
-    public static function filter(array $array, callable $callable = null): array
+    public static function filter(array $array, ?callable $callable = null): array
     {
         $array = \is_callable($callable) ? array_filter($array, $callable) : array_filter($array);
         foreach ($array as &$element) {

@@ -20,22 +20,18 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     ];
     protected array $pathMatches = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(SourceInterface $source, \Closure $callback)
     {
         $markdown = $source->getData();
         if (empty($markdown)) {
             throw new \RuntimeException('Failed processing an empty markdown data');
         }
-
-        $environment = CommonMark\Environment::createGFMEnvironment();
-        $parser = new CommonMark\DocParser($environment);
+        $gfmc = new CommonMark\GithubFlavoredMarkdownConverter();
+        $parser = new CommonMark\Parser\MarkdownParser($gfmc->getEnvironment());
         $document = $parser->parse($markdown);
 
         // Load category rules definitions
-        $this->loadlistRules($source->getOption('markdownCategories', []));
+        $this->loadListRules($source->getOption('markdownCategories', []));
 
         $category = null;
         $categories_with_rules = [];
@@ -45,11 +41,8 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         $walker = $document->walker();
         while ($event = $walker->next()) {
             $node = $event->getNode();
-            if ($node instanceof CommonMark\Block\Element\Heading && $event->isEntering()) {
-                $textNode = $node->firstChild();
-                $heading = $textNode instanceof CommonMark\Inline\Element\Text
-                    ? trim($textNode->getContent())
-                    : $node->getStringContent();
+            if ($node instanceof CommonMark\Extension\CommonMark\Node\Block\Heading && $event->isEntering()) {
+                $heading = trim(CommonMark\Node\StringContainerHelper::getChildText($node));
                 $headingLevel = $node->getLevel();
                 $rules = $this->getCategoryRules($heading, $headingLevel);
                 // Category title can not have slashes, we use it for parent/child relationship
@@ -62,7 +55,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                 ];
 
                 while ($category_with_rules = end($categories_with_rules)) {
-                    if ($category_with_rules && $category_with_rules['level'] >= $headingLevel) {
+                    if ($category_with_rules['level'] >= $headingLevel) {
                         array_pop($categories_with_rules);
 
                         continue;
@@ -86,13 +79,13 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                 continue;
             }
 
-            if ($node instanceof CommonMark\Block\Element\ListBlock) {
+            if ($node instanceof CommonMark\Extension\CommonMark\Node\Block\ListBlock) {
                 $insideListBlock = $event->isEntering();
 
                 continue;
             }
 
-            if ($insideListBlock && $node instanceof CommonMark\Inline\Element\Link && $event->isEntering()) {
+            if ($insideListBlock && $node instanceof CommonMark\Extension\CommonMark\Node\Inline\Link && $event->isEntering()) {
                 if (!empty($category['rules']['ignore'])) {
                     continue;
                 }
@@ -121,9 +114,6 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
         return $sources;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAction(SourceInterface $source)
     {
         return 'github.markdown' === $source->getType()
@@ -134,14 +124,14 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     /**
      * Builds list rules from config.
      */
-    protected function loadlistRules(array $rules): void
+    protected function loadListRules(array $rules): void
     {
         foreach ($rules as $path => $rule) {
             $matches = [];
             if (!preg_match_all('/(^|\/|:)H([\d])\(([^)]+?)\)/i', $path, $matches) || empty($matches[0])) {
                 $matches = [];
-                if (!preg_match_all('/(^|\/|:)H([\d])\[([^]]+?)\]/i', $path, $matches) || empty($matches[0])) {
-                    throw new \RuntimeException(sprintf("Invalid category path regex '%s'", $path));
+                if (!preg_match_all('/(^|\/|:)H([\d])\[([^]]+?)]/i', $path, $matches) || empty($matches[0])) {
+                    throw new \RuntimeException(\sprintf("Invalid category path regex '%s'", $path));
                 }
             }
 
@@ -215,22 +205,24 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
                         }
 
                         break;
-                    // Matches sibling node
+
+                        // Matches sibling node
                     case ':':
                         $pathSeg = prev($rule['path']);
                         $treeNode = prev($tree);
                         $continue = $pathSeg['node'] === $treeNode;
 
                         break;
-                    // Marks the end of the path
-                    // Technically its the start of the path but we're walking backwards
+
+                        // Marks the end of the path
+                        // Technically its the start of the path but we're walking backwards
                     case '':
                         $this->pathMatches[] = $rule['pathRaw'];
 
                         return $rule['rules'];
 
                     default:
-                        throw new \LogicException(sprintf("Unexpected path operator '%s'", $pathSeg['operator']));
+                        throw new \LogicException(\sprintf("Unexpected path operator '%s'", $pathSeg['operator']));
                 }
             } while ($continue);
         }
@@ -247,7 +239,7 @@ class GithubMarkdownSourceProcessor implements SourceProcessorInterface
     {
         $skippedPaths = array_diff(array_column($this->rules, 'pathRaw'), $this->pathMatches);
         if ([] !== $skippedPaths) {
-            throw new \RuntimeException(sprintf("Unable to match category path%s '%s'", \count($skippedPaths) > 1 ? 's' : '', implode(', ', $skippedPaths)));
+            throw new \RuntimeException(\sprintf("Unable to match category path%s '%s'", \count($skippedPaths) > 1 ? 's' : '', implode(', ', $skippedPaths)));
         }
     }
 }

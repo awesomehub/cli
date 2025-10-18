@@ -32,9 +32,6 @@ abstract class Command extends BaseCommand
     protected LoggerInterface $logger;
     protected ProcessFactoryInterface $process;
 
-    /**
-     * {@inheritdoc}
-     */
     final public function run(InputInterface $input, OutputInterface $output): int
     {
         $this->container = $this->getApplication()->getContainer();
@@ -48,8 +45,8 @@ abstract class Command extends BaseCommand
         $this->logger = $this->container->get('logger');
         $this->process = $this->container->get('process.factory');
 
-        $this->logger->debug(sprintf("Current command '%s'", implode(' ', $_SERVER['argv'])));
-        $this->logger->debug(sprintf("Current workspace '%s'", $this->workspace->path()));
+        $this->logger->debug(\sprintf("Current command '%s'", implode(' ', $_SERVER['argv'])));
+        $this->logger->debug(\sprintf("Current workspace '%s'", $this->workspace->path()));
 
         return parent::run($input, $output);
     }
@@ -57,30 +54,21 @@ abstract class Command extends BaseCommand
     /**
      * Gets the application instance for this command.
      */
-    public function getApplication(): Application | \Symfony\Component\Console\Application
+    public function getApplication(): Application|\Symfony\Component\Console\Application
     {
         return parent::getApplication();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->init();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $this->validate();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->exec();
@@ -89,16 +77,12 @@ abstract class Command extends BaseCommand
     /**
      * Initializes the command just after the input has been validated.
      */
-    protected function init(): void
-    {
-    }
+    protected function init(): void {}
 
     /**
      * This is where the command can interactively ask for values of missing required arguments..
      */
-    protected function validate(): void
-    {
-    }
+    protected function validate(): void {}
 
     /**
      * Executes the current command.

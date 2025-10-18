@@ -22,9 +22,6 @@ class BuildFactory implements BuildFactoryInterface
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($path = null): BuildInterface
     {
         $build = new Build(
@@ -38,18 +35,12 @@ class BuildFactory implements BuildFactoryInterface
         return $build;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function cache(BuildInterface $build): void
     {
         $this->filesystem->mirror($build->getPath(), $this->path['cached']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCurrent(): BuildInterface | null
+    public function getCurrent(): ?BuildInterface
     {
         try {
             return new Build($this->filesystem, $this->path['dist']);
@@ -58,10 +49,7 @@ class BuildFactory implements BuildFactoryInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCached(): BuildInterface | null
+    public function getCached(): ?BuildInterface
     {
         try {
             return new Build($this->filesystem, $this->path['cached']);
@@ -84,7 +72,7 @@ class BuildFactory implements BuildFactoryInterface
             }
         }
 
-        $number = sprintf('%d.%d', $number[0], $number[1]);
+        $number = \sprintf('%d.%d', $number[0], $number[1]);
         $this->filesystem->write($file, $number);
 
         return $number;

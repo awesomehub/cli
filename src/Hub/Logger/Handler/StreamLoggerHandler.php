@@ -62,7 +62,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
         }
 
         if (!\array_key_exists($level, static::$severityLevelMap)) {
-            throw new InvalidArgumentException(sprintf('The log level "%s" does not exist.', $level));
+            throw new InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
 
         $this->level = $level;
@@ -82,17 +82,11 @@ class StreamLoggerHandler implements LoggerHandlerInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isHandling(LoggerRecordInterface $record): bool
     {
         return static::$severityLevelMap[$record->getLevel()] >= $this->severity;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(LoggerRecordInterface $record): void
     {
         // check if we have a valid stream
@@ -122,7 +116,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
             if (!\is_resource($this->stream)) {
                 $this->stream = null;
 
-                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened in append mode: %s', $this->url, $this->errorMessage));
+                throw new \UnexpectedValueException(\sprintf('The stream or file "%s" could not be opened in append mode: %s', $this->url, $this->errorMessage));
             }
             stream_set_chunk_size($this->stream, self::MAX_CHUNK_SIZE);
         }
@@ -133,7 +127,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
         }
 
         // write the message to the stream resource
-        fwrite($this->stream, sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record->getTimestamp()), ucfirst($record->getLevel()), $record->getMessage()));
+        fwrite($this->stream, \sprintf("[%1\$s] [%2\$s] %3\$s\n", date('Y-m-d H:i:s', $record->getTimestamp()), ucfirst($record->getLevel()), $record->getMessage()));
 
         if ($this->useLocking) {
             flock($this->stream, \LOCK_UN);
@@ -166,7 +160,7 @@ class StreamLoggerHandler implements LoggerHandlerInterface
 
             // throw exception if directory couldn't be created
             if (!$status && !is_dir($dir)) {
-                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: %s', $dir, $this->errorMessage));
+                throw new \UnexpectedValueException(\sprintf('There is no existing directory at "%s" and it could not be created: %s', $dir, $this->errorMessage));
             }
         }
 

@@ -46,7 +46,7 @@ class Process extends BaseProcess
         $this->logger = $this->options['logger'];
         $this->output = $this->options['output'];
 
-        $this->command = sprintf('[%s]', implode(', ', $command));
+        $this->command = \sprintf('[%s]', implode(', ', $command));
         $this->logger && $this->logger->debug("[Process] Initializing ({$this->command})");
 
         parent::__construct(
@@ -58,25 +58,16 @@ class Process extends BaseProcess
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function start(callable $callback = null): void
+    public function start(?callable $callback = null): void
     {
         parent::start($this->getOutputCallback($callback));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function wait(callable $callback = null): int
+    public function wait(?callable $callback = null): int
     {
         return parent::wait($this->getOutputCallback($callback));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function stop($timeout = 10, $signal = null): ?int
     {
         if (!$this->isTerminationLogged) {
@@ -87,9 +78,6 @@ class Process extends BaseProcess
         return parent::stop($timeout, $signal);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRunning(): bool
     {
         $running = parent::isRunning();
@@ -112,7 +100,7 @@ class Process extends BaseProcess
      *
      * @param null|callable $callback The user defined PHP callback
      */
-    protected function getOutputCallback(callable $callback = null): ?callable
+    protected function getOutputCallback(?callable $callback = null): ?callable
     {
         if (!$this->isStartingLogged) {
             $this->isStartingLogged = true;

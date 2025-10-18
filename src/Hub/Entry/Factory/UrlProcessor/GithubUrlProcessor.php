@@ -14,17 +14,11 @@ class GithubUrlProcessor implements UrlProcessorInterface
 {
     protected array $matches = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(string $url): RepoGithubEntryInterface
     {
         return new RepoGithubEntry($this->matches[1], $this->matches[2]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAction(string $url)
     {
         if (preg_match('/https?:\/\/+(?:www\.)?github\.com\/+([\w.-]+)\/+([\w.-]+)\/*(?:[?#].*|$)/i', $url, $this->matches)) {

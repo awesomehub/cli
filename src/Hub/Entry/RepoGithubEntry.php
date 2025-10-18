@@ -23,25 +23,16 @@ class RepoGithubEntry extends AbstractEntry implements RepoGithubEntryInterface
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAuthor(): string
     {
         return $this->data['author'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->data['name'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getType(): string
     {
         return 'repo.github';

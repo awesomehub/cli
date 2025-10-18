@@ -28,7 +28,7 @@ interface LoggerRecordInterface
      * Gets a specific value from the log context or the whole
      *  array if the key is omitted.
      */
-    public function getContext(string $key = null): mixed;
+    public function getContext(?string $key = null): mixed;
 
     /**
      * Gets the log UNIX timestamp.

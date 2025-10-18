@@ -68,12 +68,12 @@ interface EntryListInterface
     /**
      * Gets the value of a given data key. If the key is omitted, the whole list data will be returned.
      */
-    public function get(string $key = null): mixed;
+    public function get(?string $key = null): mixed;
 
     /**
      * Sets the value of a given data key or the whole list data array.
      */
-    public function set(array | string $key, mixed $value = null): void;
+    public function set(array|string $key, mixed $value = null): void;
 
     /**
      * Checks if a given key exists in list data.
