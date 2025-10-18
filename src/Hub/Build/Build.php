@@ -29,7 +29,7 @@ class Build implements BuildInterface
             $this->set([
                 'number' => $number,
                 'date' => date('c'),
-                'format' => $this->getFormat(),
+                'urls' => new \stdClass(),
             ]);
 
             return;

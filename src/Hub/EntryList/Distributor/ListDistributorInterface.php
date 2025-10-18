@@ -15,4 +15,9 @@ interface ListDistributorInterface
      * Distributes the list.
      */
     public function distribute(EntryListInterface $list): void;
+
+    /**
+     * Finalizes the distribution process.
+     */
+    public function finalize(): void;
 }

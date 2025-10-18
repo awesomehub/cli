@@ -76,6 +76,8 @@ class MakeBuildCommand extends Command
             }
         }
 
+        $dist->finalize();
+
         $this->logger->info('Finalizing build');
         $build->finalize();
 

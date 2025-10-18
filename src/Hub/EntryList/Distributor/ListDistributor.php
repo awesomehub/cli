@@ -7,6 +7,7 @@ namespace Hub\EntryList\Distributor;
 use Hub\Build\BuildInterface;
 use Hub\Entry\RepoGithubEntryInterface;
 use Hub\EntryList\EntryListInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 /**
  * Distributes lists into API consumable files.
@@ -16,6 +17,11 @@ class ListDistributor implements ListDistributorInterface
     protected EntryListInterface $list;
     protected array $config;
     protected int $updated;
+    protected ?string $currentListUrl = null;
+
+    /** @var array<string, array<string, array<string, mixed>>> */
+    protected array $collectionsData = [];
+    protected JsonEncode $jsonEncoder;
 
     public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, ?array $config = null)
     {
@@ -26,6 +32,8 @@ class ListDistributor implements ListDistributorInterface
         if ($config) {
             $this->config = array_merge($this->config, $config);
         }
+
+        $this->jsonEncoder = new JsonEncode();
     }
 
     public function distribute(EntryListInterface $list): void
@@ -35,6 +43,7 @@ class ListDistributor implements ListDistributorInterface
         }
 
         $this->list = $list;
+        $this->currentListUrl = null;
 
         $this->buildList();
 
@@ -47,11 +56,43 @@ class ListDistributor implements ListDistributorInterface
             }
 
             foreach ($lists as $listId) {
-                if (strtolower($listId) === $this->list->getId()) {
+                if (strtolower((string) $listId) === $this->list->getId()) {
                     $this->addToCollection($collection);
                 }
             }
         }
+    }
+
+    public function finalize(): void
+    {
+        if (empty($this->collectionsData)) {
+            $this->build->set('urls', new \stdClass());
+
+            return;
+        }
+
+        $urls = [];
+        foreach ($this->collectionsData as $collectionId => $listsById) {
+            $lists = array_values($listsById);
+            $entriesCount = 0;
+            foreach ($lists as $item) {
+                $entriesCount += $item['entries'] ?? 0;
+            }
+
+            $collectionPayload = [
+                'lists' => $lists,
+                'entries' => $entriesCount,
+            ];
+
+            $encoded = $this->encodeData($collectionPayload);
+            $hash = $this->hashContent($encoded);
+            $relativePath = \sprintf('%s/%s.%s.json', $this->build->getNumber(), $collectionId, $hash);
+            $this->build->write($relativePath, $encoded, true);
+            $urls[$collectionId] = '/'.$relativePath;
+        }
+
+        ksort($urls);
+        $this->build->set('urls', $urls);
     }
 
     /**
@@ -90,7 +131,7 @@ class ListDistributor implements ListDistributorInterface
             ++$entries_count;
         }
 
-        $this->list->set('score', (int) ($entries_total_score / $entries_count));
+        $this->list->set('score', (int) ($entries_total_score / max(1, $entries_count)));
 
         $list = [
             'id' => $this->list->getId(),
@@ -111,7 +152,12 @@ class ListDistributor implements ListDistributorInterface
         }
 
         $list['entries'] = $entries;
-        $this->build->write('list/'.$list['id'], $list);
+        $encodedList = $this->encodeData($list);
+        $hash = $this->hashContent($encodedList);
+        $relativePath = \sprintf('%s/list/%s.%s.json', $this->build->getNumber(), $list['id'], $hash);
+        $this->build->write($relativePath, $encodedList, true);
+
+        $this->currentListUrl = '/'.$relativePath;
         $this->updated = $list['updated'];
     }
 
@@ -138,29 +184,23 @@ class ListDistributor implements ListDistributorInterface
      */
     protected function addToCollection(string $id): void
     {
-        $file = 'lists/'.$id;
-        $collection = [
-            'lists' => [],
-        ];
-        if ($this->build->exists($file)) {
-            $collection = $this->build->read($file);
+        if (null === $this->currentListUrl) {
+            throw new \RuntimeException('List URL is not available for the current distribution.');
         }
 
-        $list = [
+        if (!isset($this->collectionsData[$id])) {
+            $this->collectionsData[$id] = [];
+        }
+
+        $this->collectionsData[$id][$this->list->getId()] = [
             'id' => $this->list->getId(),
             'name' => $this->list->get('name'),
             'desc' => $this->list->get('desc'),
             'score' => $this->list->get('score'),
             'entries' => \count($this->list->getEntries()),
             'updated' => $this->updated,
+            'url' => $this->currentListUrl,
         ];
-
-        if (!\in_array($list, $collection['lists'], true)) {
-            $collection['lists'][] = $list;
-            $collection['entries'] = ($collection['entries'] ?? 0) + $list['entries'];
-        }
-
-        $this->build->write($file, $collection);
     }
 
     /**
@@ -223,5 +263,19 @@ class ListDistributor implements ListDistributorInterface
         }
 
         return $difference;
+    }
+
+    protected function encodeData(mixed $data): string
+    {
+        return $this->jsonEncoder->encode($data, $this->build->getFormat());
+    }
+
+    protected function hashContent(string $content): string
+    {
+        if (\in_array('xxh64', hash_algos(), true)) {
+            return hash('xxh64', $content);
+        }
+
+        return substr(hash('md5', $content), 0, 16);
     }
 }

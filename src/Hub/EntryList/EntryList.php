@@ -537,6 +537,7 @@ class EntryList implements EntryListInterface
                 $completed,
                 implode(', ', array_values($active))
             ));
+
             return;
         }
 
