@@ -61,9 +61,9 @@ class EntryListFile extends EntryList
         $this->save();
     }
 
-    public function resolve(IOInterface $io, array $resolvers, bool $force = false): void
+    public function resolve(IOInterface $io, array $resolvers, bool $force = false, ?int $concurrency = null): void
     {
-        parent::resolve($io, $resolvers, $force);
+        parent::resolve($io, $resolvers, $force, $concurrency);
 
         $io->getLogger()->info('Saving list cache file');
         $this->save();

@@ -33,6 +33,11 @@ class ListBuildCommand extends Command
                 exit(0);
             }
         }
+
+        $concurrency = $this->input->getOption('concurrency');
+        if (!\is_numeric($concurrency) || (int) $concurrency < 1) {
+            throw new \InvalidArgumentException('The --concurrency option must be a positive integer greater than zero.');
+        }
     }
 
     protected function configure(): void
@@ -46,6 +51,13 @@ class ListBuildCommand extends Command
                 'list',
                 Input\InputArgument::OPTIONAL,
                 'The name or path to the list definition file'
+            )
+            ->addOption(
+                '--concurrency',
+                '-c',
+                Input\InputOption::VALUE_REQUIRED,
+                'Maximum number of concurrent resolver workers',
+                2
             )
             ->addOption(
                 '--format',
@@ -154,8 +166,15 @@ class ListBuildCommand extends Command
      */
     protected function resolve(EntryListInterface $list, bool $force = false): void
     {
+        $concurrency = (int) $this->input->getOption('concurrency');
+
         $list->resolve($this->io, [
-            new RepoGithubEntryResolver($this->container->get('github.inspector'), $this->filesystem, $this->workspace),
-        ], $force);
+            new RepoGithubEntryResolver(
+                $this->container->get('github.inspector'),
+                $this->filesystem,
+                $this->workspace,
+                $this->environment
+            ),
+        ], $force, $concurrency);
     }
 }

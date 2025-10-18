@@ -129,7 +129,7 @@ class EntryList implements EntryListInterface
         $logger->info(\sprintf('Processed %d entry(s)', \count($this->entries)));
     }
 
-    public function resolve(IOInterface $io, array $resolvers, bool $force = false): void
+    public function resolve(IOInterface $io, array $resolvers, bool $force = false, ?int $concurrency = null): void
     {
         // Sanity check
         if (!$this->isProcessed()) {
@@ -147,7 +147,7 @@ class EntryList implements EntryListInterface
         $logger = $io->getLogger();
         $logger->info('Resolving list entries');
 
-        $concurrency = (int) ($this->data['options']['resolve']['concurrency'] ?? 1);
+        $concurrency = max(1, $concurrency);
         $canResolveConcurrently = $concurrency > 1 && $this->resolversSupportAsync($resolvers);
         if ($concurrency > 1 && !$canResolveConcurrently) {
             $logger->debug('Parallel resolve disabled; at least one resolver does not support async execution.');

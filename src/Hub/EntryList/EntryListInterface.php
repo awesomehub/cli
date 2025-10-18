@@ -26,7 +26,7 @@ interface EntryListInterface
      *
      * @param EntryResolverInterface[] $resolvers
      */
-    public function resolve(IOInterface $io, array $resolvers, bool $force = false): void;
+    public function resolve(IOInterface $io, array $resolvers, bool $force = false, ?int $concurrency = null): void;
 
     /**
      * The last process of list building.
