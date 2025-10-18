@@ -175,6 +175,94 @@ class EntryList implements EntryListInterface
         ));
     }
 
+    public function finalize(IOInterface $io): void
+    {
+        $logger = $io->getLogger();
+
+        $logger->info('Merging entry aliases');
+        $im = 0;
+        foreach ($this->entries as $entry) {
+            $aliases = $entry->getAliases();
+            foreach ($aliases as $aliasId) {
+                if (isset($this->entries[$aliasId])) {
+                    $entry->merge($this->entries[$aliasId]->get());
+                    $this->removeEntry($this->entries[$aliasId]);
+                    ++$im;
+                }
+            }
+        }
+        $logger->info(\sprintf('Merged %d entry(s) with aliases', $im));
+
+        $logger->info('Organizing categories');
+        foreach ($this->entries as $entry) {
+            $categories = [];
+            foreach ($entry->get('categories') as $category) {
+                // Strip non-utf chars
+                $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
+                $category = trim($category);
+                if (!empty($category) && !\in_array($category, $categories, true)) {
+                    $categories[] = $category;
+                }
+            }
+
+            $categoryIds = [];
+            foreach ($categories as $category) {
+                $categoryIds = array_merge(
+                    $categoryIds,
+                    $this->insertCategory($category, [
+                        'all' => 1,
+                        $entry::getType() => 1,
+                    ])
+                );
+            }
+
+            $entry->set('categories', $categoryIds);
+        }
+
+        usort($this->categories, static fn ($x, $y): int => strcmp($x['path'], $y['path']));
+
+        // Add category order
+        $categoryOrder = $this->data['options']['categoryOrder'];
+        foreach ($this->categories as $i => $category) {
+            $order = 20;
+            if (\in_array($category['path'], $categoryOrder, true)) {
+                $order = (int) array_search($category['path'], $categoryOrder, true);
+            }
+            $this->categories[$i]['order'] = $order;
+        }
+
+        $logger->info(\sprintf('Organized %d category(s)', \count($this->categories)));
+    }
+
+    public function removeEntry(EntryInterface $entry): void
+    {
+        // Sanity check
+        if (!$this->isProcessed()) {
+            throw new \LogicException('Can not remove an entry while the list is not processed');
+        }
+
+        // Remove from entries
+        unset($this->entries[$entry->getId()]);
+
+        $entryCategories = $entry->get('categories');
+        if ([] === $this->categories || [] === $entryCategories) {
+            return;
+        }
+
+        // Update cat counts
+        foreach ($this->categories as $i => $category) {
+            if (\in_array($category['id'], $entryCategories, true)) {
+                --$this->categories[$i]['count']['all'];
+                --$this->categories[$i]['count'][$entry->getType()];
+
+                // Remove the category if it hs no entries
+                if (1 > $this->categories[$i]['count']['all']) {
+                    unset($this->categories[$i]);
+                }
+            }
+        }
+    }
+
     /**
      * @param EntryResolverInterface[] $resolvers
      *
@@ -310,23 +398,16 @@ class EntryList implements EntryListInterface
                 ));
             }
 
-            $payload = serialize($entry);
-
             $pool
-                ->add(function () use ($resolverData, $payload, $force) {
+                ->add(function () use ($resolverData, $entry, $force) {
                     /** @var AsyncResolverInterface $resolverClass */
                     $resolverClass = $resolverData['class'];
                     $resolver = $resolverClass::createAsyncResolver($resolverData['context']);
+                    $resolver->resolve($entry, $force);
 
-                    /** @var EntryInterface $taskEntry */
-                    $taskEntry = unserialize($payload, ['allowed_classes' => true]);
-                    $resolver->resolve($taskEntry, $force);
-
-                    return serialize($taskEntry);
+                    return $entry;
                 })
-                ->then(function (string $result) use ($id, &$resolved, &$cached, &$meta, &$active, &$pending, $decorated, $io, $total, $concurrency) {
-                    /** @var EntryInterface $updatedEntry */
-                    $updatedEntry = unserialize($result, ['allowed_classes' => true]);
+                ->then(function (EntryInterface $updatedEntry) use ($id, &$resolved, &$cached, &$meta, &$active, &$pending, $decorated, $io, $total): void {
                     $this->entries[$id] = $updatedEntry;
                     ++$resolved;
 
@@ -347,6 +428,7 @@ class EntryList implements EntryListInterface
 
                             $meta[$nextId]['tracked'] = true;
                             $active[$nextId] = \sprintf('entry#%d/%d %s', $meta[$nextId]['index'], $total, $nextId);
+
                             break;
                         }
 
@@ -357,7 +439,7 @@ class EntryList implements EntryListInterface
 
                     unset($meta[$id]);
                 })
-                ->catch(function (\Throwable $throwable) use ($id, &$resolved, &$cached, &$meta, $logger, &$active, &$pending, $decorated, $io, $total, $concurrency) {
+                ->catch(function (\Throwable $throwable) use ($id, &$resolved, &$cached, &$meta, $logger, &$active, &$pending, $decorated, $io, $total): void {
                     if (isset($this->entries[$id])) {
                         $this->removeEntry($this->entries[$id]);
                     }
@@ -376,6 +458,7 @@ class EntryList implements EntryListInterface
 
                             $meta[$nextId]['tracked'] = true;
                             $active[$nextId] = \sprintf('entry#%d/%d %s', $meta[$nextId]['index'], $total, $nextId);
+
                             break;
                         }
 
@@ -393,7 +476,8 @@ class EntryList implements EntryListInterface
                     ));
 
                     unset($meta[$id]);
-                });
+                })
+            ;
         }
 
         $pool->wait();
@@ -422,7 +506,7 @@ class EntryList implements EntryListInterface
     /**
      * @param EntryResolverInterface[] $resolvers
      *
-     * @return array{class: class-string<AsyncResolverInterface>, cached: bool, context: array<string, mixed>}|null
+     * @return null|array{class: class-string<AsyncResolverInterface>, cached: bool, context: array<string, mixed>}
      */
     protected function prepareAsyncResolver(array $resolvers, EntryInterface $entry): ?array
     {
@@ -511,94 +595,6 @@ class EntryList implements EntryListInterface
         }
 
         return $lines;
-    }
-
-    public function finalize(IOInterface $io): void
-    {
-        $logger = $io->getLogger();
-
-        $logger->info('Merging entry aliases');
-        $im = 0;
-        foreach ($this->entries as $entry) {
-            $aliases = $entry->getAliases();
-            foreach ($aliases as $aliasId) {
-                if (isset($this->entries[$aliasId])) {
-                    $entry->merge($this->entries[$aliasId]->get());
-                    $this->removeEntry($this->entries[$aliasId]);
-                    ++$im;
-                }
-            }
-        }
-        $logger->info(\sprintf('Merged %d entry(s) with aliases', $im));
-
-        $logger->info('Organizing categories');
-        foreach ($this->entries as $entry) {
-            $categories = [];
-            foreach ($entry->get('categories') as $category) {
-                // Strip non-utf chars
-                $category = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $category);
-                $category = trim($category);
-                if (!empty($category) && !\in_array($category, $categories, true)) {
-                    $categories[] = $category;
-                }
-            }
-
-            $categoryIds = [];
-            foreach ($categories as $category) {
-                $categoryIds = array_merge(
-                    $categoryIds,
-                    $this->insertCategory($category, [
-                        'all' => 1,
-                        $entry::getType() => 1,
-                    ])
-                );
-            }
-
-            $entry->set('categories', $categoryIds);
-        }
-
-        usort($this->categories, static fn ($x, $y): int => strcmp($x['path'], $y['path']));
-
-        // Add category order
-        $categoryOrder = $this->data['options']['categoryOrder'];
-        foreach ($this->categories as $i => $category) {
-            $order = 20;
-            if (\in_array($category['path'], $categoryOrder, true)) {
-                $order = (int) array_search($category['path'], $categoryOrder, true);
-            }
-            $this->categories[$i]['order'] = $order;
-        }
-
-        $logger->info(\sprintf('Organized %d category(s)', \count($this->categories)));
-    }
-
-    public function removeEntry(EntryInterface $entry): void
-    {
-        // Sanity check
-        if (!$this->isProcessed()) {
-            throw new \LogicException('Can not remove an entry while the list is not processed');
-        }
-
-        // Remove from entries
-        unset($this->entries[$entry->getId()]);
-
-        $entryCategories = $entry->get('categories');
-        if ([] === $this->categories || [] === $entryCategories) {
-            return;
-        }
-
-        // Update cat counts
-        foreach ($this->categories as $i => $category) {
-            if (\in_array($category['id'], $entryCategories, true)) {
-                --$this->categories[$i]['count']['all'];
-                --$this->categories[$i]['count'][$entry->getType()];
-
-                // Remove the category if it hs no entries
-                if (1 > $this->categories[$i]['count']['all']) {
-                    unset($this->categories[$i]);
-                }
-            }
-        }
     }
 
     /**

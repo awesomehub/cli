@@ -29,6 +29,7 @@ abstract class Kernel implements KernelInterface
     protected ContainerInterface $container;
     protected EnvironmentInterface $environment;
     protected bool $booted = false;
+    protected bool $containerInitialized = false;
 
     /**
      * @param null|string $mode Possible values are:
@@ -68,6 +69,24 @@ abstract class Kernel implements KernelInterface
         $application->run();
 
         $this->booted = true;
+    }
+
+    /**
+     * Initializes the container without running the application and injects synthetic services.
+     *
+     * @param array<string, mixed> $syntheticServices
+     */
+    public function softBoot(array $syntheticServices = []): ContainerInterface
+    {
+        if (!$this->containerInitialized) {
+            $this->initializeContainer();
+        }
+
+        foreach ($syntheticServices as $id => $service) {
+            $this->container->set($id, $service);
+        }
+
+        return $this->container;
     }
 
     public function shutdown(): void
@@ -119,6 +138,7 @@ abstract class Kernel implements KernelInterface
         $this->container = new CachedContainer();
         $this->container->set('kernel', $this);
         $this->container->set('environment', $this->environment);
+        $this->containerInitialized = true;
     }
 
     /**

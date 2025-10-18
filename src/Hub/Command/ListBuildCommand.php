@@ -35,7 +35,7 @@ class ListBuildCommand extends Command
         }
 
         $concurrency = $this->input->getOption('concurrency');
-        if (!\is_numeric($concurrency) || (int) $concurrency < 1) {
+        if (!is_numeric($concurrency) || (int) $concurrency < 1) {
             throw new \InvalidArgumentException('The --concurrency option must be a positive integer greater than zero.');
         }
     }
