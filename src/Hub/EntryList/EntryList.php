@@ -475,10 +475,7 @@ class EntryList implements EntryListInterface
         }
 
         $pool->wait();
-
-        if ($decorated) {
-            $this->renderConcurrentStatus($io, [], $total, $resolved);
-        }
+        $this->clearConcurrentStatus($io);
 
         return [$i, $resolved, $cached];
     }
@@ -533,17 +530,13 @@ class EntryList implements EntryListInterface
         $decorated = $output->isDecorated();
 
         if (!$decorated) {
-            $message = empty($active)
-                ? \sprintf('Resolving (0 active/%d total, %d completed)', $total, $completed)
-                : \sprintf(
-                    'Resolving (%d active/%d total, %d completed): %s',
-                    \count($active),
-                    $total,
-                    $completed,
-                    implode(', ', array_values($active))
-                );
-            $io->writeln($message);
-
+            $io->writeln(\sprintf(
+                'Resolving (%d active/%d total, %d completed): %s',
+                \count($active),
+                $total,
+                $completed,
+                implode(', ', array_values($active))
+            ));
             return;
         }
 
@@ -557,17 +550,6 @@ class EntryList implements EntryListInterface
     {
         $spinner = $this->concurrentSpinnerFrames[$this->concurrentSpinnerIndex % \count($this->concurrentSpinnerFrames)];
         ++$this->concurrentSpinnerIndex;
-
-        if (empty($active)) {
-            return [
-                \sprintf(
-                    ' [ %s ] Completed %d/%d entries',
-                    $spinner,
-                    $completed,
-                    $total
-                ),
-            ];
-        }
 
         $lines = [
             \sprintf(
