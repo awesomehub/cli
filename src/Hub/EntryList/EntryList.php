@@ -413,8 +413,6 @@ class EntryList implements EntryListInterface
                         ++$cached;
                     }
 
-                    $completed = $resolved;
-
                     if ($decorated && !empty($meta[$id]['track']) && !empty($meta[$id]['tracked'])) {
                         unset($active[$id]);
 
@@ -429,12 +427,8 @@ class EntryList implements EntryListInterface
 
                             break;
                         }
-
-                        $this->renderConcurrentStatus($io, $active, $total, $completed);
-                    } elseif ($decorated) {
-                        $this->renderConcurrentStatus($io, $active, $total, $completed);
                     }
-
+                    $this->renderConcurrentStatus($io, $active, $total, $resolved);
                     unset($meta[$id]);
                 })
                 ->catch(function (\Throwable $throwable) use ($id, &$resolved, &$cached, &$meta, $logger, &$active, &$pending, $decorated, $io, $total): void {
@@ -443,11 +437,8 @@ class EntryList implements EntryListInterface
                     }
 
                     $details = $meta[$id] ?? ['index' => '?', 'resolver' => 'unknown'];
-                    $completed = $resolved;
-
+                    unset($active[$id]);
                     if ($decorated && !empty($meta[$id]['track']) && !empty($meta[$id]['tracked'])) {
-                        unset($active[$id]);
-
                         while (!empty($pending)) {
                             $nextId = array_shift($pending);
                             if (empty($meta[$nextId]['track'])) {
@@ -459,19 +450,24 @@ class EntryList implements EntryListInterface
 
                             break;
                         }
-
-                        $this->renderConcurrentStatus($io, $active, $total, $completed);
-                    } elseif ($decorated) {
-                        $this->renderConcurrentStatus($io, $active, $total, $completed);
                     }
 
+                    $this->clearConcurrentStatus($io);
+                    $message = $throwable->getMessage();
+                    if (str_contains($message, "\n")) {
+                        $message = strtok($message, "\r\n");
+                    }
                     $logger->warning(\sprintf(
                         "Failed resolving entry#%s [%s] with '%s'; %s",
                         $details['index'],
                         $id,
                         $details['resolver'],
-                        $throwable->getMessage()
+                        $message
                     ));
+
+                    if ($decorated) {
+                        $this->renderConcurrentStatus($io, $active, $total, $resolved);
+                    }
 
                     unset($meta[$id]);
                 })
@@ -546,17 +542,12 @@ class EntryList implements EntryListInterface
                     $completed,
                     implode(', ', array_values($active))
                 );
-
             $io->writeln($message);
 
             return;
         }
 
-        if ($this->concurrentStatusLines > 0) {
-            $output->write(str_repeat("\x1B[1A\x1B[2K", $this->concurrentStatusLines));
-            $this->concurrentStatusLines = 0;
-        }
-
+        $this->clearConcurrentStatus($io);
         $lines = $this->formatConcurrentStatusLines($active, $total, $completed);
         $output->writeln($lines);
         $this->concurrentStatusLines = \count($lines);
@@ -593,6 +584,21 @@ class EntryList implements EntryListInterface
         }
 
         return $lines;
+    }
+
+    protected function clearConcurrentStatus(IOInterface $io): void
+    {
+        $output = $io->getOutput();
+        if (!$output->isDecorated()) {
+            $io->writeln('');
+
+            return;
+        }
+
+        if ($this->concurrentStatusLines > 0) {
+            $output->write(str_repeat("\x1B[1A\x1B[2K", $this->concurrentStatusLines));
+            $this->concurrentStatusLines = 0;
+        }
     }
 
     /**
