@@ -175,7 +175,7 @@ class ListDistributor implements ListDistributorInterface
             'cats' => $current['categories'],
             'score' => $current['scores_avg'],
             'scores' => $current['scores'],
-            'pushed' => $current['pushed'],
+            'hglt' => $current['highlight']['message'],
         ];
     }
 

@@ -34,7 +34,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
         $cached = $this->read($entry);
         if ($cached && !$force) {
             // Only merge the fields that we provide
-            $fields = ['author', 'name', 'description', 'language', 'license', 'scores_avg', 'scores', 'pushed', 'archived'];
+            $fields = ['author', 'name', 'description', 'language', 'license', 'scores_avg', 'scores', 'pushed', 'archived', 'highlight'];
             foreach ($fields as $field) {
                 $entry->set($field, $cached->get($field));
             }
@@ -63,6 +63,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
             'scores' => $repo['scores'],
             'pushed' => strtotime($repo['pushed_at']),
             'archived' => $repo['archived'],
+            'highlight' => $repo['highlight'],
         ]);
 
         $fetchedAuthor = $repo['owner']['login'];
