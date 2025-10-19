@@ -219,17 +219,36 @@ class EntryList implements EntryListInterface
             $entry->set('categories', $categoryIds);
         }
 
-        usort($this->categories, static fn ($x, $y): int => strcmp($x['path'], $y['path']));
-
-        // Add category order
+        // Normalize category order to paths order
         $categoryOrder = $this->data['options']['categoryOrder'];
-        foreach ($this->categories as $i => $category) {
-            $order = 20;
-            if (\in_array($category['path'], $categoryOrder, true)) {
-                $order = (int) array_search($category['path'], $categoryOrder, true);
+        $pathsOrder = [];
+        foreach ($categoryOrder as $position => $path) {
+            $segments = [];
+            foreach (explode('/', trim((string) $path, '/')) as $segment) {
+                $segment = trim($segment);
+                if ('' === $segment) {
+                    continue;
+                }
+
+                $segments[] = $this->slugify(ucfirst($segment));
+                $currentPath = implode('/', $segments);
+                $pathsOrder[$currentPath] ??= (int) $position;
             }
+        }
+
+        $maxPosition = empty($pathsOrder) ? 0 : max($pathsOrder);
+        foreach ($this->categories as $i => $category) {
+            $order = $pathsOrder[$category['path']] ?? ++$maxPosition;
             $this->categories[$i]['order'] = $order;
         }
+
+        usort($this->categories, static function (array $a, array $b): int {
+            if ($a['order'] === $b['order']) {
+                return strcmp($a['path'], $b['path']);
+            }
+
+            return $a['order'] <=> $b['order'];
+        });
 
         $logger->info(\sprintf('Organized %d category(s)', \count($this->categories)));
     }
