@@ -883,12 +883,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mohatt/github-api-utils.git",
-                "reference": "8314372b77f2266d011b31128fe530530e16bb77"
+                "reference": "f0ea034b57c5607137e29175d9105b6b0ad53646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/8314372b77f2266d011b31128fe530530e16bb77",
-                "reference": "8314372b77f2266d011b31128fe530530e16bb77",
+                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/f0ea034b57c5607137e29175d9105b6b0ad53646",
+                "reference": "f0ea034b57c5607137e29175d9105b6b0ad53646",
                 "shasum": ""
             },
             "require": {
@@ -939,7 +939,7 @@
                 "issues": "https://github.com/mohatt/github-api-utils/issues",
                 "source": "https://github.com/mohatt/github-api-utils/tree/master"
             },
-            "time": "2025-10-18T20:36:22+00:00"
+            "time": "2025-10-19T11:50:37+00:00"
         },
         {
             "name": "nette/schema",
