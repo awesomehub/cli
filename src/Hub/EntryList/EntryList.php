@@ -633,17 +633,6 @@ class EntryList implements EntryListInterface
             $entry = $this->entries[$id];
         }
 
-        // Check if a single category is defined
-        if ($source->hasOption('category')) {
-            $entry->set('categories', [
-                $source->getOption('category', null),
-            ]);
-            // Save the entry
-            $this->entries[$id] = $entry;
-
-            return;
-        }
-
         $categories = [];
         if ($entry->has('categories')) {
             $categories = $entry->get('categories');
@@ -675,6 +664,13 @@ class EntryList implements EntryListInterface
                         $categories = array_merge($categories, $category);
                     }
                 }
+            }
+        }
+
+        if ($source->hasOption('category')) {
+            $category = $source->getOption('category');
+            if ($category !== null && !\in_array($category, $categories, true)) {
+                $categories[] = $category;
             }
         }
 

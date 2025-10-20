@@ -118,8 +118,8 @@ class ListDistributor implements ListDistributorInterface
 
             if ($entry instanceof RepoGithubEntryInterface) {
                 $entries_total_score += $entryData['scores_avg'];
-                // Ignore archived entries and entries with no score
-                if (0 === $entryData['scores_avg'] || $entryData['archived']) {
+                // Ignore archived entries and entries with score < 50
+                if ($entryData['scores_avg'] < 50 || $entryData['archived']) {
                     $this->list->removeEntry($entry);
 
                     continue;

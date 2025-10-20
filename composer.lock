@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50f751032462ae2d4b73dbfd38aa8d70",
+    "content-hash": "2860c4374e9f36cf88fdf6a631c934fc",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -880,16 +880,10 @@
         {
             "name": "mohatt/github-api-utils",
             "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mohatt/github-api-utils.git",
-                "reference": "a5858087ca80706ed64abbb83f3eb63b6e56c523"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mohatt/github-api-utils/zipball/a5858087ca80706ed64abbb83f3eb63b6e56c523",
-                "reference": "a5858087ca80706ed64abbb83f3eb63b6e56c523",
-                "shasum": ""
+                "type": "path",
+                "url": "/Users/mo/Projects/github-api-utils",
+                "reference": "8fe88f5158ee57901eb4c3fe6d2962cdfcdd159e"
             },
             "require": {
                 "knplabs/github-api": "^3.16.0",
@@ -910,14 +904,23 @@
                 "symfony/css-selector": "Used by Github Inspector class",
                 "symfony/dom-crawler": "Used by Github Inspector class"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Github\\Utils\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "lint": [
+                    "composer run cs-fixer fix -- --dry-run --format=checkstyle"
+                ],
+                "lint:fix": [
+                    "composer run cs-fixer fix"
+                ],
+                "cs-fixer": [
+                    "PHP_CS_FIXER_FUTURE_MODE=1 php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -930,16 +933,15 @@
             "description": "Utility library for Github API authentication, pagination, logging, automatic token switching and static repository analysis",
             "homepage": "https://github.com/mohatt/github-api-utils",
             "keywords": [
-                "Authentication",
                 "api",
+                "authentication",
                 "github",
                 "utility"
             ],
-            "support": {
-                "issues": "https://github.com/mohatt/github-api-utils/issues",
-                "source": "https://github.com/mohatt/github-api-utils/tree/master"
-            },
-            "time": "2025-10-19T13:18:52+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
         },
         {
             "name": "nette/schema",
