@@ -157,13 +157,9 @@ class EntryList implements EntryListInterface
             [$i, $ir, $ic] = $this->resolveConcurrently($io, $resolvers, $force, $concurrency);
         } else {
             $io->startOverwrite();
-            $useOverwrite = $io->isOverwritable();
-
             [$i, $ir, $ic] = $this->resolveSerial($io, $resolvers, $force);
-
-            if ($useOverwrite) {
-                $io->endOverwrite();
-            }
+            $io->write('');
+            $io->endOverwrite();
         }
 
         $this->resolved = true;
@@ -729,7 +725,7 @@ class EntryList implements EntryListInterface
                 switch ($processor->getAction($source)) {
                     case SourceProcessorInterface::ACTION_PARTIAL_PROCESSING:
                         $processedWith = $processor;
-                        $logger->info(\sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+                        $logger->debug(\sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
 
                         try {
                             $childSources = $processor->process($source, $callback);
@@ -764,7 +760,7 @@ class EntryList implements EntryListInterface
 
                     case SourceProcessorInterface::ACTION_PROCESSING:
                         $processedWith = $processor;
-                        $logger->info(\sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
+                        $logger->debug(\sprintf("%sProcessing source[%s] with '%s'", $depthStr, $id, $processorName));
 
                         try {
                             $processor->process($source, $callback);
@@ -794,10 +790,11 @@ class EntryList implements EntryListInterface
                 continue;
             }
 
-            $logger->info(\sprintf('%sFinished processing source[%s]', $depthStr, $id));
+            $logger->debug(\sprintf('%sFinished processing source[%s]', $depthStr, $id));
         }
 
         if ($root) {
+            $io->write('');
             $io->endOverwrite();
         }
     }

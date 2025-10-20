@@ -20,7 +20,7 @@
         </service>
         <service id="input" class="Symfony\Component\Console\Input\ArgvInput" public="true" />
         <service id="output" class="Hub\IO\Output\ConsoleOutput" public="true">
-            <argument type="expression">service('environment').isDevelopment() ? parameter('output.verbosity.verbose') : parameter('output.verbosity.normal')</argument>
+            <argument type="expression">service('environment').isDevelopment() ? parameter('output.verbosity.normal') : parameter('output.verbosity.normal')</argument>
             <argument>null</argument>
             <argument type="service" id="output.formatter" />
         </service>

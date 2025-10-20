@@ -102,7 +102,7 @@ class EntryListFile extends EntryList
     {
         $lists = [];
         foreach (scandir($workspace->path(self::LISTS_DIR)) as $file) {
-            if (\in_array($file, ['.', '..']) || is_dir($file)) {
+            if (is_dir($file) || !preg_match('/\.json$/i', $file)) {
                 continue;
             }
 
