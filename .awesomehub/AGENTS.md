@@ -6,11 +6,11 @@ Each source file defines a list of sources from which you should fetch links, th
 
 ### github.repos
 
-It doesn't need to be fetched or analyzed, add the repo slugs under `data` field to the result file, after merging/deduping the repos with any existing repos under the same category name (if any).
+It doesn't need to be fetched or analyzed, add the repo slugs under `data` field to the result file, after merging/deduping the slugs with any existing ones under the same category name (if any).
 
 ### github.list
 
-The `data` field represents either a GitHub repo with `README.md` under repo root or a github url to a `README.md` file with a curated list of links/repos that need to fetched then processed as follows:
+The `data` field represents either a GitHub repo with `README.md` file under repo root or a url to a `README.md` file with a curated list of links/repos that need to fetched then processed as follows:
  - You should parse/fetch every section in the readme and their repos, section headers represent category names.
  - While collecting repo links, you may find off-page references to sections in another curated list, in that case you should follow the link and fetch the repos from there and list it under that category.
  - All category names should be normalized to a standard format like `parent/child` name format, with a maximum of two segments:
