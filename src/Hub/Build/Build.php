@@ -155,7 +155,18 @@ class Build implements BuildInterface
 
     public function clean(): void
     {
-        $this->filesystem->remove($this->path);
-        $this->filesystem->mkdir($this->path);
+        if (!is_dir($this->path)) {
+            throw new \RuntimeException(\sprintf("Build path '%s' does not exist. Expected a pre-configured directory (symlink) managed by the client app.", $this->path));
+        }
+
+        $paths = [];
+        $iterator = new \FilesystemIterator($this->path, \FilesystemIterator::SKIP_DOTS);
+        foreach ($iterator as $fileInfo) {
+            $paths[] = $fileInfo->getPathname();
+        }
+
+        if (!empty($paths)) {
+            $this->filesystem->remove($paths);
+        }
     }
 }

@@ -665,7 +665,7 @@ class EntryList implements EntryListInterface
 
         if ($source->hasOption('category')) {
             $category = $source->getOption('category');
-            if ($category !== null && !\in_array($category, $categories, true)) {
+            if (null !== $category && !\in_array($category, $categories, true)) {
                 $categories[] = $category;
             }
         }
