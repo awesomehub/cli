@@ -1,0 +1,62 @@
+{
+  "id": "node",
+  "name": "Node.js",
+  "desc": "Node.js frameworks, packages, software and resources.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Runtimes"
+      },
+      "data": [
+        "nodejs/node",
+        "denoland/deno",
+        "oven-sh/bun",
+        "just-js/just",
+        "saghul/txiki.js",
+        "awslabs/llrt",
+        "wasmerio/winterjs",
+        "elsaland/elsa",
+        "kaluma-project/kaluma",
+        "holepunchto/bare"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Native App Frameworks"
+      },
+      "data": [
+        "electron/electron",
+        "tauri-apps/tauri",
+        "nwjs/nw.js",
+        "nodegui/nodegui",
+        "neutralinojs/neutralinojs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Package Managers"
+      },
+      "data": [
+        "npm/cli",
+        "oven-sh/bun",
+        "pnpm/pnpm",
+        "yarnpkg/berry",
+        "yarnpkg/yarn"
+      ]
+    },
+    {
+      "type": "github.list",
+      "data": "sindresorhus/awesome-nodejs"
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Runtimes",
+      "Package Managers",
+      "Native App Frameworks"
+    ]
+  }
+}

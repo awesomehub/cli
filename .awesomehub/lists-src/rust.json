@@ -1,0 +1,11 @@
+{
+  "id": "rust",
+  "name": "Rust",
+  "desc": "Rust applications, libraries, tools and resources.",
+  "sources": [
+    {
+      "type": "github.list",
+      "data": "rust-unofficial/awesome-rust"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "python",
+  "name": "Python",
+  "desc": "Python frameworks, libraries, software and resources.",
+  "sources": [
+    {
+      "type": "github.list",
+      "data": "vinta/awesome-python"
+    }
+  ]
+}

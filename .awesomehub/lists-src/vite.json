@@ -1,0 +1,72 @@
+{
+  "id": "vite",
+  "name": "Vite",
+  "desc": "Vite plugins, libraries, tools and applications.",
+  "sources": [
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "vitejs"
+      },
+      "options": {
+        "category": "Official",
+        "exclude": ["awesome-vite"]
+      }
+    },
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "vitest-dev"
+      },
+      "options": {
+        "category": "Vitest/Official"
+      }
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "Vitest/Plugins and Reporters"},
+      "data": [
+        "vitest-dev/vitest",
+        "jsynowiec/node-typescript-boilerplate",
+        "IanVS/vitest-fetch-mock",
+        "mcous/vitest-when",
+        "antfu/vitest-package-exports",
+        "mohatt/vitest-memfs",
+        "HiDeoo/vitest-fs",
+        "amiceli/vitest-cucumber",
+        "allure-framework/allure-js",
+        "vitest-sonar-reporter",
+        "cloudflare/workers-sdk",
+        "wobsoriano/vitest-canvas-mock",
+        "analogjs/analog",
+        "saqqdy/eslint-plugin-vitest-globals",
+        "antfu/eslint-vitest-rule-tester",
+        "wheresrhys/fetch-mock",
+        "eratio08/vitest-mock-extended",
+        "chaance/vitest-axe",
+        "nvh95/vitest-preview",
+        "eratio08/vitest-teamcity-reporter",
+        "thomasbrodusch/vitest-fail-on-console",
+        "carbonate-dev/vitest-puppeteer",
+        "Mitscherlich/vitest-localstorage-mock",
+        "votingworks/vitest-styled-components",
+        "yamatatsu/vitest-dynamodb-lite",
+        "NiGhTTraX/vitest-react-mock",
+        "akiomik/vitest-websocket-mock",
+        "eagleera/vitest-mock-express"
+      ]
+    },
+    {
+      "type": "github.list",
+      "data": "https://github.com/vitejs/awesome-vite",
+      "options": {}
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "official"
+    ]
+  }
+}

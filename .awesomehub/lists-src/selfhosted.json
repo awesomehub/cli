@@ -1,0 +1,11 @@
+{
+  "id": "selfhosted",
+  "name": "Self-hosted",
+  "desc": "Open-source self-hosted apps and services across everyday use cases.",
+  "sources": [
+    {
+      "type": "github.list",
+      "data": "awesome-selfhosted/awesome-selfhosted"
+    }
+  ]
+}

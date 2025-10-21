@@ -1,0 +1,108 @@
+{
+  "id": "angular",
+  "name": "Angular",
+  "desc": "Angular components, modules, seed repos, starters and applications.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "data": [
+        "angular/angular",
+        "angular/angular.js",
+        "angular/angular-cli",
+        "angular/universal",
+        "angular/components",
+        "angular/material",
+        "angular/tsickle",
+        "angular/protractor",
+        "angular/angularfire",
+        "angular/flex-layout",
+        "angular/angular-seed",
+        "angular/angular-phonecat",
+        "angular/material.angular.io",
+        "angular/quickstart"
+      ],
+      "options": {
+        "category": "Official"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "awesomehub/app",
+        "angular/angular-phonecat",
+        "gothinkster/angular-realworld-example-app",
+        "rpaschoal/ng-chat",
+        "r-park/soundcloud-ngrx"
+      ],
+      "options": {
+        "category": "Apps"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "cloudinary/cloudinary_angular",
+        "FranzDiebold/ng-google-sheets-db-library"
+      ],
+      "options": {
+        "category": "Components/Backend Components"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "JsDaddy/ngx-mask",
+        "matheo/angular",
+        "myndpm/open-source"
+      ],
+      "options": {
+        "category": "Components/Forms"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "cipchk/ngx-countdown",
+        "replayvalue/ng-helmet",
+        "replayvalue/meta-man",
+        "wynfred/ngx-masonry",
+        "orizens/ngx-infinite-scroll",
+        "didinj/angular-9-coronavirus-cases-app"
+      ],
+      "options": {
+        "category": "Components/Misc Components"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "danialfarid/ng-file-upload",
+        "vugar005/ngx-awesome-uploader",
+        "bleenco/ngx-uploader",
+        "georgipeltekov/ngx-file-drop",
+        "flowjs/ngx-flow"
+      ],
+      "options": {
+        "category": "Components/File Upload"
+      }
+    },
+    {
+      "type": "github.list",
+      "data": "https://raw.githubusercontent.com/PatrickJS/awesome-angular/gh-pages/README.md",
+      "options": {
+        "markdownCategories": {
+          "H3(Official Resources)": { "ignore": true },
+          "H3(Style Guides)": { "ignore": true },
+          "H2(Third Party Components)": { "rename": "Components/{name}" }
+        }
+      }
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "official",
+      "apps",
+      "components"
+    ]
+  }
+}

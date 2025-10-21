@@ -1,0 +1,861 @@
+{
+  "id": "java",
+  "name": "Java",
+  "desc": "Java frameworks, libraries, software and resources.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Bean Mapping"
+      },
+      "data": [
+        "doov-io/doov",
+        "jmapper-framework/jmapper-core",
+        "mapstruct/mapstruct",
+        "modelmapper/modelmapper",
+        "orika-mapper/orika",
+        "remondis-it/remap",
+        "xebia-france/selma"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Bytecode Manipulation"
+      },
+      "data": [
+        "Konloch/bytecode-viewer",
+        "SpongePowered/Mixin",
+        "cglib/cglib",
+        "cojen/maker",
+        "jboss-javassist/javassist",
+        "nicolasmanic/perses"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "CLI"
+      },
+      "data": [
+        "beryx/text-io",
+        "fusesource/jansi",
+        "jbock-java/jbock",
+        "jline/jline3",
+        "mabe02/lanterna"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Code Analysis"
+      },
+      "data": [
+        "INRIA/spoon",
+        "PicnicSupermarket/error-prone-support",
+        "SonarSource/sonar-java",
+        "alibaba/p3c",
+        "checkstyle/checkstyle",
+        "facebook/infer",
+        "google/error-prone",
+        "jimbethancourt/RefactorFirst",
+        "pmd/pmd",
+        "spotbugs/spotbugs",
+        "uber/NullAway"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Code Generators"
+      },
+      "data": [
+        "Marcel091004/EasyEntityToDTO",
+        "Randgalt/record-builder",
+        "bcaillard/jspecify-packageinfo-generator",
+        "google/auto",
+        "inferred/FreeBuilder",
+        "jhipster/generator-jhipster",
+        "square/javapoet",
+        "sviperll/adt4j",
+        "verhas/javageci"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Configuration"
+      },
+      "data": [
+        "SpongePowered/Configurate",
+        "gestalt-config/gestalt",
+        "joel-jeremy/externalized-properties",
+        "lightbend/config",
+        "line/centraldogma",
+        "lviggiano/owner",
+        "mariomac/kaconf",
+        "shyiko/dotenv"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data Structures"
+      },
+      "data": [
+        "LiveRamp/HyperMinHash-java",
+        "RoaringBitmap/RoaringBitmap",
+        "bulldog2011/bigqueue",
+        "hrldcpr/pcollections",
+        "protocolbuffers/protobuf",
+        "real-logic/simple-binary-encoding",
+        "square/tape",
+        "square/wire"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Database"
+      },
+      "data": [
+        "Ahoo-Wang/CosId",
+        "JetBrains/xodus",
+        "Meituan-Dianping/Leaf",
+        "OpenHFT/Chronicle-Map",
+        "OpenIdentityPlatform/OpenDJ",
+        "apache/shardingsphere",
+        "arangodb/arangodb-java-driver",
+        "arkanovicz/modality",
+        "brettwooldridge/HikariCP",
+        "eXist-db/exist",
+        "justinsb/jetcd",
+        "mhewedy/spring-data-jpa-mongodb-expressions",
+        "my2iu/Jinq",
+        "querystream/querystream",
+        "questdb/questdb",
+        "realm/realm-java",
+        "redisson/redisson",
+        "requery/requery",
+        "searchbox-io/Jest",
+        "speedment/speedment",
+        "vladmihalcea/flexy-pool",
+        "vorburger/MariaDB4j",
+        "xetorthio/jedis"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Date and Time"
+      },
+      "data": [
+        "MenoData/Time4J",
+        "ThreeTen/threeten-extra",
+        "ical4j/ical4j",
+        "svendiedrichsen/jollyday"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Dependency Injection"
+      },
+      "data": [
+        "Netflix/governator",
+        "google/guice",
+        "vanillasource/jaywire",
+        "zsoltherpai/feather"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development"
+      },
+      "data": [
+        "HotswapProjects/HotswapAgent",
+        "javaparser/javaparser",
+        "javaparser/javasymbolsolver",
+        "manifold-systems/manifold",
+        "rainerhahnekamp/sneakythrow",
+        "zalando/faux-pas"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Distributed Applications"
+      },
+      "data": [
+        "Netflix/zuul",
+        "OpenIdentityPlatform/OpenIG",
+        "hazelcast/hazelcast",
+        "jhalterman/failsafe",
+        "mtakaki/dropwizard-circuitbreaker",
+        "resilience4j/resilience4j",
+        "scalecube/scalecube-services"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Distribution"
+      },
+      "data": [
+        "AdoptOpenJDK/jlink.online",
+        "artipie/artipie",
+        "brianm/really-executable-jars-maven-plugin",
+        "fvarrui/JavaPackager",
+        "libgdx/packr",
+        "puniverse/capsule",
+        "threerings/getdown"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Financial"
+      },
+      "data": [
+        "cassandre-tech/cassandre-trading-bot",
+        "paritytrading/parity",
+        "paritytrading/philadelphia",
+        "square/connect-java-sdk",
+        "stripe/stripe-java",
+        "ta4j/ta4j"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Functional Programming"
+      },
+      "data": [
+        "amaembo/streamex",
+        "aol/cyclops",
+        "derive4j/derive4j",
+        "jOOQ/jOOL",
+        "jhspetersson/packrat",
+        "poetix/protonpack"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Geospatial"
+      },
+      "data": [
+        "Esri/arcgis-maps-sdk-java-samples",
+        "davidmoten/geo",
+        "graphhopper/graphhopper",
+        "locationtech/spatial4j",
+        "mapsforge/mapsforge"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "High Performance"
+      },
+      "data": [
+        "JCTools/JCTools",
+        "eclipse/eclipse-collections",
+        "leventov/Koloboke",
+        "real-logic/Agrona"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "HTTP Clients"
+      },
+      "data": [
+        "AsyncHttpClient/async-http-client",
+        "Kong/unirest-java",
+        "Netflix/ribbon",
+        "OpenFeign/feign",
+        "googleapis/google-http-java-client",
+        "mizosoft/methanol",
+        "zalando/riptide"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Hypermedia Types"
+      },
+      "data": [
+        "blackdoor/hate",
+        "eserating-chwy/siren4j",
+        "jsonld-java/jsonld-java",
+        "spring-projects/spring-hateoas"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Imagery"
+      },
+      "data": [
+        "coobird/thumbnailator",
+        "haraldk/TwelveMonkeys",
+        "lopcode/vips-ffm",
+        "nguyenq/tess4j",
+        "rkalla/imgscalr",
+        "romankh3/image-comparison",
+        "vws-java/Barcode-Lib4J",
+        "zxing/zxing"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Introspection"
+      },
+      "data": [
+        "EsotericSoftware/reflectasm",
+        "classgraph/classgraph",
+        "jOOQ/jOOR",
+        "ronmamo/reflections"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Job Scheduling"
+      },
+      "data": [
+        "Coreoz/Wisp",
+        "j-easy/easy-batch",
+        "jobrunr/jobrunr",
+        "kagkarlsson/db-scheduler",
+        "knowm/Sundial",
+        "lukas-krecan/ShedLock",
+        "quartz-scheduler/quartz"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "JSON"
+      },
+      "data": [
+        "FasterXML/jackson",
+        "FasterXML/jackson-modules-java8",
+        "alibaba/fastjson",
+        "bazaarvoice/jolt",
+        "bluelinelabs/LoganSquare",
+        "brettwooldridge/HikariJSON",
+        "eclipse-ee4j/yasson",
+        "google/gson",
+        "jdereg/json-io",
+        "json-path/JsonPath",
+        "jsurfer/JsonSurfer",
+        "ngs-doo/dsl-json",
+        "square/moshi",
+        "zalando/jackson-datatype-money"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "JVM and JDK"
+      },
+      "data": [
+        "alibaba/dragonwell8",
+        "codenameone/CodenameOne",
+        "eclipse/openj9",
+        "microsoft/openjdk",
+        "oracle/graal"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Logging"
+      },
+      "data": [
+        "p6spy/p6spy",
+        "tersesystems/echopraxia",
+        "zalando/logbook",
+        "zalando/opentracing-toolbox"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Machine Learning"
+      },
+      "data": [
+        "Barqawiz/IntelliJava",
+        "BayesWitnesses/m2cgen",
+        "EdwardRaff/JSAT",
+        "Gleethos/neureka",
+        "OryxProject/oryx",
+        "haifengl/smile",
+        "siddhi-io/siddhi"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Messaging"
+      },
+      "data": [
+        "AutoMQ/automq-for-kafka",
+        "greenrobot/EventBus",
+        "igniterealtime/Smack",
+        "joel-jeremy/deezpatch",
+        "nats-io/nats.java",
+        "rabbitmq/rabbitmq-java-client",
+        "real-logic/Aeron",
+        "zalando/nakadi",
+        "zeromq/jeromq"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Microservice"
+      },
+      "data": [
+        "DV8FromTheWorld/JDA",
+        "DaveJarvis/KeenType",
+        "Ecwid/consul-api",
+        "Netflix/eureka",
+        "TheoKanning/openai-java",
+        "alibaba/Sentinel",
+        "fabric8io/kubernetes-client",
+        "line/armeria"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Miscellaneous"
+      },
+      "data": [
+        "CogComp/cogcomp-nlp",
+        "EnterpriseQualityCoding/FizzBuzzEnterpriseEdition",
+        "FasterXML/jackson-dataformat-csv",
+        "Guichaguri/MinimalFTP",
+        "Kartikvk1996/RR4J",
+        "NanoHttpd/nanohttpd",
+        "OctoLinker/OctoLinker",
+        "OrienteerBAP/Orienteer",
+        "ReactiveX/RxJava",
+        "SvenEwald/xmlbeam",
+        "TNG/ArchUnit",
+        "adamfisk/LittleProxy",
+        "aws/aws-sdk-java",
+        "bbottema/simple-java-mail",
+        "ben-manes/caffeine",
+        "bitronix/btm",
+        "bsommerfeld/pathetic",
+        "bytedeco/javacv",
+        "chuigda/vulkan4j",
+        "cincheo/jsweet",
+        "code4craft/webmagic",
+        "creditdatamw/zerocell",
+        "dhatim/fastexcel",
+        "ejossev/hypherator-java",
+        "facebook/buck2",
+        "felldo/JEmoji",
+        "ff4j/ff4j",
+        "flowable/flowable-engine",
+        "gaul/modernizer-maven-plugin",
+        "google/j2objc",
+        "google/jimfs",
+        "googleapis/google-cloud-java",
+        "haeungun/indexer4j",
+        "iluwatar/java-design-patterns",
+        "ip2location/ip2location-io-java",
+        "javapathfinder/jpf-core",
+        "jhalterman/typetools",
+        "jooq/joox",
+        "ksen007/janala2",
+        "ladutsko/isbn-core",
+        "langchain4j/langchain4j",
+        "maxandersen/jbang",
+        "membrane/service-proxy",
+        "modelcontextprotocol/java-sdk",
+        "networknt/light-4j",
+        "networknt/light-oauth2",
+        "npgall/cqengine",
+        "osiegmar/FastCSV",
+        "radsz/jacop",
+        "rampatra/jbot",
+        "reactive-streams/reactive-streams-jvm",
+        "reactor/reactor",
+        "reportmill/SnapKit",
+        "sarxos/webcam-capture",
+        "sashirestela/simple-openai",
+        "seata/seata",
+        "sizovs/pipelinr",
+        "smooks/smooks",
+        "svix/svix-webhooks",
+        "takari/maven-wrapper",
+        "takari/polyglot-maven",
+        "tronprotocol/java-tron",
+        "uniVocity/univocity-parsers",
+        "vorburger/ch.vorburger.exec",
+        "winterbe/java8-tutorial",
+        "xmolecules/jmolecules",
+        "xzripper/Void2D",
+        "yWorks/yGuard",
+        "yasserg/crawler4j",
+        "zeroturnaround/zt-exec",
+        "zeroturnaround/zt-process-killer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Monitoring"
+      },
+      "data": [
+        "DataDog/dd-trace-java",
+        "apitally/apitally-java",
+        "dromara/hertzbeat",
+        "dropwizard/metrics",
+        "getsentry/sentry",
+        "getsentry/sentry-java",
+        "jaegertracing/jaeger-client-java",
+        "javamelody/javamelody",
+        "jmxtrans/jmxtrans",
+        "lorenzoongithub/nudge4j",
+        "micrometer-metrics/micrometer",
+        "micrometer-metrics/tracing",
+        "naver/pinpoint",
+        "open-telemetry/opentelemetry-java",
+        "opengoofy/hippo4j",
+        "palantir/Sysmon",
+        "prometheus/client_java",
+        "sematext/sematext-agent-java",
+        "stagemonitor/stagemonitor",
+        "stevensouza/automon",
+        "zalando/failsafe-actuator"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Native"
+      },
+      "data": [
+        "Syncleus/aparapi",
+        "bytedeco/javacpp",
+        "java-native-access/jna",
+        "jnr/jnr-ffi",
+        "scijava/native-lib-loader"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Networking"
+      },
+      "data": [
+        "CiscoSE/commons-networking",
+        "EsotericSoftware/kryonet",
+        "airlift/drift",
+        "apache/dubbo",
+        "apple/servicetalk",
+        "grpc/grpc-java",
+        "hierynomus/sshj",
+        "komamitsu/fluency",
+        "marianobarrios/tls-channel",
+        "puniverse/comsat",
+        "slub/urnlib"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "ORM"
+      },
+      "data": [
+        "arnaudroger/SimpleFlatMapper",
+        "baomidou/mybatis-plus",
+        "braisdom/ObjectiveSql",
+        "domaframework/doma",
+        "mybatis/mybatis-3",
+        "permazen/permazen"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "PDF"
+      },
+      "data": [
+        "LibrePDF/OpenPDF",
+        "danfickle/openhtmltopdf",
+        "dynamicreports/dynamicreports",
+        "flyingsaucerproject/flyingsaucer",
+        "tabulapdf/tabula-java"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Performance Analysis"
+      },
+      "data": [
+        "AdoptOpenJDK/jitwatch",
+        "LatencyUtils/LatencyUtils",
+        "giltene/jHiccup",
+        "jvm-profiling-tools/honest-profiler"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "REST Frameworks"
+      },
+      "data": [
+        "OpenAPITools/openapi-generator",
+        "RestExpress/RestExpress",
+        "aol/micro-server",
+        "dropwizard/dropwizard",
+        "linkedin/rest.li",
+        "restlet/restlet-framework-java",
+        "springdoc/springdoc-openapi"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Science"
+      },
+      "data": [
+        "Erdos-Graph-Framework/Erdos",
+        "GSI-CS-CO/chart-fx",
+        "MinesJTK/jtk",
+        "jfree/orson-charts",
+        "jgraph/jgraphx",
+        "jgrapht/jgrapht",
+        "jtablesaw/tablesaw",
+        "knowm/XChart",
+        "logic-ng/LogicNG",
+        "zavtech/morpheus-core"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security"
+      },
+      "data": [
+        "BastiaanJansen/OTP-Java",
+        "BastiaanJansen/jwt-java",
+        "GoSimpleLLC/nbvcxz",
+        "Hakky54/ayza",
+        "OpenIdentityPlatform/OpenAM",
+        "Password4j/password4j",
+        "abstractj/kalium",
+        "auth0/jwks-rsa-java",
+        "cossacklabs/themis",
+        "google/tink",
+        "hdiv/hdiv",
+        "jeremylong/DependencyCheck",
+        "jwtk/jjwt",
+        "pac4j/pac4j",
+        "square/keywhiz",
+        "tersesystems/securitybuilder"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Serialization"
+      },
+      "data": [
+        "EsotericSoftware/kryo",
+        "RuedigerMoeller/fast-serialization",
+        "alipay/fury",
+        "google/flatbuffers",
+        "marcospassos/java-php-serializer",
+        "msgpack/msgpack-java"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Template Engine"
+      },
+      "data": [
+        "antlr/stringtemplate4",
+        "casid/jte",
+        "fizzed/rocker",
+        "jstachio/jstachio",
+        "jtwig/jtwig",
+        "neuland/jade4j",
+        "verhas/jamal"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Testing"
+      },
+      "data": [
+        "junit-team/junit-framework",
+        "abstracta/jmeter-java-dsl",
+        "arquillian/arquillian-core",
+        "gatling/gatling",
+        "jqwik-team/jqwik",
+        "hcoles/pitest",
+        "assertj/assertj",
+        "citrusframework/citrus",
+        "AutoParams/AutoParams",
+        "Devskiller/jfairy",
+        "DiUS/java-faker",
+        "DiUS/pact-jvm",
+        "Hakky54/console-captor",
+        "Hakky54/log-captor",
+        "MutabilityDetector/MutabilityDetector",
+        "RichardWarburton/lambda-behave",
+        "SeleniumHQ/selenium",
+        "SpectoLabs/hoverfly-java",
+        "TNG/junit-dataprovider",
+        "awaitility/awaitility",
+        "ctco/cukes",
+        "cucumber/cucumber-jvm",
+        "datafaker-net/datafaker",
+        "diffplug/selfie",
+        "dm-drogeriemarkt/log-capture",
+        "dreamhead/moco",
+        "easymock/easymock",
+        "guhilling/cdi-test",
+        "instancio/instancio",
+        "intuit/karate",
+        "j8spec/j8spec",
+        "jhalterman/concurrentunit",
+        "keepcosmos/beanmother",
+        "lukas-krecan/JsonUnit",
+        "mockito/mockito",
+        "nidi3/raml-tester",
+        "nomemory/mockneat",
+        "powermock/powermock",
+        "randomizedtesting/randomizedtesting",
+        "rest-assured/rest-assured",
+        "serenity-bdd/serenity-core",
+        "six2six/fixture-factory",
+        "stebz/stebz",
+        "testcontainers/testcontainers-java",
+        "testingisdocumenting/webtau",
+        "weld/weld-testing",
+        "xcancloud/JMock",
+        "xmlunit/xmlunit"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utility"
+      },
+      "data": [
+        "MathieuSoysal/Javadoc-publisher.yml",
+        "PatMartin/Dex",
+        "VerbalExpressions/JavaVerbalExpressions",
+        "alibaba/arthas",
+        "cleopatra27/chocotea",
+        "embulk/embulk",
+        "evpl/jkscope",
+        "gephi/gephi",
+        "google/guava",
+        "javadev/underscore-java",
+        "marianobarrios/dregex",
+        "minio/minio-java",
+        "semver4j/semver4j",
+        "vladimir-bukhtoyarov/bucket4j",
+        "vorburger/ch.vorburger.fswatch",
+        "yegor256/cactoos"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Version Managers"
+      },
+      "data": [
+        "asdf-vm/asdf",
+        "jenv/jenv",
+        "sdkman/sdkman-cli",
+        "shyiko/jabba"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web Frameworks"
+      },
+      "data": [
+        "activej/activej",
+        "apache/tapestry-5",
+        "apache/wicket",
+        "bootique/bootique",
+        "javalin/javalin",
+        "jooby-project/jooby",
+        "lets-blade/blade",
+        "ninjaframework/ninja",
+        "perwendel/spark",
+        "pippo-java/pippo",
+        "playframework/playframework",
+        "primefaces/primefaces",
+        "ratpack/ratpack",
+        "yegor256/takes"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Bean Mapping",
+      "Bytecode Manipulation",
+      "CLI",
+      "Code Analysis",
+      "Code Generators",
+      "Configuration",
+      "Data Structures",
+      "Database",
+      "Date and Time",
+      "Dependency Injection",
+      "Web Frameworks",
+      "Development",
+      "Distributed Applications",
+      "Distribution",
+      "Financial",
+      "Functional Programming",
+      "Geospatial",
+      "High Performance",
+      "HTTP Clients",
+      "Hypermedia Types",
+      "Imagery",
+      "Introspection",
+      "Job Scheduling",
+      "JSON",
+      "JVM and JDK",
+      "Logging",
+      "Machine Learning",
+      "Messaging",
+      "Microservice",
+      "Miscellaneous",
+      "Monitoring",
+      "Native",
+      "Networking",
+      "ORM",
+      "PDF",
+      "Performance Analysis",
+      "REST Frameworks",
+      "Science",
+      "Security",
+      "Serialization",
+      "Template Engine",
+      "Testing",
+      "Utility",
+      "Version Managers"
+    ]
+  }
+}

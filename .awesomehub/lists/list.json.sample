@@ -1,0 +1,50 @@
+{
+  "id": "sample",
+  "name": "Sample",
+  "desc": "Curated list of samples.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media Streaming/Audio"
+      },
+      "data": [
+        "owner/repo",
+        "owner2/repo2",
+        "owner3/audio-repo3",
+        "owner4/audio-repo4"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media Streaming/Video"
+      },
+      "data": [
+        "owner/repo",
+        "owner2/repo2",
+        "owner3/video-repo3",
+        "owner4/video-repo4"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Games"
+      },
+      "data": [
+        "owner/repo",
+        "owner2/repo2",
+        "owner3/games-repo3",
+        "owner4/games-repo4"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Games",
+      "Media Streaming/Video",
+      "Media Streaming/Audio"
+    ]
+  }
+}

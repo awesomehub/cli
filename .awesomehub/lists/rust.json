@@ -1,0 +1,2030 @@
+{
+  "id": "rust",
+  "name": "Rust",
+  "desc": "Rust applications, libraries, tools and resources.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/General"
+      },
+      "data": [
+        "0x676e67/vproxy",
+        "EasyTier/EasyTier",
+        "GyulyVGC/sniffnet",
+        "PaddiM8/kalker",
+        "aguacero7/rkik",
+        "alacritty/alacritty",
+        "awslabs/flowgger",
+        "cch123/asm-cli-rust",
+        "cfal/shoes",
+        "changlan/kytan",
+        "clash-verge-rev/clash-verge-rev",
+        "cloudflare/boringtun",
+        "cloudhead/rx",
+        "defguard/defguard",
+        "denoland/deno",
+        "doprz/dipc",
+        "fcsonline/drill",
+        "fractalide/fractalide",
+        "habitat-sh/habitat",
+        "hcavarsan/kftray",
+        "hickory-dns/hickory-dns",
+        "ignisda/ryot",
+        "imjacobclark/Herd",
+        "iot-ecology/rust-iot-platform",
+        "linkerd/linkerd2-proxy",
+        "metalbear-co/mirrord",
+        "microsoft/edit",
+        "nicohman/eidolon",
+        "osa1/tiny",
+        "printfn/fend",
+        "raphamorim/rio",
+        "rust-lang/mdBook",
+        "sebadob/rauthy",
+        "serayuzgur/weld",
+        "servo/servo",
+        "shuttle-hq/shuttle",
+        "sopaco/saga-reader",
+        "swc-project/swc",
+        "tonarino/innernet",
+        "tryandromeda/andromeda",
+        "typst/typst",
+        "upvpn/upvpn-app",
+        "wasmerio/wasmer",
+        "wasmerio/winterjs",
+        "web3infra-foundation/mega",
+        "wezterm/wezterm",
+        "whatwg/fetch",
+        "zellij-org/zellij"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Audio and Music"
+      },
+      "data": [
+        "kimono-koans/dano",
+        "DasEtwas/enginesound",
+        "hinto-janai/festival",
+        "figsoda/mmtc",
+        "chaosprint/glicol",
+        "hrkfdn/ncspot",
+        "madeofpendletonwool/PinePods",
+        "agersant/polaris",
+        "aome510/spotify-player",
+        "Spotifyd/spotifyd",
+        "tramhao/termusic",
+        "tsirysndr/tunein-cli",
+        "sergree/whatbpm"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Blockchain"
+      },
+      "data": [
+        "ChainSafe/forest",
+        "Joystream/joystream",
+        "Limeth/ethaddrgen",
+        "MystenLabs/sui",
+        "Phala-Network/phala-blockchain",
+        "alloy-rs/svm-rs",
+        "autonomys/subspace",
+        "bluealloy/revm",
+        "brentongunning/rust-sv",
+        "chainx-org/ChainX",
+        "citahub/cita",
+        "cometbft/tendermint-rs",
+        "diem/diem",
+        "dusk-network/rusk",
+        "eigerco/beerus",
+        "ergoplatform/sigma-rust",
+        "foundry-rs/foundry",
+        "gakonst/opensea-rs",
+        "holochain/holochain",
+        "howardwu/wagyu",
+        "hyperlane-xyz/hyperlane-monorepo",
+        "infincia/bip39-rs",
+        "informalsystems/hermes",
+        "interlay/interbtc",
+        "inv2004/coinbase-pro-rs",
+        "jjyr/hdwallet",
+        "kaspanet/rusty-kaspa",
+        "lambdaclass/cairo-vm",
+        "lightningdevkit/rust-lightning",
+        "mimblewimble/grin",
+        "near/nearcore",
+        "nervosnetwork/ckb",
+        "paradigmxyz/artemis",
+        "paradigmxyz/reth",
+        "paritytech/parity-bitcoin",
+        "paritytech/polkadot-sdk",
+        "quilt/etk",
+        "romanz/electrs",
+        "rust-bitcoin/rust-bitcoin",
+        "rust-ethereum/ethabi",
+        "sigp/lighthouse",
+        "solana-foundation/anchor",
+        "starkware-libs/cairo",
+        "zcash/zcash"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Database"
+      },
+      "data": [
+        "apecloud/ape-dts",
+        "atomicdata-dev/atomic-server",
+        "cozodb/cozo",
+        "Rustixir/darkbird",
+        "databendlabs/databend",
+        "dbpunk-labs/db3",
+        "erikgrinaker/toydb",
+        "deuxfleurs-org/garage",
+        "gluesql/gluesql",
+        "grepTimeTeam/greptimedb",
+        "greptimeTeam/greptimedb",
+        "HelixDB/helix-db",
+        "sebadob/hiqlite",
+        "KipData/KiteSQL",
+        "lancedb/lancedb",
+        "lucid-kv/lucid",
+        "MaterializeInc/materialize",
+        "vincent-herlemont/native_db",
+        "neondatabase/neon",
+        "mit-pdos/noria",
+        "oxigraph/oxigraph",
+        "paradedb/paradedb",
+        "paritytech/parity-db",
+        "PumpkinDB/PumpkinDB",
+        "qdrant/qdrant",
+        "Qrlew/qrlew",
+        "RisingWaveLabs/risingwave",
+        "risingwavelabs/risingwave",
+        "seppo0010/rsedis",
+        "skytable/skytable",
+        "spacejam/sled",
+        "orbitinghail/sqlsync",
+        "surrealdb/surrealdb",
+        "terminusdb/terminusdb-store",
+        "tikv/tikv",
+        "tonbo-io/tonbo",
+        "trailbaseio/trailbase",
+        "h2337/tsink",
+        "tursodatabase/turso",
+        "unum-cloud/usearch",
+        "kn0sys/valentinus",
+        "vorot93/libmdbx-rs",
+        "naomijub/wooridb"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Emulators"
+      },
+      "data": [
+        "ColinEberhardt/wasm-rust-chip8",
+        "starrhorne/chip8-rust",
+        "kondrak/rust64",
+        "ruffle-rs/ruffle",
+        "Gekkio/mooneye-gb",
+        "joamag/boytacean",
+        "mohanson/gameboy",
+        "mvdnes/rboy",
+        "michelhe/rustboyadvance-ng",
+        "OpenGMK/OpenGMK",
+        "dbalsom/martypc",
+        "mohanson/i8080",
+        "touchHLE/touchHLE",
+        "daniel5151/clicky",
+        "koute/pinky",
+        "pcwalton/sprocketnes",
+        "gopher64/gopher64",
+        "kelpsyberry/dust",
+        "obhq/obliteration",
+        "igorlira/dirplayer-rs",
+        "rustzx/rustzx"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/File manager"
+      },
+      "data": [
+        "Canop/broot",
+        "kamiyaa/joshuto",
+        "sayanarijit/xplr",
+        "sxyazi/yazi"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Games"
+      },
+      "data": [
+        "PistonDevelopers/piston",
+        "buxx/OpenCombat",
+        "thomas-mauran/chess-tui",
+        "citybound/citybound",
+        "cristicbz/rust-doom",
+        "doukutsu-rs/doukutsu-rs",
+        "garkimasera/rusted-ruins",
+        "unhappychoice/gittype",
+        "gorilla-devs/ferium",
+        "HactarCE/Hyperspeedcube",
+        "lifthrasiir/angolmois-rust",
+        "maras-archive/rsnake",
+        "mcthesw/game-save-manager",
+        "mtkennerly/ludusavi",
+        "ozkriff/zemeroth",
+        "dpc/rhex",
+        "rsaarelm/magog",
+        "SoftbearStudios/mk48",
+        "swatteau/sokoban-rs",
+        "thetawavegame/thetawave-legacy",
+        "Thinkofname/rust-quake",
+        "topheman/snake-pipe-rust",
+        "zipxing/rust_pixel",
+        "ozkriff/zoc"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Graphics"
+      },
+      "data": [
+        "dps/rust-raytracer",
+        "flxzt/rnote",
+        "ivanceras/svgbob",
+        "KaminariOS/rustracer",
+        "Limeth/euclider",
+        "linebender/resvg",
+        "rodrigorc/papercraft",
+        "rustq/vue-skia",
+        "Twinklebear/tray_rust",
+        "wahn/rs_pbrt"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Observability"
+      },
+      "data": [
+        "avito-tech/bioyino",
+        "MegaAntiCheat/client-backend",
+        "openobserve/openobserve",
+        "open-telemetry/opentelemetry-rust",
+        "quickwit-oss/quickwit",
+        "hubblo-org/scaphandre",
+        "vectordotdev/vector"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Operating systems"
+      },
+      "data": [
+        "flosse/rust-os-comparison",
+        "0x59616e/SteinsOS",
+        "adamperkowski/highlightos",
+        "Andy-Python-Programmer/aero",
+        "asterinas/asterinas",
+        "DragonOS-Community/DragonOS",
+        "thepowersgang/rust_os",
+        "theseus-os/Theseus",
+        "tock/tock",
+        "vinc/moros"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Productivity"
+      },
+      "data": [
+        "0xdea/jiggy",
+        "0xdea/oneiromancer",
+        "sigoden/aichat",
+        "ast-grep/ast-grep",
+        "nikolassv/bartib",
+        "espanso/espanso",
+        "flusterIO/fluster",
+        "unobserved-io/Furtherance",
+        "graves/awful_aj",
+        "illacloud/illa",
+        "kruseio/hygg",
+        "lldap/lldap",
+        "pier-cli/pier",
+        "ShadoySV/work-break",
+        "yashs662/rust_kanban"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Security tools"
+      },
+      "data": [
+        "0xdea/augur",
+        "0xdea/haruspex",
+        "0xdea/oneiromancer",
+        "0xdea/rhabdomancer",
+        "Lissy93/AdGuardian-Term",
+        "AFLplusplus/LibAFL",
+        "kongbytes/arp-scan-rs",
+        "blst-security/cherrybomb",
+        "replydev/cotp",
+        "domcyrus/rustnet",
+        "entropic-security/xgadget",
+        "epi052/feroxbuster",
+        "inspektor-dev/inspektor",
+        "kpcyrd/authoscope",
+        "kpcyrd/rshijack",
+        "kpcyrd/sn0int",
+        "kpcyrd/sniffglue",
+        "mongodb/kingfisher",
+        "emo-crab/observer_ward",
+        "Raspirus/Raspirus",
+        "cortex/ripasso",
+        "bee-san/RustScan"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/System tools"
+      },
+      "data": [
+        "Chleba/netscanner",
+        "ChurchTao/clipboard-rs",
+        "ClementTsang/bottom",
+        "Luminarys/synapse",
+        "Nukesor/pueue",
+        "XAMPPRocky/tokei",
+        "ajeetdsouza/zoxide",
+        "amrdeveloper/gql",
+        "atuinsh/atuin",
+        "bootandy/dust",
+        "brocode/fblog",
+        "buster/rrun",
+        "cantino/mcfly",
+        "cristianoliveira/funzzy",
+        "dalance/procs",
+        "darakian/ddh",
+        "eradman/entr",
+        "eza-community/eza",
+        "fish-shell/fish-shell",
+        "fujiapple852/trippy",
+        "gitui-org/gitui",
+        "ilya-zlobintsev/LACT",
+        "imsnif/bandwhich",
+        "imsnif/diskonaut",
+        "j0ru/kickoff",
+        "jacek-kurlit/pik",
+        "kimono-koans/httm",
+        "lodosgroup/lpm",
+        "lotabout/rargs",
+        "lsd-rs/lsd",
+        "m4b/bingrep",
+        "matheus-git/systemd-manager-tui",
+        "mdgaziur/findex",
+        "mitnk/cicada",
+        "mmstick/concurr",
+        "mmstick/fontfinder",
+        "mmstick/tv-renamer",
+        "mxseev/logram",
+        "nickgerace/gfold",
+        "nivekuil/rip",
+        "nohajc/anylinuxfs",
+        "nukesor/pueue",
+        "nushell/nushell",
+        "nwiizo/tfmcp",
+        "nwiizo/tfocus",
+        "orhun/kmon",
+        "orhun/systeroid",
+        "ouch-org/ouch",
+        "pkolaczk/fclones",
+        "pop-os/popsicle",
+        "pop-os/system76-power",
+        "qarmin/czkawka",
+        "redox-os/ion",
+        "reubeno/brush",
+        "sharkdp/bat",
+        "sharkdp/fd",
+        "sitkevij/hex",
+        "skim-rs/skim",
+        "sstadick/crabz",
+        "supercilex/fuc",
+        "tbillington/kondo",
+        "topheman/webassembly-component-model-experiments",
+        "uutils/coreutils",
+        "vrmiguel/bustd",
+        "watchexec/watchexec",
+        "ynqa/jnv",
+        "ynqa/logu",
+        "ynqa/sig"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Text editors"
+      },
+      "data": [
+        "curlpipe/ox",
+        "emacs-ng/emacs-ng",
+        "gchp/iota",
+        "helix-editor/helix",
+        "ilai-deutel/kibi",
+        "jmacdonald/amp",
+        "lapce/lapce",
+        "mathall/rim",
+        "vamolessa/pepper",
+        "xi-editor/xi-editor",
+        "zed-industries/zed"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Text processing"
+      },
+      "data": [
+        "ashvardanian/StringZilla",
+        "cchexcode/complate",
+        "dathere/qsv",
+        "dominikwilkowski/cfonts",
+        "pemistahl/grex",
+        "Lisprez/so_stupid_search",
+        "roquess/loki_text",
+        "yoav-lavi/melody",
+        "phiresky/ripgrep-all",
+        "your-tools/ruplacer",
+        "thomasschafer/scooter",
+        "sstadick/hck",
+        "vishaltelangre/ff",
+        "whitfin/bytelines",
+        "whitfin/runiq"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Utilities"
+      },
+      "data": [
+        "1History/1History",
+        "bloznelis/kbt",
+        "brycx/checkpwn",
+        "cartesiancs/vessel",
+        "dcapal/dcapal",
+        "Eoin-McMahon/Blindfold",
+        "Eoin-McMahon/blindfold",
+        "AchetaGames/Epic-Asset-Manager",
+        "evansmurithi/cloak",
+        "fcsonline/tmux-thumbs",
+        "guoxbin/dtool",
+        "Linus-Mussmaecher/rucola",
+        "thewh1teagle/mobslide",
+        "pvolok/mprocs",
+        "mrjackwills/oxker",
+        "nix-community/nix-init",
+        "nix-community/nix-melt",
+        "nix-community/nurl",
+        "yaa110/nomino",
+        "raftario/licensor",
+        "restsend/rustpbx",
+        "aaronriekenberg/rust-parallel",
+        "rustdesk/rustdesk",
+        "rustic-rs/rustic",
+        "sorairolake/qrtool",
+        "str4d/rage",
+        "FiloSottile/age",
+        "Skallwar/suckit",
+        "shshemi/tabiew",
+        "davidmoreno/tailtales",
+        "alexpasmantier/television",
+        "tversteeg/emplace",
+        "vamolessa/verco",
+        "dani-garcia/vaultwarden",
+        "thewh1teagle/vibe",
+        "warpdotdev/Warp",
+        "alvaro17f/wrestic",
+        "ttytm/wthrr-the-weathercrab"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Video"
+      },
+      "data": [
+        "dertuxmalwieder/yaydl",
+        "gyroflow/gyroflow",
+        "harlanc/xiu",
+        "TGotwig/vidmerger",
+        "xiph/rav1e"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Virtualization"
+      },
+      "data": [
+        "firecracker-microvm/firecracker",
+        "firecracker-microvm/firecracker-microvm.github.io",
+        "kata-containers/kata-containers",
+        "tailhook/vagga",
+        "youki-dev/youki"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Web"
+      },
+      "data": [
+        "cfal/tobaru",
+        "importantimport/hatsu",
+        "LemmyNet/lemmy",
+        "MASQ-Project/Node",
+        "Plume-org/Plume",
+        "redlib-org/redlib",
+        "libreddit/libreddit",
+        "stoatchat/stoatchat"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Web Servers"
+      },
+      "data": [
+        "cloudflare/pingora",
+        "emanuele-em/proxelar",
+        "bytedance/g3",
+        "marcodpt/minirps",
+        "mu-arch/skyfolder",
+        "mufeedvh/binserve",
+        "orhun/rustypaste",
+        "plabayo/rama",
+        "ronanyeah/rust-hasura",
+        "static-web-server/static-web-server",
+        "svenstaro/miniserve",
+        "thecoshman/http",
+        "TheWaWaR/simple-http-server",
+        "0x676e67/vproxy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools"
+      },
+      "data": [
+        "Canop/bacon",
+        "Julien-cpsn/ATAC",
+        "Wulf/create-rust-app",
+        "angular/angular.js",
+        "antinomyhq/forge",
+        "brocode/fw",
+        "casey/just",
+        "clog-tool/clog-cli",
+        "cloudflare/foundations",
+        "comtrya/comtrya",
+        "crate-ci/typos",
+        "dalance/ptags",
+        "dan-t/rusty-tags",
+        "dandavison/delta",
+        "datanymizer/datanymizer",
+        "dotenv-linter/dotenv-linter",
+        "envio-cli/envio",
+        "fiatjaf/module-linker",
+        "flox/flox",
+        "frolicflow/Frolic",
+        "geiger-rs/cargo-geiger",
+        "huhu/rust-search-extension",
+        "igor-petruk/scriptisto",
+        "jacobdeichert/mask",
+        "kyu08/fzf-make",
+        "lasantosr/intelli-shell",
+        "orhun/git-cliff",
+        "racer-rust/racer",
+        "rksm/hot-lib-reloader-rs",
+        "rust-lang/rustup",
+        "saschagrunert/git-journal"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/Build system"
+      },
+      "data": [
+        "Devolutions/CMakeRust",
+        "SiegeLord/RustCMake",
+        "TraceMachina/nativelink",
+        "bazelbuild/bazel",
+        "cargo-generate/cargo-generate",
+        "cargo-limit/cargo-limit",
+        "crate-ci/cargo-release",
+        "dtolnay/cargo-expand",
+        "est31/cargo-udeps",
+        "facebook/buck2",
+        "frewsxcv/cargo-all-features",
+        "icepuma/rust-action",
+        "jonsuh/hamburgers",
+        "matthiaskrgr/cargo-cache",
+        "ngi-nix/summer-of-nix",
+        "nix-community/fenix",
+        "orium/cargo-rdme",
+        "pantsbuild/pants",
+        "peaceiris/actions-mdbook",
+        "sagiegurari/cargo-make",
+        "simonhyll/cargo-commander",
+        "suptejas/fleet"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/Deployment"
+      },
+      "data": [
+        "emk/rust-musl-builder",
+        "kpcyrd/mini-docker-rust",
+        "liuchong/docker-rustup",
+        "LukeMathWalker/cargo-chef",
+        "rust-cross/rust-musl-cross",
+        "rust-lang/docker-rust",
+        "Stavrospanakakis/is_ready",
+        "emk/heroku-buildpack-rust",
+        "release-plz/release-plz"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/Embedded"
+      },
+      "data": [
+        "rust-embedded/awesome-embedded-rust",
+        "avr-rust/ruduino",
+        "japaric/rust-cross",
+        "japaric/xargo",
+        "Vaishnav-Sabari-Girish/ComChan",
+        "oreboot/oreboot",
+        "nrf-rs/nrf-hal"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/FFI"
+      },
+      "data": [
+        "Cysharp/csbindgen",
+        "PyO3/PyO3",
+        "RustPython/RustPython",
+        "SSheldon/rust-objc",
+        "Sean1708/rusty-cheddar",
+        "alexcrichton/rust-ffi-examples",
+        "anima-engine/mrusty",
+        "benanders/rjni",
+        "d-unsed/ruru",
+        "danielpclark/rutie",
+        "dgrunwald/rust-cpython",
+        "drager/wasm-pack",
+        "drrb/java-rust-example",
+        "dtolnay/cxx",
+        "getsentry/milksnake",
+        "infinyon/node-bindgen",
+        "jcmoyer/rust-lua53",
+        "lilyball/rust-lua",
+        "mlua-rs/mlua",
+        "mozilla/cbindgen",
+        "mthom/scryer-prolog",
+        "neon-bindings/neon",
+        "phper-framework/phper",
+        "rhysd/wain",
+        "rust-lang/rust-bindgen",
+        "rusterlium/rustler",
+        "shepmaster/rust-ffi-omnibus",
+        "tickbh/td_rlua",
+        "tomaka/hlua",
+        "wasm-bindgen/wasm-bindgen",
+        "zhangyuang/node-ffi-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/IDEs"
+      },
+      "data": [
+        "PistonDevelopers/VisualRust",
+        "Saecki/crates.nvim",
+        "ZoeyR/rls-vs2017",
+        "auto-complete/auto-complete",
+        "autozimu/LanguageClient-neovim",
+        "brotzeit/rustic",
+        "company-mode/company-mode.github.io",
+        "eclipse-corrosion/corrosion",
+        "filllabs/dependi.git",
+        "flycheck/flycheck",
+        "flycheck/flycheck-rust",
+        "intellij-rust/intellij-rust",
+        "jinxdash/jinx-rust",
+        "kakoune-lsp/kakoune-lsp",
+        "lapce/lapce",
+        "madeso/ride",
+        "mawww/kakoune",
+        "microsoft/language-server-protocol",
+        "noseglid/atom-build",
+        "nwiizo/cargo.nvim",
+        "racer-rust/emacs-racer",
+        "racer-rust/racer",
+        "racer-rust/vim-racer",
+        "rust-analyzer/rust-analyzer",
+        "rust-lang/rust-analyzer.git",
+        "rust-lang/rust-enhanced",
+        "rust-lang/rust-mode",
+        "rust-lang/rust.vim"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/Profiling"
+      },
+      "data": [
+        "bencherdev/bencher",
+        "bheisler/criterion.rs",
+        "koute/bytehound",
+        "nvzqz/divan",
+        "ellisonch/rust-stopwatch",
+        "llogiq/flame",
+        "mrhooray/torch",
+        "bytedance/g3",
+        "pawurb/hotpath",
+        "sharkdp/hyperfine"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/Testing"
+      },
+      "data": [
+        "AFLplusplus/AFLplusplus",
+        "AlKass/polish",
+        "HypothesisWorks/hypothesis",
+        "IBM/mocktail",
+        "asomers/mockall",
+        "aubaugh/demonstrate",
+        "bcheidemann/fixtures-rs",
+        "bitfield/cargo-testdox",
+        "calder/rust-goldenfile",
+        "cksac/fake-rs",
+        "cucumber-rs/cucumber",
+        "d-e-s-o/test-log",
+        "google/googletest-rust",
+        "httpmock/httpmock",
+        "japaric/trust",
+        "la10736/rstest",
+        "llogiq/mutagen",
+        "nrxus/faux",
+        "rust-fuzz/afl.rs",
+        "shuttle-hq/synth",
+        "sourcefrog/cargo-mutants",
+        "wfxr/rlt"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development tools/Transpiling"
+      },
+      "data": [
+        "aleph-lang/aleph_ollama",
+        "BayesWitnesses/m2cgen",
+        "immunant/c2rust",
+        "jameysharp/corrode"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Artificial Intelligence"
+      },
+      "data": [
+        "64bit/async-openai",
+        "AtheMathmo/rusty-machine",
+        "Ave-Sergeev/Tictonix",
+        "BoundaryML/baml",
+        "LaurentMazare/tch-rs",
+        "Martin1887/oxigen",
+        "Mottl/lightgbm3-rs",
+        "anowell/are-we-learning-yet",
+        "autumnai/leaf",
+        "blackportal-ai/delta",
+        "blackportal-ai/nebula",
+        "coreylowman/dfdx",
+        "fff-rs/juice",
+        "guillaume-be/rust-bert",
+        "huggingface/candle",
+        "huggingface/tokenizers",
+        "innoave/genevo",
+        "m-decoster/RsGenetic",
+        "maciejkula/rustlearn",
+        "openai/harmony",
+        "perpetual-ml/perpetual",
+        "pkalivas/radiate",
+        "ramsyana/RustTensor",
+        "rust-ml/linfa",
+        "smartcorelib/smartcore",
+        "tensorflow/rust",
+        "tracel-ai/burn",
+        "willi-kappler/darwin-rs",
+        "zurawiki/tiktoken-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Asynchronous"
+      },
+      "data": [
+        "async-rs/async-std",
+        "dagrs-dev/dagrs",
+        "dpc/mioco",
+        "igumnoff/gabriel2",
+        "tokio-rs/mio",
+        "rust-lang/futures-rs",
+        "t3hmrman/async-dropper",
+        "TeaEntityLab/fpRust",
+        "tokio-rs/tokio",
+        "tqwewe/kameo",
+        "Xudong-Huang/may",
+        "zonyitoo/coio-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Audio and Music"
+      },
+      "data": [
+        "aschey/stream-download-rs",
+        "insomnimus/nodi",
+        "jhasse/ears",
+        "musitdev/portmidi-rs",
+        "ozankasikci/rust-music-theory",
+        "pdeljanov/Symphonia",
+        "RustAudio/cpal",
+        "RustAudio/rodio",
+        "RustAudio/rust-portaudio",
+        "Serial-ATA/lofty-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Authentication"
+      },
+      "data": [
+        "197g/oxide-auth",
+        "Keats/jsonwebtoken",
+        "constantoine/totp-rs",
+        "dermesser/yup-oauth2",
+        "jwt-dotnet/jwt",
+        "ramosbugs/oauth2-rs",
+        "sgrust01/jwtvault"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Automotive"
+      },
+      "data": [
+        "idletea/tokio-socketcan",
+        "marcelbuesing/tokio-socketcan-bcm",
+        "socketcan-rs/socketcan-rs",
+        "oxibus/can-dbc",
+        "Sensirion/lin-bus-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Caching"
+      },
+      "data": [
+        "06chaynes/http-cache",
+        "aisk/rust-memcache",
+        "al8n/stretto",
+        "jaemk/cached",
+        "moka-rs/moka",
+        "mozilla/sccache",
+        "zkat/cacache-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Cloud"
+      },
+      "data": [
+        "awslabs/aws-lambda-rust-runtime",
+        "awslabs/aws-sdk-rust",
+        "rusoto/rusoto",
+        "Azure/azure-sdk-for-rust",
+        "bparli/convey",
+        "Qovery/engine"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Command-line"
+      },
+      "data": [
+        "clap-rs/clap",
+        "sagiegurari/cliparser",
+        "docopt/docopt.rs",
+        "google/argh",
+        "killercup/quicli",
+        "ksk001100/seahorse",
+        "TeXitoi/structopt",
+        "nukesor/comfy-table",
+        "Nukesor/comfy-table",
+        "zhiburt/tabled",
+        "rust-cli/human-panic",
+        "kkawakam/rustyline",
+        "MovingtoMars/liner",
+        "murarth/linefeed",
+        "srijs/rust-copperline",
+        "mgrachev/update-informer",
+        "hniksic/rust-subprocess",
+        "oconnor663/duct.rs",
+        "rust-cli/rexpect",
+        "zhiburt/expectrl",
+        "a8m/pb",
+        "clitic/kdam",
+        "console-rs/indicatif",
+        "etienne-napoleone/spinach",
+        "FGRibreau/spinners",
+        "hashmismatch/terminal_cli.rs",
+        "mikaelmello/inquire",
+        "starship/starship",
+        "ynqa/promkit",
+        "colored-rs/colored",
+        "console-rs/dialoguer",
+        "LukasKalbertodt/bunt",
+        "LukasKalbertodt/term-painter",
+        "ogham/rust-ansi-term",
+        "SergioBenitez/yansi",
+        "gdt050579/AppCUI-rs",
+        "nabijaczleweli/BearLibTerminal.rs",
+        "tommyettinger/BearLibTerminal",
+        "ccbrown/iocraft",
+        "gyscos/Cursive",
+        "ivanceras/titik",
+        "ihalila/pancurses",
+        "jeaye/ncurses-rs",
+        "ogham/rust-term-grid",
+        "ratatui/ratatui",
+        "redox-os/termion",
+        "gchp/rustbox",
+        "nsf/termbox",
+        "crossterm-rs/crossterm"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Compression"
+      },
+      "data": [
+        "alexcrichton/tar-rs",
+        "dropbox/rust-brotli",
+        "ende76/brotli-rs",
+        "google/zopfli",
+        "gyscos/zstd-rs",
+        "roquess/paxit",
+        "rust-lang/flate2-rs",
+        "sstadick/gzp",
+        "trifectatechfoundation/bzip2-rs",
+        "zip-rs/zip2",
+        "zopfli-rs/zopfli"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Computation"
+      },
+      "data": [
+        "Axect/Peroxide",
+        "CNugteren/CLBlast-34",
+        "GuillaumeGomez/rust-GSL",
+        "KhronosGroup/OpenCL-SDK",
+        "Nonanti/mathcore",
+        "Reference-LAPACK/lapack",
+        "Ryan-D-Gast/differential-equations",
+        "argmin-rs/argmin",
+        "arrayfire/arrayfire-rust",
+        "autumnai/collenchyma",
+        "blas-lapack-rs/lapack",
+        "calebwin/emu",
+        "cpmech/russell",
+        "dimforge/nalgebra",
+        "luqmana/rust-opencl",
+        "mikkyang/rust-blas",
+        "neogenie/fastnum",
+        "sarah-quinones/faer-rs",
+        "statrs-dev/statrs",
+        "zhtvk/tensor"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Concurrency"
+      },
+      "data": [
+        "crossbeam-rs/crossbeam",
+        "NikitaSmithTheOne/rate-limiters-rs",
+        "orium/archery",
+        "rayon-rs/rayon",
+        "rustcc/coroutine-rs",
+        "zonyitoo/coio-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Configuration"
+      },
+      "data": [
+        "andoriyu/uclicious",
+        "vstakhov/libucl",
+        "Kixunil/configure_me",
+        "rust-cli/config-rs",
+        "SergioBenitez/Figment",
+        "softprops/envy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Cryptography"
+      },
+      "data": [
+        "DaGenix/rust-crypto",
+        "RustCrypto/hashes",
+        "arkworks-rs/circom-compat",
+        "briansmith/ring",
+        "briansmith/webpki",
+        "conradkleinespel/rooster",
+        "cossacklabs/themis",
+        "dalek-cryptography/curve25519-dalek",
+        "dalek-cryptography/ed25519-dalek",
+        "dalek-cryptography/x25519-dalek",
+        "debris/tiny-keccak",
+        "dusk-network/Poseidon252",
+        "dusk-network/bls12_381",
+        "dusk-network/plonk",
+        "exonum/exonum",
+        "facebook/opaque-ke",
+        "iddm/randomorg",
+        "ietf-tools/datatracker",
+        "klutzy/suruga",
+        "kn0sys/ecc-rs",
+        "kornelski/rust-security-framework",
+        "libOctavo/octavo",
+        "orion-rs/orion",
+        "racum/rust-djangohashers",
+        "rust-openssl/rust-openssl",
+        "rustls/rustls",
+        "sfackler/rust-native-tls",
+        "sorairolake/abcrypt",
+        "sorairolake/scryptenc-rs",
+        "w3f/schnorrkel"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Data processing"
+      },
+      "data": [
+        "amv-dev/yata",
+        "rust-ndarray/ndarray",
+        "cocoindex-io/cocoindex",
+        "apache/datafusion",
+        "GoPlasmatic/datalogic-rs",
+        "kernelmachine/utah",
+        "paradedb/paradedb",
+        "pola-rs/polars",
+        "weld-project/weld"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Data streaming"
+      },
+      "data": [
+        "arkflow-rs/arkflow",
+        "ArroyoSystems/arroyo",
+        "apache/iggy",
+        "infinyon/fluvio"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Data structures"
+      },
+      "data": [
+        "ashvardanian/SimSIMD",
+        "becheran/grid",
+        "billyevans/tst",
+        "danielpclark/array_tool",
+        "fizyk20/generic-array",
+        "garro95/priority-queue",
+        "greyblake/nutype",
+        "mrhooray/kdtree-rs",
+        "orium/rpds",
+        "RoaringBitmap/roaring-rs",
+        "rust-itertools/itertools",
+        "tnballo/scapegoat",
+        "yamafaktory/hypergraph"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Data visualization"
+      },
+      "data": [
+        "blitzar-tech/egui_graphs",
+        "djduque/pgfplots",
+        "DJDuque/pgfplots",
+        "mazznoer/colorgrad-rs",
+        "milliams/plotlib",
+        "plotly/plotly.rs",
+        "cpmech/plotpy",
+        "plotters-rs/plotters",
+        "rerun-io/rerun",
+        "saresend/Gust"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Database"
+      },
+      "data": [
+        "AgilData/mysql-proxy-rs",
+        "AlexPikalov/cdrs",
+        "PoloDB/PoloDB",
+        "SeaQL/sea-orm",
+        "SeaQL/sea-query",
+        "SeaQL/sea-schema",
+        "SeaQL/seaography",
+        "aembke/fred.rs",
+        "benashford/rs-es",
+        "blackbeam/mysql_async",
+        "blackbeam/rust-mysql-simple",
+        "bonifaido/rust-zookeeper",
+        "c410-f3r/wtx",
+        "cassandra-rs/cassandra-rs",
+        "cberner/redb",
+        "chill-rs/chill",
+        "diesel-rs/diesel",
+        "driftluo/InfluxDBClient-rs",
+        "elastic-rs/elastic",
+        "fMeow/arangors",
+        "facebook/rocksdb",
+        "google/leveldb",
+        "influxdata/influxdb",
+        "ivanceras/rustorm",
+        "jimmycuadra/rust-etcd",
+        "krojew/cdrs-tokio",
+        "krojew/rust-zookeeper",
+        "kubo/rust-oracle",
+        "launchbadge/sqlx",
+        "meilisearch/heed",
+        "mongodb/mongo-rust-driver",
+        "njord-rs/njord",
+        "plabayo/venndb",
+        "prisma/tiberius",
+        "rbatis/rbatis",
+        "redis-rs/redis-rs",
+        "redis/redis",
+        "rusqlite/rusqlite",
+        "rust-postgres/rust-postgres",
+        "rust-rocksdb/rust-rocksdb",
+        "seladb/pickledb-rs",
+        "sfackler/r2d2",
+        "skade/leveldb",
+        "softprops/dynomite",
+        "surrealdb/surrealdb",
+        "surrealdb/surrealdb.c",
+        "symisc/unqlite",
+        "thegenius/taitan-orm",
+        "vhbit/lmdb-rs",
+        "wix/yoshi",
+        "zitsen/unqlite.rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Date and time"
+      },
+      "data": [
+        "arthurhenrique/rusti-cal",
+        "BurntSushi/jiff",
+        "chronotope/chrono",
+        "Mnwa/ms",
+        "sorairolake/nt-time",
+        "time-rs/time"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Distributed systems"
+      },
+      "data": [
+        "antimonyproject/antimony",
+        "fede1024/rust-rdkafka",
+        "confluentinc/librdkafka",
+        "gklijs/schema_registry_converter",
+        "kafka-rust/kafka-rust",
+        "hyunsik/hdfs-rs",
+        "build-trust/ockam"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Email"
+      },
+      "data": [
+        "duesee/imap-codec",
+        "gsquire/sendgrid-rs",
+        "jdrouet/catapulte",
+        "jdrouet/mrml",
+        "jdrouet/jolimail",
+        "lettre/lettre",
+        "mailtutan/mailtutan",
+        "meli/meli",
+        "staktrace/mailparse",
+        "stalwartlabs/mail-auth",
+        "stalwartlabs/mail-parser",
+        "stalwartlabs/mail-send",
+        "tweedegolf/mailcrab"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Encoding"
+      },
+      "data": [
+        "3Hren/msgpack-rust",
+        "BurntSushi/byteorder",
+        "BurntSushi/rust-csv",
+        "Florob/RustyXML",
+        "alex/rust-asn1",
+        "bincode-org/bincode",
+        "capnproto/capnproto-rust",
+        "chyh1990/yaml-rust",
+        "cloudwego/sonic-rs",
+        "frol/flatc-rust",
+        "georust/netcdf",
+        "google/flatbuffers",
+        "hsivonen/encoding_rs",
+        "iddm/serde-aux",
+        "importcjj/rust-ajson",
+        "jamesmunns/postcard",
+        "jcreekmore/pem-rs",
+        "lifthrasiir/rust-encoding",
+        "luminvent/yaserde",
+        "m4b/goblin",
+        "mandrean/har-rs",
+        "mongodb/bson-rust",
+        "mrhooray/crc-rs",
+        "naomijub/edn-rs",
+        "netvl/xml-rs",
+        "rkyv/rkyv",
+        "ron-rs/ron",
+        "rustadopt/jzon-rs",
+        "saphyr-rs/saphyr",
+        "serde-rs/json",
+        "serde-rs/serde",
+        "servo/html5ever",
+        "shepmaster/sxd-document",
+        "shepmaster/sxd-xpath",
+        "simd-lite/simd-json",
+        "stepancheg/rust-protobuf",
+        "tafia/quick-xml",
+        "tamasfe/taplo",
+        "tokio-rs/prost",
+        "toml-rs/toml",
+        "vitiral/stfu8"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Filesystem"
+      },
+      "data": [
+        "camino-rs/camino",
+        "dnbln/dir-structure",
+        "apache/opendal",
+        "ParthJadhav/Rust_Search",
+        "pop-os/dbus-udisks2",
+        "pop-os/sys-mount",
+        "vitiral/path_abs",
+        "webdesus/fs_extra",
+        "Stebalien/tempfile",
+        "Stebalien/xattr",
+        "zboxfs/zbox"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Game development"
+      },
+      "data": [
+        "FyroxEngine/Fyrox",
+        "PistonDevelopers/Piston-Tutorials",
+        "PistonDevelopers/piston",
+        "Ruddle/oxidator",
+        "Rust-SDL2/rust-sdl2",
+        "SFML/SFML",
+        "SiegeLord/RustAllegro",
+        "VictoremWinbringer/Victorem",
+        "amethyst/bracket-lib",
+        "amethyst/legion",
+        "amethyst/specs",
+        "atomflunder/skillratings",
+        "bedrock-crustaceans/bedrock-rs",
+        "bevyengine/bevy",
+        "brson/rust-sdl",
+        "deltaphc/raylib-rs",
+        "ferrumc-rs/ferrumc",
+        "gamedig/rust-gamedig",
+        "ggez/ggez",
+        "giraffekey/tatami",
+        "godot-rust/gdext",
+        "godot-rust/gdnative",
+        "godotengine/godot",
+        "iddm/challonge-rs",
+        "iddm/toornament-rs",
+        "jeremyletang/rust-sfml",
+        "liballeg/allegro5",
+        "libsdl-org/SDL",
+        "ozkriff/awesome-quads",
+        "pumpkin-mc/pumpkin",
+        "rofrol/awesome-wgpu",
+        "rust-gamedev/arewegameyet",
+        "sebcrozet/kiss3d",
+        "sponsors/raysan5",
+        "unrust/unrust"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Geospatial"
+      },
+      "data": [
+        "apache/sedona-db",
+        "DaveKram/coord_transforms",
+        "maplibre/martin",
+        "gx0r/rrgeo",
+        "thampiman/reverse-geocoder",
+        "vlopes11/geomorph"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Graphics"
+      },
+      "data": [
+        "J-F-Liu/lopdf",
+        "PistonDevelopers/glfw-rs",
+        "bastibense/libharu_ng",
+        "fschutt/printpdf",
+        "gfx-rs/gfx",
+        "gfx-rs/wgpu",
+        "glfw/glfw",
+        "glium/glium",
+        "harfbuzz/rustybuzz",
+        "kaj/rust-pdf",
+        "khronosGroup/Vulkan-samples",
+        "redox-os/rusttype",
+        "rust-windowing/gl-rs",
+        "vulkano-rs/vulkano"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/GUI"
+      },
+      "data": [
+        "Immediate-Mode-UI/Nuklear",
+        "KISS-UI/kiss-ui",
+        "PistonDevelopers/conrod",
+        "RibirX/Ribir",
+        "andlabs/libui",
+        "antoyo/relm",
+        "autopilot-rs/autopilot-rs",
+        "cunarist/rinf",
+        "cyndis/qmlrs",
+        "dioxuslabs/dioxus",
+        "emilk/egui",
+        "emoon/rust_minifb",
+        "fltk-rs/fltk-rs",
+        "fltk/fltk",
+        "flutter-rs/flutter-rs",
+        "fschutt/azul",
+        "fzyzcjy/flutter_rust_bridge",
+        "gtk-rs/gtk4-rs",
+        "iced-rs/iced",
+        "imgui-rs/imgui-rs",
+        "ivanceras/sauron-native",
+        "linebender/druid",
+        "linebender/xilem",
+        "makepad/makepad",
+        "mlabbe/nativefiledialog",
+        "ocornut/imgui",
+        "redox-os/orbtk",
+        "rise-ui/rise",
+        "rust-native-ui/libui-rs",
+        "saurvs/nfd-rs",
+        "sciter-sdk/rust-sciter",
+        "servo/core-foundation-rs",
+        "slint-ui/slint",
+        "snuk182/nuklear-rust",
+        "tauri-apps/tauri",
+        "tauri-apps/wry",
+        "woboq/qmetaobject-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Image processing"
+      },
+      "data": [
+        "abonander/img_hash",
+        "Enet4/dicom-rs",
+        "image-rs/image",
+        "image-rs/imageproc",
+        "marekm4/dominant_color",
+        "rust-cv/cv",
+        "teovoinea/steganography",
+        "twistedfall/opencv-rust"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Logging"
+      },
+      "data": [
+        "donnie4w/tklog \"donnie4w",
+        "estk/log4rs",
+        "rbatis/fast_log",
+        "rust-lang/log",
+        "seanmonstar/pretty-env-logger",
+        "slog-rs/slog",
+        "tokio-rs/tracing"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Mobile"
+      },
+      "data": [
+        "ivnsch/rust_android_ios",
+        "Geal/rust_on_mobile",
+        "redbadger/crux",
+        "TimNN/cargo-lipo"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Network programming"
+      },
+      "data": [
+        "1c3t3a/rust-socketio",
+        "Covertness/coap-rs",
+        "DefGuard/wireguard-rs",
+        "ENQT-GmbH/remoc",
+        "Orange-OpenSource/hurl",
+        "Tencent/tquic",
+        "achanda/ipnetwork",
+        "actix/actix",
+        "alexcrichton/ssh2-rs",
+        "aws/s2n-quic",
+        "b23r0/rust-raknet",
+        "bluez/bluer",
+        "bytebeamio/rumqtt",
+        "canndrew/netsim",
+        "cloudflare/quiche",
+        "dylanmckay/protocol",
+        "eclipse-zenoh-flow/zenoh-flow",
+        "eclipse-zenoh/zenoh",
+        "erickt/rust-zmq",
+        "fussybeaver/bollard",
+        "hyperium/tonic",
+        "jedisct1/libsodium",
+        "lemunozm/message-io",
+        "libp2p/rust-libp2p",
+        "libpnet/libpnet",
+        "libssh2/libssh2",
+        "mattnenterprise/rust-ftp",
+        "mattnenterprise/rust-nntp",
+        "mattnenterprise/rust-pop3",
+        "mozilla/neqo",
+        "n0-computer/iroh",
+        "nanomsg/nng",
+        "nats-io/nats.rs",
+        "quinn-rs/quinn",
+        "restsend/rsipstack",
+        "rmqtt/rmqtt",
+        "smallnest/rpcx-rs",
+        "smoltcp-rs/smoltcp",
+        "socketio/socket.io",
+        "stomp/stomp-specification-1.2.html",
+        "thehydroimpulse/nanomsg.rs",
+        "tikv/grpc-rs",
+        "zslayton/stomp-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Parsing"
+      },
+      "data": [
+        "0xlane/pe-sign",
+        "cchexcode/wavefront_rs",
+        "comex/rust-shlex",
+        "Eliah-Lakhin/lady-deirdre",
+        "Folyd/robotstxt",
+        "freestrings/jsonpath",
+        "igumnoff/shiva",
+        "kevinmehall/rust-peg",
+        "lalrpop/lalrpop",
+        "m4rw3r/chomp",
+        "Marwes/combine",
+        "nrc/zero",
+        "pest-parser/pest",
+        "ptal/oak",
+        "rust-bakery/nom",
+        "s-panferov/queryst",
+        "ljharb/qs",
+        "slimreaper35/dockerfile-parser-rs",
+        "softdevteam/grmtools",
+        "tree-sitter/tree-sitter"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Platform specific"
+      },
+      "data": [
+        "bytecodealliance/rustix",
+        "fubarnetes/libjail-rs",
+        "hannobraun/inotify-rs",
+        "iddm/thread-priority",
+        "inotify-tools/inotify-tools",
+        "libfuse/libfuse",
+        "microsoft/windows-rs",
+        "nix-rust/nix",
+        "pop-os/distinst",
+        "retep998/winapi-rs",
+        "yaa110/rust-iptables",
+        "zargony/fuse-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Scripting"
+      },
+      "data": [
+        "rustq/3body-lang",
+        "cel-rust/cel-rust",
+        "sagiegurari/duckscript",
+        "facebook/starlark-rust",
+        "fleabitdev/glsp",
+        "giraffekey/xylo",
+        "gluon-lang/gluon",
+        "kcl-lang/kcl",
+        "metacall/core",
+        "mun-lang/mun",
+        "murarth/ketos",
+        "PistonDevelopers/dyon",
+        "rhaiscript/rhai",
+        "rune-rs/rune",
+        "trynova/nova"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/System"
+      },
+      "data": [
+        "ardaku/whoami",
+        "GuillaumeGomez/sysinfo",
+        "navidys/procsys",
+        "Phate6660/nixinfo",
+        "sorairolake/sysexits-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Template engine"
+      },
+      "data": [
+        "sunng87/handlebars-rust",
+        "zzau13/yarte",
+        "askama-rs/askama",
+        "kaj/ructe",
+        "Keats/tera",
+        "lambda-fairy/maud",
+        "Stebalien/horrorshow-rs",
+        "rustache/rustache"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Text processing"
+      },
+      "data": [
+        "BurntSushi/suffix",
+        "BurntSushi/tabwriter",
+        "Daniel-Liu-c0deb0t/triple_accel",
+        "Lucretiel/joinery",
+        "OpenRefine/OpenRefine",
+        "becheran/wildmatch",
+        "fancy-regex/fancy-regex",
+        "greyblake/whatlang-rs",
+        "mgeisler/textwrap",
+        "null8626/decancer",
+        "probablykasper/cpc",
+        "ps1dr3x/easy_reader",
+        "pwoolcoc/ngrams",
+        "rust-lang/regex",
+        "yaa110/rake-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Text search"
+      },
+      "data": [
+        "andylokandy/simsearch-rs",
+        "BurntSushi/fst",
+        "CurrySoftware/perlin",
+        "meilisearch/MeiliSearch",
+        "paradedb/paradedb",
+        "SeekStorm/SeekStorm",
+        "quickwit-oss/tantivy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Virtualization"
+      },
+      "data": [
+        "beneills/quantum",
+        "bytecodealliance/wasmtime",
+        "google/crosvm",
+        "oxidecomputer/propolis",
+        "saurvs/hypervisor-rs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Libraries/Web programming"
+      },
+      "data": [
+        "0x676e67/wreq",
+        "FuGangqiang/mdblog.rs",
+        "GildedHonour/frank_jwt",
+        "LiveDuo/tinyweb",
+        "ProbablyClem/utoipauto",
+        "actix/actix-web",
+        "alexcrichton/curl-rust",
+        "async-graphql/async-graphql",
+        "c410-f3r/wtx",
+        "cargonauts-rs/cargonauts",
+        "carllerche/tower-web",
+        "cobalt-org/cobalt.rs",
+        "cot-rs/cot",
+        "curl/curl",
+        "ducaale/xh",
+        "edezhic/prest",
+        "expressjs/express",
+        "flosse/rust-web-framework-comparison",
+        "getzola/zola",
+        "gotham-rs/gotham",
+        "graphform/ratchet",
+        "graphql-rust/graphql-client",
+        "graphql-rust/juniper",
+        "graphul-rs/graphul",
+        "grego/blades",
+        "hominee/dyer",
+        "housleyjk/ws-rs",
+        "hyperium/hyper",
+        "iddm/urlshortener-rs",
+        "iron/iron",
+        "ivanceras/sauron",
+        "juhaku/utoipa",
+        "leptos-rs/leptos",
+        "leven-the-blog/leven",
+        "miketang84/sapper",
+        "nickel-org/nickel.rs",
+        "osohq/oso",
+        "plabayo/rama",
+        "poem-web/poem",
+        "richerarc/saphir",
+        "rochacbruno/marmite",
+        "ruby-grape/grape",
+        "rust-lang/arewewebyet",
+        "rust-scraper/scraper",
+        "rustless/rustless",
+        "rwf2/Rocket",
+        "salvo-rs/salvo",
+        "saru-tora/anansi",
+        "seanmonstar/reqwest",
+        "seanmonstar/warp",
+        "seed-rs/seed",
+        "serenity-rs/serenity",
+        "snapview/tungstenite-rs",
+        "softprops/openapi",
+        "sozu-proxy/sozu",
+        "spring-rs/spring-rs",
+        "sunng87/handlebars-rust",
+        "svix/svix-webhooks",
+        "teloxide/teloxide",
+        "thewh1teagle/rookie",
+        "tiny-http/tiny-http",
+        "tokio-rs/axum",
+        "tomaka/rouille",
+        "tu6ge/valitron",
+        "utkarshkukreti/select.rs",
+        "vi/websocat",
+        "websockets-rs/rust-websocket",
+        "zino-rs/zino"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Resources"
+      },
+      "data": [
+        "AbdesamedBendjeddou/Rusty-CS",
+        "Dhghomon/easy_rust",
+        "MariaLetta/free-ferris-pack",
+        "TeXitoi/benchmarksgame-rs",
+        "ad-si/Rust-Flashcards",
+        "aturon/aturon.github.io",
+        "boostcon/cppnow_presentations_201...",
+        "brson/stdx",
+        "c410-f3r/wtx-bench",
+        "cis198-2016s/schedule",
+        "codecrafters-io/build-your-own-bittorrent",
+        "cognitive-engineering-lab/aquascope",
+        "ctjhoa/rust-learning",
+        "cuppar/rtd",
+        "dcodesdev/rustfinity.com",
+        "durationextender/duration-extender-rs",
+        "google/comprehensive-rust",
+        "informalsystems/malachite",
+        "integer32llc/rust-in-motion-videos",
+        "isaacharrisholt/gleam-chess-tournament",
+        "jamesmunns/awesome-rust-streaming",
+        "jondot/rust-how-do-i-start",
+        "lborb/book",
+        "mre/idiomatic-rust",
+        "natemara/refactoring-to-rust",
+        "nrc/r4cppp",
+        "peshwar9/rust-servers-services-apps",
+        "plabayo/learn-rust-101",
+        "ralfbiedert/cheats.rs",
+        "richardanaya/tour_of_rust",
+        "rust-in-action/code",
+        "rust-lang-nursery/rust-cookbook",
+        "rust-lang/rust-by-example",
+        "rust-lang/rustlings",
+        "rust-tieng-viet/rust-tieng-viet.github.io",
+        "rust-unofficial/patterns",
+        "rust-unofficial/too-many-lists",
+        "rustviz/rustviz",
+        "sger/RustBooks",
+        "warycat/rustgym"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Miscellaneous"
+      },
+      "data": [
+        "haobogu/rmk",
+        "rust-osdev/uefi-rs",
+        "Sajjon/klirr",
+        "tackler-ng/tackler",
+        "tarkah/tickrs",
+        "imager-io/imager",
+        "oxipng/oxipng",
+        "locka99/opcua",
+        "slowtec/tokio-modbus",
+        "robustmq/robustmq",
+        "mxsm/rocketmq-rust",
+        "tensorzero/tensorzero",
+        "helsing-ai/buffrs",
+        "juspay/hyperswitch",
+        "holo-routing/holo",
+        "osrg/rustybgp",
+        "rustodon/rustodon",
+        "FedericoBruzzone/tgt",
+        "stav121/tasklet",
+        "cs01/gdbgui",
+        "godzie44/BugStalker",
+        "kxxt/tracexec",
+        "dprint/dprint",
+        "jinxdash/prettier-plugin-rust",
+        "rust-lang/rustfmt",
+        "sopaco/deepwiki-rs",
+        "deps-rs/deps.rs",
+        "endorlabs/mirai",
+        "Artisan-Lab/RAPx",
+        "verus-lang/verus",
+        "larksuite/perf-monitor-rs",
+        "cds-astro/aladin-lite",
+        "flosse/rust-sun",
+        "saurvs/astro-rust",
+        "biodatageeks/polars-bio",
+        "serverlesstechnology/cqrs",
+        "aya-rs/aya",
+        "libbpf/libbpf-rs",
+        "avhz/RustQuant",
+        "d-e-s-o/apca",
+        "rust-dd/stochastic-rs",
+        "JasonShin/fp-core.rs",
+        "myrrlyn/tap",
+        "neo4j-labs/graph",
+        "petgraph/petgraph",
+        "shnewto/bnf",
+        "WyvernIXTL/license-fetcher",
+        "mattgathu/cute",
+        "elastio/bon",
+        "StardustDL/Linq-in-Rust",
+        "pulldown-cmark/pulldown-cmark",
+        "insomnimus/tidier",
+        "alvaroparker/libfprint-rs",
+        "serialport/serialport-rs",
+        "binarly-io/idalib",
+        "encounter/objdiff",
+        "FedericoBruzzone/tdlib-rs",
+        "BinChengZhao/delay-timer",
+        "rustmailer/persistent-scheduler",
+        "nathanbabcock/ffmpeg-sidecar",
+        "cenotelie/cratery",
+        "w4/chartered",
+        "OPCFoundation/OPC-SecurityAdvisories",
+        "newrelic/newrelic-browser-agent"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Generative AI"
+      },
+      "data": [
+        "openai/codex",
+        "lencx/ChatGPT",
+        "meilisearch/meilisearch",
+        "TabbyML/tabby",
+        "block/goose",
+        "sigoden/aichat"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Applications/General",
+      "Applications/Generative AI",
+      "Applications/Audio and Music",
+      "Applications/Blockchain",
+      "Applications/Database",
+      "Applications/Emulators",
+      "Applications/File manager",
+      "Applications/Games",
+      "Applications/Graphics",
+      "Applications/Observability",
+      "Applications/Operating systems",
+      "Applications/Productivity",
+      "Applications/Security tools",
+      "Applications/System tools",
+      "Applications/Text editors",
+      "Applications/Text processing",
+      "Applications/Utilities",
+      "Applications/Video",
+      "Applications/Virtualization",
+      "Applications/Web",
+      "Applications/Web Servers",
+      "Development tools",
+      "Development tools/Build system",
+      "Development tools/Deployment",
+      "Development tools/Embedded",
+      "Development tools/FFI",
+      "Development tools/IDEs",
+      "Development tools/Profiling",
+      "Development tools/Testing",
+      "Development tools/Transpiling",
+      "Libraries/Artificial Intelligence",
+      "Libraries/Asynchronous",
+      "Libraries/Audio and Music",
+      "Libraries/Authentication",
+      "Libraries/Automotive",
+      "Libraries/Caching",
+      "Libraries/Cloud",
+      "Libraries/Command-line",
+      "Libraries/Compression",
+      "Libraries/Computation",
+      "Libraries/Concurrency",
+      "Libraries/Configuration",
+      "Libraries/Cryptography",
+      "Libraries/Data processing",
+      "Libraries/Data streaming",
+      "Libraries/Data structures",
+      "Libraries/Data visualization",
+      "Libraries/Database",
+      "Libraries/Date and time",
+      "Libraries/Distributed systems",
+      "Libraries/Email",
+      "Libraries/Encoding",
+      "Libraries/Filesystem",
+      "Libraries/Game development",
+      "Libraries/Geospatial",
+      "Libraries/Graphics",
+      "Libraries/GUI",
+      "Libraries/Image processing",
+      "Libraries/Logging",
+      "Libraries/Mobile",
+      "Libraries/Network programming",
+      "Libraries/Parsing",
+      "Libraries/Platform specific",
+      "Libraries/Scripting",
+      "Libraries/System",
+      "Libraries/Template engine",
+      "Libraries/Text processing",
+      "Libraries/Text search",
+      "Libraries/Virtualization",
+      "Libraries/Web programming",
+      "Resources",
+      "Miscellaneous"
+    ]
+  }
+}

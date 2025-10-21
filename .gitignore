@@ -16,5 +16,4 @@ vendor/
 .php-cs-fixer.cache
 
 # Project specific files
-/.awesomehub/
 /src/Hub/CachedContainer.*

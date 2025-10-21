@@ -1,0 +1,132 @@
+{
+  "id": "symfony",
+  "name": "Symfony",
+  "desc": "Symfony bundles, utilities and resources.",
+  "sources": [
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "symfony"
+      },
+      "options": {
+        "category": "Official",
+        "exclude": [
+          "polyfill",
+          "\\/\\.github$"
+        ]
+      }
+    },
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "sonata-project"
+      },
+      "options": {
+        "categories": {
+          "Sonata Project/Bundles": "/Bundle$/",
+          "Sonata Project/Libraries": "!/Bundle$/"
+        }
+      }
+    },
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "KnpLabs"
+      },
+      "options": {
+        "categories": {
+          "KNP Labs/Bundles": "/Bundle$/",
+          "KNP Labs/Libraries": "!/Bundle$/"
+        }
+      }
+    },
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "FriendsOfSymfony"
+      },
+      "options": {
+        "categories": {
+          "FriendsOfSymfony/Bundles": "/Bundle$/",
+          "FriendsOfSymfony/Libraries": "!/Bundle$/"
+        }
+      }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "CMS"
+      },
+      "data": [
+        "pagekit/pagekit",
+        "sulu/sulu",
+        "Orbitale/CmsBundle",
+        "bolt/bolt",
+        "symfony-cmf/symfony-cmf",
+        "concrete5/concrete5",
+        "drupal/drupal",
+        "ezsystems/ezplatform",
+        "forkcms/forkcms",
+        "joomla/joomla-cms",
+        "Kunstmaan/KunstmaanBundlesCMS",
+        "pimcore/pimcore",
+        "contao/contao",
+        "getgrav/grav",
+        "TYPO3/TYPO3.CMS"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "Storage"},
+      "data": ["dustin10/VichUploaderBundle"]
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "Official"},
+      "data": ["sensiolabs/SensioFrameworkExtraBundle"]
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "Template Engine"},
+      "data": ["phiamo/MopaBootstrapBundle"]
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "User Management"},
+      "data": ["scheb/2fa"]
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "Web Services"},
+      "data": ["overblog/GraphQLBundle"]
+    },
+    {
+      "type": "github.repos",
+      "options": {"category": "Miscellaneous"},
+      "data": ["jolicode/GifExceptionBundle"]
+    },
+    {
+      "type": "github.list",
+      "data": "sitepoint-editors/awesome-symfony",
+      "options": {
+        "markdownCategories": {}
+      }
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "official",
+      "distributions",
+      "sonata-project",
+      "knp-labs",
+      "friendsofsymfony",
+      "cms",
+      "development",
+      "web-services"
+    ]
+  }
+}

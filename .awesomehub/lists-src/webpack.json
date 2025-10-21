@@ -1,0 +1,75 @@
+{
+  "id": "webpack",
+  "name": "Webpack",
+  "desc": "Webpack plugins, libraries, tools and applications.",
+  "sources": [
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "webpack"
+      },
+      "options": {
+        "category": "Official"
+      }
+    },
+   {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "webpack-contrib"
+      },
+      "options": {
+        "category": "Official Contrib",
+        "exclude": ["\\/awesome-webpack"]
+      }
+    },
+    {
+      "type": "github.list",
+      "data": "https://raw.githubusercontent.com/webpack/webpack.js.org/refs/heads/main/src/content/awesome-webpack.mdx",
+      "options": {
+        "markdownCategories": {
+          "H3(Loaders)": { "rename": "Loaders/{name}" },
+          "H3(Webpack Plugins)": { "rename": "Plugins" },
+          "H3(Webpack Tools)": { "rename": "Tools" },
+          "H3(Twitter)": { "ignore": true }
+        }
+      }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Plugins"
+      },
+      "data": [
+        "lodash/lodash-webpack-plugin",
+        "gilmoreorless/moment-timezone-data-webpack-plugin",
+        "FullHuman/purgecss"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Tools"
+      },
+      "data": [
+        "danvk/source-map-explorer",
+        "smelukov/statoscope",
+        "pastelsky/bundlephobia"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "official",
+      "official-contrib",
+      "plugins",
+      "tools",
+      "react",
+      "angular",
+      "vue",
+      "integration-libraries",
+      "loaders"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "go",
+  "name": "Go",
+  "desc": "Go frameworks, libraries, utilities and software.",
+  "sources": [
+    {
+      "type": "github.author",
+      "data": {
+        "type": "org",
+        "name": "golang"
+      },
+      "options": {
+        "category": "Official"
+      }
+    },
+    {
+      "type": "github.list",
+      "data": "avelino/awesome-go",
+      "options": {
+        "markdownCategories": {
+          "H2(Websites)": { "ignore": true }
+        }
+      }
+    }
+  ]
+}

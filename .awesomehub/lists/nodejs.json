@@ -1,0 +1,974 @@
+{
+  "id": "nodejs",
+  "name": "Node.js",
+  "desc": "Node.js frameworks, libraries, software and resources.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Runtimes"
+      },
+      "data": [
+        "nodejs/node",
+        "denoland/deno",
+        "oven-sh/bun",
+        "just-js/just",
+        "saghul/txiki.js",
+        "awslabs/llrt",
+        "wasmerio/winterjs",
+        "elsaland/elsa",
+        "kaluma-project/kaluma",
+        "holepunchto/bare"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Native App Frameworks"
+      },
+      "data": [
+        "electron/electron",
+        "tauri-apps/tauri",
+        "nwjs/nw.js",
+        "nodegui/nodegui",
+        "neutralinojs/neutralinojs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Package Managers"
+      },
+      "data": [
+        "npm/cli",
+        "oven-sh/bun",
+        "pnpm/pnpm",
+        "yarnpkg/berry",
+        "yarnpkg/yarn"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Mad Science"
+      },
+      "data": [
+        "webtorrent/webtorrent",
+        "mafintosh/peerflix",
+        "ipfs/helia",
+        "mafintosh/peerwiki",
+        "mafintosh/peercast",
+        "bitcoinjs/bitcoinjs-lib",
+        "bitpay/bitcore",
+        "foliojs/pdfkit",
+        "Turfjs/turf",
+        "mafintosh/webcat",
+        "NodeOS/NodeOS",
+        "yodaos-project/yodaos",
+        "BrainJS/brain.js",
+        "alibaba/pipcook",
+        "cytoscape/cytoscape.js",
+        "creationix/js-git",
+        "SheetJS/sheetjs",
+        "isomorphic-git/isomorphic-git"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Command-line Apps"
+      },
+      "data": [
+        "sindresorhus/np",
+        "sindresorhus/npm-name",
+        "sindresorhus/gh-home",
+        "sindresorhus/npm-home",
+        "sindresorhus/trash",
+        "sindresorhus/speed-test",
+        "sindresorhus/pageres",
+        "sindresorhus/cpy",
+        "MrRio/vtop",
+        "sindresorhus/empty-trash",
+        "sindresorhus/is-up",
+        "sindresorhus/is-online",
+        "sindresorhus/public-ip",
+        "sindresorhus/clipboard-cli",
+        "xojs/xo",
+        "eslint/eslint",
+        "alanshaw/david",
+        "http-party/http-server",
+        "tapio/live-server",
+        "kessler/node-bcat",
+        "pawurb/normit",
+        "sindresorhus/fkill-cli",
+        "danielstjules/pjs",
+        "davglass/license-checker",
+        "juliangruber/browser-run",
+        "sindresorhus/tmpin",
+        "sindresorhus/wallpaper",
+        "hatashiro/pen",
+        "sindresorhus/dark-mode",
+        "Javascipt/Jsome",
+        "samverschueren/mobicon-cli",
+        "samverschueren/mobisplash-cli",
+        "rtfpessoa/diff2html-cli",
+        "victorb/trymodule",
+        "kucherenko/jscpd",
+        "Raathigesh/Atmo",
+        "siddharthkp/auto-install",
+        "siddharthkp/cost-of-modules",
+        "localtunnel/localtunnel",
+        "marionebl/svg-term-cli",
+        "aksakalli/gtop",
+        "themerdev/themer",
+        "mixn/carbon-now-cli",
+        "xxczaki/cash-cli",
+        "klaussinani/taskbook",
+        "brandonweiss/discharge",
+        "voidcosmos/npkill"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Functional Programming"
+      },
+      "data": [
+        "lodash/lodash",
+        "immutable-js/immutable-js",
+        "ramda/ramda",
+        "mout/mout",
+        "reactivex/rxjs",
+        "kefirjs/kefir"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/HTTP"
+      },
+      "data": [
+        "sindresorhus/got",
+        "nodejs/undici",
+        "sindresorhus/ky-universal",
+        "node-fetch/node-fetch",
+        "axios/axios",
+        "visionmedia/superagent",
+        "micromata/http-fake-backend",
+        "lukechilds/cacheable-request",
+        "khaosdoctor/gotql",
+        "gajus/global-agent",
+        "sinedied/smoke",
+        "simov/purest"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Debugging & Profiling"
+      },
+      "data": [
+        "debug-js/debug",
+        "mafintosh/why-is-node-running",
+        "valyouw/njstrace",
+        "joyent/node-vstream",
+        "watson/stackman",
+        "alidavut/locus",
+        "davidmarkclements/0x",
+        "automation-stack/ctrace",
+        "andywer/leakage",
+        "nodejs/llnode",
+        "sfninja/thetool",
+        "slanatech/swagger-stats",
+        "june07/nim",
+        "immobiliare/dats",
+        "statsd/statsd"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Logging"
+      },
+      "data": [
+        "pinojs/pino",
+        "winstonjs/winston",
+        "watson/console-log-level",
+        "guigrpa/storyboard",
+        "unjs/consola"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Command-line Utilities"
+      },
+      "data": [
+        "chalk/chalk",
+        "sindresorhus/meow",
+        "yargs/yargs",
+        "sindresorhus/ora",
+        "sindresorhus/get-stdin",
+        "sindresorhus/log-update",
+        "vadimdemedes/ink",
+        "listr2/listr2",
+        "sindresorhus/conf",
+        "sindresorhus/ansi-escapes",
+        "sindresorhus/log-symbols",
+        "sindresorhus/figures",
+        "sindresorhus/boxen",
+        "sindresorhus/terminal-link",
+        "sindresorhus/terminal-image",
+        "sindresorhus/string-width",
+        "sindresorhus/cli-truncate",
+        "chjj/blessed",
+        "SBoudrias/Inquirer.js",
+        "sindresorhus/yn",
+        "cli-table/cli-table3",
+        "madbence/node-drawille",
+        "jstrace/chart",
+        "visionmedia/node-progress",
+        "yeoman/insight",
+        "sindresorhus/cli-cursor",
+        "shannonmoeller/cli-columns",
+        "dominikwilkowski/cfonts",
+        "codekirei/node-multispinner",
+        "f/omelette",
+        "kentcdodds/cross-env",
+        "shelljs/shelljs",
+        "sindresorhus/sudo-block",
+        "sindresorhus/sparkly",
+        "teambit/bit",
+        "bokub/gradient-string",
+        "oclif/oclif",
+        "sindresorhus/terminal-size",
+        "drew-y/cliffy",
+        "google/zx"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Build Tools"
+      },
+      "data": [
+        "parcel-bundler/parcel",
+        "webpack/webpack",
+        "rollup/rollup",
+        "gulpjs/gulp",
+        "broccolijs/broccoli",
+        "brunch/brunch",
+        "fuse-box/fuse-box",
+        "vercel/pkg",
+        "vitejs/vite"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Hardware"
+      },
+      "data": [
+        "rwaldron/johnny-five",
+        "serialport/node-serialport",
+        "node-usb/node-usb",
+        "fivdi/i2c-bus",
+        "fivdi/onoff",
+        "fivdi/spi-device",
+        "fivdi/pigpio",
+        "infusion/GPS.js",
+        "yaacov/node-modbus-serial"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Templating"
+      },
+      "data": [
+        "marko-js/marko",
+        "mozilla/nunjucks",
+        "handlebars-lang/handlebars.js",
+        "mde/ejs",
+        "pugjs/pug"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Web Frameworks"
+      },
+      "data": [
+        "fastify/fastify",
+        "vercel/next.js",
+        "nuxt/nuxt.js",
+        "hapijs/hapi",
+        "vercel/micro",
+        "koajs/koa",
+        "expressjs/express",
+        "feathersjs/feathers",
+        "loopbackio/loopback-next",
+        "meteor/meteor",
+        "Urigo/awesome-meteor",
+        "restify/node-restify",
+        "thinkjs/thinkjs",
+        "actionhero/actionhero",
+        "senecajs/seneca",
+        "adonisjs/core",
+        "moleculerjs/moleculer",
+        "nestjs/nest",
+        "MichalLytek/type-graphql",
+        "tinyhttp/tinyhttp",
+        "marblejs/marble",
+        "ladjs/lad",
+        "tsedio/tsed",
+        "honojs/hono"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Documentation"
+      },
+      "data": [
+        "documentationjs/documentation",
+        "jashkenas/docco",
+        "jsdoc/jsdoc",
+        "facebook/docusaurus"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Filesystem"
+      },
+      "data": [
+        "sindresorhus/del",
+        "sindresorhus/globby",
+        "paulmillr/chokidar",
+        "sindresorhus/find-up",
+        "moxystudio/node-proper-lockfile",
+        "sindresorhus/load-json-file",
+        "sindresorhus/write-json-file",
+        "npm/fs-write-stream-atomic",
+        "sindresorhus/filenamify",
+        "bevry/istextorbinary",
+        "szwacz/fs-jetpack",
+        "jprichardson/node-fs-extra",
+        "sindresorhus/package-directory",
+        "nspragg/filehound",
+        "sindresorhus/move-file",
+        "sindresorhus/tempy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Control Flow"
+      },
+      "data": [
+        "sindresorhus/pify",
+        "sindresorhus/delay",
+        "nodeca/promise-memoize",
+        "lpinca/valvelet",
+        "sindresorhus/p-map",
+        "sindresorhus/promise-fun",
+        "ReactiveX/RxJS",
+        "sindresorhus/observable-to-promise",
+        "sindresorhus/awesome-observables",
+        "caolan/highland"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Streams"
+      },
+      "data": [
+        "sindresorhus/get-stream",
+        "hughsk/from2",
+        "sindresorhus/into-stream",
+        "mafintosh/duplexify",
+        "mafintosh/pumpify",
+        "mafintosh/peek-stream",
+        "maxogden/binary-split",
+        "jahewson/node-byline",
+        "sindresorhus/first-chunk-stream",
+        "sindresorhus/pad-stream",
+        "feross/multistream",
+        "nodejs/readable-stream",
+        "almost/through2-concurrent"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Real-time"
+      },
+      "data": [
+        "uNetworking/uWebSockets",
+        "socketio/socket.io",
+        "faye/faye",
+        "SocketCluster/socketcluster",
+        "primus/primus",
+        "deepstreamIO/deepstream.io-client-js",
+        "kalm/kalm.js",
+        "mqttjs/MQTT.js",
+        "elpheria/rpc-websockets",
+        "moscajs/aedes"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Image"
+      },
+      "data": [
+        "lovell/sharp",
+        "sindresorhus/image-type",
+        "sindresorhus/image-dimensions",
+        "EyalAr/lwip",
+        "nodeca/pica",
+        "oliver-moran/jimp",
+        "soldair/node-qrcode",
+        "matmen/ImageScript"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Text"
+      },
+      "data": [
+        "ashtuchkin/iconv-lite",
+        "sindresorhus/string-length",
+        "sindresorhus/camelcase",
+        "sindresorhus/escape-string-regexp",
+        "sindresorhus/splice-string",
+        "sindresorhus/indent-string",
+        "sindresorhus/strip-indent",
+        "sindresorhus/detect-indent",
+        "mathiasbynens/he",
+        "mashpie/i18n-node",
+        "nodeca/babelfish",
+        "sindresorhus/matcher",
+        "nodeca/unhomoglyph",
+        "i18next/i18next",
+        "ai/nanoid",
+        "kurolabs/stegcloak"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Number"
+      },
+      "data": [
+        "sindresorhus/random-int",
+        "sindresorhus/random-float",
+        "sindresorhus/unique-random",
+        "sindresorhus/round-to"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Math"
+      },
+      "data": [
+        "scijs/ndarray",
+        "josdejong/mathjs",
+        "sindresorhus/math-clamp",
+        "fibo/algebra",
+        "nodeca/multimath"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Date"
+      },
+      "data": [
+        "moment/luxon",
+        "date-fns/date-fns",
+        "iamkun/dayjs",
+        "felixge/node-dateformat",
+        "samverschueren/tz-format",
+        "floatdrop/node-cctz"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/URL"
+      },
+      "data": [
+        "sindresorhus/normalize-url",
+        "sindresorhus/humanize-url",
+        "nodeca/url-unshort",
+        "pid/speakingurl",
+        "markdown-it/linkify-it",
+        "snd/url-pattern",
+        "nodeca/embedza"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Data Validation"
+      },
+      "data": [
+        "sideway/joi",
+        "mafintosh/is-my-json-valid",
+        "nettofarah/property-validator",
+        "schema-inspector/schema-inspector",
+        "ajv-validator/ajv",
+        "ianstormtaylor/superstruct",
+        "jquense/yup",
+        "colinhacks/zod"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Parsing"
+      },
+      "data": [
+        "remarkjs/remark",
+        "markdown-it/markdown-it",
+        "inikulin/parse5",
+        "parcel-bundler/parcel-css",
+        "sindresorhus/strip-json-comments",
+        "sindresorhus/strip-css-comments",
+        "sindresorhus/parse-json",
+        "medialize/URI.js",
+        "dominictarr/JSONStream",
+        "sindresorhus/neat-csv",
+        "mafintosh/csv-parser",
+        "pegjs/pegjs",
+        "matthewmueller/x-ray",
+        "kach/nearley",
+        "juliangruber/binary-extract",
+        "stylecow/stylecow",
+        "nodeca/js-yaml",
+        "Leonidas-from-XIV/node-xml2js",
+        "zaach/jison",
+        "ruimarinho/google-libphonenumber",
+        "TooTallNate/ref",
+        "dtjohnson/xlsx-populate",
+        "Chevrotain/chevrotain",
+        "NaturalIntelligence/fast-xml-parser"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Humanize"
+      },
+      "data": [
+        "sindresorhus/pretty-bytes",
+        "sindresorhus/pretty-ms",
+        "vercel/ms",
+        "AriaMinaei/pretty-error",
+        "Tjatse/node-readability"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Compression"
+      },
+      "data": [
+        "thejoshwolfe/yazl",
+        "thejoshwolfe/yauzl",
+        "archiverjs/node-archiver",
+        "nodeca/pako",
+        "mafintosh/tar-stream",
+        "mafintosh/tar-fs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Network"
+      },
+      "data": [
+        "sindresorhus/get-port",
+        "sindresorhus/ipify",
+        "bevry/getmac",
+        "infusion/node-dhcp",
+        "roccomuso/netcat"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Database"
+      },
+      "data": [
+        "brianc/node-postgres",
+        "luin/ioredis",
+        "Level/levelup",
+        "mysqljs/mysql",
+        "apache/couchdb-nano",
+        "aerospike/aerospike-client-nodejs",
+        "couchbase/couchnode",
+        "mongodb/node-mongodb-native",
+        "sequelize/sequelize",
+        "bookshelf/bookshelf",
+        "Automattic/mongoose",
+        "balderdashy/waterline",
+        "PhilWaldmann/openrecord",
+        "vitaly-t/pg-promise",
+        "gajus/slonik",
+        "Vincit/objection.js",
+        "typeorm/typeorm",
+        "mikro-orm/mikro-orm",
+        "prisma/prisma",
+        "drizzle-team/drizzle-orm",
+        "knex/knex",
+        "louischatriot/nedb",
+        "typicode/lowdb",
+        "jaredwray/keyv",
+        "tommybananas/finale",
+        "mlaanderson/database-js",
+        "pkosiec/mongo-seeding",
+        "ForbesLindesay/atdatabases",
+        "oguimbal/pg-mem"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Testing"
+      },
+      "data": [
+        "avajs/ava",
+        "mochajs/mocha",
+        "istanbuljs/nyc",
+        "tapjs/node-tap",
+        "substack/tape",
+        "power-assert-js/power-assert",
+        "mantoni/mochify.js",
+        "vadimdemedes/trevor",
+        "alexfernandez/loadtest",
+        "sinonjs/sinon",
+        "nodeca/navit",
+        "nock/nock",
+        "theintern/intern",
+        "h2non/toxy",
+        "sindresorhus/hook-std",
+        "egoist/testen",
+        "nightwatchjs/nightwatch",
+        "webdriverio/webdriverio",
+        "facebook/jest",
+        "vitest-dev/vitest",
+        "DevExpress/testcafe",
+        "bleenco/abstruse",
+        "codeceptjs/CodeceptJS",
+        "puppeteer/puppeteer",
+        "microsoft/playwright",
+        "ehmicky/nve",
+        "dequelabs/axe-core",
+        "testcontainers/testcontainers-node"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Security"
+      },
+      "data": [
+        "simonepri/upash",
+        "cossacklabs/themis",
+        "apps/guardrails",
+        "animir/node-rate-limiter-flexible",
+        "sindresorhus/crypto-hash",
+        "davesag/jose-simple"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Minifiers"
+      },
+      "data": [
+        "babel/minify",
+        "mishoo/UglifyJS",
+        "clean-css/clean-css",
+        "Swaagie/minimize",
+        "imagemin/imagemin"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Email"
+      },
+      "data": [
+        "nodemailer/nodemailer",
+        "eleith/emailjs",
+        "forwardemail/email-templates",
+        "mjmlio/mjml"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Job Queues"
+      },
+      "data": [
+        "OptimalBits/bull",
+        "agenda/agenda",
+        "nodeca/idoit",
+        "actionhero/node-resque",
+        "smrchy/rsmq",
+        "bee-queue/bee-queue",
+        "weyoss/redis-smq",
+        "bbc/sqs-consumer",
+        "diamondio/better-queue",
+        "taskforcesh/bullmq",
+        "breejs/bree",
+        "graphile/worker"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Version Managers"
+      },
+      "data": [
+        "tj/n",
+        "isaacs/nave",
+        "ekalinin/nodeenv",
+        "coreybutler/nvm-windows",
+        "nodenv/nodenv",
+        "Schniz/fnm",
+        "volta-cli/volta",
+        "nvm-sh/nvm"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Cross-platform Integration"
+      },
+      "data": [
+        "napi-rs/napi-rs",
+        "neon-bindings/neon",
+        "agracio/edge-js",
+        "Elringus/DotNetJS"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Natural Language Processing"
+      },
+      "data": [
+        "retextjs/retext",
+        "wooorm/franc",
+        "sindresorhus/leven",
+        "NaturalNode/natural",
+        "axa-group/nlp.js"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Process Management"
+      },
+      "data": [
+        "Unitech/pm2",
+        "remy/nodemon",
+        "coreybutler/node-mac",
+        "coreybutler/node-linux",
+        "coreybutler/node-windows",
+        "petruisfan/node-supervisor",
+        "phusion/passenger"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Content Management Systems"
+      },
+      "data": [
+        "keystonejs/keystone",
+        "apostrophecms/apostrophe",
+        "strapi/strapi",
+        "FactorJS/factor",
+        "SoftwareBrothers/adminjs",
+        "exogee-technology/graphweaver"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Weird"
+      },
+      "data": [
+        "sindresorhus/cows",
+        "sindresorhus/superb",
+        "sindresorhus/cat-names",
+        "sindresorhus/dog-names",
+        "sindresorhus/superheroes",
+        "sindresorhus/supervillains",
+        "maxogden/cool-ascii-faces",
+        "melaniecebula/cat-ascii-faces",
+        "SkyHacks/nerds"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Miscellaneous"
+      },
+      "data": [
+        "sindresorhus/execa",
+        "cheeriojs/cheerio",
+        "sindresorhus/open",
+        "sindresorhus/hasha",
+        "sindresorhus/dot-prop",
+        "sindresorhus/onetime",
+        "sindresorhus/mem",
+        "sindresorhus/strip-bom",
+        "sindresorhus/os-locale",
+        "mscdex/ssh2",
+        "markelog/adit",
+        "sindresorhus/file-type",
+        "SGrondin/bottleneck",
+        "audreyt/node-webworker-threads",
+        "sindresorhus/clipboardy",
+        "mapbox/node-pre-gyp",
+        "peterbraden/node-opencv",
+        "motdotla/dotenv",
+        "npm/node-semver",
+        "nodegit/nodegit",
+        "pigulla/json-strictify",
+        "jsdom/jsdom",
+        "sindresorhus/is",
+        "simonepri/env-dot-prop",
+        "gkozlenko/node-video-lib",
+        "patrickjuchli/basic-ftp",
+        "xxczaki/cashify",
+        "Geode-solutions/genepi",
+        "typicode/husky",
+        "ds300/patch-package",
+        "mifi/editly",
+        "ehmicky/wild-wild-path",
+        "sindresorhus/uint8array-extras"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Resources/Tutorials"
+      },
+      "data": [
+        "goldbergyoni/nodebestpractices",
+        "maxogden/art-of-node",
+        "mattdesl/module-best-practices",
+        "FredKSchott/the-node-way",
+        "azat-co/you-dont-know-node",
+        "ehmicky/cross-platform-node-guide"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Resources/Miscellaneous"
+      },
+      "data": [
+        "sindresorhus/node-module-boilerplate",
+        "sheerun/modern-node",
+        "sindresorhus/generator-nm",
+        "Microsoft/nodejs-guidelines",
+        "sindresorhus/project-ideas",
+        "thlorenz/v8-perf"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Miscellaneous"
+      },
+      "data": [
+        "NodeBB/NodeBB",
+        "TryGhost/Ghost",
+        "acornjs/acorn",
+        "amplication/amplication",
+        "azat-co/cheatsheets",
+        "babel/babel",
+        "bestiejs/benchmark.js",
+        "brandonweiss/charge",
+        "casbin/node-casbin",
+        "compactr/compactr.js",
+        "docpad/docpad",
+        "docsifyjs/docsify",
+        "hexojs/hexo",
+        "jaredhanson/passport",
+        "jesusprubio/strong-node",
+        "kesla/node-snappy",
+        "nodejs/node",
+        "nut-tree/nut.js",
+        "octalmage/robotjs",
+        "protobufjs/protobuf.js",
+        "simov/grant",
+        "stalniy/casl",
+        "stephenplusplus/stream-faqs",
+        "visionmedia/masteringnode"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Runtimes",
+      "Package Managers",
+      "Version Managers",
+      "Native App Frameworks",
+      "Packages/Mad Science",
+      "Packages/Command-line Apps",
+      "Packages/Functional Programming",
+      "Packages/HTTP",
+      "Packages/Debugging & Profiling",
+      "Packages/Logging",
+      "Packages/Command-line Utilities",
+      "Packages/Build Tools",
+      "Packages/Hardware",
+      "Packages/Templating",
+      "Packages/Web Frameworks",
+      "Packages/Documentation",
+      "Packages/Filesystem",
+      "Packages/Control Flow",
+      "Packages/Streams",
+      "Packages/Real-time",
+      "Packages/Image",
+      "Packages/Text",
+      "Packages/Number",
+      "Packages/Math",
+      "Packages/Date",
+      "Packages/URL",
+      "Packages/Data Validation",
+      "Packages/Parsing",
+      "Packages/Humanize",
+      "Packages/Compression",
+      "Packages/Network",
+      "Packages/Database",
+      "Packages/Testing",
+      "Packages/Security",
+      "Packages/Minifiers",
+      "Packages/Email",
+      "Packages/Job Queues",
+      "Packages/Cross-platform Integration",
+      "Packages/Natural Language Processing",
+      "Packages/Process Management",
+      "Packages/Content Management Systems",
+      "Packages/Weird",
+      "Packages/Miscellaneous",
+      "Resources/Tutorials",
+      "Resources/Miscellaneous",
+      "Miscellaneous"
+    ]
+  }
+}

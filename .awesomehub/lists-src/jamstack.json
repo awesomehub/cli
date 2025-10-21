@@ -1,0 +1,32 @@
+{
+  "id": "jamstack",
+  "name": "Jamstack",
+  "desc": "Static Site Generators and Headless CMS.",
+  "sources": [
+    {
+      "type": "github.folder",
+      "data": "https://github.com/jamstack/jamstack.org/tree/main/src/site/generators",
+      "options": {"category": "Site Generators"}
+    },
+    {
+      "type": "github.folder",
+      "data": "https://github.com/jamstack/jamstack.org/tree/main/src/site/headless-cms",
+      "options": {"category": "Headless CMS"}
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Site Generators/HTML",
+      "Site Generators/React",
+      "Site Generators/Vue",
+      "Site Generators/Golang",
+      "Site Generators/Twig",
+      "Site Generators/Svelte",
+      "Site Generators/Razor",
+      "Site Generators/Mustache",
+      "Site Generators/Markdown",
+      "Headless CMS/API Driven",
+      "Headless CMS/Git-Based"
+    ]
+  }
+}

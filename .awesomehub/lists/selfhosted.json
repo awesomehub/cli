@@ -1,0 +1,1922 @@
+{
+  "id": "selfhosted",
+  "name": "Self-hosted",
+  "desc": "Open-source self-hosted apps and services across everyday use cases.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Analytics"
+      },
+      "data": [
+        "aptabase/aptabase",
+        "eldy/awstats",
+        "Countly/countly-server",
+        "emanuelef/daily-stars-explorer",
+        "apache/druid",
+        "jortilles/EDA",
+        "vladkens/ghstats",
+        "allinurl/goaccess",
+        "arp242/goatcounter",
+        "Litlyx/litlyx",
+        "explodingcamera/liwan",
+        "matomo-org/matomo",
+        "medama-io/medama",
+        "metabase/metabase",
+        "middlewarehq/middleware",
+        "inovector/MixpostApp",
+        "lutzroeder/netron",
+        "offen/offen",
+        "plausible/analytics",
+        "posthog/posthog",
+        "gitroomhq/postiz-app",
+        "prismelabs/analytics",
+        "getredash/redash",
+        "rybbit-io/rybbit",
+        "milesmcc/shynet",
+        "socioboard/Socioboard-5.0",
+        "robiningelbrecht/statistics-for-strava",
+        "apache/superset",
+        "Swetrix/selfhosting",
+        "umami-software/umami",
+        "vinceanalytics/vince"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Digital Preservation"
+      },
+      "data": [
+        "ArchiveBox/ArchiveBox",
+        "archivesspace/archivesspace",
+        "bitmagnet-io/bitmagnet",
+        "ckan/ckan",
+        "collectiveaccess/providence",
+        "Zibbp/ganymede",
+        "omeka/omeka-s",
+        "wallabag/wallabag",
+        "wabarc/wayback",
+        "derfenix/webarchive"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Automation"
+      },
+      "data": [
+        "activepieces/activepieces",
+        "apache/airflow",
+        "automatisch/automatisch",
+        "TheWicklowWolf/BookBounty",
+        "dgtlmoon/changedetection.io",
+        "chiefonboarding/ChiefOnboarding",
+        "dagu-org/dagu",
+        "Cybrarist/Discount-Bandit",
+        "dittofeed/dittofeed",
+        "cristoper/feedmixer",
+        "BreizhHardware/ntfy_alerts",
+        "binwiederhier/ntfy",
+        "TheNickOfTime/handbrake-web",
+        "healthchecks/healthchecks",
+        "huginn/huginn",
+        "kestra-io/kestra",
+        "kibitzr/kibitzr",
+        "leon-ai/leon",
+        "sergree/matchering",
+        "mylar3/mylar3",
+        "OliveTin/OliveTin",
+        "pyload/pyload",
+        "StackStorm/st2",
+        "ovh/utask"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Backup Tools"
+      },
+      "data": [
+        "garethgeorge/backrest",
+        "bareos/bareos",
+        "EnterpriseDB/barman",
+        "borgbackup/borg",
+        "grke/burp",
+        "Edrusb/DAR",
+        "duplicati/duplicati",
+        "LogicLabs-OU/OpenArchiver",
+        "rclone/rclone",
+        "rdiff-backup/rdiff-backup",
+        "restic/restic",
+        "rsnapshot/rsnapshot",
+        "starkandwayne/shield",
+        "uroni/urbackup_backend"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Blogging Platforms"
+      },
+      "data": [
+        "antville/antville",
+        "xenocrat/chyrp-lite",
+        "flatpressblog/flatpress",
+        "TryGhost/Ghost",
+        "havenweb/haven",
+        "danpros/htmly",
+        "idno/known",
+        "mataroablog/mataroa",
+        "pluxml/PluXml",
+        "s9y/serendipity",
+        "writefreely/writefreely"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Booking & Scheduling"
+      },
+      "data": [
+        "alfio-event/alf.io",
+        "calcom/cal.com",
+        "alextselegidis/easyappointments",
+        "HiEventsDev/hi.events",
+        "LibreBooking/app",
+        "Qloapps/QloApps",
+        "lukevella/rallly",
+        "seatsurfing/seatsurfing"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Bookmark Managers"
+      },
+      "data": [
+        "ndom91/briefkasten",
+        "jarun/Buku",
+        "jonschoning/espial",
+        "mozilla/fxa",
+        "goniszewski/grimoire",
+        "karakeep-app/karakeep",
+        "Kovah/LinkAce",
+        "sissbruecker/linkding",
+        "linkwarden/linkwarden",
+        "AlexSciFier/neonlink",
+        "beromir/Servas",
+        "shaarli/Shaarli",
+        "go-shiori/shiori",
+        "yourselfhosted/slash"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Calendars & Contacts"
+      },
+      "data": [
+        "sabre-io/Baikal",
+        "tchapi/davis",
+        "intri-in/manage-my-damn-life-nextjs",
+        "Kozea/Radicale",
+        "sabre-io/dav",
+        "jelmer/xandikos"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Communication/Custom Systems"
+      },
+      "data": [
+        "anycable/anycable",
+        "caronc/apprise",
+        "centrifugal/centrifugo",
+        "jeremyckahn/chitchatter",
+        "balzack/databag",
+        "element-hq/element-web",
+        "globaleaks/globaleaks-whistleblowing-software",
+        "gotify/server",
+        "gotify/android",
+        "hyphanet/fred",
+        "LiveHelperChat/livehelperchat",
+        "mattermost/mattermost",
+        "Canop/miaou",
+        "mumble-voip/mumble",
+        "notifo-io/notifo",
+        "novuhq/novu",
+        "binwiederhier/ntfy",
+        "binwiederhier/ntfy-android",
+        "onetimesecret/onetimesecret",
+        "Luzifer/ots",
+        "pushbits/server",
+        "RetroShare/RetroShare",
+        "revoltchat/self-hosted",
+        "RocketChat/Rocket.Chat",
+        "SAMA-Communications/sama-server",
+        "SAMA-Communications/sama-client",
+        "screego/server",
+        "smallwat3r/shhh",
+        "simplex-chat/simplex-chat",
+        "SpectrumIM/spectrum2",
+        "element-hq/synapse",
+        "msgbyte/tailchat",
+        "Tiledesk/tiledesk",
+        "tinode/chat",
+        "tinode/webapp",
+        "TokTok/c-toxcore",
+        "baptisteArno/typebot.io",
+        "lovasoa/whitebophir",
+        "zulip/zulip",
+        "conversejs/converse.js"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Email/Suites"
+      },
+      "data": [
+        "anonaddy/anonaddy",
+        "debops/debops",
+        "docker-mailserver/docker-mailserver",
+        "LukeSmithxyz/emailwiz",
+        "iredmail/iRedMail",
+        "foxcpp/maddy",
+        "mail-in-a-box/mailinabox",
+        "mailcow/mailcow-dockerized",
+        "Mailu/Mailu",
+        "modoboa/modoboa",
+        "mjl-/mox",
+        "postalserver/postal",
+        "simple-login/app",
+        "stalwartlabs/stalwart",
+        "zone-eu/wildduck",
+        "cypht-org/cypht",
+        "roundcube/roundcubemail",
+        "the-djmaze/snappymail"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Email/Delivery Agents"
+      },
+      "data": [
+        "cyrusimap/cyrus-imapd",
+        "mguessan/davmail",
+        "dovecot/core",
+        "jsuto/piler",
+        "corecode/dma",
+        "haraka/Haraka",
+        "HaschekSolutions/opentrashmail"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Email/Mailing Lists"
+      },
+      "data": [
+        "pentacent/keila",
+        "knadh/listmonk",
+        "mautic/mautic",
+        "phpList/phplist3",
+        "sympa-community/sympa"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Communication/IRC"
+      },
+      "data": [
+        "convos-chat/convos",
+        "ergochat/ergo",
+        "glowing-bear/glowing-bear",
+        "inspircd/inspircd",
+        "kiwiirc/kiwiirc",
+        "ngircd/ngircd",
+        "quassel/quassel",
+        "robustirc/robustirc",
+        "thelounge/thelounge",
+        "unrealircd/unrealircd",
+        "weechat/weechat",
+        "znc/znc"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Communication/SIP"
+      },
+      "data": [
+        "asterisk/asterisk",
+        "BelledonneCommunications/flexisip",
+        "signalwire/freeswitch",
+        "fusionpbx/fusionpbx",
+        "kamailio/kamailio",
+        "OpenSIPS/opensips",
+        "fonoster/routr",
+        "sipcapture/homer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Communication/Social Networks"
+      },
+      "data": [
+        "apache/answer",
+        "ArtalkJS/Artalk",
+        "buddypress/BuddyPress",
+        "devrsi0n/chirpy",
+        "coralproject/talk",
+        "diaspora/diaspora",
+        "discourse/discourse",
+        "Elgg/Elgg",
+        "NuSkooler/enigma-bbs",
+        "flarum/flarum",
+        "friendica/friendica",
+        "importantimport/hatsu",
+        "humhub/humhub",
+        "isso-comments/isso",
+        "LemmyNet/lemmy",
+        "loomio/loomio",
+        "mastodon/mastodon",
+        "hyperupcall/awesome-mastodon",
+        "rafalp/Misago",
+        "misskey-dev/misskey",
+        "movim/movim",
+        "mybb/mybb",
+        "NodeBB/NodeBB",
+        "opensource-socialnetwork/opensource-socialnetwork",
+        "phpbb/phpbb",
+        "pixelfed/pixelfed",
+        "codidact/qpixel",
+        "redlib-org/redlib",
+        "umputun/remark42",
+        "Erudika/scoold",
+        "SimpleMachines/SMF",
+        "jaywink/socialhome",
+        "debiki/talkyard",
+        "zusam/zusam"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Communication/Video Conferencing"
+      },
+      "data": [
+        "bigbluebutton/bigbluebutton",
+        "jech/galene",
+        "meetecho/janus-gateway",
+        "jitsi/jitsi-meet",
+        "jitsi/jitsi-videobridge",
+        "miroslavpejic85/mirotalkc2c",
+        "miroslavpejic85/mirotalk",
+        "miroslavpejic85/mirotalksfu",
+        "mynaparrot/plugNmeet-server"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Communication/XMPP Servers"
+      },
+      "data": [
+        "processone/ejabberd",
+        "esl/MongooseIM",
+        "igniterealtime/Openfire",
+        "snikket-im/snikket-server",
+        "tigase/tigase-server"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Agriculture Platforms"
+      },
+      "data": [
+        "csa-admin-org/csa-admin",
+        "filipecarneiro/ELabel",
+        "foodcoopshop/foodcoopshop",
+        "foodcoops/foodsoft",
+        "martinhrvn/hive-pal",
+        "juntagrico/juntagrico",
+        "openfoodfoundation/openfoodnetwork",
+        "OpenOlitor/openolitor-server",
+        "teikei/teikei"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Events/Conference Management"
+      },
+      "data": [
+        "indico/indico",
+        "CatoTH/antragsgruen",
+        "OpenSlides/OpenSlides",
+        "openSUSE/osem",
+        "pretalx/pretalx"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Content Management Systems"
+      },
+      "data": [
+        "Alfresco/alfresco-community-repo",
+        "apostrophecms/apostrophe",
+        "backdrop/backdrop",
+        "bigtreecms/BigTree-CMS",
+        "bludit/bludit",
+        "Cockpit-HQ/Cockpit",
+        "concretecms/concretecms",
+        "contao/contao",
+        "CouchCMS/CouchCMS",
+        "elabftw/elabftw",
+        "thomas4019/expressa",
+        "joomla/joomla-cms",
+        "keystonejs/keystone",
+        "Lessify/localess",
+        "modxcms/revolution",
+        "omeka/Omeka",
+        "payloadcms/payload",
+        "pimcore/pimcore",
+        "publify/publify",
+        "redaxo/redaxo",
+        "roadiz/roadiz",
+        "Squidex/squidex",
+        "strapi/strapi",
+        "superdesk/superdesk",
+        "textpattern/textpattern",
+        "typemill/typemill",
+        "TYPO3/typo3",
+        "umbraco/Umbraco-CMS",
+        "givanz/Vvveb",
+        "wagtail/wagtail",
+        "wintercms/winter",
+        "WonderCMS/wondercms",
+        "WordPress/WordPress"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Business/CRM"
+      },
+      "data": [
+        "cortezaproject/corteza",
+        "DjangoCRM/django-crm",
+        "espocrm/espocrm",
+        "krayin/laravel-crm",
+        "monicahq/monica",
+        "SuiteCRM/SuiteCRM",
+        "twentyhq/twenty"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Database Management Tools"
+      },
+      "data": [
+        "vrana/adminer",
+        "azimuttapp/azimutt",
+        "bytebase/bytebase",
+        "chartbrew/chartbrew",
+        "chartdb/chartdb",
+        "dbeaver/cloudbeaver",
+        "securitybunker/databunker",
+        "simonw/datasette",
+        "evidence-dev/evidence",
+        "kottster/kottster",
+        "limbas/limbas",
+        "mathesar-foundation/mathesar",
+        "nocodb/nocodb"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Networking/DNS"
+      },
+      "data": [
+        "AdguardTeam/AdGuardHome",
+        "0xERR0R/blocky",
+        "tanrax/maza-ad-blocking",
+        "pi-hole/pi-hole",
+        "TechnitiumSoftware/DnsServer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Documents/Management"
+      },
+      "data": [
+        "eikek/docspell",
+        "documenso/documenso",
+        "docusealco/docuseal",
+        "jonashellmann/everydocs-core",
+        "gotenberg/gotenberg",
+        "mkucej/i-librarian-free",
+        "opensignlabs/opensign",
+        "paperless-ngx/paperless-ngx",
+        "papermerge/papermerge-core",
+        "papra-hq/papra",
+        "mrmn2/PdfDing",
+        "24eme/signaturepdf",
+        "Stirling-Tools/Stirling-PDF"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Documents/E-books"
+      },
+      "data": [
+        "Atsumeru-xyz/Atsumeru",
+        "Mozzo1000/booklogr",
+        "booklore-app/booklore",
+        "janeczku/calibre-web",
+        "kovidgoyal/calibre",
+        "Casvt/Kapowarr",
+        "Kareadita/Kavita",
+        "kiwix/kiwix-tools",
+        "gotson/komga",
+        "stumpapp/stump"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Documents/Institutional Repositories"
+      },
+      "data": [
+        "DSpace/DSpace",
+        "eprints/eprints3.4",
+        "fcrepo/fcrepo",
+        "inveniosoftware/invenio-app-rdm",
+        "Islandora/islandora",
+        "samvera/hyrax",
+        "evergreen-library-system/Evergreen",
+        "Koha-Community/Koha",
+        "rero/rero-ils"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "E-commerce Platforms"
+      },
+      "data": [
+        "aimeos/aimeos",
+        "bagisto/bagisto",
+        "coreshop/CoreShop",
+        "evershopcommerce/evershop",
+        "shurco/litecart",
+        "magento/magento2",
+        "medusajs/medusa",
+        "microweber/microweber",
+        "opensourcepos/opensourcepos",
+        "opencart/opencart",
+        "PrestaShop/PrestaShop",
+        "pretix/pretix",
+        "gp247net/s-cart",
+        "saleor/saleor",
+        "shopware/shopware",
+        "solidusio/solidus",
+        "spree/spree",
+        "Sylius/Sylius",
+        "thelia/thelia",
+        "vendure-ecommerce/vendure",
+        "woocommerce/woocommerce"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Identity & Access Management"
+      },
+      "data": [
+        "389ds/389-ds-base",
+        "apache/directory-server",
+        "FreeRADIUS/freeradius-server",
+        "nitnelave/lldap",
+        "OpenVPN/easy-rsa",
+        "fusiondirectory/fusiondirectory",
+        "LDAPAccountManager/lam",
+        "pomerium/pomerium",
+        "smallstep/certificates",
+        "zitadel/zitadel",
+        "authelia/authelia",
+        "goauthentik/authentik",
+        "keycloak/keycloak"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Feed Readers"
+      },
+      "data": [
+        "georgemandis/bubo-rss",
+        "Athou/commafeed",
+        "Qolors/FeedCord",
+        "ncarlier/feedpushr",
+        "Tiendil/feeds.fun",
+        "FreshRSS/FreshRSS",
+        "0x2E/fusion",
+        "jaesivsm/JARR",
+        "tontof/kriss_feed",
+        "LeedRSS/Leed",
+        "miniflux/v2",
+        "samuelclay/NewsBlur",
+        "leozqin/precis",
+        "lemon24/reader",
+        "ncarlier/readflow",
+        "RSS-Bridge/rss-bridge",
+        "pietheinstrengholt/rssmonster",
+        "rss2email/rss2email",
+        "DIYgod/RSSHub",
+        "fossar/selfoss",
+        "stringer-rss/stringer",
+        "TheBigRoomXXL/tinyfeed",
+        "nkanaev/yarr"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/Synchronization"
+      },
+      "data": [
+        "bewcloud/bewcloud",
+        "cloudreve/cloudreve",
+        "Kinto/kinto",
+        "nextcloud/server",
+        "owncloud/core",
+        "Peergos/Peergos",
+        "heyputer/puter",
+        "pydio/cells",
+        "haiwen/seafile",
+        "Sync-in/server",
+        "Sync-in/desktop",
+        "syncthing/syncthing",
+        "bcpierce00/unison"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/Distributed Filesystems"
+      },
+      "data": [
+        "ceph/ceph",
+        "LINBIT/drbd",
+        "gluster/glusterfs",
+        "apache/hadoop",
+        "juicedata/juicefs",
+        "ipfs/kubo",
+        "leo-project/leofs",
+        "minio/minio",
+        "moosefs/moosefs",
+        "perkeep/perkeep",
+        "tahoe-lafs/tahoe-lafs",
+        "xtreemfs/xtreemfs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/Object Storage"
+      },
+      "data": [
+        "goharbor/harbor",
+        "minio/minio",
+        "seaweedfs/seaweedfs",
+        "drakkan/sftpgo",
+        "scality/cloudserver",
+        "project-zot/zot"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/Peer-to-Peer"
+      },
+      "data": [
+        "webtorrent/bittorrent-tracker",
+        "qbittorrent/qBittorrent",
+        "slskd/slskd",
+        "transmission/transmission",
+        "webtor-io/self-hosted"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/One-click Upload"
+      },
+      "data": [
+        "chibisafe/chibisafe",
+        "CorentinTh/enclosed",
+        "axeloz/filesharing",
+        "FlintSH/Flare",
+        "Forceu/gokapi",
+        "Depado/goploader",
+        "stv0g/gose",
+        "onionshare/onionshare",
+        "schlagmichdoch/pairdrop",
+        "mtlynch/picoshare",
+        "CaramelFur/Picsur",
+        "HaschekSolutions/pictshare",
+        "root-gg/plik",
+        "projectsend/projectsend",
+        "psi-4ward/psitransfer",
+        "ihexxa/quickshare",
+        "eikek/sharry",
+        "TobySuch/Shifter",
+        "andrii-kryvoviaz/slink",
+        "dutchcoders/transfer.sh",
+        "nokonoko/uguu",
+        "farisc0de/Uploady",
+        "SergiX44/XBackBone",
+        "diced/zipline"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/Web Managers"
+      },
+      "data": [
+        "oupala/apaxy",
+        "9001/copyparty",
+        "DirectoryLister/DirectoryLister",
+        "filebrowser/filebrowser",
+        "filegator/filegator",
+        "mickael-kerjean/filestash",
+        "pldubouilh/gossa",
+        "misterunknown/ifm",
+        "zer0tonin/Mikochi",
+        "svenstaro/miniserve",
+        "tagspaces/tagspaces",
+        "prasathmani/tinyfilemanager"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Games"
+      },
+      "data": [
+        "doublespeakgames/adarkroom",
+        "TeamHypersomnia/Hypersomnia",
+        "lichess-org/lila",
+        "luanti-org/luanti",
+        "Anuken/Mindustry",
+        "multitheftauto/mtasa-blue",
+        "OpenTTD/OpenTTD",
+        "piqueserver/piqueserver",
+        "yvt/openspades",
+        "abrenaut/posio",
+        "nymanjens/quizmaster",
+        "redeclipse/base",
+        "scribble-rs/scribble.rs",
+        "HasangerGames/suroi",
+        "wesnoth/wesnoth",
+        "clupasq/word-mastermind",
+        "ZeroK-RTS/Zero-K"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Game Server Admin Tools"
+      },
+      "data": [
+        "macarooni-man/auto-mcs",
+        "Drop-OSS/drop",
+        "Drop-OSS/drop-app",
+        "easy-wi/developer",
+        "gameyfin/gameyfin",
+        "gaseous-project/gaseous-server",
+        "seeroy/kubek-minecraft-dashboard",
+        "lancachenet/monolithic",
+        "GameServerManagers/LinuxGSM",
+        "Accessory/minus_games",
+        "pelican-dev/panel",
+        "pterodactyl/panel",
+        "pufferpanel/pufferpanel",
+        "gorcon/rcon-cli",
+        "JMBeresford/retrom",
+        "rommapp/romm",
+        "sbpp/sourcebans-pp",
+        "LizardByte/Sunshine"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Genealogy Tools"
+      },
+      "data": [
+        "genea-app/genea-app",
+        "MGeurts/genealogy",
+        "geneweb/geneweb",
+        "gramps-project/gramps-web-api",
+        "fisharebest/webtrees"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Generative AI Tools"
+      },
+      "data": [
+        "agenta-ai/agenta",
+        "Mintplex-Labs/anything-llm",
+        "khoj-ai/khoj",
+        "ollama/ollama",
+        "open-webui/open-webui",
+        "ItzCrazyKns/Perplexica",
+        "TabbyML/tabby",
+        "meilisearch/meilisearch",
+        "block/goose",
+        "sigoden/aichat"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Collaboration Platforms"
+      },
+      "data": [
+        "colanode/colanode",
+        "cozy/cozy-store",
+        "EGroupware/egroupware",
+        "Intermesh/groupoffice",
+        "apache/openmeetings",
+        "Alinto/sogo",
+        "tine-groupware/tine",
+        "tracim/tracim"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Health & Fitness"
+      },
+      "data": [
+        "joaovitoriasilva/endurain",
+        "fastenhealth/fasten-onprem",
+        "cfu288/mere-medical",
+        "openemr/openemr",
+        "wger-project/wger",
+        "itskovacs/wingfit"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "IoT Platforms"
+      },
+      "data": [
+        "domoticz/domoticz",
+        "domoticz/domoticz-android",
+        "emqx/emqx",
+        "evcc-io/evcc",
+        "FlowFuse/flowfuse",
+        "GladysAssistant/Gladys",
+        "home-assistant/core",
+        "ioBroker/ioBroker",
+        "javalikescript/lha",
+        "node-red/node-red",
+        "openhab/openhab-core",
+        "openremote/openremote",
+        "Dan-in-CA/SIP",
+        "arendst/Tasmota",
+        "thingsboard/thingsboard",
+        "WebThingsIO/gateway"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Business/Inventory"
+      },
+      "data": [
+        "sysadminsmedia/homebox",
+        "inventree/InvenTree",
+        "Epic-Breakfast-Productions/OpenQuarterMaster",
+        "Part-DB/Part-DB-server",
+        "Shelf-nu/shelf.nu",
+        "Donkie/Spoolman"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Knowledge/Management"
+      },
+      "data": [
+        "toeverything/AFFiNE",
+        "atomicdata-dev/atomic-server",
+        "michaelstaake/LibreKB",
+        "siyuan-note/siyuan",
+        "b310-digital/teammapper"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Learning Platforms"
+      },
+      "data": [
+        "instructure/canvas-lms",
+        "chamilo/chamilo-lms",
+        "GibbonEdu/core",
+        "ILIAS-eLearning/ILIAS",
+        "INGInious/INGInious",
+        "INGInious/plugins",
+        "gunet/openeclass",
+        "OpenOLAT/OpenOLAT",
+        "inducer/relate",
+        "PhiTux/schoco"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Industrial Manufacturing"
+      },
+      "data": [
+        "cncjs/cncjs",
+        "fluidd-core/fluidd",
+        "mainsail-crew/mainsail",
+        "manyfold3d/manyfold",
+        "OctoPrint/OctoPrint"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Maps & GPS Tools"
+      },
+      "data": [
+        "seanmorley15/AdventureLog",
+        "johanohly/AirTrail",
+        "knrdl/bicimon",
+        "Freika/dawarich",
+        "noandrea/geo2tz",
+        "graphhopper/graphhopper",
+        "osm-search/Nominatim",
+        "Project-OSRM/osrm-backend",
+        "GIScience/openrouteservice",
+        "openstreetmap/openstreetmap-website",
+        "opentripplanner/OpenTripPlanner",
+        "owntracks/recorder",
+        "maptiler/tileserver-gl",
+        "Flomp/wanderer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media/Management"
+      },
+      "data": [
+        "TheWicklowWolf/ChannelTube",
+        "rembo10/headphones",
+        "Fallenbagel/jellyseerr",
+        "Lidarr/Lidarr",
+        "TheWicklowWolf/LidaTube",
+        "TheWicklowWolf/Lidify",
+        "pymedusa/Medusa",
+        "medusajs/nextjs-starter-medusa",
+        "alexta69/metube",
+        "lardbit/nefarious",
+        "Ombi-app/Ombi",
+        "sct/overseerr",
+        "kieraneglin/pinchflat",
+        "SamTV12345/PodFetch",
+        "Radarr/Radarr",
+        "Reaparr/Reaparr",
+        "aleksilassila/reiverr",
+        "Sonarr/Sonarr",
+        "Raiper34/spooty",
+        "meeb/tubesync",
+        "sbondCo/Watcharr",
+        "Totonyus/ydl_api_ng",
+        "nbr23/youtube-dl-server",
+        "marcopiovanello/yt-dlp-web-ui"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media Streaming/Audio"
+      },
+      "data": [
+        "ampache/ampache",
+        "advplyr/audiobookshelf",
+        "advplyr/audiobookshelf-app",
+        "izderadicka/audioserve",
+        "AzuraCast/AzuraCast",
+        "beetbox/beets",
+        "blackcandy-org/blackcandy",
+        "sentriz/gonic",
+        "koel/koel",
+        "sourcefabric/Airtime",
+        "LibreTime/libretime",
+        "epoupon/lms",
+        "krateng/maloja",
+        "moode-player/moode",
+        "mopidy/mopidy",
+        "MusicPlayerDaemon/MPD",
+        "IrosTheBeggar/mStream",
+        "FoxxMD/multi-scrobbler",
+        "clangen/musikcube",
+        "navidrome/navidrome",
+        "madeofpendletonwool/PinePods",
+        "agersant/polaris",
+        "badaix/snapcast",
+        "benkaiser/stretto",
+        "benkaiser/stretto-mobile-next",
+        "spl0k/supysonic",
+        "swingmx/swingmusic",
+        "madiele/vod2pod-rss"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media Streaming/Multimedia"
+      },
+      "data": [
+        "MacWarrior/clipbucket-v5",
+        "farfalleflickan/cmyflix",
+        "gerbera/gerbera",
+        "jellyfin/jellyfin",
+        "awesome-jellyfin/awesome-jellyfin",
+        "xbmc/xbmc",
+        "zoriya/kyoo",
+        "Arthi-chaud/Meelo",
+        "DDVTECH/mistserver",
+        "MayaPosch/NymphCast",
+        "stashapp/stash",
+        "pikvm/ustreamer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media Streaming/Video"
+      },
+      "data": [
+        "calzoneman/sync",
+        "iv-org/invidious",
+        "mediacms-io/mediacms",
+        "AirenSoft/OvenMediaEngine",
+        "owncast/owncast",
+        "Chocobozzz/PeerTube",
+        "hauxir/rapidbay",
+        "datarhei/restreamer",
+        "ossrs/srs",
+        "RblSb/SyncTube",
+        "tubearchivist/tubearchivist"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Miscellaneous"
+      },
+      "data": [
+        "Bubka/2FAuth",
+        "Ardakilic/alerthub",
+        "muety/anchr",
+        "TecharoHQ/anubis",
+        "asciinema/asciinema-server",
+        "babybuddy/babybuddy",
+        "mariocandela/beelzebub",
+        "thinkst/opencanary",
+        "Sathvik-Rao/ClipCascade",
+        "magicbug/cloudlog",
+        "C4illin/ConvertX",
+        "OpenPrinting/cups",
+        "gchq/CyberChef",
+        "docat-org/docat",
+        "lissy93/domain-locker",
+        "DOMjudge/domjudge",
+        "KL-Psychological-Methodology/ESMira",
+        "flyimg/flyimg",
+        "majodev/google-webfonts-helper",
+        "HabitRPG/habitica",
+        "danielbrendel/hortusfox-web",
+        "dmunozv04/iSponsorBlockTV",
+        "bayang/jelu",
+        "benjaminjonard/koillection",
+        "languagetool-org/languagetool",
+        "LibreTranslate/LibreTranslate",
+        "hargata/lubelog",
+        "mosparo/mosparo",
+        "jason5ng32/MyIP",
+        "gnmyt/myspeed",
+        "m1k1o/neko",
+        "open-meteo/open-meteo",
+        "openziti/ziti",
+        "operational-co/operational.co",
+        "penpot/penpot",
+        "joho1968/POMjs",
+        "AmruthPillai/Reactive-Resume",
+        "hakimel/reveal.js",
+        "revive-adserver/revive-adserver",
+        "openspeedtest/Speed-Test",
+        "alexjustesen/speedtest-tracker",
+        "recurser/string-is",
+        "gravitational/teleport",
+        "teslamate-org/teslamate",
+        "seriousm4x/UpSnap",
+        "jasonraimondi/url-to-png",
+        "usertour/usertour",
+        "Gibus21250/Wakupator",
+        "sassanix/Warracker",
+        "wavelog/wavelog",
+        "weewx/weewx",
+        "butlerx/wetty",
+        "FuzzyGrim/Yamtrack"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Finance & Budgeting"
+      },
+      "data": [
+        "actualbudget/actual",
+        "bigcapitalhq/bigcapital",
+        "bitcart/bitcart",
+        "btcpayserver/btcpayserver",
+        "depayfi/widgets",
+        "tanq16/expenseowl",
+        "mayswind/ezbookkeeping",
+        "nymanjens/facto",
+        "beancount/fava",
+        "firefly-iii/firefly-iii",
+        "FOSSBilling/FOSSBilling",
+        "galette/galette",
+        "ghostfolio/ghostfolio",
+        "JeromeDevome/GRR",
+        "juspay/hyperswitch",
+        "spiral-project/ihatemoney",
+        "InvoicePlane/InvoicePlane",
+        "InvoiceShelf/InvoiceShelf",
+        "killbill/killbill",
+        "kresusapp/kresus",
+        "getlago/lago",
+        "mybucks-online/app",
+        "afaneca/myfin",
+        "afaneca/myfin-api",
+        "Drakkar-Software/OctoBot",
+        "simonwep/ocular",
+        "TheAxelander/OpenBudgeteer",
+        "Receipt-Wrangler/receipt-wrangler-api",
+        "r3-team/r3",
+        "vsys-host/shkeeper.io",
+        "SolidInvoice/SolidInvoice",
+        "l4rm4nd/VoucherVault",
+        "ellite/wallos",
+        "eitchtee/WYGIWYH",
+        "kantorge/yaffa"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Monitoring/Systems"
+      },
+      "data": [
+        "opinkerfi/adagios",
+        "alerta/alerta",
+        "henrygd/beszel",
+        "Cacti/cacti",
+        "google/cadvisor",
+        "Checkmk/checkmk",
+        "MauriceNino/dashdot",
+        "Edraens/EdMon",
+        "shevabam/ezservermonitor-web",
+        "nicolargo/glances",
+        "healthchecks/healthchecks",
+        "Icinga/icinga2",
+        "librenms/librenms",
+        "afaqurk/linux-dash",
+        "munin-monitoring/munin",
+        "naemon/naemon-core",
+        "NagiosEnterprises/nagioscore",
+        "netdata/netdata",
+        "netxms/netxms",
+        "openITCOCKPIT/openITCOCKPIT",
+        "performancecopilot/pcp",
+        "phpservermon/phpservermon",
+        "phpsysinfo/phpsysinfo",
+        "prometheus/prometheus",
+        "riemann/riemann",
+        "rapidloop/rtop",
+        "alexmyczko/ruptime",
+        "AnalogJ/scrutiny",
+        "sensu/sensu-go",
+        "dani3l0/Status",
+        "sni/Thruk",
+        "wazuh/wazuh"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Note-Taking Apps"
+      },
+      "data": [
+        "blinkospace/blinko",
+        "PhiTux/DailyTxT",
+        "suitenumerique/docs",
+        "jgraph/drawio",
+        "dullage/flatnotes",
+        "hedgedoc/hedgedoc",
+        "laurent22/joplin",
+        "livebook-dev/livebook",
+        "usememos/memos",
+        "enchant97/note-mark",
+        "overleaf/overleaf",
+        "alextselegidis/plainpad",
+        "silverbulletmd/silverbullet",
+        "standardnotes/app",
+        "TriliumNext/Trilium",
+        "josephernest/writing"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Office Suites"
+      },
+      "data": [
+        "cryptpad/cryptpad",
+        "ether/etherpad-lite",
+        "gristlabs/grist-core",
+        "ONLYOFFICE/DocumentServer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security/Password Managers"
+      },
+      "data": [
+        "lanedirt/AliasVault",
+        "bitwarden/server",
+        "passbolt/passbolt_api",
+        "Rabbit-Company/Passky-Server",
+        "nilsteampassnet/TeamPass",
+        "dani-garcia/vaultwarden"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Pastebin Tools"
+      },
+      "data": [
+        "w4/bin",
+        "querwurzel/BinPastes",
+        "jordan-dalby/ByteStash",
+        "rhee876527/chiyogami",
+        "DarrenOfficial/dpaste",
+        "AndrewPaglusch/FlashPaper",
+        "HemmeligOrg/Hemmelig.app",
+        "Tanq16/local-content-share",
+        "not-three/main",
+        "thomiceli/opengist",
+        "WardPearce/paaster",
+        "pglombardo/PasswordPusher",
+        "interaapps/pastefy",
+        "topics/pastefy-addon",
+        "PrivateBin/PrivateBin",
+        "orhun/rustypaste",
+        "algolia/sup3rS3cretMes5age",
+        "matze/wastebin",
+        "ybizeul/ybFeed",
+        "jhaals/yopass"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Personal Dashboards"
+      },
+      "data": [
+        "lissy93/dashy",
+        "revenz/fenrus",
+        "glanceapp/glance",
+        "arran4/gobookmarks",
+        "linuxserver/Heimdall",
+        "ashwin-pc/hiccup",
+        "homarr-labs/homarr",
+        "gethomepage/homepage",
+        "tomershvueli/homepage",
+        "bastienwirtz/homer",
+        "knrdl/hubleys-dashboard",
+        "LinkStackOrg/LinkStack",
+        "sethcottle/littlelink",
+        "hywax/mafl",
+        "Volmarg/personal-management-system",
+        "kodehat/portkey",
+        "ignisda/ryot",
+        "IgnisDa/ryot",
+        "notclickable-jordan/starbase-80",
+        "Yooooomi/your_spotify"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media/Photo Galleries"
+      },
+      "data": [
+        "chevereto/chevereto",
+        "webreaper/damselfly",
+        "ente-io/ente",
+        "xemle/home-gallery",
+        "damongolding/immich-kiosk",
+        "immich-app/immich",
+        "LibrePhotos/librephotos",
+        "LycheeOrg/Lychee",
+        "dmpop/pellicola",
+        "pulsejet/memories",
+        "SmilyOrg/photofield",
+        "photoprism/photoprism",
+        "photoview/photoview",
+        "bpatrik/pigallery2",
+        "Piwigo/Piwigo",
+        "saimn/sigal",
+        "gbbirkisson/spis",
+        "RouHim/this-week-in-past",
+        "thumbor/thumbor",
+        "Cirx08/WeddingShare",
+        "zenphoto/zenphoto"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Events/Polls"
+      },
+      "data": [
+        "fsinfuhh/Bitpoll",
+        "evroon/bracket",
+        "Wingysam/Christmas-Community",
+        "ClaperCo/Claper",
+        "clearflask/clearflask",
+        "jhpyle/docassemble",
+        "getfider/fider",
+        "formbricks/formbricks",
+        "lowercasename/gathio",
+        "heyform/heyform",
+        "hitobito/hitobito",
+        "deck9/input",
+        "LimeSurvey/LimeSurvey",
+        "aaronpk/Meetable",
+        "JhumanJ/opnform"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Networking/Proxy"
+      },
+      "data": [
+        "bytedance/g3",
+        "imgproxy/imgproxy",
+        "yarrick/iodine",
+        "Jigsaw-Code/outline-server",
+        "antoniomika/sish",
+        "nskondratev/socks5-proxy-server",
+        "tinyproxy/tinyproxy",
+        "TempoWorks/txtdot"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Recipe Management"
+      },
+      "data": [
+        "karlomikus/bar-assistant",
+        "cooklang/CookCLI",
+        "mikebgrep/fork.recipes",
+        "TomBursch/kitchenowl",
+        "managemeals/manage-meals-web",
+        "mealie-recipes/mealie",
+        "julianpoy/recipesage",
+        "reaper47/recipya",
+        "davideshay/groceries",
+        "alexbates/Tamari",
+        "jt196/vanilla-cookbook",
+        "kassner/whattocook"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Networking/Remote Access"
+      },
+      "data": [
+        "engity-com/bifroest",
+        "firezone/firezone",
+        "apache/guacamole-server",
+        "Ylianst/MeshCentral",
+        "immense/Remotely",
+        "shellhub-io/shellhub",
+        "nirui/sshwifty",
+        "LukeGus/Termix",
+        "warp-tech/warpgate"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Business/Resource Planning"
+      },
+      "data": [
+        "Dolibarr/dolibarr",
+        "frappe/erpnext",
+        "farmOS/farmOS",
+        "grocy/grocy",
+        "ledgersmb/LedgerSMB",
+        "odoo/odoo",
+        "apache/ofbiz-framework",
+        "Admidio/admidio",
+        "frappe/hrms",
+        "minthcm/minthcm"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Search Engines"
+      },
+      "data": [
+        "alephdata/aleph",
+        "apache/solr",
+        "codelibs/fess",
+        "jina-ai/serve",
+        "manticoresoftware/manticoresearch",
+        "meilisearch/MeiliSearch",
+        "opensearch-project/OpenSearch",
+        "searxng/searxng",
+        "sist2app/sist2",
+        "typesense/typesense",
+        "neon-mmd/websurfx",
+        "benbusby/whoogle-search",
+        "yacy/yacy_search_server",
+        "zinclabs/zinc",
+        "zincsearch/zincsearch"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Self-hosting Solutions"
+      },
+      "data": [
+        "DaveStephens/ansible-nas",
+        "IceWhaleTech/CasaOS",
+        "MichaIng/DietPi",
+        "GhostWriters/DockSTARTer",
+        "teleclimber/Dropserver",
+        "homeserverhq/hshq",
+        "bashrc2/libreserver",
+        "nextcloud/nextcloudpi",
+        "openmediavault/openmediavault",
+        "sandstorm-io/sandstorm",
+        "ibizaman/selfhostblocks",
+        "Start9Labs/start-os",
+        "syncloud/platform",
+        "runtipi/runtipi",
+        "websoft9/websoft9",
+        "nodiscc/xsrv"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/API Management"
+      },
+      "data": [
+        "dreamfactorysoftware/dreamfactory",
+        "apioo/fusio",
+        "exogee-technology/graphweaver",
+        "hasura/graphql-engine",
+        "hoppscotch/hoppscotch",
+        "Kong/kong",
+        "luraproject/lura",
+        "comet-ml/opik",
+        "panoratech/Panora",
+        "erudika/para",
+        "svix/svix-webhooks",
+        "TykTechnologies/tyk",
+        "EsperoTech/yaade"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/CI-CD"
+      },
+      "data": [
+        "argoproj/argo-cd",
+        "buildbot/buildbot",
+        "ovh/cds",
+        "concourse/concourse",
+        "drone/drone",
+        "factor-io/factor",
+        "gocd/gocd",
+        "jenkinsci/jenkins",
+        "ohwgiles/laminar",
+        "php-censor/php-censor",
+        "Strider-CD/strider",
+        "terrateamio/terrateam",
+        "werf/werf",
+        "woodpecker-ci/woodpecker"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/Serverless"
+      },
+      "data": [
+        "caprover/caprover",
+        "coollabsio/coolify",
+        "dokku/dokku",
+        "metrue/fx",
+        "kubero-dev/kubero",
+        "localstack/localstack",
+        "nhost/nhost",
+        "openfaas/faas",
+        "taubyte/tau",
+        "reddec/trusted-cgi"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/Feature Flags"
+      },
+      "data": [
+        "featbit/featbit",
+        "flagsmith/flagsmith",
+        "flipt-io/flipt",
+        "thomaspoignant/go-feature-flag"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/IDE Tools"
+      },
+      "data": [
+        "Atheos/Atheos",
+        "coder/code-server",
+        "coder/coder",
+        "eclipse-che/che",
+        "judge0/judge0",
+        "jupyterlab/jupyterlab",
+        "langfuse/langfuse",
+        "live-codes/livecodes",
+        "lowdefy/lowdefy",
+        "rstudio/rstudio",
+        "muety/wakapi",
+        "bencherdev/bencher",
+        "tarampampam/webhook-tester"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/Localization"
+      },
+      "data": [
+        "mirego/accent",
+        "tolgee/tolgee-platform",
+        "ever-co/ever-traduora",
+        "WeblateOrg/weblate"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/Low Code"
+      },
+      "data": [
+        "appsmithorg/appsmith",
+        "appwrite/appwrite",
+        "dashpresshq/dashpress",
+        "halo-dev/halo",
+        "halo-sigs/awesome-halo",
+        "mnfst/manifest",
+        "pocketbase/pocketbase",
+        "sqlpage/SQLPage",
+        "ToolJet/ToolJet",
+        "trailbaseio/trailbase"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/Project Management"
+      },
+      "data": [
+        "GerritCodeReview/gerrit",
+        "gitbucket/gitbucket",
+        "go-gitea/gitea",
+        "gogs/gogs",
+        "hcengineering/platform",
+        "usekaneo/kaneo",
+        "leantime/leantime",
+        "pvcnt/mergeable",
+        "b310-digital/mindwendel",
+        "mcarbonne/minimal-git-server",
+        "octobox/octobox",
+        "opf/openproject",
+        "makeplane/plane",
+        "reviewboard/reviewboard",
+        "w4/rgit",
+        "scm-manager/scm-manager",
+        "kromitgmbh/titra",
+        "nirix/traq",
+        "uvdesk/community-skeleton",
+        "easysoft/zentaopms"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Monitoring/Status Pages"
+      },
+      "data": [
+        "cstate/cstate",
+        "TwiN/gatus",
+        "rajnandan1/kener",
+        "kuvasz-uptime/kuvasz",
+        "statping-ng/statping-ng",
+        "louislam/uptime-kuma"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Task Management"
+      },
+      "data": [
+        "RARgames/4gaBoards",
+        "AppFlowy-IO/appflowy",
+        "donetick/donetick",
+        "mattermost-community/focalboard",
+        "kanboard/kanboard",
+        "jeffrpowell/listaway",
+        "maxpozdeev/mytinytodo",
+        "apankrat/nullboard",
+        "nanawel/our-shopping-list",
+        "plankanban/planka",
+        "nymanjens/piga",
+        "BaldissaraMatheus/Tasks.md",
+        "TracksApp/tracks",
+        "wekan/wekan"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Support & Ticketing"
+      },
+      "data": [
+        "bugzilla/bugzilla",
+        "frappe/helpdesk",
+        "freescout-help-desk/freescout",
+        "itflow-org/itflow",
+        "mantisbt/mantisbt",
+        "RotherOSS/otobo",
+        "bestpractical/rt",
+        "zammad/zammad"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Time Tracking"
+      },
+      "data": [
+        "ActivityWatch/activitywatch",
+        "daya0576/beaverhabits",
+        "ever-co/ever-gauzy",
+        "kimai/kimai",
+        "solidtime-io/solidtime",
+        "almarklein/timetagger",
+        "traggo/server",
+        "0pandadev/ziit"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web/URL Shorteners"
+      },
+      "data": [
+        "sjdonado/bit",
+        "SinTan1729/chhoto-url",
+        "thedevs-network/kutt",
+        "shlinkio/shlink",
+        "azlux/Simple-URL-Shortener",
+        "YOURLS/YOURLS"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security/Video Surveillance"
+      },
+      "data": [
+        "bluecherrydvr/bluecherry-apps",
+        "blakeblackshear/frigate",
+        "roflcoopter/viseron",
+        "ZoneMinder/ZoneMinder"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Networking/VPN"
+      },
+      "data": [
+        "dockovpn/dockovpn",
+        "firezone/firezone",
+        "qdm12/gluetun",
+        "juanfont/headscale",
+        "slackhq/nebula",
+        "OpenVPN/openvpn",
+        "SoftEtherVPN/SoftEtherVPN",
+        "sshuttle/sshuttle",
+        "strongswan/strongswan"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web/Servers"
+      },
+      "data": [
+        "xyproto/algernon",
+        "bunkerity/bunkerweb",
+        "caddyserver/caddy",
+        "yusing/godoxy",
+        "Jipok/Jauth",
+        "NginxProxyManager/nginx-proxy-manager",
+        "nginx/nginx",
+        "fosrl/pangolin",
+        "pomerium/pomerium",
+        "chaitin/SafeLine",
+        "static-web-server/static-web-server",
+        "linuxserver/docker-swag",
+        "traefik/traefik",
+        "Safe3/uusec-waf",
+        "varnishcache/varnish-cache",
+        "tobychui/zoraxy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Knowledge/Wikis"
+      },
+      "data": [
+        "melmothx/amusewiki",
+        "BookStackApp/BookStack",
+        "django-wiki/django-wiki",
+        "docmost/docmost",
+        "documize/community",
+        "dokuwiki/dokuwiki",
+        "jgm/gitit",
+        "gollum/gollum",
+        "bouncepaw/mycorrhiza",
+        "kensanata/oddmuse",
+        "redimp/otterwiki",
+        "ryanlelek/Raneto",
+        "TiddlyWiki/TiddlyWiki5",
+        "vincent-peugnet/wcms",
+        "WackoWiki/wackowiki",
+        "leomoon-studios/wiki-go",
+        "Requarks/wiki",
+        "Zavy86/WikiDocs",
+        "xwiki/xwiki-platform",
+        "zim-desktop-wiki/zim-desktop-wiki"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Analytics",
+      "Digital Preservation",
+      "Automation",
+      "Backup Tools",
+      "Blogging Platforms",
+      "Booking & Scheduling",
+      "Bookmark Managers",
+      "Calendars & Contacts",
+      "Communication/Custom Systems",
+      "Email/Suites",
+      "Email/Delivery Agents",
+      "Email/Mailing Lists",
+      "Communication/IRC",
+      "Communication/SIP",
+      "Communication/Social Networks",
+      "Communication/Video Conferencing",
+      "Communication/XMPP Servers",
+      "Agriculture Platforms",
+      "Events/Conference Management",
+      "Content Management Systems",
+      "Business/CRM",
+      "Database Management Tools",
+      "Networking/DNS",
+      "Documents/Management",
+      "Documents/E-books",
+      "Documents/Institutional Repositories",
+      "E-commerce Platforms",
+      "Identity & Access Management",
+      "Feed Readers",
+      "File Transfer/Synchronization",
+      "File Transfer/Distributed Filesystems",
+      "File Transfer/Object Storage",
+      "File Transfer/Peer-to-Peer",
+      "File Transfer/One-click Upload",
+      "File Transfer/Web Managers",
+      "Games",
+      "Game Server Admin Tools",
+      "Genealogy Tools",
+      "Generative AI Tools",
+      "Collaboration Platforms",
+      "Health & Fitness",
+      "IoT Platforms",
+      "Business/Inventory",
+      "Knowledge/Management",
+      "Learning Platforms",
+      "Industrial Manufacturing",
+      "Maps & GPS Tools",
+      "Media/Management",
+      "Media Streaming/Audio",
+      "Media Streaming/Multimedia",
+      "Media Streaming/Video",
+      "Miscellaneous",
+      "Finance & Budgeting",
+      "Monitoring/Systems",
+      "Note-Taking Apps",
+      "Office Suites",
+      "Security/Password Managers",
+      "Pastebin Tools",
+      "Personal Dashboards",
+      "Media/Photo Galleries",
+      "Events/Polls",
+      "Networking/Proxy",
+      "Recipe Management",
+      "Networking/Remote Access",
+      "Business/Resource Planning",
+      "Search Engines",
+      "Self-hosting Solutions",
+      "Software Development/API Management",
+      "Software Development/CI-CD",
+      "Software Development/Serverless",
+      "Software Development/Feature Flags",
+      "Software Development/IDE Tools",
+      "Software Development/Localization",
+      "Software Development/Low Code",
+      "Software Development/Project Management",
+      "Monitoring/Status Pages",
+      "Productivity/Task Management",
+      "Support & Ticketing",
+      "Productivity/Time Tracking",
+      "Web/URL Shorteners",
+      "Security/Video Surveillance",
+      "Networking/VPN",
+      "Web/Servers",
+      "Knowledge/Wikis"
+    ]
+  }
+}

@@ -1,0 +1,2196 @@
+{
+  "id": "angular",
+  "name": "Angular",
+  "desc": "Angular components, modules, seed repos, starters and applications.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Official"
+      },
+      "data": [
+        "angular/angular",
+        "angular/angular.js",
+        "angular/angular-cli",
+        "angular/universal",
+        "angular/components",
+        "angular/material",
+        "angular/tsickle",
+        "angular/protractor",
+        "angular/angularfire",
+        "angular/flex-layout",
+        "angular/angular-seed",
+        "angular/angular-phonecat",
+        "angular/material.angular.io",
+        "angular/quickstart"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Apps"
+      },
+      "data": [
+        "awesomehub/app",
+        "angular/angular-phonecat",
+        "gothinkster/angular-realworld-example-app",
+        "rpaschoal/ng-chat",
+        "r-park/soundcloud-ngrx"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Forms"
+      },
+      "data": [
+        "JsDaddy/ngx-mask",
+        "matheo/angular",
+        "myndpm/open-source",
+        "uNmAnNeR/imaskjs",
+        "taiga-family/maskito",
+        "timdeschryver/ng-signal-forms",
+        "cloudnc/ngx-sub-form",
+        "nbfontana/ngx-currency",
+        "naologic/ngx-super-forms",
+        "paddls/ngx-form",
+        "klippa-app/ngx-enhancy-forms",
+        "Juulsgaard/ngx-forms-core",
+        "klee-contrib/ngx-focus-entities",
+        "TanStack/form",
+        "luistabotelho/angular-signal-forms",
+        "infinum/ngx-form-object",
+        "ProAngular/pro-form",
+        "nncl/ngx-forms",
+        "klubinskak/ngx-smart-forms",
+        "pixelbyaj/ngx-form",
+        "kapilkumar0037/ngx-custom-controls",
+        "Zarlex/ngxAccessor",
+        "chocosd/angular-template-signal-forms",
+        "Cynthion/ngx-formidable",
+        "piying-org/piying-view",
+        "webilix/ngx-form-m3",
+        "liangk/lite-form",
+        "ChristianCruzArango/cc-form-engine",
+        "ngx-vest-forms/ngx-vest-forms",
+        "zinetnorf/ngx-autosave-forms"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Misc Components"
+      },
+      "data": [
+        "cipchk/ngx-countdown",
+        "replayvalue/ng-helmet",
+        "replayvalue/meta-man",
+        "wynfred/ngx-masonry",
+        "orizens/ngx-infinite-scroll",
+        "didinj/angular-9-coronavirus-cases-app",
+        "cloudinary/cloudinary_angular",
+        "FranzDiebold/ng-google-sheets-db-library",
+        "selemxmn/ngx-print",
+        "aesopo1213/ngx-printify",
+        "plaetzchen79/ngx-printer-demo"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/File Upload"
+      },
+      "data": [
+        "danialfarid/ng-file-upload",
+        "vugar005/ngx-awesome-uploader",
+        "bleenco/ngx-uploader",
+        "georgipeltekov/ngx-file-drop",
+        "flowjs/ngx-flow",
+        "valor-software/ng2-file-upload",
+        "kukhariev/ngx-uploadx",
+        "pIvan/file-upload",
+        "transloadit/uppy",
+        "daemons88/ngx-custom-material-file-input",
+        "ZouYouShun/ngxf-uploader",
+        "zefoy/ngx-dropzone-wrapper",
+        "wh131462/ngx-file-preview",
+        "osmanabdelsalam/ngx-image-upload",
+        "filestack/filestack-angular",
+        "IsaiasCardenasM/ngx-uploader-file"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Tools/Builders"
+      },
+      "data": [
+        "just-jeb/angular-builders",
+        "manfredsteyer/ngx-build-plus",
+        "bampakoa/ngx-electronify",
+        "chihab/dotenv-run",
+        "ng-packagr/ng-packagr",
+        "igorissen/angular-env-builder",
+        "nrwl/nx",
+        "Celtian/ngx-devkit-builders",
+        "sitelint/angular-static-assets-hash",
+        "kstepien3/ngx-schematic-builder",
+        "da-mkay/ng-builder-typescript"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Tools/CLI Tools"
+      },
+      "data": [
+        "angular/angular-cli",
+        "cexbrayat/angular-cli-diff",
+        "cexbrayat/angular-cli-ssr-diff",
+        "marmotz-dev/codx",
+        "mahdi-hajian/angular-parallel-test-runner",
+        "dot-build/angular-serve-and-run",
+        "elecash/dotairc",
+        "FirebaseExtended/firebase-framework-tools",
+        "vipinyadav01/js-stack",
+        "KilloconQ/kqgen",
+        "yuo-app/lin",
+        "mantis-apps/mantis-cli",
+        "talzach/mcp-angular-cli",
+        "lcasass3/nest-schematics",
+        "larscom/ng-chrome-extension",
+        "th3n00bc0d3r/ns-gc",
+        "maran-t/ngx-create",
+        "ngx-devs/ngx-devs-cli",
+        "pratiksonone/ngx-i18n-scan",
+        "bluehalo/ngx-starter",
+        "tomer953/ngx-stats",
+        "BernardoGiordano/ngx-stylesweep",
+        "art-ws/ngx-ws",
+        "ackheron/prepare-angular-json",
+        "rafa00716/rafacli",
+        "ErwanHeschung/ngx-crafter",
+        "esteecodes/angular-v20-bulk-file-refactor",
+        "ImLeoNova/tailwind-init-cli",
+        "nrwl/nx"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Deployment"
+      },
+      "data": [
+        "netlify/angular-runtime",
+        "angular-schule/angular-cli-ghpages",
+        "k9n-dev/analog-publish-gh-pages",
+        "Genez-io/genezio",
+        "zeropsio/recipe-analog-nodejs",
+        "OrthoFi/actions-angular-deploy",
+        "OrthoFi/actions-angular-ci-cd"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Desktop Applications"
+      },
+      "data": [
+        "maximegris/angular-electron",
+        "neutralinojs/neutralinojs",
+        "nwjs/nw.js",
+        "nwutils/nw-angular-example",
+        "maximegris/angular-tauri",
+        "tauri-apps/create-tauri-app",
+        "wailsapp/wails"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Tools/Updating Angular"
+      },
+      "data": [
+        "taiga-family/ng-morph",
+        "eneajaho/ngx-libs",
+        "fast-facts/ng-update",
+        "DSI-HUG/ngx-app-updater",
+        "Celtian/ngx-update-app",
+        "angular-sanctuary/ngx-boomer",
+        "stardyn/angular-updater"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Learning Resources/Exercises"
+      },
+      "data": [
+        "MarkTechson/angular-fundamentals-lessons",
+        "ppsdang/angular-debugging-challenge",
+        "ppsdang/angular-api-challenge",
+        "kobi-hari-courses/modern-angular-exercises",
+        "angular-courses-lab/angular-debug-quest"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Architecture and Advanced Topics/Feature Flags"
+      },
+      "data": [
+        "carlcrede/ngx-growthbook-workspace",
+        "Karelics/angular-unleash-proxy-client",
+        "zenkiet/ngx-version-view",
+        "configcat/js-sdk",
+        "configcat-labs/feature-flags-in-angular-sample-app",
+        "featurit/featurit-sdk-angular",
+        "zenkiet/ngx-feature-proxy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Architecture and Advanced Topics/GraphQL"
+      },
+      "data": [
+        "kamilkisiela/apollo-angular",
+        "giuliano-marinelli/apollo-dynamic-angular",
+        "wassim-k/apollo-orbit",
+        "buoy-graphql/buoy",
+        "dotansimha/graphql-code-generator",
+        "hasura/learn-graphql"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Architecture and Advanced Topics/HTTP"
+      },
+      "data": [
+        "nigrosimone/ng-http-caching",
+        "ngneat/cashew",
+        "jscutlery/convoyr",
+        "patrikx3/angular-http-cache-interceptor",
+        "ngify/ngify",
+        "mpalourdio/ng-http-loader",
+        "diegomvh/angular-odata",
+        "itpixelz/ngx-http-retry",
+        "terzurumluoglu/ng-memento",
+        "Celtian/ngx-suspense-of",
+        "daiscog/ngx-http-request-state",
+        "andrei-shpileuski/ngs-request-tracker",
+        "Service-Soft/ngx-pwa",
+        "paddls/ngx-repository",
+        "gizm0bill/gzm",
+        "InnovA2/ngx-http-helper",
+        "marcospds/ngx-sse-client",
+        "connectrpc/connect-es",
+        "NGneers/ng-httpclient-easy-network-stub",
+        "fvilli/simply-direct",
+        "ressurectit/ng-error-handling",
+        "HiptJo/active-connect",
+        "wnabil/ngx-drupal8-rest",
+        "JPtenBerge/ngx-signal-pagination",
+        "OGS-GmbH/ngx-http",
+        "angular-experts-io/resource",
+        "jrquick17/ng-speed-test",
+        "ebh/ngx-http-resilience",
+        "SebaRenner/ngx-interceptors",
+        "infinum/ngx-hal",
+        "heddendorp/trpc-angular"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Architecture and Advanced Topics/Micro-Frontends"
+      },
+      "data": [
+        "gioboa/angular-microfrontend-demo",
+        "Backbase/backbase-micro-frontends",
+        "santoshshinde2012/micro-frontends-mindmaps",
+        "dkhrunov/ngx-mfe",
+        "eurusik/ngx-mf-remote-loader",
+        "nrwl/nx",
+        "vercel/turbo"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Architecture and Advanced Topics/Module Federation"
+      },
+      "data": [
+        "module-federation/core",
+        "LoaderB0T/ng-dynamic-mf",
+        "angular-architects/module-federation-plugin",
+        "edumserrano/webpack-module-federation-with-angular",
+        "Seifenn/vite-module-federation-angular-test",
+        "igorhms/mfe-crossframework",
+        "eurusik/ngx-remote-component"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Architecture and Advanced Topics/Server-Side Rendering"
+      },
+      "data": [
+        "chrisguttandin/angular-prerender",
+        "xsip/ngx-ssr-code-remover",
+        "treatyjs/treaty",
+        "joshuamorony/analog-stuff",
+        "lennybakkalian/ngx-trpc",
+        "json-derulo/ngx-sitemaps"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Accessibility"
+      },
+      "data": [
+        "verto-health/astral-accessibility",
+        "angular-a11y/angular-vlibras",
+        "gagdmac/a11y-accessibility-first",
+        "ShakeelKadri/ngx-accessible-ui",
+        "richpauly13/easy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/AI"
+      },
+      "data": [
+        "angular/examples",
+        "slsfi/abbi-ng-ai-image-descriptor",
+        "tecnomanu/agent-rules-kit",
+        "gergelyszerovay/ai-friendly-docs",
+        "Angular-Material-Dev/angular-material-ai-rules",
+        "SAIPRANAY-GANGULA/angular-mcp-server",
+        "kd-akshay/code-quality-analyzer",
+        "upstash/context7",
+        "OvidijusParsiunas/deep-chat",
+        "liveloveapp/hashbrown",
+        "gsans/mini-bard-palm2-angular",
+        "scottstraughan/ngx-bob",
+        "angular/web-codegen-scorer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Analytics"
+      },
+      "data": [
+        "mzuccaroli/angular-google-tag-manager",
+        "angulartics/angulartics2",
+        "blue-cardinal/ngx-google-analytics",
+        "aws-solutions/clickstream-analytics-on-aws-web-sdk",
+        "Litlyx/litlyx",
+        "th3n00bc0d3r/ngx-amplitude",
+        "jadengis/ngx-clarity",
+        "jerkovicl/ngx-gtm",
+        "Service-Soft/ngx-material-tracking",
+        "EmmanuelRoux/ngx-matomo-client",
+        "Szymonexis/ngx-meta-pixel",
+        "PiwikPRO/ngx-piwik-pro",
+        "opendecide/ngx-segment-analytics",
+        "Progressive-Insurance/oculr-ngx",
+        "jufab/opentelemetry-angular-interceptor",
+        "plausible/analytics",
+        "rybbit-io/rybbit"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Developer Tools"
+      },
+      "data": [
+        "princemaple/ngx-html-syntax",
+        "angular/vscode-ng-language-service",
+        "reduxjs/redux-devtools",
+        "johnpapa/vscode-angular-snippets",
+        "EPAM-JS-Competency-center/angular-scaffold",
+        "CoderAllan/vscode-angulartools",
+        "DSI-HUG/ngx-schematics-utilities",
+        "alfredoperez/ngx-dev-toolbar",
+        "Khumozin/ngx-rename",
+        "mnfst/manifest",
+        "nathansbradshaw/zed-angular",
+        "simonh1000/angular-http-server",
+        "ngx-rock/vscode-angular-auto-import",
+        "ngneat/falso",
+        "angular-experts-io/ng-parsel",
+        "JeanMeche/angular-compiler-output",
+        "Service-Soft/lbx-change-sets",
+        "patrikx3/angular-compile",
+        "andrei-shpileuski/ngs-json-utils",
+        "gonzalad/ngx-error-handling",
+        "thdang1009/ngx-offline-indicator",
+        "AhsanAyaz/ngx-device-detector",
+        "moribvndvs/ng2-idle",
+        "MerrittMelker/ng-lens",
+        "Verbalman/ngx-json-reader",
+        "RzoDev/ngx-compare-object"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Documentation Tools"
+      },
+      "data": [
+        "storybooks/storybook",
+        "compodoc/compodoc",
+        "ng-doc/ng-doc",
+        "docgeni/docgeni",
+        "trakkjs/trakk-js",
+        "timonkrebs/ng-component-hierarchy-visualizer",
+        "alonrbar/easy-template-x-angular-expressions",
+        "JMGomes/angular-latest-snippets"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Generators and Scaffolding"
+      },
+      "data": [
+        "Shpota/goxygen",
+        "abpframework/abp",
+        "filiptrivan/spiderly",
+        "jhipster/generator-jhipster-ionic",
+        "teleporthq/teleport-code-generators",
+        "nathangtg/jangular-cli",
+        "ng-openapi/ng-openapi",
+        "tripsnek/tmf",
+        "NirmalSamaranayaka/polyfront-scaffold",
+        "orval-labs/orval"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Internationalization"
+      },
+      "data": [
+        "json-derulo/angular-ecmascript-intl",
+        "Romanchuk/angular-i18next",
+        "aymericzip/intlayer",
+        "robisim74/angular-l10n",
+        "ricardoferreirades/angular-translation-checker",
+        "soluling/I18N",
+        "lokalise/i18n-ally",
+        "58bcbedf47bd91439c/i18n-scanner-toolkit",
+        "mpalourdio/intl-tel-input-ng",
+        "andreasnicolaou/locale-translator",
+        "Lessify/localess",
+        "daniel-sc/ng-extract-i18n-merge",
+        "antimprisacaru/ng-intl",
+        "ressurectit/ng-translate-extensions",
+        "andrei-shpileuski/ngs-plural",
+        "gabrie-allaigre/ngx-easy-i18n-js",
+        "DSI-HUG/ngx-g11n",
+        "alkorschun/ngx-glagolize",
+        "Celtian/ngx-i18n-extract-regex-cli",
+        "Ascor8522/ngx-i18n-tools",
+        "jonnomk/ngx-merge-json-translations",
+        "yagcioe/ngx-signal-i18n",
+        "adamcsk1/ngx-signal-translate",
+        "tolgee/tolgee-js",
+        "ngx-translate/core",
+        "OGS-GmbH/ngx-translate",
+        "bartholomej/ngx-translate-cut",
+        "kinleyrabgay/ngx-translate-db",
+        "romanrostislavovich/ngx-translate-lint",
+        "lephyrus/ngx-translate-messageformat-compiler",
+        "larscom/ngx-translate-module-loader",
+        "rbalet/ngx-translate-multi-http-loader",
+        "darioegb/ngx-translate-routes",
+        "robmanganelly/ngx-translate-toolkit",
+        "Celtian/ngx-translate-version",
+        "NGneers/signal-translate",
+        "neosh11/tldraw-web-component",
+        "transifex/transifex-javascript",
+        "jsverse/transloco",
+        "jsverse/transloco-keys-manager",
+        "phrase/ngx-translate-phraseapp"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Performance"
+      },
+      "data": [
+        "angular-architects/detective",
+        "angular-experts-io/hawkeye",
+        "jscutlery/devkit",
+        "akbarsaputrait/ngememoize",
+        "taiga-family/ng-event-plugins",
+        "dagnygus/ng-queuex",
+        "Shrinivassab/ng-reactive-lint",
+        "MadeByRaymond/ngx-network-monitor",
+        "Mohid123/ngx-script-optimizer",
+        "wgrabowski/ngx-unused",
+        "filipsobol/sonda"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/SEO"
+      },
+      "data": [
+        "maddevsio/seo-analyzer",
+        "samvloeberghs/kwerri-oss",
+        "ganatan/angular-react-seo",
+        "mbsh-code/seo-manager-pro"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development Utilities/Styling"
+      },
+      "data": [
+        "adandedjanstephane-git/Angular-Material-Tailwind-Integration",
+        "jooherrera/element-identifier",
+        "LynxPardelle/ngx-angora-css",
+        "lukonik/ngx-classed",
+        "squidit/ngx-css",
+        "martsinlabs/ngx-mq",
+        "chakra-ui/panda",
+        "rsantoyo-dev/super-jss-workspace"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security and Authentication/Authentication"
+      },
+      "data": [
+        "Agilicus/samples",
+        "damienbod/angular-auth-oidc-client",
+        "manfredsteyer/angular-oauth2-oidc",
+        "nikosanif/angular-authentication",
+        "angular/angularfire",
+        "abacritt/angularx-social-login",
+        "auth0/angular2-jwt",
+        "appwrite/appwrite",
+        "auth0/auth0-angular",
+        "Badisi/auth-js",
+        "frontegg/frontegg-angular",
+        "teamhanko/hanko",
+        "mauriciovigolo/keycloak-angular",
+        "luukhaijes/kinde-angular",
+        "Service-Soft/lbx-jwt",
+        "ValueMelody/melody-auth",
+        "AzureAD/microsoft-authentication-library-for-js",
+        "rustygreen/ng-supabase",
+        "thomasorgeval/ngx-better-auth",
+        "teve-no/ngxfire",
+        "JonnyHeavey/ngx-webauthn",
+        "ngx-addons/omni-auth",
+        "subha-patra/otp-angular",
+        "serhiisol/ngx-auth",
+        "satya-jugran/witspry-auth-ng-client",
+        "en/code-security"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security and Authentication/Payments"
+      },
+      "data": [
+        "adyen-examples/adyen-angular-online-payments",
+        "Spotflow-One/angular-spotflow-checkout",
+        "google-pay/google-pay-button",
+        "antonyayansi/izipay",
+        "toozuuu/ngxsmk-stripe",
+        "richnologies/ngx-stripe",
+        "dotted-labs/ngx-supabase-stripe",
+        "solidgate-tech/angular-sdk"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security and Authentication/Role-Based Access Control"
+      },
+      "data": [
+        "stalniy/casl",
+        "kopy011/ngx-can-i",
+        "AlexKhymenko/ngx-permissions",
+        "IroshanRathnayake/ngx-role-accessor",
+        "rami-sheikha-dev/ngx-smart-permissions"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "State Management/NgRx"
+      },
+      "data": [
+        "ngrx/platform",
+        "angular-university/ngrx-course",
+        "btroncone/ngrx-store-localstorage",
+        "angular-architects/ngrx-toolkit",
+        "gabrielguerrero/ngrx-traits",
+        "Michsior14/ngrx-addons",
+        "larscom/ngrx-store-storagesync",
+        "nilsmehlhorn/ngrx-wieder",
+        "timdeschryver/ngrx-immer",
+        "SaulMoro/ngrx-rtk-query",
+        "stefanoslig/angular-ngrx-nx-realworld-example-app",
+        "yurakhomitsky/ngx-view-state",
+        "ngxp/store-service",
+        "k3nsei/ngx-signal-store-query",
+        "DaveMBush/SmartNgRX",
+        "angular-architects/ngrx-hateoas",
+        "acandylevey/ngrx-http-tracking",
+        "smoosee/ngrx-manager",
+        "parloti/ngrx-set",
+        "NGneers/easy-ngrx-distinct-selector",
+        "himanshuarora111/ngrx-store-wrapper"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "State Management/NGXS"
+      },
+      "data": [
+        "ngxs/store",
+        "ngxs-labs/actions-executing",
+        "ngxs-labs/emitter",
+        "ngxs-labs/firestore-plugin",
+        "Andreas-Hjortland/ngxs-message-plugin",
+        "nelsongraa8/ngxs-postmessage-plugin",
+        "ng-turkey/ngxs-reset-plugin",
+        "lVlyke/ngxs-synchronizers",
+        "ngxs-labs/select-snapshot"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "State Management/Other State Libraries"
+      },
+      "data": [
+        "ngneat/elf",
+        "nigrosimone/ng-simple-state",
+        "Marcisbee/exome",
+        "TanStack/query",
+        "state-adapt/state-adapt",
+        "simplifiedcourses/ngx-signal-state",
+        "spierala/mini-rx-store",
+        "e-oz/ngx-collection",
+        "statelyai/xstate",
+        "zuriscript/signalstory",
+        "politie/ngx-sherlock",
+        "AmadeusITGroup/tansu",
+        "worktile/store",
+        "reduxjs/angular-redux",
+        "bitfiber/ng",
+        "henryruhs/ngx-crud",
+        "state-management/ngx-state-machine",
+        "ng-state/store",
+        "LionMarc/ng-simple-state-management",
+        "Pierre-MarieMarchio/ngx-statewise",
+        "NikitaTopchii/fsm-state-manager",
+        "JBorgia/signaltree",
+        "adamcsk1/ngx-simple-signal-store",
+        "angulator-dev/angulator",
+        "CoreSyncHub/ngx-query",
+        "TanStack/db",
+        "unadlib/usm",
+        "MaxxtonGroup/ngx-mxstore"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Testing/E2E"
+      },
+      "data": [
+        "jscutlery/devkit",
+        "MohamedSci/cypress-angular-commands",
+        "GonzaloCarmenado/lib-e2e-cypress-for-dummys",
+        "webdriverio/webdriverio",
+        "puppeteer/puppeteer",
+        "bgotink/ngx-playwright",
+        "playwright-community/playwright-ng-schematics",
+        "bgotink/playwright-coverage",
+        "microsoft/playwright-mcp"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Testing/Component"
+      },
+      "data": [
+        "jscutlery/devkit",
+        "Ninja-Squad/ngx-speculoos",
+        "duluca/angular-unit-test-helper",
+        "nightwatchjs/nightwatch-plugin-angular",
+        "maksimr/karma-image-snapshot",
+        "trion-development/docker-ng-cli-karma",
+        "lazycuh/angular-testing-kit",
+        "thymikee/jest-preset-angular",
+        "nvh95/jest-preview",
+        "just-jeb/jest-marbles",
+        "skovhus/jest-codemods",
+        "kulshekhar/ts-jest",
+        "badisi/wdio-harness",
+        "testronaut/testronaut"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Testing/Helpers"
+      },
+      "data": [
+        "help-me-mom/ng-mocks",
+        "help-me-mom/ng-mocks-sandbox",
+        "ngworker/ngworker",
+        "FrancescoBorzi/ngx-page-object-model",
+        "Centigrade/ngtx",
+        "remscodes/ngx-testing-tools",
+        "ngneat/spectator",
+        "stryker-mutator/stryker-js",
+        "mswjs/msw",
+        "getsaf/shallow-render",
+        "storybookjs/testing-angular",
+        "kirill-kolomin/ngx-testbox",
+        "MillerSvt/ng-automocks",
+        "Neizan93/jest-angular-test-verifier",
+        "MaloPolese/ngx-api-mocks-interceptor",
+        "thomasmikava/testing-library-queries",
+        "LukasNiessen/ArchUnitTS",
+        "kristiyan-velkov/angular-tour-of-heroes-jest-100-coverage",
+        "rainerhahnekamp/how-do-i-test"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Starters and Templates"
+      },
+      "data": [
+        "ng-matero/ng-matero",
+        "coreui/coreui-free-angular-admin-template",
+        "primefaces/sakai-ng",
+        "DevExpress/devextreme-angular-template",
+        "emonney/QuickApp",
+        "wrappixel/material-pro-angular-lite",
+        "wrappixel/spike-angular-free",
+        "wrappixel/Flexy-admin-angular-lite",
+        "netlify-templates/angular-quickstart",
+        "phaserjs/template-angular",
+        "mugifly/angular-nest",
+        "tarlepp/angular-ngrx-frontend",
+        "JohnnyDevNull/ng-three-template",
+        "ZenSoftware/zen",
+        "pixelcave/tailkit-starter-kit-angular",
+        "lannodev/angular-tailwind",
+        "svierk/angular-starter-kit",
+        "FRACTAL-GAME-STUDIOS/fractal_boilerplate_lua_angular",
+        "descope-sample-apps/angular-sample-app",
+        "FullStacksDev/angular-and-firebase-template",
+        "codedthemes/berry-free-angular-admin-template",
+        "codedthemes/gradient-able-free-admin-template",
+        "codedthemes/mantis-free-angular-admin-template",
+        "codedthemes/datta-able-free-angular-admin-template",
+        "sanity-io/sanity-template-angular-clean",
+        "hawkgs/angular-templates",
+        "SharpLogic/LightNap",
+        "uzenith360/ngx-package-starter",
+        "cristobalgvera/angular-template",
+        "hofiorg/angular-boilerplate",
+        "touhidrahman/nx-starter",
+        "adrian-taralunga/angular-material-tailwind-playwright-starter",
+        "tbarracha/Angspire",
+        "keycloakify/keycloakify-starter-angular-vite",
+        "rainerhahnekamp/angular-starter",
+        "Yewo-Devs/BoilerPlate-FirebaseAngular",
+        "joematthews/extreme-angular",
+        "wlucha/angular-starter",
+        "carlossalasamper/angular-clean-architecture",
+        "dataclouder-dev/dataclouder-template-angular",
+        "Kei-K23/angular-tailwind-e-commerce-template",
+        "r3zafa/ngx-lib-starter-kit",
+        "themesberg/tailwind-angular-starter",
+        "r3zafa/ngx-app-starter-kit",
+        "codebangla/signal-admin",
+        "angularcafe/ngXpress",
+        "thatsamsonkid/spartan-stack-starter",
+        "karmasakshi/jet",
+        "ClaudioAlcantaraR/serene",
+        "TailAdmin/free-angular-tailwind-dashboard",
+        "teamhanko/hanko-angular-express-starter",
+        "Beszt/ng-ultimate-base",
+        "nelsongraa8/angular-dev-enhanced",
+        "ng-alain/ng-alain"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Animations"
+      },
+      "data": [
+        "tsparticles/angular",
+        "ChellappanRajan/ngx-confetti-explosion",
+        "ngx-lottie/ngx-lottie",
+        "williamjuan027/angular-animations-explorer",
+        "namitoyokota/ngx-notation-reveal",
+        "shiv-source/ngx-typed2",
+        "hm21/ngx-count-animation",
+        "ajitzero/ng-auto-animate",
+        "Char2sGu/layout-projection",
+        "DerStimmler/ngx-easy-view-transitions",
+        "SkyZeroZx/ngx-typed-writer",
+        "omnedia/ngx-number-ticker",
+        "omnedia/ngx-word-rotation",
+        "omnedia/ngx-word-morph",
+        "omnedia/ngx-cryptic-text",
+        "omnedia/ngx-word-pullup",
+        "omnedia/ngx-typewriter",
+        "omnedia/ngx-gradient-text",
+        "omnedia/ngx-shiny-text",
+        "omnedia/ngx-ripple",
+        "omnedia/ngx-shine-border",
+        "omnedia/ngx-border-beam",
+        "omnedia/ngx-dotpattern",
+        "omnedia/ngx-meteors",
+        "omnedia/ngx-background-beams",
+        "omnedia/ngx-aurora",
+        "omnedia/ngx-particles",
+        "omnedia/ngx-spotlight",
+        "omnedia/ngx-starry-sky",
+        "omnedia/ngx-connection-beam",
+        "inorganik/ngx-countUp",
+        "BugSplat-Git/ngx-animated-counter",
+        "damingerdai/ngx-dom-confetti",
+        "victor-enogwe/ngx-dotlottie-web",
+        "afnaanulla/AfnaanNgx-cusotm-cursor"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Calendars"
+      },
+      "data": [
+        "mattlewis92/angular-calendar",
+        "oOps1627/angular-calendar-timeline",
+        "brutforce-tech/pyas-connect",
+        "fullcalendar/fullcalendar-angular",
+        "roquemacia/ngx-calendario",
+        "giacomo/ngx-calendar-widget",
+        "by-pinja/ngx-resource-calendar",
+        "codingchefss/ngx-strip-calendar",
+        "schedule-x/schedule-x"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Captcha"
+      },
+      "data": [
+        "altcha-org/altcha",
+        "flowXM/angular-yandex-smart-captcha",
+        "wenlng/go-captcha-angular",
+        "pangz-lab/ng-cloudflare-turnstile",
+        "leNicDev/ng-hcaptcha",
+        "LakhveerChahal/ng-recaptcha-2",
+        "Enngage/ngx-captcha",
+        "edward124689/ngx-captcha-kit",
+        "Easy-Cloud-in/ngx-dice-captcha",
+        "angx-libs/ngx-easy-captcha",
+        "ShreyashThorat-17/ngx-numeric-captcha",
+        "verto-health/ngx-turnstile",
+        "mrzinkowin/ngx-slider-recaptcha",
+        "khalilou88/semantic-components",
+        "ngx-rock/yandex-smart-captcha"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Carousels"
+      },
+      "data": [
+        "uiuniversal/ngu-carousel",
+        "angular-slider/ngx-slider",
+        "MurhafSousli/ngx-gallery",
+        "sanjayV/ng-image-slider",
+        "leo6104/ngx-slick-carousel",
+        "JustCommunication-ru/ngx-splide",
+        "vitalii-andriiovskyi/ngx-owl-carousel-o",
+        "BenjaminBrandmeier/angular2-image-gallery",
+        "bfwg/ngx-drag-scroll",
+        "failed-successfully/ngx-darkbox-gallery-library",
+        "criar-art/slidecontent-angular",
+        "ZouYouShun/ngx-hm-carousel",
+        "Gauravdarkslayer/ngx-stories",
+        "GreenFlag31/carousel-library",
+        "zolcsi/ngx-simple-gallery",
+        "daelmaak/ngx-gallery",
+        "donaldxdonald/embla-carousel-angular",
+        "vinlos/ngx-gallery"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Charts"
+      },
+      "data": [
+        "swimlane/ngx-charts",
+        "ag-grid/ag-charts",
+        "amcharts/amcharts5",
+        "FERNman/angular-google-charts",
+        "carbon-design-system/carbon-charts",
+        "highcharts/highcharts-angular",
+        "apexcharts/ng-apexcharts",
+        "willsoto/ng-chartist",
+        "taiga-family/ng-draw-flow",
+        "valor-software/ng2-charts",
+        "uiuniversal/ngu-flow",
+        "xieziyu/ngx-echarts",
+        "flexmonster/ngx-flexmonster",
+        "worktile/ngx-gantt",
+        "swimlane/ngx-graph",
+        "rushik1992/ngx-hierarchy",
+        "zeyadelshaf3y/ngx-interactive-org-chart",
+        "jamesbrobb/ngx-lightweight-charts",
+        "Angular2Guy/ngx-simple-charts",
+        "bumbeishvili/org-chart",
+        "PioneerCode/pioneer-charts",
+        "nocode-js/sequential-workflow-designer",
+        "systelab/systelab-charts",
+        "f5/unovis"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Cookies"
+      },
+      "data": [
+        "stevermeister/ngx-cookie-service",
+        "giacomo/ngx-cookie-consent",
+        "tinesoft/ngx-cookieconsent",
+        "orestbida/cookieconsent",
+        "Ask-786/ngx-cookie-ssr",
+        "KoblerS/ngx-gdpr-cookie-consent"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/CSV"
+      },
+      "data": [
+        "implerhq/impler.io",
+        "rars/ng2csv",
+        "tofiqquadri/ngx-csv-parser",
+        "wnabil/ngx-export-as",
+        "malikrajat/rm-ng-export-to-csv"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Data Grids"
+      },
+      "data": [
+        "OvidijusParsiunas/active-table",
+        "statico/jsgrids",
+        "jspreadsheet/ce",
+        "ghiscoding/slickgrid-universal",
+        "revolist/revogrid",
+        "ZingGrid/zinggrid",
+        "panemu/ngx-panemu-table",
+        "blueshiftone/ngx-grid",
+        "guiexperttable/angular-19-table",
+        "knackstedt/ngx-tabulator-tables",
+        "Samuel-Pinheiro-C-Lopes/ngx-s-data-table",
+        "BePo65/mat-datatable",
+        "Trixwell/data-grid",
+        "Maxl94/ngx-multi-sort-table",
+        "dj-fiorex/angular2-smart-table",
+        "valentinstn/ngx-editable-material-table",
+        "prashantd-17/ngx-smartgrid",
+        "mgechev/ngx-flamegraph",
+        "DjonnyX/ng-virtual-grid",
+        "rinturaj/ngx-simple-datatables",
+        "RzoDev/ngx-list-manager",
+        "ryoucerious/cerious-widgets"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Dates"
+      },
+      "data": [
+        "joanllenas/ngx-date-fns",
+        "tonysamperi/ngx-mat-timepicker",
+        "BhavinPatel04/ngx-datetime-range-picker",
+        "kuhnroyal/mat-datetimepicker",
+        "vlio20/angular-datepicker",
+        "lekhmanrus/ngx-multiple-dates",
+        "ressurectit/ng-datetime",
+        "antonioconselheiro/time2blocks-ngx",
+        "dhutaryan/ngx-mat-timepicker",
+        "omnedia/ngx-timeline",
+        "WurshaApps/ngx-prayertimes-api",
+        "emanuelefricano93/frxjs-Ngx-Timeline",
+        "Abhinavgaur01/ngx-daterangepicker-pro-demo",
+        "nedpuganti/ngx-custom-daterangepicker",
+        "AdaskoTheBeAsT/date-interceptors",
+        "callyafiune/ngx-vertical-timeline",
+        "ihym/ngx-timeago",
+        "klajdm/ngx-chronica"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Directives"
+      },
+      "data": [
+        "nigrosimone/ng-let",
+        "nigrosimone/ng-for-track-by-property",
+        "piecioshka/ngx-nullish",
+        "Celtian/ngx-nullable",
+        "Celtian/ngx-if-platform",
+        "Celtian/ngx-cut",
+        "Celtian/ngx-app-version",
+        "Celtian/ngx-repeat",
+        "Celtian/ngx-fixed-footer",
+        "bodnya29179/ngx-responsive-if",
+        "andreasnicolaou/ngx-copy-to-clipboard",
+        "Kr0san89/ng-click-outside",
+        "eurusik/ngx-autofocus",
+        "JsDaddy/ngx-copypaste",
+        "gianpierreVelasquez/ngxture",
+        "maxime1jacquet/npm-directives"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/DOM"
+      },
+      "data": [
+        "fidian/ngx-resize-observer",
+        "fidian/ngx-mutation-observer",
+        "fidian/ngx-visibility",
+        "tutkli/ngx-breakpoint-observer",
+        "omnedia/ngx-fade",
+        "MTobisch/ngx-dynamic-hooks",
+        "MurhafSousli/ngx-highlightjs",
+        "MurhafSousli/ngx-sharebuttons",
+        "Jaspero/ng-helpers",
+        "lentschi/ngx-ellipsis",
+        "yassine-klilich/ngx-interpolation",
+        "luisalejandrofigueredo/ng-gd",
+        "philenius/ngx-annotate-text",
+        "gund/ng-dynamic-component",
+        "amirhsnf/pyno-date",
+        "7kasper/ngx-fittext",
+        "Bilal-Abubakari/ngx-optimus",
+        "sibiraj-s/angular-paginator"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Drag and Drop"
+      },
+      "data": [
+        "reppners/ngx-drag-drop",
+        "hackingharold/ngx-dropzone",
+        "ng-dnd/ng-dnd",
+        "telebroad/ngx-file-drag-drop",
+        "skutam/angular-drag-drop-layout",
+        "omnedia/ngx-swapy",
+        "bmartinson/ngx-draggable-dom",
+        "dmytro-parfenov/ngx-drag-resize",
+        "johnhwhite/ng-keyboard-sort",
+        "KAMAELUA/ngx-draggable-widget-kama",
+        "rosejoe47/angular-mixed-cdk-drag-drop",
+        "shhdharmen/cdk-drag-snap-to-point",
+        "MasterATM/ngx-dropzone",
+        "zhongmiao-org/ngx-puzzle",
+        "mr-samani/ngx-drag-drop-kit",
+        "TobyBackstrom/ngx-dashboard"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Editor Components"
+      },
+      "data": [
+        "stefonalfaro/Angular-JSON-Tree-Editor-Component",
+        "acrodata/code-editor",
+        "froala/angular-froala-wysiwyg",
+        "aztreya/ngx-aztreya-editor",
+        "Raiper34/ngx-simple-text-editor",
+        "KillerCodeMonkey/ngx-quill",
+        "sibiraj-s/ngx-editor",
+        "ngstack/code-editor",
+        "stevermeister/ngx-wig",
+        "jean-merelis/ngx-monaco-editor",
+        "heinerwalter/ngx-property-editor",
+        "sibiraj-s/ngx-tiptap",
+        "tinymce/tinymce-angular",
+        "worktile/slate-angular",
+        "dytab/BlockNoteAngular",
+        "julianpoemp/ngx-jodit",
+        "zefoy/ngx-ace-wrapper",
+        "zefoy/ngx-quill-wrapper",
+        "cipchk/ngx-tinymce",
+        "sesan07/formly-editor",
+        "scherenhaenden/MagnetarQuill",
+        "Ba5ik7/ngx-editorjs2",
+        "mouhamadalmounayar/ngx-traak",
+        "lula/ngx-summernote",
+        "manishpatidar028/angular-rich-text-editor",
+        "michalgrzegorczyk-dev/ngx-wysicat",
+        "synergycodes/ng-diagram"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Form Controls"
+      },
+      "data": [
+        "arturovt/ngx-emoji-mart-next",
+        "scttcper/ngx-color",
+        "zefoy/ngx-color-picker",
+        "ngx-eco/angular-colorful",
+        "ng-select/ng-select",
+        "jwelker110/file-input-accessor",
+        "cipchk/ngx-filesaver",
+        "MurhafSousli/ngx-bar-rating",
+        "AlexMiniApps/angular-code-input",
+        "fundsaccess/angular-iban",
+        "joshuawwright/ngx-autosize-input",
+        "timofei-iatsenko/angular-cc-library",
+        "webcat12345/ngx-ui-switch",
+        "ng2-ui/auto-complete",
+        "pkovzz/ngx-otp-input",
+        "osahner/ngx-show-hide-password",
+        "alex-mirankov/ngx-phone-field",
+        "Avotraina/ngx-rabe-star",
+        "rbalet/ngx-mat-birthday-input",
+        "kapilkumar0037/ngx-countries-dropdown",
+        "feature23/ngx-mat-split-button",
+        "Harvest-Dev/ng-select2",
+        "FrancescoBorzi/ngx-duration-picker",
+        "HesamKashefi/ngx-super-select-tree",
+        "PsySanchez/ngx-easy-emoji-picker",
+        "pgerke/ngx-mat-table-multi-sort",
+        "Vizer/ngx-virtual-select-field",
+        "wlucha/ng-country-select",
+        "filip194/ngx-card-wrapper",
+        "swimlane/ngx-cron",
+        "noelitocalma/ngx-pwd",
+        "code-farmz/ng-otp-input",
+        "noredinebahri/ngx-multi-select-input",
+        "malikrajat/rm-ng-star-rating",
+        "eladbh-stanley/ngx-animated-paginator",
+        "mr-samani/ngx-input-color",
+        "monkeyscript/ngx-morse",
+        "toozuuu/ngxsmk-tel-input",
+        "acrodata/gradient-picker",
+        "toozuuu/ngxsmk-datepicker",
+        "evicio1/ngx-country-selector",
+        "nsnayp13/angular-datepicker2",
+        "manishpatidar028/ngx-phone",
+        "mostafaM212/ngx-phone-country-input",
+        "felixdulfer/ngx-mat-period-picker",
+        "istvan-ujjmeszaros/touchspin-angular"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/JSON Forms"
+      },
+      "data": [
+        "ngx-formly/ngx-formly",
+        "formio/angular",
+        "fluent-form/fluent-form",
+        "eclipsesource/jsonforms",
+        "eclipsesource/jsonforms-angular-seed",
+        "zahmo/ng-formworks",
+        "Brrake/DynamicAngularForm",
+        "dynamic-forms/dynamic-forms",
+        "wojtek1150/json-forms-zorro-wrapper",
+        "TheNordicOne/ngx-formwork"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Form Validation"
+      },
+      "data": [
+        "Ninja-Squad/ngx-valdemort",
+        "validointi/validointi",
+        "pjlamb12/ngx-reactive-forms-utils",
+        "davidwalschots/angular-reactive-validation",
+        "dgonzalez870/ngx-formcontrol-errors",
+        "dynimorius/ngx-validator-pack",
+        "fakeJan499/ngx-error-msg",
+        "marcellodotgg/ngx-validators",
+        "abarghoud/ngx-reactive-form-class-validator",
+        "mkeller1992/ng-error-tooltips",
+        "apalaciosdev/ngx-forms-validator",
+        "chawkitariq/ngx-control-message",
+        "algrith/safari-numfix",
+        "aks1376/ngx-input-errors",
+        "LuEsc/error-message",
+        "vbnr/ng-reactive-form-validate",
+        "akehir/angular-password-checker",
+        "RiskChallenger/translation-validation",
+        "joker876/polish-validators",
+        "Totati/ngx-mat-errors",
+        "visaruruqi/oop-validator"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Icons"
+      },
+      "data": [
+        "FortAwesome/angular-fontawesome",
+        "seiyria/ng2-fontawesome",
+        "ng-icons/ng-icons",
+        "primefaces/primeicons",
+        "czeckd/angular-svg-icon",
+        "ngneat/svg-icon",
+        "bodnya29179/Angular-Svg-Sprite",
+        "dimaslz/ng-heroicons",
+        "bennymeg/ngx-fluent-ui",
+        "adisreyaj/angular-remix-icon",
+        "marco-martins/angular-line-awesome",
+        "pierreavn/angular-tabler-icons",
+        "push-based/ngx-fast-svg",
+        "criar-art/angular-techs-logos",
+        "bmartinson/ngx-x-browser-svg-mask",
+        "khalilou88/semantic-icons",
+        "ngxpert/coolshapes",
+        "lucide-icons/lucide",
+        "ngverse/icons",
+        "aromero86/angular-phosphor-icons",
+        "adrian-ub/ngxi",
+        "alimjanablikim/chill-wind-icons",
+        "TSB04/svg-icon"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Images"
+      },
+      "data": [
+        "DanielGabbay/ng-cropper",
+        "bmartinson/ngx-advanced-img",
+        "vedph/ngx-annotorious",
+        "Heatmanofurioso/ngx-avatars",
+        "Mohid123/ngx-blurhash-render",
+        "andreagrossetti/ngx-broken-img",
+        "PsySanchez/ngx-easy-image-drawing",
+        "ShreyashThorat-17/ngx-image-compression",
+        "Mawi137/ngx-image-cropper",
+        "hm21/ngx-image-hero",
+        "web-dave/ngx-img-cropper",
+        "jjmhalew/ngx-lightbox",
+        "medDV-GmbH/ngx-pinch-zoom",
+        "gerd-siebert/ngx-ratio-image",
+        "kurti-vdb/ngx-smart-cropper"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Keyboard Mouse"
+      },
+      "data": [
+        "Raiper34/ngx-focus-control",
+        "virtual-keyboard-javascript/virtual-keyboard-javascript.github.io",
+        "mohsen77sk/angular-touch-keyboard",
+        "ngneat/hotkeys",
+        "PerfectMemory/ngx-contextmenu",
+        "mrivasperez/ngx-keys"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Layout Components"
+      },
+      "data": [
+        "bertrandg/angular-split",
+        "ngneat/overview",
+        "ngbracket/ngx-layout",
+        "kreuzerk/ng-sortgrid",
+        "tiberiuzuld/angular-gridster2",
+        "katoid/angular-grid-layout",
+        "gridstack/gridstack.js",
+        "omnedia/ngx-flickering-grid",
+        "omnedia/ngx-gridpattern",
+        "omnedia/ngx-retro-grid",
+        "ArslanAmeer/ngx-bottom-sheet",
+        "otodockal/ngx-van",
+        "charlesschaefer/ngx-swipe-menu",
+        "secanis/ng-simple-sidebar",
+        "karnavpargi/ngx-bladex",
+        "blidblid/berg-layout",
+        "darekf77/static-columns",
+        "jtc10005/ngx-flex-layout",
+        "taiga-family/ng-polymorpheus",
+        "acrodata/gui",
+        "json-k/ngx-zoomable",
+        "ansarisufiyan777/ngx-material-drawer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Loaders"
+      },
+      "data": [
+        "tiberiuzuld/angular-busy",
+        "crisbeto/angular-svg-round-progressbar",
+        "knackstedt/dotglitch-ngx",
+        "ArshdeepGrover/groupix-spinner-library",
+        "arbrim/ng-loading-skeleton",
+        "ebrahim-salehipanah/ng-overlay-skeleton-loader",
+        "KernelPanic92/ngx-fastboot",
+        "nisicadmir/ngx-loader",
+        "jsdaddy/ngx-loader-indicator",
+        "aitboudad/ngx-loading-bar",
+        "dkreider/ngx-loading-buttons",
+        "shaman-apprentice/ngx-loading-overlay",
+        "dilipkumarsahoo/ngx-loading-page",
+        "MurhafSousli/ngx-progressbar",
+        "KennySchl/ngx-signal-loading-bar",
+        "willmendesneto/ngx-skeleton-loader",
+        "mehrabisajad/ngx-source",
+        "napster2210/ngx-spinner",
+        "thalsi/ngx-spinner-loading",
+        "Cholki2025/ngxsmk-skeleton-loader",
+        "t-ho/ngx-ui-loader",
+        "ngeenx/nx-svg-loaders",
+        "lukaVarga/skeletonizer",
+        "HoaiNam071001/skeleton-styler",
+        "mominrazashahid/square-progress"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Loggers"
+      },
+      "data": [
+        "ngworker/lumberjack",
+        "avernixtechnologies/angular-logger",
+        "Xilerth/ngx-logger",
+        "angular-extensions/pretty-html-log",
+        "secondbounce/log4ngx",
+        "w5g-wywiwyg/ngx-wlog",
+        "souravion/ng-route-logger"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Maps"
+      },
+      "data": [
+        "TGFTech/angular-cesium",
+        "Developer-Plexscape/cesium-angular-example",
+        "Wykks/ngx-mapbox-gl",
+        "ng-maps/ng-maps",
+        "bluehalo/ngx-leaflet",
+        "bluehalo/ngx-leaflet-markercluster",
+        "maplibre/ngx-maplibre-gl",
+        "arnaudleclerc/ng-azure-maps",
+        "Olympus-Analytics/ngx-gaia-gis",
+        "lekhmanrus/ngx-google-maps-places",
+        "ddubrava/angular-yandex-maps"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Markdown"
+      },
+      "data": [
+        "ghiscoding/angular-markdown-editor",
+        "larswaechter/markular",
+        "bgotink/mdbook-angular",
+        "aruidev/md-juice",
+        "jfcere/ngx-markdown",
+        "dimpu/ngx-md",
+        "SalathielGenese/ngx-mdx",
+        "ericleib/ngx-remark",
+        "vincent/ngx-textile"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Media"
+      },
+      "data": [
+        "chrisguttandin/angular-audio-context",
+        "joldibaev/silicon-audio-wave",
+        "byteark/byteark-player-angular",
+        "vidstack/player",
+        "angular-a11y/voicecapture-angular",
+        "LennonReid/ngx-video-timeline",
+        "RzoDev/ngx-cam-shoot",
+        "cometchat/cometchat-uikit-angular",
+        "KSmp/ngx-lite-video"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Mixed Utilities"
+      },
+      "data": [
+        "rx-angular/rx-angular",
+        "taiga-family/ng-web-apis",
+        "graycoreio/daffodil",
+        "ngworker/ngworker",
+        "jscutlery/devkit",
+        "angular/components",
+        "lVlyke/lithium-angular",
+        "rxweb/rxweb",
+        "DmitryEfimenko/ngspot",
+        "angelnikolov/ts-cacheable",
+        "ngxtension/ngxtension-platform",
+        "goetzrobin/spartan",
+        "ngify/ngify",
+        "mikelgo/angular-kit",
+        "Angular-RU/angular-ru-sdk",
+        "Dafnik/dfts-common",
+        "sinequa/sba-angular",
+        "pechemann/angular-toolbox",
+        "wghglory/ngx-lift",
+        "orgs/Firestitch",
+        "studiohyperdrive/hyperdrive-opensource",
+        "OPI-PIB/ngx-utility",
+        "sketch7/ssv.ngx",
+        "js-smart/ng-kit",
+        "Liquid-JS/nxt-components",
+        "milad-hub/ngx-signal-plus",
+        "infinum/ngx-nuts-and-bolts",
+        "paddls/ngx-common",
+        "dszendrei/ngx-signals-plus",
+        "almazrpe/ngx-kit",
+        "domideimel/ng-tool-collection",
+        "everllence/ngx-tools",
+        "love1024/ngx-oneforall",
+        "DDtMM/angular-signal-generators",
+        "mihajm/mmstack",
+        "tomaszatoo/ngx-libs",
+        "shanieMoonlight/moonlight-repo",
+        "jchpro/ng",
+        "ng-util/ng-util",
+        "max-scopp/reactive-kit",
+        "BhanukaDev/fireng",
+        "ziv/xprng",
+        "saiful-70/ngx-primeng-toolkit",
+        "IbenTesara/opensource",
+        "farfadev/ngx-lib",
+        "xbranch/ngx-security"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Modals"
+      },
+      "data": [
+        "boris-jenicek/ngx-awesome-popup",
+        "ngneat/dialog",
+        "GreenFlag31/modal-library",
+        "criar-art/up-window-angular",
+        "4gray/ngx-whats-new",
+        "soc221b/ngx-dialog",
+        "nhusby/ng-modal-service",
+        "JustSolve-self-serve/strictly-typed-mat-dialog",
+        "lazycuh/angular-confirmation-capture",
+        "lazycuh/angular-anchored-floating-box"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Notifications"
+      },
+      "data": [
+        "npm-lahsiv/alert-bar-library",
+        "svierk/angular-bootstrap-toast-service",
+        "lazycuh/angular-notification",
+        "damingerdai/angular-toaster",
+        "rishi-rj-s/grand-notifications",
+        "ngxpert/hot-toast",
+        "rperezll/ng-fast-toast",
+        "nhusby/ng-toast-service",
+        "awalhadi/notifyx",
+        "thiagopg84/ngx-french-toast",
+        "jonaaix/ngx-modern-alerts",
+        "pascaliske/ngx-notifications",
+        "sibiraj-s/ngx-notifier",
+        "tutkli/ngx-sonner",
+        "sweetalert2/ngx-sweetalert2",
+        "scttcper/ngx-toastr",
+        "Mazen-Embaby/ngx-toastr-notifier",
+        "OneSignal/onesignal-ngx",
+        "andreasnicolaou/toastify",
+        "andreasnicolaou/web-notifier"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Pipes"
+      },
+      "data": [
+        "nigrosimone/ng-generic-pipe",
+        "embarq/safe-pipe",
+        "ko1ebayev/ngx-func-pipe",
+        "SlyTed/ngx-pipes-toolkit",
+        "taiga-family/ng-dompurify",
+        "wassim-k/ngx-signal-pipes",
+        "paulotokarskiglinski/ngx-search-pipe",
+        "mofirojean/ngx-pipe-lib",
+        "ngx-rock/memoize-pipe",
+        "ultrasonicsoft/ngx-highlight-text",
+        "Kavshree/-bjkavyashree-ngx-smart-pipes"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/QR Codes"
+      },
+      "data": [
+        "mnahkies/ng-qrcode",
+        "cordobo/angularx-qrcode",
+        "Dafnik/dfts-common",
+        "zxing-js/ngx-scanner",
+        "larscom/ng-qrcode-svg",
+        "mustafaer/ngx-qrcode-generator",
+        "id1945/ngx-scanner-qrcode",
+        "mohamedfakhreldin/Angular-html5qrcode",
+        "werthdavid/ngx-kjua",
+        "GNURub/ngx-qrcode",
+        "sezmars/ngx-scan-detect",
+        "selfxyz/self"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Router"
+      },
+      "data": [
+        "udayvunnam/xng-breadcrumb",
+        "OuterlimitsTech/olt-ngx-breadcrumbs",
+        "ui-router/angular",
+        "mgechev/ngx-quicklink",
+        "mgechev/ngx-hover-preload",
+        "rbalet/ngx-href",
+        "perez247/ngx-route-manager",
+        "rbalet/ngx-back-button",
+        "developwithmi/ngx-navigate-back",
+        "Jakob-em/storybook-addon-angular-router",
+        "muuvmuuv/angular-router-menus",
+        "ramiz4/ngx-multi-level-push-menu",
+        "akshykhade/ngx-foresight",
+        "push-based/ngx-speculative-link"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Scroll"
+      },
+      "data": [
+        "dhilt/ngx-ui-scroll",
+        "Nolanus/ngx-page-scroll",
+        "hm21/ngx-scroll-animations",
+        "lVlyke/lithium-ngx-virtual-scroll",
+        "robingenz/ngx-infinite-scroll",
+        "alvarotrigo/angular-fullpage",
+        "bartholomej/ngx-scrolltop",
+        "KingSora/OverlayScrollbars",
+        "MurhafSousli/ngx-scrollbar",
+        "omnedia/ngx-tracing-beam",
+        "omnedia/ngx-marquee",
+        "omnedia/ngx-scrollbar",
+        "Harvest-Dev/ngx-perfect-scrollbar",
+        "mfuu/ngx-virtual-dnd-list",
+        "ProAngular/ngx-scroll-top",
+        "iharbeck/ngx-virtual-scroller",
+        "HaidarZ/ng-mat-select-infinite-scroll",
+        "miminerd/horizontal-scroller",
+        "Grsmto/simplebar",
+        "dcbeck/ngx-responsive-virtual-scroll",
+        "onexip/ngx-virtual-scroller-flexible",
+        "brakmic/ngx-perfect-scrollbar-portable",
+        "djonnyx/ng-virtual-list",
+        "isahohieku/ngx-horizontal-menu-scroll",
+        "italoalmeida0/usal"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Storage"
+      },
+      "data": [
+        "e-oz/ngx-reactive-storage",
+        "PillowPillow/ng2-webstorage",
+        "assuncaocharles/ngx-indexed-db",
+        "cyrilletuzi/angular-async-local-storage",
+        "maxnowack/signaldb",
+        "dexie/Dexie.js",
+        "cipchk/angular-web-storage",
+        "AshenHiroshana/indexeddb-helper",
+        "edisonaugusthy/ng-storage",
+        "azhukau-dev/convex-angular",
+        "msaadart/secure-client-store"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Tooltips"
+      },
+      "data": [
+        "ngneat/helipopper",
+        "ncstate-sat/popover",
+        "mkeller1992/ngx-tooltip-directives",
+        "babybeet/angular-tooltip",
+        "farengeyt451/ngx-tippy-wrapper",
+        "chandumaram/tooltip-testing",
+        "al-march/ngx-popovers",
+        "lazycuh/angular-tooltip",
+        "bastienmoulia/ngx-overlay"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "UI Libraries/Other"
+      },
+      "data": [
+        "syncfusion/essential-ui-kit-for-angular",
+        "syncfusion/ej2-angular-ui-components",
+        "akveo/nebular",
+        "NG-ZORRO/ng-zorro-antd",
+        "ng-alain/ng-alain",
+        "zard-ui/zardui",
+        "swimlane/ngx-ui",
+        "primefaces/primeng",
+        "DevCloudFE/ng-devui",
+        "allianz/ng-aquila",
+        "infor-design/enterprise-ng",
+        "oblique-bit/oblique",
+        "SAP/fundamental-ngx",
+        "kirbydesign/designsystem",
+        "sbb-design-systems/sbb-angular",
+        "alauda/ui",
+        "atinc/ngx-tethys",
+        "digipolisantwerp/antwerp-ui_angular",
+        "vmware-clarity/ng-clarity",
+        "ngx-semantic/ngx-semantic",
+        "tonysamperi/ngx-float-ui",
+        "orchestratora/orchestrator",
+        "winona-ui/winonang",
+        "carbon-design-system/carbon-components-angular",
+        "dyte-io/ui-kit",
+        "osspkg/onega-ui",
+        "Kordrad/ng-zen",
+        "thekhegay/ngwr",
+        "WindMillCode/Windmillcode-Angular-CDK",
+        "vcl/ng-vcl",
+        "po-ui/po-angular",
+        "evenuxjs/ngx-nighthawk",
+        "serionist/tableau-ui-angular",
+        "ngverse/ui",
+        "TanerSaydam/flexi-ui",
+        "koobiq/angular-components",
+        "jean-merelis/angular-components",
+        "KY-Programming/mantic-ui",
+        "sanjib-kumar-mandal/kage-ui",
+        "quix-it/quix-quang",
+        "artem-mangilev/ngx-vflow",
+        "shipuicom/core",
+        "angularcafe/slateui",
+        "dev-ignis/forge",
+        "lebocow/ngx-nova-ui",
+        "elementarlabs/elementar-ui",
+        "IfFaith/ngx-vant-revive",
+        "MatoMakuch/maxterdev",
+        "cds-snc/gcds-components",
+        "entake-org/particle-ng"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "UI Libraries/Bootstrap"
+      },
+      "data": [
+        "mikaelbotassi/ng-bootstrap-addons",
+        "valor-software/ngx-bootstrap",
+        "italia/design-angular-kit",
+        "dotted-labs/ngx-bootstrap-components",
+        "pSkywalker/ez-nav"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "UI Libraries/Material"
+      },
+      "data": [
+        "RockyCott/angular-ui-plusify",
+        "mdbootstrap/mdb-angular-ui-kit",
+        "Teradata/covalent",
+        "IgniteUI/igniteui-angular",
+        "A-l-y-l-e/Alyle-UI",
+        "ng-matero/extensions",
+        "johannesjo/angular-material-css-vars",
+        "DSI-HUG/ngx-components",
+        "Service-Soft/ngx-material-auth",
+        "Service-Soft/ngx-material-navigation",
+        "Service-Soft/ngx-material-entity",
+        "jxcodes/ngx-core-business",
+        "c3ulnta0rk/c3-components",
+        "wobkenh/simplematcomponents"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "UI Libraries/Tailwind CSS"
+      },
+      "data": [
+        "bhaimicrosoft/angular-superui",
+        "quedicesebas/angular-tailwind-ui",
+        "themeselection/flyonui",
+        "igordrangel/koala-ui",
+        "bugMaker-237/ngx-tw",
+        "htmlstreamofficial/preline",
+        "jarretthuang/rectangle-ui",
+        "Seacotec/seacotools",
+        "gridatek/semantic-components",
+        "dofu-lab/simui",
+        "synerity-ai/synerity-ui",
+        "william-mba/tailwind-ng",
+        "zapuilib/zapui"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/UI Library and Framework Ionic"
+      },
+      "data": [
+        "ionic-team/ionic-framework",
+        "danielsogl/awesome-cordova-plugins",
+        "rdlabo-team/ionic-angular-library",
+        "rdlabo-team/ionic-angular-collect-icons",
+        "iter-idea/IDEA-Ionic8-extra",
+        "LennonReid/ionic-component-snippets",
+        "RaschidJFR/ionic-header-parallax",
+        "godenji/ionic-state",
+        "kisimediaDE/ionx-search-select",
+        "appit-online/ionic-insta-api-wrapper"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/UI Primitives"
+      },
+      "data": [
+        "ng-primitives/ng-primitives",
+        "radix-ng/primitives",
+        "ng-base/ngbase",
+        "DanielAlcaraz/vacui-ui",
+        "fawadtariq/ngx-headless"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/UX Components"
+      },
+      "data": [
+        "shepherd-pro/angular-shepherd",
+        "blackbaud/skyux",
+        "hakimio/ngx-ui-tour",
+        "tonysamperi/ngx-tour-wizard",
+        "Broadcom/bdc-walkthrough",
+        "rosen-group/ngx-onboarding"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Viewers"
+      },
+      "data": [
+        "ameyb88/file-viewer",
+        "mufasa-dev/Json-diff",
+        "askinjohn/ng-pdf-renderer",
+        "VadimDez/ng2-pdf-viewer",
+        "intbot/ng2-pdfjs-viewer",
+        "rars/ngx-diff",
+        "stephanrauh/ngx-extended-pdf-viewer",
+        "ProAngular/ngx-gist",
+        "viobui/ngx-imageviewer",
+        "jy95/ngx-json-schema-viewer",
+        "MichaelDoyle/ngx-json-treeview",
+        "singharsh0/ngx-profile-comparison",
+        "binuud/ngx-serial-console",
+        "TapBeep/ngx-treeview2",
+        "Imishu29/ngx-universal-viewer",
+        "mschn/ngx-voyage",
+        "AmanKrr/pdf-viewer-kit"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Visual Effects"
+      },
+      "data": [
+        "Astgenne4922/angular-game-of-life",
+        "d-koppenhagen/angular-tag-cloud-module",
+        "mostafazke/ng-whiteboard",
+        "DerStimmler/ngx-analog-clock",
+        "rbalet/ngx-color-scheme",
+        "cipchk/ngx-countdown",
+        "zefoy/ngx-font-picker",
+        "ashish-chopra/ngx-gauge",
+        "omnedia/ngx-globe",
+        "wadie/ngx-gooey",
+        "omnedia/ngx-lamp",
+        "omnedia/ngx-neon-underline",
+        "DerStimmler/ngx-parallax-stars",
+        "vwochnik/ngx-waterbox"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Underlying Technologies/RxJS"
+      },
+      "data": [
+        "ngneat/effects",
+        "JasonWeinzierl/eslint-plugin-rxjs-x",
+        "DKozachenko/fork-join-settled",
+        "btroncone/learn-rxjs",
+        "cristiammercado/ng-event-bus",
+        "piotrekn/ng-rxjs-safe-subscribe",
+        "PhilipSh/ngx-device-permission",
+        "cloudnc/ngx-observable-lifecycle",
+        "nilsmehlhorn/ngx-operators",
+        "ftischler/ngx-rxjs-zone-scheduler",
+        "Badisi/ngx-safe-subscribe",
+        "cloudnc/observable-webworker",
+        "jscutlery/devkit",
+        "redux-observable/redux-observable",
+        "mrOranger/RxJs",
+        "chrisguttandin/rxjs-broker",
+        "AngularWave/rxjs-challenge",
+        "henryruhs/rxjs-collection",
+        "paddls/rxjs-common",
+        "Fasteroid/rxjs-conduit",
+        "angular-university/rxjs-course",
+        "omnedia/rxjs-typewriter",
+        "chrisguttandin/subscribable-things",
+        "shobeiry/subsiphon",
+        "ngneat/until-destroy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Underlying Technologies/TypeScript"
+      },
+      "data": [
+        "thiennp/guardz",
+        "IKatsuba/mutates",
+        "soc221b/ngx-exhaustive-check",
+        "iamguid/ngx-mf",
+        "glideapps/quicktype",
+        "softarc-consulting/sheriff",
+        "ianstormtaylor/superstruct",
+        "total-typescript/total-typescript-book",
+        "trpc/trpc",
+        "ts-essentials/ts-essentials",
+        "gvergnaud/ts-pattern",
+        "paddls/ts-serializer",
+        "smartrecruiters/tsconfig",
+        "sinclairzx81/typebox",
+        "typed-rocks/type-buddy",
+        "type-challenges/type-challenges",
+        "sindresorhus/type-fest",
+        "typehero/typehero",
+        "psmyrdek/typescript-challenges",
+        "fabian-hiller/valibot",
+        "colinhacks/zod"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Framework Interoperability/Cross-Framework Integration"
+      },
+      "data": [
+        "kitium-ai/detector",
+        "ngeenx/ngx-react",
+        "knackstedt/ngx-reactify",
+        "john310897/ng-react-bridge",
+        "fullstack-lang/gong",
+        "retejs/angular-plugin",
+        "sscholle/zero-angular"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Framework Interoperability/External Integration"
+      },
+      "data": [
+        "Postcatlab/postcat",
+        "GetStream/stream-chat-angular",
+        "siarheihuzarevich/foblex2D",
+        "bloomreach/spa-sdk",
+        "geometricpanda/ng-storyblok",
+        "borjamrd/ngx-notion-cms",
+        "thanhhoa214/ngx-wagmi",
+        "AmadeusITGroup/otter",
+        "apioo/fusio-sdk-javascript-angular",
+        "limitless-angular/limitless-angular",
+        "saleweaver/angular-rsocket",
+        "mustafaer/angular-twitter-timeline",
+        "yurivoronin/ngx-signalr-websocket",
+        "angulardart-community/angular"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Framework Interoperability/Wrappers"
+      },
+      "data": [
+        "unlayer/angular-email-editor",
+        "angular-threejs/angular-three",
+        "ckeditor/ckeditor5-angular",
+        "ckeditor/ckeditor4-angular",
+        "michaelbushe/cytoscape-angular",
+        "maitrungduc1410/d3-cloud-angular",
+        "NorthwoodsSoftware/gojs-angular",
+        "sbb-design-systems/lyne-angular",
+        "MillerSvt/ng-elementum",
+        "efgiese/ngx-barcode6",
+        "topce/ngx-chessground",
+        "simonegosetto/ngx-d3",
+        "zefoy/ngx-fabric-wrapper",
+        "amitdahan/ngx-filesize",
+        "Developer-Plexscape/ngx-grapesjs",
+        "pusherman/ngx-katex",
+        "k0swe/ngx-kel-agent",
+        "smartargs/ngx-neoline",
+        "yociduo/ngx-pendo",
+        "BerniHC/ngx-pocketbase",
+        "DSI-HUG/ngx-sentry",
+        "paddls/ngx-serializer",
+        "rodgc/ngx-socket-io",
+        "vandaeldev/ngx-surreal",
+        "Brakebein/ngx-tagify",
+        "demike/ngx-three",
+        "omnedia/ngx-three-globe",
+        "zinetnorf/ngx-virtual-select",
+        "vedph/ngx-viz",
+        "WebDataRocks/ngx-webdatarocks",
+        "BerryCloud/ngx-xapi",
+        "knackstedt/ngx-xyflow",
+        "seatsio/seatsio-angular",
+        "makuko/zag-angular"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Angular-Inspired Solutions"
+      },
+      "data": [
+        "emmat-york/angular-style-injector",
+        "philmtd/css-fx-layout",
+        "kaokei/di",
+        "AndreyShashlovDev/flexdi",
+        "TBosak/fornax",
+        "AlexSergey/friendly-di",
+        "gandolphinnn/GameEngine",
+        "Stradivario/gapi",
+        "garag-lib/GTPL",
+        "frodi-karlsson/indulgent",
+        "Isqanderm/ioc",
+        "Gabriel-c0Nsp/Lua-Generate",
+        "maybebot/named-slots",
+        "needle-di/needle-di",
+        "lumirlumir/npm-clang-format-node",
+        "wflixu/obfetch",
+        "ozeanjs/ozean",
+        "Joery-M/prang",
+        "Prasthuth-Pradeep/PrasthuthTS",
+        "zobla-kv/react-di-lite",
+        "vipulkmr02/ReactiveForms",
+        "joanpablo/reactive_forms",
+        "buiapp/reaktiv",
+        "silicia-apps/sio",
+        "skycodr/ts-react-directives",
+        "arnvjshi/unreactpjs",
+        "kaokei/use-vue-service",
+        "RamanSharma100/vyuha"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Learning Resources/Reference"
+      },
+      "data": [
+        "tomavic/angular-philosophies",
+        "DenysVuika/angular-book",
+        "sudheerj/angular-interview-questions",
+        "Devinterview-io/angular-interview-questions",
+        "pegaltier/awesome-utils-dev",
+        "DaanDeSmedt/awesome-angular"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Official",
+      "Apps",
+      "Components/Forms",
+      "Components/Misc Components",
+      "Components/File Upload",
+      "Development Utilities/Accessibility",
+      "Development Utilities/AI",
+      "Development Utilities/Analytics",
+      "Development Utilities/Developer Tools",
+      "Development Utilities/Documentation Tools",
+      "Development Utilities/Generators and Scaffolding",
+      "Development Utilities/Internationalization",
+      "Development Utilities/Performance",
+      "Development Utilities/SEO",
+      "Development Utilities/Styling",
+      "Security and Authentication/Authentication",
+      "Security and Authentication/Payments",
+      "Security and Authentication/Role-Based Access Control",
+      "State Management/NgRx",
+      "State Management/NGXS",
+      "State Management/Other State Libraries",
+      "Desktop Applications",
+      "Development Tools/Builders",
+      "Development Tools/CLI Tools",
+      "Development Tools/Updating Angular",
+      "Testing/E2E",
+      "Testing/Component",
+      "Testing/Helpers",
+      "Deployment",
+      "Starters and Templates",
+      "Components/Animations",
+      "Components/Calendars",
+      "Components/Captcha",
+      "Components/Carousels",
+      "Components/Charts",
+      "Components/Cookies",
+      "Components/CSV",
+      "Components/Data Grids",
+      "Components/Dates",
+      "Components/Directives",
+      "Components/DOM",
+      "Components/Drag and Drop",
+      "Components/Editor Components",
+      "Components/Form Controls",
+      "Components/JSON Forms",
+      "Components/Form Validation",
+      "Components/Icons",
+      "Components/Images",
+      "Components/Keyboard Mouse",
+      "Components/Layout Components",
+      "Components/Loaders",
+      "Components/Loggers",
+      "Components/Maps",
+      "Components/Markdown",
+      "Components/Media",
+      "Components/Mixed Utilities",
+      "Components/Modals",
+      "Components/Notifications",
+      "Components/Pipes",
+      "Components/QR Codes",
+      "Components/Router",
+      "Components/Scroll",
+      "Components/Storage",
+      "Components/Tooltips",
+      "Components/UI Primitives",
+      "Components/UX Components",
+      "Components/Viewers",
+      "Components/UI Library and Framework Ionic",
+      "Components/Visual Effects",
+      "UI Libraries/Bootstrap",
+      "UI Libraries/Material",
+      "UI Libraries/Tailwind CSS",
+      "UI Libraries/Other",
+      "Underlying Technologies/RxJS",
+      "Underlying Technologies/TypeScript",
+      "Architecture and Advanced Topics/Feature Flags",
+      "Architecture and Advanced Topics/GraphQL",
+      "Architecture and Advanced Topics/HTTP",
+      "Architecture and Advanced Topics/Micro-Frontends",
+      "Architecture and Advanced Topics/Module Federation",
+      "Architecture and Advanced Topics/Server-Side Rendering",
+      "Framework Interoperability/Cross-Framework Integration",
+      "Framework Interoperability/External Integration",
+      "Framework Interoperability/Wrappers",
+      "Angular-Inspired Solutions",
+      "Learning Resources/Exercises",
+      "Learning Resources/Reference"
+    ]
+  }
+}

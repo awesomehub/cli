@@ -1,0 +1,11 @@
+{
+  "id": "java",
+  "name": "Java",
+  "desc": "Java frameworks, libraries, software and resources.",
+  "sources": [
+    {
+      "type": "github.list",
+      "data": "akullpp/awesome-java"
+    }
+  ]
+}

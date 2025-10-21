@@ -1,0 +1,423 @@
+{
+  "id": "webpack",
+  "name": "Webpack",
+  "desc": "Webpack plugins, libraries, tools and applications.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Official"
+      },
+      "data": [
+        "webpack/webpack",
+        "webpack/css-loader",
+        "webpack/style-loader",
+        "webpack/example-app",
+        "webpack/less-loader",
+        "webpack/grunt-webpack",
+        "webpack/enhanced-require",
+        "webpack/webpack-dev-middleware",
+        "webpack/enhanced-resolve",
+        "webpack/template",
+        "webpack/webpack-dev-server",
+        "webpack/jquery-wpt-module",
+        "webpack/bootstrap-wpt-module",
+        "webpack/graph",
+        "webpack/webpack.github.com",
+        "webpack/loader-utils",
+        "webpack/webpack-tests-example",
+        "webpack/the-big-test",
+        "webpack/enhanced-resolve-completion-demo",
+        "webpack/core",
+        "webpack/tapable",
+        "webpack/docs",
+        "webpack/analyse",
+        "webpack/node-libs-browser",
+        "webpack/playground",
+        "webpack/stylus-loader",
+        "webpack/webpack-with-common-libs",
+        "webpack/sass-loader",
+        "webpack/react-webpack-server-side-example",
+        "webpack/memory-fs",
+        "webpack/react-starter",
+        "webpack/fastparse",
+        "webpack/watchpack",
+        "webpack/github-wiki",
+        "webpack/postcss-loader",
+        "webpack/concord",
+        "webpack/source-list-map",
+        "webpack/hot-node-example",
+        "webpack/github-org-overview",
+        "webpack/analyse-tool",
+        "webpack/loader-runner",
+        "webpack/webpack-sources",
+        "webpack/webpack.js.org",
+        "webpack/meeting-notes",
+        "webpack/media",
+        "webpack/webpack-cli",
+        "webpack/webpack-pwa",
+        "webpack/eslint-config-webpack",
+        "webpack/schema-utils",
+        "webpack/image-minimizer-webpack-plugin",
+        "webpack/voting-app",
+        "webpack/escope",
+        "webpack/mini-css-extract-plugin",
+        "webpack/meetup-2018-05-08",
+        "webpack/management",
+        "webpack/terser-webpack-plugin",
+        "webpack/changelog-v5",
+        "webpack/css-minimizer-webpack-plugin",
+        "webpack/v4.webpack.js.org",
+        "webpack/tooling",
+        "webpack/html-minimizer-webpack-plugin",
+        "webpack/json-minimizer-webpack-plugin",
+        "webpack/benchmark",
+        "webpack/.github",
+        "webpack/governance",
+        "webpack/tsc",
+        "webpack/gsoc",
+        "webpack/security-wg",
+        "webpack/design-wg",
+        "webpack/performance-wg",
+        "webpack/wg-template"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Official Contrib"
+      },
+      "data": [
+        "webpack-contrib/json-loader",
+        "webpack-contrib/raw-loader",
+        "webpack-contrib/coffee-loader",
+        "webpack-contrib/script-loader",
+        "webpack-contrib/bundle-loader",
+        "webpack-contrib/val-loader",
+        "webpack-contrib/file-loader",
+        "webpack-contrib/url-loader",
+        "webpack-contrib/i18n-loader",
+        "webpack-contrib/json5-loader",
+        "webpack-contrib/worker-loader",
+        "webpack-contrib/jshint-loader",
+        "webpack-contrib/imports-loader",
+        "webpack-contrib/exports-loader",
+        "webpack-contrib/mocha-loader",
+        "webpack-contrib/coverjs-loader",
+        "webpack-contrib/expose-loader",
+        "webpack-contrib/node-loader",
+        "webpack-contrib/i18n-webpack-plugin",
+        "webpack-contrib/component-webpack-plugin",
+        "webpack-contrib/coffee-redux-loader",
+        "webpack-contrib/compression-webpack-plugin",
+        "webpack-contrib/transform-loader",
+        "webpack-contrib/html-loader",
+        "webpack-contrib/extract-text-webpack-plugin",
+        "webpack-contrib/source-map-loader",
+        "webpack-contrib/react-proxy-loader",
+        "webpack-contrib/null-loader",
+        "webpack-contrib/multi-loader",
+        "webpack-contrib/istanbul-instrumenter-loader",
+        "webpack-contrib/eslint-loader",
+        "webpack-contrib/yaml-frontmatter-loader",
+        "webpack-contrib/svg-inline-loader",
+        "webpack-contrib/webpack-hot-middleware",
+        "webpack-contrib/purifycss-webpack",
+        "webpack-contrib/copy-webpack-plugin",
+        "webpack-contrib/install-webpack-plugin",
+        "webpack-contrib/stylelint-webpack-plugin",
+        "webpack-contrib/awesome-webpack",
+        "webpack-contrib/babel-minify-webpack-plugin",
+        "webpack-contrib/webpack-bundle-analyzer",
+        "webpack-contrib/webpack-canary",
+        "webpack-contrib/uglifyjs-webpack-plugin",
+        "webpack-contrib/organization",
+        "webpack-contrib/babel-preset-webpack",
+        "webpack-contrib/webpack-defaults",
+        "webpack-contrib/restyle-loader",
+        "webpack-contrib/gzip-loader",
+        "webpack-contrib/cache-loader",
+        "webpack-contrib/thread-loader",
+        "webpack-contrib/zopfli-webpack-plugin",
+        "webpack-contrib/remark-loader",
+        "webpack-contrib/closure-webpack-plugin",
+        "webpack-contrib/circleci-node-base",
+        "webpack-contrib/circleci-node-jdk8",
+        "webpack-contrib/circleci-jdk9-node8",
+        "webpack-contrib/circleci-jdk9-node6",
+        "webpack-contrib/circleci-jdk9-node9",
+        "webpack-contrib/circleci-node6",
+        "webpack-contrib/circleci-node8",
+        "webpack-contrib/circleci-node9",
+        "webpack-contrib/webpack-log",
+        "webpack-contrib/webpack-serve",
+        "webpack-contrib/webpack-hot-client",
+        "webpack-contrib/test-utils",
+        "webpack-contrib/webpack-stylish",
+        "webpack-contrib/webpack-command",
+        "webpack-contrib/tag-versions",
+        "webpack-contrib/config-loader",
+        "webpack-contrib/circleci-node10",
+        "webpack-contrib/circleci-jdk9-node10",
+        "webpack-contrib/cli-utils",
+        "webpack-contrib/eslint-webpack-plugin"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Webpack Plugins"
+      },
+      "data": [
+        "webpack/compression-webpack-plugin",
+        "NekR/offline-plugin",
+        "jhnns/rewire-webpack",
+        "ampedandwired/html-webpack-plugin",
+        "kevlened/copy-webpack-plugin",
+        "BohdanTkachenko/webpack-split-by-path",
+        "goldhand/sw-precache-webpack-plugin",
+        "gdi2290/core-js-webpack-plugin",
+        "th0r/webpack-bundle-analyzer",
+        "spartez/module-mapping-webpack-plugin",
+        "elastic-coders/serverless-webpack",
+        "chrisvfritz/prerender-spa-plugin",
+        "markdalgleish/static-site-generator-webpack-plugin",
+        "TodayTix/svg-sprite-webpack-plugin",
+        "Klathmon/imagemin-webpack-plugin",
+        "gajus/prepack-webpack-plugin",
+        "mastilver/modules-cdn-webpack-plugin",
+        "lostpebble/generate-package-json-webpack-plugin",
+        "arthurbergmz/webpack-pwa-manifest",
+        "gregnb/filemanager-webpack-plugin",
+        "TypeStrong/fork-ts-checker-webpack-plugin",
+        "darrenscerri/duplicate-package-checker-webpack-plugin",
+        "aackerman/circular-dependency-plugin",
+        "adierkens/webpack-inject-plugin",
+        "agoldis/webpack-require-from",
+        "roccoc/webpack-build-notifier",
+        "do-web/css-cleanup-webpack-plugin",
+        "rubenspgcavalcante/webpack-extension-reloader",
+        "zaaack/htmls-webpack-plugin",
+        "webpack/mini-css-extract-plugin",
+        "Cosium/build-hash-webpack-plugin",
+        "tienne/webpack-hook-plugin",
+        "bios21/dynamic-vendor-webpack-plugin",
+        "bios21/define-variable-webpack-plugin",
+        "drewloomer/hook-shell-script-webpack-plugin",
+        "webpack-contrib/stylelint-webpack-plugin",
+        "webpack-contrib/eslint-webpack-plugin",
+        "klaytonfaria/webpack-exclude-assets-plugin",
+        "s00d/webpack-shell-plugin-next",
+        "juanluispaz/gettext-webpack-plugin",
+        "Richienb/node-polyfill-webpack-plugin",
+        "herberttn/bytenode-webpack-plugin",
+        "KeisukeYamashita/chrome-extension-archive-webpack-plugin",
+        "layer-pack/layer-pack",
+        "ssigwart/webpack-typescript-directory-compile-plugin",
+        "CycloneDX/cyclonedx-webpack-plugin",
+        "licg9999/transpile-webpack-plugin",
+        "shellscape/webpack-manifest-plugin",
+        "steverep/transform-async-modules-webpack-plugin",
+        "kburich/css-layering-webpack-plugin",
+        "lodash/lodash-webpack-plugin",
+        "gilmoreorless/moment-timezone-data-webpack-plugin",
+        "FullHuman/purgecss"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Webpack Tools"
+      },
+      "data": [
+        "webpack/webpack-dev-middleware",
+        "webpack/webpack-dev-server",
+        "survivejs/webpack-merge",
+        "ericclemmons/npm-install-webpack-plugin",
+        "js-dxtools/webpack-validator",
+        "kentcdodds/webpack-config-utils",
+        "AngularClass/webpack-toolkit",
+        "th0r/webpack-bundle-analyzer",
+        "HenrikJoreteg/hjs-webpack",
+        "FormidableLabs/webpack-dashboard",
+        "mozilla-neutrino/neutrino-dev",
+        "stephencookdev/speed-measure-webpack-plugin",
+        "ShuiRuTian/time-analytics-webpack-plugin",
+        "relative-ci/bundle-stats",
+        "kuncevic/webpack-landing-generator",
+        "funbox/webpack-dev-server-firewall",
+        "danvk/source-map-explorer",
+        "smelukov/statoscope",
+        "pastelsky/bundlephobia"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Integration Libraries"
+      },
+      "data": [
+        "mrsteele/dotenv-webpack",
+        "ericclemmons/terse-webpack",
+        "guybedford/systemjs-webpack-plugin",
+        "shama/webpack-stream",
+        "andywer/webpack-blocks",
+        "rails/webpacker",
+        "frankwallis/WebpackAspnetMiddleware",
+        "marlonmleite/consul-env-webpack-plugin"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Loaders/Component And Template"
+      },
+      "data": [
+        "TheLarkInn/angular2-template-loader",
+        "pcardune/handlebars-loader",
+        "vuejs/vue-loader",
+        "jhamlet/svg-react-loader",
+        "emaphp/underscore-template-loader",
+        "WearyMonkey/ngtemplate-loader",
+        "seveves/ng-inline-styles-loader",
+        "asnowwolf/markup-inline-loader",
+        "webpack-contrib/polymer-webpack-loader",
+        "riot/tag-loader",
+        "zimmo-be/twig-loader",
+        "YashdalfTheGray/auto-ngtemplate-loader",
+        "pugjs/pug-loader",
+        "ogonkov/nunjucks-loader",
+        "autopulated/webpack-pwa-manifest-loader"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Loaders/File Type"
+      },
+      "data": [
+        "webpack/html-loader",
+        "herrstucki/responsive-loader",
+        "bhovhannes/svg-url-loader",
+        "popul/mermaid-loader",
+        "ballercat/wasm-loader",
+        "itgalaxy/imagemin-webpack",
+        "milewski/bin-exec-loader",
+        "stephen/graphql-loader"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Loaders/Styles"
+      },
+      "data": [
+        "webpack/style-loader",
+        "webpack/postcss-loader",
+        "webpack/css-loader",
+        "webpack/sass-loader",
+        "webpack/less-loader",
+        "webpack/stylus-loader",
+        "kriasoft/isomorphic-style-loader",
+        "zaaack/minify-cssinjs-loader",
+        "shakacode/sass-resources-loader"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Loaders/Language And Framework"
+      },
+      "data": [
+        "TypeStrong/ts-loader",
+        "webpack/coffee-loader",
+        "shakacode/bootstrap-loader",
+        "posthtml/posthtml-loader",
+        "rtfeldman/elm-webpack-loader",
+        "fengari-lua/fengari-loader"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Loaders/Utility"
+      },
+      "data": [
+        "babel/babel-loader",
+        "webpack/worker-loader",
+        "bholloway/resolve-url-loader",
+        "webpack/imports-loader",
+        "vusion/icon-font-loader",
+        "shlomiassaf/ng-router-loader",
+        "lingui/js-lingui",
+        "localjo/shell-loader",
+        "herschel666/exif-loader",
+        "privatenumber/esbuild-loader",
+        "webpack/karma-webpack",
+        "DxCx/webpack-istanbul-plugin"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Community Examples/Angular"
+      },
+      "data": [
+        "AngularClass/angular2-webpack-starter",
+        "preboot/angular2-webpack",
+        "damienbod/Angular2WebpackVisualStudio",
+        "schempy/angular2-typescript-webpack",
+        "angular/angular2-seed",
+        "angular/universal"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Community Examples/React"
+      },
+      "data": [
+        "facebookincubator/create-react-app",
+        "kriasoft/react-starter-kit",
+        "erikras/react-redux-universal-hot-example",
+        "tj/frontend-boilerplate",
+        "reactGo/reactGo",
+        "benoitvallon/react-native-nw-react-calculator",
+        "unimonkiez/react-cordova-boilerplate",
+        "ctrlplusb/react-universally",
+        "kireerik/razzle-material-ui-styled-example",
+        "logustra/read",
+        "AwesomeDevin/route-resource-preload"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Community Examples/Miscellaneous"
+      },
+      "data": [
+        "kentcdodds/es6-todomvc",
+        "logustra/vuad",
+        "styopdev/webpack-interview-questions",
+        "webpack/webpack"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Official",
+      "Official Contrib",
+      "Webpack Plugins",
+      "Webpack Tools",
+      "Integration Libraries",
+      "Loaders/Component And Template",
+      "Loaders/File Type",
+      "Loaders/Styles",
+      "Loaders/Language And Framework",
+      "Loaders/Utility",
+      "Community Examples/Angular",
+      "Community Examples/React",
+      "Community Examples/Miscellaneous"
+    ]
+  }
+}
