@@ -63,18 +63,18 @@ class BuildFactory implements BuildFactoryInterface
      */
     protected function getNextBuildNumber(): string
     {
-        $number = [date('Ymd'), 0];
-        $file = $this->workspace->path('.buildnum');
-        if (file_exists($file)) {
-            $pnumber = explode('.', $this->filesystem->read($file));
-            if (2 === \count($pnumber) && $number[0] === $pnumber[0]) {
-                $number[1] = (int) $pnumber[1] + 1;
+        $date = date('Ymd');
+        $increment = 0;
+
+        $currentBuild = $this->getCurrent();
+        if ($currentBuild instanceof BuildInterface) {
+            $currentNumber = $currentBuild->getNumber();
+            $parts = explode('.', $currentNumber);
+            if (2 === \count($parts) && $parts[0] === $date) {
+                $increment = (int) $parts[1] + 1;
             }
         }
 
-        $number = \sprintf('%d.%d', $number[0], $number[1]);
-        $this->filesystem->write($file, $number);
-
-        return $number;
+        return \sprintf('%s.%d', $date, $increment);
     }
 }
