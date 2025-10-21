@@ -157,7 +157,7 @@
     {
       "type": "github.repos",
       "options": {
-        "category": "Command-line Interface Development"
+        "category": "Command-line Interface"
       },
       "data": [
         "datafolklabs/cement",
@@ -1132,7 +1132,7 @@
       "Built-in Classes Enhancement",
       "Caching",
       "Code Analysis",
-      "Command-line Interface Development",
+      "Command-line Interface",
       "Command-line Tools",
       "Computer Vision",
       "Data Validation",
