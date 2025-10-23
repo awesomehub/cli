@@ -17,7 +17,7 @@ class RepoGithubEntry extends AbstractEntry implements RepoGithubEntryInterface
      */
     public function __construct(string $author, string $name)
     {
-        parent::__construct(self::getType().':'.$author.'/'.$name, [
+        parent::__construct(self::getType().':'.strtolower($author).'/'.strtolower($name), [
             'author' => $author,
             'name' => $name,
         ]);
