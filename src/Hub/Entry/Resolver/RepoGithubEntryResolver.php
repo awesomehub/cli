@@ -172,10 +172,10 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
      */
     protected function cleanStr(string $string): string
     {
-        // Strip non-utf chars
-        $string = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $string);
+        // Remove control characters (but keep valid UTF-8)
+        $string = preg_replace('/[\x00-\x1F\x7F]/u', '', $string);
 
-        // Strip github emoticons
-        return trim(preg_replace('/:[^:]+:/', '', $string));
+        // Strip GitHub-style emoticons like :smile:
+        return trim(preg_replace('/:[^:\s]+:/', '', $string));
     }
 }
