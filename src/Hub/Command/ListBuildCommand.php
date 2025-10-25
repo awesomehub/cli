@@ -57,7 +57,7 @@ class ListBuildCommand extends Command
                 '-c',
                 Input\InputOption::VALUE_REQUIRED,
                 'Maximum number of concurrent resolver workers',
-                12
+                1
             )
             ->addOption(
                 '--format',
