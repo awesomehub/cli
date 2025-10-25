@@ -42,6 +42,20 @@ class MakeBuildCommand extends Command
                 self::DEFAULT_BASE_URL
             )
             ->addOption(
+                '--format',
+                '-f',
+                Input\InputOption::VALUE_OPTIONAL,
+                'Build output format',
+                'json'
+            )
+            ->addOption(
+                '--hash',
+                '',
+                Input\InputOption::VALUE_NEGATABLE,
+                'Whether to hash versioned build output files',
+                true
+            )
+            ->addOption(
                 '--release',
                 '-r',
                 Input\InputOption::VALUE_NONE,
@@ -52,8 +66,8 @@ class MakeBuildCommand extends Command
 
     protected function exec(): int
     {
-        $buildFactory = new BuildFactory($this->filesystem, $this->workspace);
-        $build = $buildFactory->create();
+        $buildFactory = new BuildFactory($this->filesystem, $this->workspace, (string) $this->input->getOption('format'));
+        $build = $buildFactory->create(hashed: (bool) $this->input->getOption('hash'));
         $cachedBuild = $buildFactory->getCached() ?: null;
         $lists = EntryListFile::findCachedLists($this->workspace);
         $baseUrl = $this->resolveBaseUrl();

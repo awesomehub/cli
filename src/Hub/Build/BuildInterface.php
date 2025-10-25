@@ -47,7 +47,7 @@ interface BuildInterface
      *
      * @param bool $raw Ignore data serialization
      */
-    public function write(string $path, mixed $data, bool $raw = false): void;
+    public function write(string $path, mixed $data, bool $raw = false): string;
 
     /**
      * Reads a file from the build directory.

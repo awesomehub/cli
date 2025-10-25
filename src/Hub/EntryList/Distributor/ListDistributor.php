@@ -7,7 +7,6 @@ namespace Hub\EntryList\Distributor;
 use Hub\Build\BuildInterface;
 use Hub\Entry\RepoGithubEntryInterface;
 use Hub\EntryList\EntryListInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 /**
  * Distributes lists into API consumable files.
@@ -21,7 +20,6 @@ class ListDistributor implements ListDistributorInterface
 
     /** @var array<string, array<string, array<string, mixed>>> */
     protected array $collectionsData = [];
-    protected JsonEncode $jsonEncoder;
 
     public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, ?array $config = null)
     {
@@ -32,8 +30,6 @@ class ListDistributor implements ListDistributorInterface
         if ($config) {
             $this->config = array_merge($this->config, $config);
         }
-
-        $this->jsonEncoder = new JsonEncode();
     }
 
     public function distribute(EntryListInterface $list): void
@@ -84,11 +80,9 @@ class ListDistributor implements ListDistributorInterface
                 'entries' => $entriesCount,
             ];
 
-            $encoded = $this->encodeData($collectionPayload);
-            $hash = $this->hashContent($encoded);
-            $relativePath = \sprintf('%s/%s.%s.json', $this->build->getNumber(), $collectionId, $hash);
-            $this->build->write($relativePath, $encoded, true);
-            $urls[$collectionId] = '/'.$relativePath;
+            $relativePath = \sprintf('collection/%s', $collectionId);
+            $buildPath = $this->build->write($relativePath, $collectionPayload);
+            $urls[$collectionId] = $buildPath;
         }
 
         ksort($urls);
@@ -152,12 +146,10 @@ class ListDistributor implements ListDistributorInterface
         }
 
         $list['entries'] = $entries;
-        $encodedList = $this->encodeData($list);
-        $hash = $this->hashContent($encodedList);
-        $relativePath = \sprintf('%s/list/%s.%s.json', $this->build->getNumber(), $list['id'], $hash);
-        $this->build->write($relativePath, $encodedList, true);
+        $relativePath = \sprintf('list/%s', $list['id']);
+        $buildPath = $this->build->write($relativePath, $list);
 
-        $this->currentListUrl = '/'.$relativePath;
+        $this->currentListUrl = $buildPath;
         $this->updated = $list['updated'];
     }
 
@@ -218,8 +210,7 @@ class ListDistributor implements ListDistributorInterface
             return false;
         }
 
-        return unserialize($this->cachedBuild->read($file, true))
-                ?: false;
+        return unserialize($this->cachedBuild->read($file, true)) ?: false;
     }
 
     /**
@@ -263,19 +254,5 @@ class ListDistributor implements ListDistributorInterface
         }
 
         return $difference;
-    }
-
-    protected function encodeData(mixed $data): string
-    {
-        return $this->jsonEncoder->encode($data, $this->build->getFormat());
-    }
-
-    protected function hashContent(string $content): string
-    {
-        if (\in_array('xxh64', hash_algos(), true)) {
-            return hash('xxh64', $content);
-        }
-
-        return substr(hash('md5', $content), 0, 16);
     }
 }

@@ -14,7 +14,7 @@ class BuildFactory implements BuildFactoryInterface
 {
     protected array $path;
 
-    public function __construct(protected Filesystem $filesystem, protected WorkspaceInterface $workspace)
+    public function __construct(protected Filesystem $filesystem, protected WorkspaceInterface $workspace, protected string $format)
     {
         $this->path = [
             'dist' => $this->workspace->path('dist'),
@@ -22,12 +22,14 @@ class BuildFactory implements BuildFactoryInterface
         ];
     }
 
-    public function create($path = null): BuildInterface
+    public function create($path = null, bool $hashed = true): BuildInterface
     {
         $build = new Build(
             $this->filesystem,
-            $path ?: $this->path['dist'],
-            $this->getNextBuildNumber()
+            $this->format,
+            path: $path ?: $this->path['dist'],
+            hashed: $hashed,
+            number: $this->getNextBuildNumber(),
         );
 
         $build->clean();
@@ -43,7 +45,7 @@ class BuildFactory implements BuildFactoryInterface
     public function getCurrent(): ?BuildInterface
     {
         try {
-            return new Build($this->filesystem, $this->path['dist']);
+            return new Build($this->filesystem, $this->format, path: $this->path['dist']);
         } catch (\Exception $e) {
             return null;
         }
@@ -52,7 +54,7 @@ class BuildFactory implements BuildFactoryInterface
     public function getCached(): ?BuildInterface
     {
         try {
-            return new Build($this->filesystem, $this->path['cached']);
+            return new Build($this->filesystem, $this->format, path: $this->path['cached']);
         } catch (\Exception $e) {
             return null;
         }

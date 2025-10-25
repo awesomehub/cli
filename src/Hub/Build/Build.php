@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hub\Build;
 
 use Hub\Filesystem\Filesystem;
-use Symfony\Component\Serializer;
+use Symfony\Component\Serializer\Encoder;
 
 /**
  * Represents a build.
@@ -13,22 +13,36 @@ use Symfony\Component\Serializer;
 class Build implements BuildInterface
 {
     protected string $path;
+    protected string $format;
+    protected Encoder\EncoderInterface $encoder;
+    protected Encoder\DecoderInterface $decoder;
     protected array $meta;
 
     /**
      * Constructor.
      */
-    public function __construct(protected Filesystem $filesystem, string $path, ?string $number = null)
+    public function __construct(protected Filesystem $filesystem, string $format, string $path, protected bool $hashed = true, ?string $number = null)
     {
         if (empty($path)) {
             throw new \InvalidArgumentException('The build path can not be empty');
         }
         $this->path = $path;
 
+        $format = strtolower($format);
+        if (!\in_array($format, ['js', 'json'])) {
+            throw new \InvalidArgumentException('Invalid build format provided');
+        }
+        $this->format = $format;
+        $this->encoder = 'js' === $format ? new JsEncode() : new Encoder\JsonEncode();
+        $this->decoder = 'js' === $format
+            ? new JsDecode([Encoder\JsonDecode::ASSOCIATIVE => true])
+            : new Encoder\JsonDecode([Encoder\JsonDecode::ASSOCIATIVE => true]);
+
         if (!empty($number)) {
             $this->set([
                 'number' => $number,
                 'date' => date('c'),
+                'hashed' => $hashed,
                 'urls' => new \stdClass(),
             ]);
 
@@ -82,14 +96,14 @@ class Build implements BuildInterface
     {
         if (1 === \func_num_args()) {
             if (!\is_array($key)) {
-                new \InvalidArgumentException(\sprintf('Expected array but got %s', var_export($value, true)));
+                throw new \InvalidArgumentException(\sprintf('Expected array but got %s', var_export($value, true)));
             }
             $this->meta = $key;
         } else {
             $this->meta[$key] = $value;
         }
 
-        $this->write('build', $this->meta);
+        $this->write('build', $this->meta, hash: false);
     }
 
     public function get(?string $key = null): mixed
@@ -98,26 +112,31 @@ class Build implements BuildInterface
             return $this->meta;
         }
 
-        return $this->meta[$key]
-                ?? false;
+        return $this->meta[$key] ?? false;
     }
 
     public function getFormat(): string
     {
-        return 'json';
+        return $this->format;
     }
 
-    public function write(string $path, mixed $data, bool $raw = false): void
+    public function write(string $path, mixed $data, bool $raw = false, bool $hash = true): string
     {
-        $path = $this->getPath($path, $raw);
-
         try {
             if (!$raw) {
-                $encoder = new Serializer\Encoder\JsonEncode();
-                $data = $encoder->encode($data, $this->getFormat());
+                $data = $this->encoder->encode($data, $this->getFormat());
             }
 
+            $relPath = $path;
+            if ($hash && $this->hashed) {
+                $hash = $this->hashContent($data);
+                $relPath = \sprintf('%s/%s.%s', $this->getNumber(), $path, $hash);
+            }
+
+            $path = $this->getPath($relPath, $raw);
             $this->filesystem->write($path, $data);
+
+            return $relPath;
         } catch (\Exception $e) {
             throw new \RuntimeException(\sprintf("Failed writing '%s'; %s", $path, $e->getMessage()), 0, $e);
         }
@@ -133,11 +152,7 @@ class Build implements BuildInterface
                 return $encoded;
             }
 
-            $decoder = new Serializer\Encoder\JsonDecode([
-                Serializer\Encoder\JsonDecode::ASSOCIATIVE => true,
-            ]);
-
-            return $decoder->decode($encoded, $this->getFormat());
+            return $this->decoder->decode($encoded, $this->getFormat());
         } catch (\Exception $e) {
             throw new \RuntimeException(\sprintf("Failed reading '%s'; %s", $path, $e->getMessage()), 0, $e);
         }
@@ -150,7 +165,7 @@ class Build implements BuildInterface
 
     public function finalize(): void
     {
-        $this->write('build', $this->meta);
+        $this->write('build', $this->meta, hash: false);
     }
 
     public function clean(): void
@@ -168,5 +183,14 @@ class Build implements BuildInterface
         if (!empty($paths)) {
             $this->filesystem->remove($paths);
         }
+    }
+
+    protected function hashContent(string $content): string
+    {
+        if (\in_array('xxh64', hash_algos(), true)) {
+            return hash('xxh64', $content);
+        }
+
+        return substr(hash('md5', $content), 0, 16);
     }
 }
