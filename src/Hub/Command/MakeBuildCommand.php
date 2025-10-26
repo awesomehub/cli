@@ -153,8 +153,7 @@ class MakeBuildCommand extends Command
                 continue;
             }
 
-            $encodedPath = rawurlencode($category['path']);
-            $paths[] = $this->normalizeSitemapPath(\sprintf('/list/%s/%s', $listId, $encodedPath));
+            $paths[] = $this->normalizeSitemapPath(\sprintf('/list/%s/%s', $listId, $category['path']));
         }
 
         return $paths;
