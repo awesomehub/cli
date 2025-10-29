@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hub\EntryList\Distributor;
 
 use Hub\Build\BuildInterface;
+use Hub\Entry\RepoGithubEntry;
 use Hub\Entry\RepoGithubEntryInterface;
 use Hub\EntryList\EntryListInterface;
 
@@ -13,6 +14,8 @@ use Hub\EntryList\EntryListInterface;
  */
 class ListDistributor implements ListDistributorInterface
 {
+    private const RANK_BANDS = [1, 3, 5, 10, 50, 90];
+
     protected EntryListInterface $list;
     protected array $config;
     protected int $updated;
@@ -121,8 +124,54 @@ class ListDistributor implements ListDistributorInterface
                 $entryData = $this->buildEntryRepoGithub($entryData, $entryDataCache);
             }
 
-            $entries[$entry::getType()][] = $entryData;
+            $entryType = $entry::getType();
+            $entries[$entryType][] = $entryData;
             ++$entries_count;
+        }
+
+        $githubRepoType = RepoGithubEntry::getType();
+        if (!empty($entries[$githubRepoType])) {
+            usort($entries[$githubRepoType], static function (array $a, array $b): int {
+                $scoreA = (float) ($a['score'] ?? 0);
+                $scoreB = (float) ($b['score'] ?? 0);
+
+                if ($scoreA === $scoreB) {
+                    $idA = strtolower($a['author'].'/'.$a['name']);
+                    $idB = strtolower($b['author'].'/'.$b['name']);
+
+                    return $idA <=> $idB;
+                }
+
+                return $scoreB <=> $scoreA;
+            });
+
+            $totalGithubEntries = \count($entries[$githubRepoType]);
+            $bands = [];
+            foreach (self::RANK_BANDS as $bandPercentile) {
+                $bands[$bandPercentile] = (int) max(1, ceil($totalGithubEntries * ($bandPercentile / 100)));
+            }
+
+            $rank = 0;
+            $position = 0;
+            $previousScore = null;
+            foreach ($entries[$githubRepoType] as $index => $entry) {
+                ++$position;
+                $score = (float) ($entry['score'] ?? 0);
+                if (null === $previousScore || $score !== $previousScore) {
+                    $rank = $position;
+                    $previousScore = $score;
+                }
+
+                $band = 100;
+                foreach ($bands as $bandValue => $threshold) {
+                    if ($rank <= $threshold) {
+                        $band = $bandValue;
+
+                        break;
+                    }
+                }
+                $entries[$githubRepoType][$index]['rank'] = $band;
+            }
         }
 
         $this->list->set('score', (int) ($entries_total_score / max(1, $entries_count)));
