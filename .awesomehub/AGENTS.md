@@ -21,6 +21,7 @@ The `data` field represents either a GitHub repo with `README.md` file under rep
  - If a top-level heading would only produce a single subcategory, collapse it into a single category and give it an SEO-friendly name instead of keeping a parent/child split.
  - Categories should be organized in a sane and logical order, so for example, for an angular list, official repos should be listed first, then other important sections.
  - Sometimes there is a `markdownCategories` field which defines some unneeded headings to ignore or rename, that shouldn't prevent you from parsing all other headers.
+ - `options.commit` represents the last successfully built commit, if it has a value, checkout the repository in `cache/` dir and process only the changes since the last commit
 
 ### Workflow Summary
 

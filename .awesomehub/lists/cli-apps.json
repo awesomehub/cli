@@ -1,0 +1,753 @@
+{
+  "id": "cli-apps",
+  "name": "Command-line Apps",
+  "desc": "Open-source command line apps across everyday use cases.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Entertainment/Music"
+      },
+      "data": [
+        "cmus/cmus",
+        "yask123/Instant-Music-Downloader",
+        "mischah/itunes-remote",
+        "rockymadden/somafm-cli",
+        "MusicPlayerDaemon/MPD",
+        "arybczak/ncmpcpp",
+        "clangen/musikcube",
+        "beetbox/beets",
+        "Rigellute/spotify-tui",
+        "SwagLyrics/SwagLyrics-For-Spotify",
+        "yne/dzr",
+        "deep5050/radio-active",
+        "gmt4/mpvc",
+        "Dark-Kernel/tuisic"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Entertainment/Video & Streaming"
+      },
+      "data": [
+        "ytdl-org/youtube-dl",
+        "streamlink/streamlink",
+        "mps-youtube/mps-youtube",
+        "mpv-player/mpv",
+        "mifi/editly",
+        "yt-dlp/yt-dlp",
+        "iCHAIT/moviemon",
+        "mayankchd/movie"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Entertainment/Reading & Chat"
+      },
+      "data": [
+        "newsboat/newsboat",
+        "L4z3x/mal-cli",
+        "wustho/epr",
+        "BibleJS/BibleApp",
+        "sunsations/speed_read",
+        "djadmin/medium-cli",
+        "kruserr/hygg",
+        "irssi/irssi",
+        "mcpcpc/kirc",
+        "weechat/weechat"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Entertainment/Games & Fun"
+      },
+      "data": [
+        "lxgr-linux/Pokete",
+        "CleverRaven/Cataclysm-DDA",
+        "riyadhalnur/quote-cli",
+        "shlomif/fortune-mod",
+        "erkin/ponysay",
+        "yeoman/yosay",
+        "busyloop/lolcat",
+        "ChrisBuilds/terminaltexteffects",
+        "beatfreaker/text-meme-cli",
+        "sggts04/dankcli",
+        "roma-guru/ricksay"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Workflow Utilities"
+      },
+      "data": [
+        "captainsafia/legit",
+        "cezaraugusto/mklicense",
+        "shobrook/rebound",
+        "zaaack/foy",
+        "casey/just",
+        "jarun/bcal",
+        "mellowcandle/bitwise",
+        "bnagy/cgasm",
+        "pemistahl/grex",
+        "pvarentsov/iola",
+        "TejasQ/add-gitignore",
+        "sindresorhus/is-up-cli",
+        "italolelis/reachable",
+        "rtfpessoa/diff2html-cli"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Text Editors"
+      },
+      "data": [
+        "emacs-mirror/emacs",
+        "vim/vim",
+        "neovim/neovim",
+        "mawww/kakoune",
+        "zyedidia/micro",
+        "xyproto/o",
+        "helix-editor/helix"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Web & Mobile"
+      },
+      "data": [
+        "sgentle/caniuse-cmd",
+        "sindresorhus/strip-css-comments-cli",
+        "kevva/viewport-list-cli",
+        "localtunnel/localtunnel",
+        "robbie-cahill/tunnelmole-client",
+        "SamVerschueren/mobicon-cli",
+        "SamVerschueren/mobisplash-cli",
+        "c0bra/deviceframe"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Database Clients"
+      },
+      "data": [
+        "dbcli/mycli",
+        "dbcli/pgcli",
+        "julianhyde/sqlline",
+        "laixintao/iredis",
+        "xo/usql"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/DevOps & Deployment"
+      },
+      "data": [
+        "lukechilds/htconvert",
+        "donnemartin/saws",
+        "s3tools/s3cmd",
+        "Unitech/pm2",
+        "nanovms/ops",
+        "mingrammer/flog",
+        "derailed/k9s",
+        "kha7iq/pingme",
+        "agentofuser/ipfs-deploy",
+        "brandonweiss/discharge",
+        "updatecli/updatecli",
+        "navig-me/telert",
+        "logdyhq/logdy-core",
+        "peak/s5cmd"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Docker Tools"
+      },
+      "data": [
+        "ivanilves/lstags",
+        "lirantal/dockly",
+        "jesseduffield/lazydocker",
+        "christian-korneck/docker-pushrm",
+        "bcicen/ctop"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Release Automation"
+      },
+      "data": [
+        "webpro/release-it",
+        "clog-tool/clog-cli",
+        "sindresorhus/np",
+        "vercel/release",
+        "semantic-release/semantic-release"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Package & Boilerplate"
+      },
+      "data": [
+        "sindresorhus/npm-name-cli",
+        "sindresorhus/npm-user-cli",
+        "sindresorhus/npm-home",
+        "sindresorhus/pkg-dir-cli",
+        "tjunnone/npm-check-updates",
+        "silverwind/updates",
+        "bntzio/wipe-modules",
+        "yeoman/yo",
+        "tmrts/boilr",
+        "audreyr/cookiecutter",
+        "madlabsinc/mevn-cli",
+        "jamesgeorge007/scaffold-static"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/HTTP & Testing"
+      },
+      "data": [
+        "vercel/serve",
+        "snwfdhmp/simplehttp",
+        "msoap/shell2http",
+        "httpie/httpie",
+        "eliangcs/http-prompt",
+        "jonaslu/ain",
+        "rs/curlie",
+        "Julien-cpsn/ATAC",
+        "shellspec/shellspec",
+        "cyrus-and/gdb-dashboard",
+        "alexfernandez/loadtest",
+        "stepci/stepci"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Workflows"
+      },
+      "data": [
+        "ttscoff/doing",
+        "cytopia/ffscreencast",
+        "specious/meetup-cli",
+        "keepcosmos/terjira",
+        "drselump14/ipt",
+        "jaebradley/uber-cli",
+        "jarun/Buku",
+        "mk-5/fjira",
+        "diit/overtime-cli",
+        "x-cmd/x-cmd"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Time Tracking"
+      },
+      "data": [
+        "samg/timetrap",
+        "omidfi/moro",
+        "GothenburgBitFactory/timewarrior",
+        "TailorDev/Watson",
+        "larose/utt",
+        "nikolassv/bartib",
+        "reportaman/arttime"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Notes & Knowledge"
+      },
+      "data": [
+        "IonicaBizau/idea",
+        "vitaly-zdanevich/geeknote",
+        "simeg/eureka",
+        "insanum/sncli",
+        "darrikonn/td-cli",
+        "klaussinani/taskbook",
+        "dnote/dnote",
+        "xwmx/nb",
+        "Yakitrak/obsidian-cli",
+        "jtaylortech/journalot"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Finance & Analytics"
+      },
+      "data": [
+        "thompsonemerson/moeda",
+        "xxczaki/cash-cli",
+        "miguelmota/cointop",
+        "achannarasappa/ticker"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Calendars & Presentations"
+      },
+      "data": [
+        "yaronn/wopr",
+        "astefanutti/decktape",
+        "visit1985/mdp",
+        "maaslalani/slides",
+        "marp-team/marp-cli",
+        "insanum/gcalcli",
+        "pimutils/khal",
+        "pimutils/vdirsyncer",
+        "IonicaBizau/birthday"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/General Tools"
+      },
+      "data": [
+        "tatsuhiro-t/aria2",
+        "specious/bitly-client",
+        "nschloe/deadlink",
+        "s0rg/crawley",
+        "sindresorhus/kill-tabs",
+        "get-alex/alex",
+        "clevercli/clevercli"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/macOS"
+      },
+      "data": [
+        "albinekb/open-pip-cli",
+        "danyshaanan/osx-wifi-cli",
+        "sindresorhus/active-win-cli",
+        "alichtman/stronghold",
+        "sindresorhus/dark-mode",
+        "neilberkman/clippy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Remote Access"
+      },
+      "data": [
+        "yudai/gotty",
+        "tmate-io/tmate",
+        "spolu/warp",
+        "keithw/mosh",
+        "xxh/xxh"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Network"
+      },
+      "data": [
+        "sindresorhus/get-port-cli",
+        "beatfreaker/is-reachable-cli",
+        "hlandau/acmetool",
+        "Hakky54/certificate-ripper",
+        "PabloLec/neoss",
+        "mzz2017/gg",
+        "domcyrus/rustnet",
+        "sshuttle/sshuttle",
+        "ddsol/speedtest.net",
+        "sindresorhus/speed-test",
+        "sivel/speedtest-cli",
+        "imsnif/bandwhich"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Theming & Appearance"
+      },
+      "data": [
+        "splash-cli/splash-cli",
+        "sindresorhus/wallpaper-cli",
+        "mjswensen/themer",
+        "jackel27/jackpaper",
+        "deepjyoti30/QuickWall",
+        "JanDeDobbeleer/oh-my-posh",
+        "starship/starship"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Shell Enhancements"
+      },
+      "data": [
+        "kdabir/has",
+        "akavel/up",
+        "sindresorhus/fkill-cli",
+        "ImFeelingDucky/undollar",
+        "koraa/pipe_exec",
+        "lasantosr/intelli-shell"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/System Tools"
+      },
+      "data": [
+        "fastfetch-cli/fastfetch",
+        "gillstrom/battery-level-cli",
+        "kevva/brightness-cli",
+        "Slackadays/Clipboard",
+        "mptre/yank",
+        "gillstrom/screensaver",
+        "lordgiotto/google-font-installer",
+        "nicolargo/glances",
+        "nschloe/tiptop",
+        "sindresorhus/gzip-size-cli"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Markdown & Docs"
+      },
+      "data": [
+        "thlorenz/doctoc",
+        "joeyespo/grip",
+        "axiros/terminal_markdown_viewer",
+        "charmbracelet/glow",
+        "ddddddO/gtree"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Security"
+      },
+      "data": [
+        "gopasspw/gopass",
+        "ivanilves/xiringuito",
+        "sindresorhus/hasha-cli",
+        "sniptt-official/ots",
+        "zx2c4/pass"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Science & Math"
+      },
+      "data": [
+        "metadelta/mdlt",
+        "Qalculate/libqalculate",
+        "papis/papis",
+        "pubs/pubs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Utilities/Info & Weather"
+      },
+      "data": [
+        "chubin/wttr.in",
+        "schachmat/wego",
+        "riyadhalnur/weather-cli",
+        "zquestz/s",
+        "bevacqua/hget",
+        "rastapasta/mapscii",
+        "xxczaki/nasa-cli",
+        "omgimanerd/getnews.tech",
+        "eneserdogan/trino",
+        "soimort/translate-shell"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Learning/Command Line"
+      },
+      "data": [
+        "gleitz/howdoi",
+        "santinic/how2",
+        "nvbn/thefuck",
+        "tldr-pages/tldr",
+        "dthree/wat",
+        "madlabsinc/teachcode",
+        "denisidoro/navi",
+        "ekkinox/yai"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data Manipulation/Processors"
+      },
+      "data": [
+        "saulpw/visidata",
+        "stedolan/jq",
+        "kislyuk/yq",
+        "tomwright/dasel",
+        "raine/ramda-cli",
+        "pandastrike/yaml-cli",
+        "sibprogrammer/xq",
+        "sindresorhus/parse-columns-cli",
+        "kurolabs/stegcloak"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data Manipulation/JSON & Config"
+      },
+      "data": [
+        "therealklanni/jp",
+        "antonmedv/fx",
+        "busyloop/vj",
+        "ddopson/underscore-cli",
+        "sindresorhus/strip-json-comments-cli",
+        "sanity-io/groq-cli",
+        "tomnomnom/gron",
+        "Boeing/config-file-validator",
+        "homeport/dyff",
+        "harelba/q"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Files/File Managers"
+      },
+      "data": [
+        "ranger/ranger",
+        "MidnightCommander/mc",
+        "vifm/vifm",
+        "jarun/nnn",
+        "gokcehan/lf",
+        "leo-arch/clifm",
+        "elfmz/far2l",
+        "sxyazi/yazi",
+        "sayanarijit/xplr"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Files/File Operations"
+      },
+      "data": [
+        "sindresorhus/trash-cli",
+        "sindresorhus/empty-trash-cli",
+        "sindresorhus/del-cli",
+        "sindresorhus/cpy-cli",
+        "jhotmann/node-rename-cli",
+        "open-cli-tools/chokidar-cli",
+        "sindresorhus/file-type-cli",
+        "sharkdp/bat",
+        "ehmicky/unix-permissions",
+        "feross/webtorrent-cli",
+        "eradman/entr",
+        "ManrajGrover/organize-cli",
+        "PabloLec/RecoverPy",
+        "ayoisaiah/f2",
+        "boyter/scc"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Files/Storage Monitoring"
+      },
+      "data": [
+        "imsnif/diskonaut",
+        "Byron/dua-cli",
+        "muesli/duf",
+        "bootandy/dust",
+        "nachoparker/dutree"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Files/Sync & Transfer"
+      },
+      "data": [
+        "ncw/rclone",
+        "timvisee/ffsend",
+        "marionebl/share-cli",
+        "labbots/google-drive-upload",
+        "Akianonymus/gdrive-downloader",
+        "ZinoKader/portal",
+        "Shiphero/shbin",
+        "parvardegr/sharing",
+        "kha7iq/ncp"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Files/Search & Navigation"
+      },
+      "data": [
+        "aweary/alder",
+        "eza-community/eza",
+        "dduan/tre",
+        "antonmedv/ll",
+        "Peltoche/lsd",
+        "triyanox/lla",
+        "wting/autojump",
+        "Angelmmiguel/pm",
+        "rupa/z",
+        "facebook/pathpicker",
+        "changyuheng/fz.sh",
+        "iridakos/goto",
+        "skywind3000/z.lua",
+        "ajeetdsouza/zoxide",
+        "mgunyho/tere",
+        "hugows/hf",
+        "sindresorhus/find-up-cli",
+        "BurntSushi/ripgrep",
+        "junegunn/fzf",
+        "jhspetersson/fselect",
+        "sharkdp/fd",
+        "Canop/broot",
+        "zix99/rare",
+        "lotabout/skim",
+        "ast-grep/ast-grep",
+        "alexpasmantier/television"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Version Control/Git Tools"
+      },
+      "data": [
+        "snowtrack/snowfs",
+        "golbin/git-commander",
+        "IonicaBizau/git-stats",
+        "samverschueren/dev-time-cli",
+        "jonas/tig",
+        "rgburke/grv",
+        "kamranahmedse/git-standup",
+        "sobolevn/git-secret",
+        "vishwanatharondekar/gitlab-cli",
+        "tj/git-extras",
+        "nosarthur/gita",
+        "kefranabg/readme-md-generator",
+        "JPeer264/node-semantic-git-commit-cli",
+        "abhijithvijayan/import-github-labels-cli",
+        "zacanger/git-all-branches",
+        "Zhengqbbb/cz-git",
+        "alichtman/shallow-backup",
+        "jesseduffield/lazygit",
+        "magicmonty/bash-git-prompt",
+        "extrawurst/gitui",
+        "bmf-san/ggc",
+        "pmusolino/AI-Git-Narrator",
+        "IonicaBizau/cli-github",
+        "github/hub",
+        "himynameisdave/git-labelmaker",
+        "carloscuesta/gitmoji-cli",
+        "frinyvonnick/gitmoji-changelog"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media/Imaging & Capture"
+      },
+      "data": [
+        "svg/svgo",
+        "mixn/carbon-now-cli",
+        "kevva/imgur-uploader-cli",
+        "sindresorhus/pageres-cli",
+        "lukechilds/gifgen",
+        "kohler/gifsicle",
+        "icholy/ttygif",
+        "sugyan/ttygif",
+        "chjj/ttystudio",
+        "asciinema/asciinema",
+        "passy/givegif",
+        "jarun/imgp",
+        "oguzhaninan/korkut",
+        "dmikhr/pdfjuicer"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media/Screens & Visuals"
+      },
+      "data": [
+        "Treri/cmatrix",
+        "pipeseroni/pipes.sh",
+        "Duroktar/YuleLog",
+        "dolsup/cli-fireplace",
+        "danyshaanan/cli-mandelbrot",
+        "sindresorhus/sparkly-cli",
+        "sharkdp/pastel",
+        "juan-leon/lowcharts"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Entertainment/Music",
+      "Entertainment/Video & Streaming",
+      "Entertainment/Reading & Chat",
+      "Entertainment/Games & Fun",
+      "Development/Workflow Utilities",
+      "Development/Text Editors",
+      "Development/Web & Mobile",
+      "Development/Database Clients",
+      "Development/DevOps & Deployment",
+      "Development/Docker Tools",
+      "Development/Release Automation",
+      "Development/Package & Boilerplate",
+      "Development/HTTP & Testing",
+      "Productivity/Workflows",
+      "Productivity/Time Tracking",
+      "Productivity/Notes & Knowledge",
+      "Productivity/Finance & Analytics",
+      "Productivity/Calendars & Presentations",
+      "Utilities/General Tools",
+      "Utilities/macOS",
+      "Utilities/Remote Access",
+      "Utilities/Network",
+      "Utilities/Theming & Appearance",
+      "Utilities/Shell Enhancements",
+      "Utilities/System Tools",
+      "Utilities/Markdown & Docs",
+      "Utilities/Security",
+      "Utilities/Science & Math",
+      "Utilities/Info & Weather",
+      "Learning/Command Line",
+      "Data Manipulation/Processors",
+      "Data Manipulation/JSON & Config",
+      "Files/File Managers",
+      "Files/File Operations",
+      "Files/Storage Monitoring",
+      "Files/Sync & Transfer",
+      "Files/Search & Navigation",
+      "Version Control/Git Tools",
+      "Media/Imaging & Capture",
+      "Media/Screens & Visuals"
+    ]
+  }
+}
