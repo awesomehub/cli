@@ -79,6 +79,7 @@ class ListDistributor implements ListDistributorInterface
             }
 
             $collectionPayload = [
+                'id' => $collectionId,
                 'lists' => $lists,
                 'entries' => $entriesCount,
             ];
