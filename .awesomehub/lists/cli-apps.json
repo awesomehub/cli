@@ -97,7 +97,15 @@
         "TejasQ/add-gitignore",
         "sindresorhus/is-up-cli",
         "italolelis/reachable",
-        "rtfpessoa/diff2html-cli"
+        "rtfpessoa/diff2html-cli",
+        "xojs/xo",
+        "eslint/eslint",
+        "alanshaw/david",
+        "davglass/license-checker",
+        "victorb/trymodule",
+        "kucherenko/jscpd",
+        "siddharthkp/auto-install",
+        "siddharthkp/cost-of-modules"
       ]
     },
     {
@@ -209,7 +217,9 @@
         "tmrts/boilr",
         "audreyr/cookiecutter",
         "madlabsinc/mevn-cli",
-        "jamesgeorge007/scaffold-static"
+        "jamesgeorge007/scaffold-static",
+        "sindresorhus/npm-name",
+        "voidcosmos/npkill"
       ]
     },
     {
@@ -229,7 +239,12 @@
         "shellspec/shellspec",
         "cyrus-and/gdb-dashboard",
         "alexfernandez/loadtest",
-        "stepci/stepci"
+        "stepci/stepci",
+        "http-party/http-server",
+        "tapio/live-server",
+        "kessler/node-bcat",
+        "juliangruber/browser-run",
+        "Raathigesh/Atmo"
       ]
     },
     {
@@ -371,7 +386,10 @@
         "ddsol/speedtest.net",
         "sindresorhus/speed-test",
         "sivel/speedtest-cli",
-        "imsnif/bandwhich"
+        "imsnif/bandwhich",
+        "sindresorhus/is-up",
+        "sindresorhus/is-online",
+        "sindresorhus/public-ip"
       ]
     },
     {
@@ -386,7 +404,9 @@
         "jackel27/jackpaper",
         "deepjyoti30/QuickWall",
         "JanDeDobbeleer/oh-my-posh",
-        "starship/starship"
+        "starship/starship",
+        "sindresorhus/wallpaper",
+        "themerdev/themer"
       ]
     },
     {
@@ -400,7 +420,8 @@
         "sindresorhus/fkill-cli",
         "ImFeelingDucky/undollar",
         "koraa/pipe_exec",
-        "lasantosr/intelli-shell"
+        "lasantosr/intelli-shell",
+        "sindresorhus/tmpin"
       ]
     },
     {
@@ -418,7 +439,10 @@
         "lordgiotto/google-font-installer",
         "nicolargo/glances",
         "nschloe/tiptop",
-        "sindresorhus/gzip-size-cli"
+        "sindresorhus/gzip-size-cli",
+        "MrRio/vtop",
+        "sindresorhus/clipboard-cli",
+        "aksakalli/gtop"
       ]
     },
     {
@@ -431,7 +455,8 @@
         "joeyespo/grip",
         "axiros/terminal_markdown_viewer",
         "charmbracelet/glow",
-        "ddddddO/gtree"
+        "ddddddO/gtree",
+        "hatashiro/pen"
       ]
     },
     {
@@ -443,8 +468,7 @@
         "gopasspw/gopass",
         "ivanilves/xiringuito",
         "sindresorhus/hasha-cli",
-        "sniptt-official/ots",
-        "zx2c4/pass"
+        "sniptt-official/ots"
       ]
     },
     {
@@ -474,7 +498,8 @@
         "xxczaki/nasa-cli",
         "omgimanerd/getnews.tech",
         "eneserdogan/trino",
-        "soimort/translate-shell"
+        "soimort/translate-shell",
+        "pawurb/normit"
       ]
     },
     {
@@ -507,7 +532,8 @@
         "pandastrike/yaml-cli",
         "sibprogrammer/xq",
         "sindresorhus/parse-columns-cli",
-        "kurolabs/stegcloak"
+        "kurolabs/stegcloak",
+        "danielstjules/pjs"
       ]
     },
     {
@@ -525,7 +551,8 @@
         "tomnomnom/gron",
         "Boeing/config-file-validator",
         "homeport/dyff",
-        "harelba/q"
+        "harelba/q",
+        "Javascipt/Jsome"
       ]
     },
     {
@@ -565,7 +592,10 @@
         "ManrajGrover/organize-cli",
         "PabloLec/RecoverPy",
         "ayoisaiah/f2",
-        "boyter/scc"
+        "boyter/scc",
+        "sindresorhus/trash",
+        "sindresorhus/empty-trash",
+        "sindresorhus/cpy"
       ]
     },
     {
@@ -638,7 +668,6 @@
         "category": "Version Control/Git Tools"
       },
       "data": [
-        "snowtrack/snowfs",
         "golbin/git-commander",
         "IonicaBizau/git-stats",
         "samverschueren/dev-time-cli",
@@ -664,7 +693,8 @@
         "github/hub",
         "himynameisdave/git-labelmaker",
         "carloscuesta/gitmoji-cli",
-        "frinyvonnick/gitmoji-changelog"
+        "frinyvonnick/gitmoji-changelog",
+        "sindresorhus/gh-home"
       ]
     },
     {
@@ -686,7 +716,9 @@
         "passy/givegif",
         "jarun/imgp",
         "oguzhaninan/korkut",
-        "dmikhr/pdfjuicer"
+        "dmikhr/pdfjuicer",
+        "sindresorhus/pageres",
+        "marionebl/svg-term-cli"
       ]
     },
     {

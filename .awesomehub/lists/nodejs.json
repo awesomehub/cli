@@ -731,7 +731,8 @@
         "nodemailer/nodemailer",
         "eleith/emailjs",
         "forwardemail/email-templates",
-        "mjmlio/mjml"
+        "mjmlio/mjml",
+        "forwardemail/forwardemail.net"
       ]
     },
     {
