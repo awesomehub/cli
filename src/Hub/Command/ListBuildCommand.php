@@ -27,7 +27,7 @@ class ListBuildCommand extends Command
 
     public function validate(): void
     {
-        if (null === $this->input->getArgument('list')) {
+        if ([] === $this->input->getArgument('list')) {
             $all = $this->io->confirm('Are you sure you want to build all lists?');
             if (!$all) {
                 exit(0);
@@ -49,7 +49,7 @@ class ListBuildCommand extends Command
             ->setDescription('Build a hub list using a given list definition file')
             ->addArgument(
                 'list',
-                Input\InputArgument::OPTIONAL,
+                Input\InputArgument::IS_ARRAY,
                 'The name or path to the list definition file'
             )
             ->addOption(
@@ -83,42 +83,31 @@ class ListBuildCommand extends Command
 
     protected function exec(): int
     {
-        $path = $this->input->getArgument('list');
+        $lists = $this->input->getArgument('list');
         $format = strtolower($this->input->getOption('format'));
         $noResolve = $this->input->getOption('no-resolve');
         $noCache = $this->input->getOption('no-cache');
 
-        // Build all lists
-        if (empty($path)) {
-            $paths = EntryListFile::findLists($this->workspace);
-            if ([] === $paths) {
-                $this->io->note('No lists found to build');
+        $paths = [] === $lists ? EntryListFile::findLists($this->workspace) : $lists;
+        if ([] === $paths) {
+            $this->io->note('No lists found to build');
 
-                exit(0);
-            }
-
-            $this->io->title(\sprintf('Building %d list(s)', \count($paths)));
-            foreach ($paths as $singlePath) {
-                try {
-                    $this->build($singlePath, $format, $noResolve, $noCache);
-                } catch (\Exception $e) {
-                    $this->io->getLogger()->warning(\sprintf(
-                        "Ignoring list '%s'; %s",
-                        $singlePath,
-                        $e->getMessage()
-                    ));
-                }
-            }
-
-            $this->io->writeln('');
-
-            return 0;
+            exit(0);
         }
 
-        // Build a single list
-        $this->build($path, $format, $noResolve, $noCache);
+        $this->io->title(\sprintf('Building %d list(s)', \count($paths)));
+        foreach ($paths as $singlePath) {
+            try {
+                $this->build($singlePath, $format, $noResolve, $noCache);
+            } catch (\Exception $e) {
+                $this->io->getLogger()->error(\sprintf(
+                    "Failed building list '%s'; %s",
+                    $singlePath,
+                    $e->getMessage()
+                ));
+            }
+        }
 
-        // We're done
         $this->io->writeln('');
 
         return 0;
@@ -129,8 +118,8 @@ class ListBuildCommand extends Command
      */
     protected function build(string $path, string $format, bool $noResolve, bool $noCache): void
     {
-        $list = new EntryListFile($this->filesystem, $this->workspace, $path, $format);
         $this->io->title('Building list: '.$path);
+        $list = new EntryListFile($this->filesystem, $this->workspace, $path, $format);
         $this->process($list);
         if (!$noResolve) {
             $this->resolve($list, $noCache);
