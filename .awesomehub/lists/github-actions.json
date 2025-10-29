@@ -358,7 +358,8 @@
         "tylermurry/github-pr-landmine",
         "staabm/annotate-pull-request-from-checkstyle",
         "flowwer-dev/pull-request-stats",
-        "derkinderfietsen/pr-description-enforcer"
+        "derkinderfietsen/pr-description-enforcer",
+        "lirantal/github-action-new-dependencies-advisor"
       ]
     },
     {
@@ -439,7 +440,9 @@
         "google/secrets-sync-action",
         "snyk/actions",
         "unfor19/githubsecrets",
-        "secrethub/actions"
+        "secrethub/actions",
+        "ossf/scorecard-action",
+        "ossf/scorecard-monitor"
       ]
     },
     {

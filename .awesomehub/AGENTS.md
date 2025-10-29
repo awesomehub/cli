@@ -43,7 +43,7 @@ Notes:
  - There is a `config.json` file next to this file with different GitHub auth tokens you can use, in case a token hits the rate limit, you can use the next one.
  - You can use the `cache/` directory to store any temporary data you need to avoid re-fetching the same data multiple times.
  - Your job is to collect github repo slugs like `author/repo`, nothing more, no need to collect any details about those repos.
- - Any links that are not strictly under `github.com` should be ignored (eg. `help.github.com`).
+ - Any links that are not strictly under `github.com` or not GitHub repos should be ignored (eg. `help.github.com`, `github.com/apps/guardrail`, `github.com/topics/awesome`).
  - If a project entry uses a `*.github.io` URL, convert it to an `owner/repo` slug by mapping the GitHub Pages host and first path segment (for example `https://foo.github.io/bar/` -> `foo/bar`). If the mapping is unclear, treat it as an external link instead.
  - For other external project URLs, fetch the page once; when you can confidently extract a GitHub repository link from the HTML, add that slug, otherwise skip it.
  - Category names should not contain `/` since we are using it as a delimiter to separate main category from sub category.

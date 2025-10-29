@@ -749,7 +749,9 @@
         "nokonoko/uguu",
         "farisc0de/Uploady",
         "SergiX44/XBackBone",
-        "diced/zipline"
+        "diced/zipline",
+        "szabodanika/microbin",
+        "watzon/0x45"
       ]
     },
     {
@@ -1308,13 +1310,22 @@
         "WardPearce/paaster",
         "pglombardo/PasswordPusher",
         "interaapps/pastefy",
-        "topics/pastefy-addon",
         "PrivateBin/PrivateBin",
         "orhun/rustypaste",
         "algolia/sup3rS3cretMes5age",
         "matze/wastebin",
         "ybizeul/ybFeed",
-        "jhaals/yopass"
+        "jhaals/yopass",
+        "snypy/snypy-frontend",
+        "jordansamuel/PASTE",
+        "szabodanika/microbin",
+        "MaxLeiter/drift",
+        "bokub/nopaste",
+        "WantGuns/bin",
+        "The-Enthusiast-404/text-bin-frontend",
+        "watzon/0x45",
+        "PurritoBin/PurritoBin",
+        "arc53/pastevault"
       ]
     },
     {
@@ -1746,7 +1757,9 @@
         "thedevs-network/kutt",
         "shlinkio/shlink",
         "azlux/Simple-URL-Shortener",
-        "YOURLS/YOURLS"
+        "YOURLS/YOURLS",
+        "szabodanika/microbin",
+        "watzon/0x45"
       ]
     },
     {

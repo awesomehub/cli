@@ -125,7 +125,8 @@
         "xxczaki/cash-cli",
         "klaussinani/taskbook",
         "brandonweiss/discharge",
-        "voidcosmos/npkill"
+        "voidcosmos/npkill",
+        "snyk/snyk"
       ]
     },
     {
@@ -139,6 +140,7 @@
         "ramda/ramda",
         "mout/mout",
         "reactivex/rxjs",
+        "pubkey/rxdb",
         "kefirjs/kefir"
       ]
     },
@@ -155,7 +157,6 @@
         "axios/axios",
         "visionmedia/superagent",
         "micromata/http-fake-backend",
-        "lukechilds/cacheable-request",
         "khaosdoctor/gotql",
         "gajus/global-agent",
         "sinedied/smoke",
@@ -634,7 +635,8 @@
         "mlaanderson/database-js",
         "pkosiec/mongo-seeding",
         "ForbesLindesay/atdatabases",
-        "oguimbal/pg-mem"
+        "oguimbal/pg-mem",
+        "pubkey/rxdb"
       ]
     },
     {
@@ -681,10 +683,30 @@
       "data": [
         "simonepri/upash",
         "cossacklabs/themis",
-        "apps/guardrails",
         "animir/node-rate-limiter-flexible",
         "sindresorhus/crypto-hash",
-        "davesag/jose-simple"
+        "davesag/jose-simple",
+        "javascript-obfuscator/javascript-obfuscator",
+        "express-rate-limit/express-rate-limit",
+        "ajinabraham/nodejsscan",
+        "onury/accesscontrol",
+        "lirantal/npq",
+        "helmetjs/helmet",
+        "wille/reporting-api",
+        "awslabs/git-secrets",
+        "component/escape-html",
+        "af/envalid",
+        "feross/safe-buffer",
+        "npm/ssri",
+        "fastify/secure-json-parse",
+        "paulmillr/noble-hashes",
+        "brix/crypto-js",
+        "theupdateframework/tuf-js",
+        "leizongmin/js-xss",
+        "leizongmin/js-css-filter",
+        "hapijs/cryptiles",
+        "sindresorhus/hasha",
+        "better-auth/better-auth"
       ]
     },
     {
@@ -857,7 +879,8 @@
         "ds300/patch-package",
         "mifi/editly",
         "ehmicky/wild-wild-path",
-        "sindresorhus/uint8array-extras"
+        "sindresorhus/uint8array-extras",
+        "dropbox/zxcvbn"
       ]
     },
     {

@@ -557,6 +557,7 @@
         "mdbootstrap/React-Bootstrap-with-Material-Design",
         "microsoft/fluentui",
         "mui/material-ui",
+        "twilio-labs/paste",
         "pinterest/gestalt",
         "primefaces/primereact",
         "react-bootstrap/react-bootstrap",
