@@ -1,6 +1,6 @@
 {
   "id": "cli-apps",
-  "name": "Command-line Apps",
+  "name": "Command-line",
   "desc": "Open-source command line apps across everyday use cases.",
   "sources": [
     {

@@ -1,0 +1,14 @@
+{
+  "id": "php",
+  "name": "PHP",
+  "desc": "PHP frameworks, libraries, software and resources.",
+  "sources": [
+    {
+      "type": "github.list",
+      "data": "ziadoz/awesome-php",
+      "options": {
+        "commit": "4e5fb6e6f77e967bfd01419b7a99b71b8f6290c4"
+      }
+    }
+  ]
+}

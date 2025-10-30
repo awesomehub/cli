@@ -1,13 +1,12 @@
 {
   "id": "cli-apps",
-  "name": "Command-line Apps",
+  "name": "Command-line",
   "desc": "Open-source command line apps across everyday use cases.",
   "sources": [
     {
       "type": "github.list",
       "data": "agarrharr/awesome-cli-apps",
       "options": {
-        "branch": "master",
         "commit": "e709a18954d248fe370eb41bbb3d68b5bbed289e"
       }
     },
@@ -15,9 +14,8 @@
       "type": "github.list",
       "data": "sindresorhus/awesome-nodejs",
       "options": {
-        "branch": "master",
         "commit": "c63ebd0c424ec5b18bde99d41a408f55edb3e6f0",
-        "category": "Command-line apps"
+        "selectCategory": "Command-line apps"
       }
     }
   ]

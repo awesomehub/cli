@@ -5,7 +5,10 @@
   "sources": [
     {
       "type": "github.list",
-      "data": "awesome-selfhosted/awesome-selfhosted"
+      "data": "awesome-selfhosted/awesome-selfhosted",
+      "options": {
+        "commit": "1733abc2c42fc718d39c85b68eafe3de1bda0ab4"
+      }
     }
   ]
 }

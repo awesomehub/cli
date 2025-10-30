@@ -88,8 +88,10 @@
     },
     {
       "type": "github.list",
-      "data": "https://raw.githubusercontent.com/PatrickJS/awesome-angular/gh-pages/README.md",
+      "data": "PatrickJS/awesome-angular",
       "options": {
+        "branch": "gh-pages",
+        "commit": "d52a8780f48ab8fba5e3b9101aa6228cfa1159bf",
         "markdownCategories": {
           "H3(Official Resources)": { "ignore": true },
           "H3(Style Guides)": { "ignore": true },

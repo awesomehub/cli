@@ -36,8 +36,8 @@
     "guzzlehttp/guzzle": "^7.9.2",
     "guzzlehttp/psr7": "^2.7.0",
     "knplabs/github-api": "^3.16.0",
-    "mohatt/github-api-utils": "dev-master",
-    "spatie/async": "^1.6"
+    "spatie/async": "^1.6",
+    "mohatt/github-api-utils": "dev-master#4abb284"
   },
   "require-dev": {
     "symfony/error-handler": "^7.1.3",

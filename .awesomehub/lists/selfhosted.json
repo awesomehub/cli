@@ -130,7 +130,8 @@
         "mataroablog/mataroa",
         "pluxml/PluXml",
         "s9y/serendipity",
-        "writefreely/writefreely"
+        "writefreely/writefreely",
+        "rikhuijzer/fx"
       ]
     },
     {
@@ -256,7 +257,8 @@
         "zone-eu/wildduck",
         "cypht-org/cypht",
         "roundcube/roundcubemail",
-        "the-djmaze/snappymail"
+        "the-djmaze/snappymail",
+        "Notifuse/notifuse"
       ]
     },
     {
@@ -771,7 +773,8 @@
         "zer0tonin/Mikochi",
         "svenstaro/miniserve",
         "tagspaces/tagspaces",
-        "prasathmani/tinyfilemanager"
+        "prasathmani/tinyfilemanager",
+        "error311/FileRise"
       ]
     },
     {
@@ -853,7 +856,8 @@
         "TabbyML/tabby",
         "meilisearch/meilisearch",
         "block/goose",
-        "sigoden/aichat"
+        "sigoden/aichat",
+        "rasulkireev/TuxSEO"
       ]
     },
     {
@@ -1104,7 +1108,6 @@
       },
       "data": [
         "Bubka/2FAuth",
-        "Ardakilic/alerthub",
         "muety/anchr",
         "TecharoHQ/anubis",
         "asciinema/asciinema-server",
@@ -1155,7 +1158,9 @@
         "wavelog/wavelog",
         "weewx/weewx",
         "butlerx/wetty",
-        "FuzzyGrim/Yamtrack"
+        "FuzzyGrim/Yamtrack",
+        "CorentinTh/it-tools",
+        "SeaweedbrainCY/zero-totp"
       ]
     },
     {
@@ -1262,7 +1267,8 @@
         "silverbulletmd/silverbullet",
         "standardnotes/app",
         "TriliumNext/Trilium",
-        "josephernest/writing"
+        "josephernest/writing",
+        "brufdev/many-notes"
       ]
     },
     {
@@ -1540,7 +1546,6 @@
         "Kong/kong",
         "luraproject/lura",
         "comet-ml/opik",
-        "panoratech/Panora",
         "erudika/para",
         "svix/svix-webhooks",
         "TykTechnologies/tyk",

@@ -1,0 +1,748 @@
+{
+  "id": "php",
+  "name": "PHP",
+  "desc": "PHP frameworks, libraries, software and resources.",
+  "sources": [
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Official"
+      },
+      "data": [
+        "php/php-src",
+        "php/frankenphp",
+        "php/php-langspec",
+        "php/pie",
+        "php/web-php"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Dependency Management"
+      },
+      "data": [
+        "composer-unused/composer-unused",
+        "composer/installers",
+        "composer/satis",
+        "cweagans/composer-patches",
+        "dereuromark/composer-prefer-lowest",
+        "ergebnis/composer-normalize",
+        "FriendsOfPHP/pickle",
+        "joshdifabio/composed",
+        "maglnet/ComposerRequireChecker",
+        "php/pie",
+        "tommy-muehle/tooly-composer-script",
+        "wikimedia/composer-merge-plugin"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Frameworks/Full Stack"
+      },
+      "data": [
+        "cakephp/cakephp",
+        "codeigniter4/CodeIgniter4",
+        "filamentphp/filament",
+        "friendsofcake/crud",
+        "hhxsv5/laravel-s",
+        "laminas/laminas-mvc",
+        "laravel/laravel",
+        "livewire/livewire",
+        "nette/nette",
+        "phalcon/cphalcon",
+        "spiral/framework",
+        "symfony/symfony",
+        "yiisoft/yii2"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Frameworks/CMS & Commerce"
+      },
+      "data": [
+        "brick/money",
+        "craftcms/cms",
+        "florianv/swap",
+        "getgrav/grav",
+        "magento/magento2",
+        "moneyphp/money",
+        "OpenMage/magento-lts",
+        "payum/payum",
+        "shopsys/shopsys",
+        "shopware/shopware",
+        "thephpleague/omnipay",
+        "WordPress/WordPress",
+        "sylius/sylius"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Frameworks/Micro & Routing"
+      },
+      "data": [
+        "auraphp/Aura.Router",
+        "c9s/Pux",
+        "klein/klein.php",
+        "KnpLabs/KnpMenu",
+        "mezzio/mezzio",
+        "laravel-zero/laravel-zero",
+        "lavary/laravel-menu",
+        "minicli/minicli",
+        "mnapoli/silly",
+        "nikic/FastRoute",
+        "slimphp/PHP-View",
+        "slimphp/Slim",
+        "slimphp/Slim-Skeleton",
+        "slimphp/Slim-Views",
+        "spatie/menu",
+        "thephpleague/route"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Frameworks/Templating & Static"
+      },
+      "data": [
+        "arnaud-lb/MtHaml",
+        "bobthecow/mustache.php",
+        "CouscousPHP/Couscous",
+        "nette/latte",
+        "PHPTAL/PHPTAL",
+        "sculpin/sculpin",
+        "smarty-php/smarty",
+        "thephpleague/plates",
+        "tighten/jigsaw",
+        "twigphp/Twig"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web/HTTP & Middleware"
+      },
+      "data": [
+        "amphp/byte-stream",
+        "clue/stream-filter",
+        "fzaninotto/Streamer",
+        "guzzle/guzzle",
+        "jeremykendall/php-domain-parser",
+        "jwage/purl",
+        "kriswallsmith/Buzz",
+        "laminas/laminas-diactoros",
+        "laminas/laminas-stratigility",
+        "middlewares/psr15-middlewares",
+        "Nyholm/psr7",
+        "php-http/httplug",
+        "php-vcr/php-vcr",
+        "reactphp/stream",
+        "relayphp/Relay.Relay",
+        "sabre-io/uri",
+        "symfony/http-client",
+        "tebru/retrofit-php",
+        "thephpleague/uri",
+        "WordPress/Requests"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web/Scraping & Automation"
+      },
+      "data": [
+        "chrome-php/chrome",
+        "Imangazaliev/DiDOM",
+        "JayBizzle/Crawler-Detect",
+        "mvdbos/php-spider",
+        "php-embed/Embed",
+        "symfony/panther"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web/Email & Notifications"
+      },
+      "data": [
+        "barbushin/php-imap",
+        "gomoob/php-pushwoosh",
+        "jolicode/JoliNotif",
+        "mac-cain13/notificato",
+        "mautic/mautic",
+        "namshi/notificator",
+        "nojacko/email-validator",
+        "Ph3nol/NotificationPusher",
+        "PHPMailer/PHPMailer",
+        "Stampie/Stampie",
+        "symfony/mailer",
+        "tedious/Fetch",
+        "tijsverkoyen/CssToInlineStyles",
+        "willdurand/EmailReplyParser"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Manipulation"
+      },
+      "data": [
+        "chillerlan/php-qrcode",
+        "dompdf/dompdf",
+        "tecnickcom/tc-lib-pdf",
+        "flow-php/parquet",
+        "gotenberg/gotenberg-php",
+        "Intervention/image",
+        "jenssegers/imagehash",
+        "KnpLabs/Gaufrette",
+        "KnpLabs/snappy",
+        "openspout/openspout",
+        "PHP-FFmpeg/PHP-FFmpeg",
+        "PHPOffice/PHPPresentation",
+        "PHPOffice/PhpSpreadsheet",
+        "PHPOffice/PHPWord",
+        "psliwa/image-optimizer",
+        "spatie/browsershot",
+        "Sybio/ImageWorkshop",
+        "thephpleague/color-extractor",
+        "thephpleague/csv",
+        "thephpleague/Flysystem",
+        "thephpleague/glide",
+        "wapmorgan/UnifiedArchive",
+        "php-imagine/Imagine"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data/Databases & Storage"
+      },
+      "data": [
+        "akanehara/ginq",
+        "Athari/YaLinqo",
+        "atlasphp/Atlas.Orm",
+        "auraphp/Aura.Sql",
+        "auraphp/Aura.SqlQuery",
+        "cakephp/collection",
+        "cakephp/orm",
+        "cakephp/phinx",
+        "chanmix51/Pomm",
+        "cweiske/jsonmapper",
+        "cycle/orm",
+        "davedevelopment/phpmig",
+        "doctrine-extensions/DoctrineExtensions",
+        "DusanKasan/Knapsack",
+        "etrepat/baum",
+        "halaxa/json-machine",
+        "icomefromthenet/Migrations",
+        "illuminate/database",
+        "laminas/laminas-serializer",
+        "mongodb/mongo-php-driver",
+        "Ocramius/ProxyManager",
+        "predis/predis",
+        "ruckus/ruckusing-migrations",
+        "rybakit/msgpack.php",
+        "schmittjoh/serializer",
+        "sokil/php-mongo",
+        "spotorm/spot2",
+        "thephpleague/fractal",
+        "TimeToogo/Pinq",
+        "webfactory/slimdump"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data/Queues & Caching"
+      },
+      "data": [
+        "apix/cache",
+        "bernardphp/bernard",
+        "cakephp/cache",
+        "doctrine/cache",
+        "elastic/elasticsearch-php",
+        "gordalina/cachetool",
+        "jakubkulhan/bunny",
+        "laminas/laminas-cache",
+        "pheanstalk/pheanstalk",
+        "php-amqplib/php-amqplib",
+        "php-amqplib/Thumper",
+        "php-enqueue/enqueue-dev",
+        "php-lock/lock",
+        "ruflin/Elastica",
+        "sobstel/metaphore",
+        "tarantool-php/queue",
+        "tedious/Stash"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data/Text & Validation"
+      },
+      "data": [
+        "auraphp/Aura.Filter",
+        "beberlei/assert",
+        "brandonsavage/Upload",
+        "brick/math",
+        "cakephp/validation",
+        "cocur/slugify",
+        "Crisu83/php-conversion",
+        "CuyZ/Valinor",
+        "darsyn/ip",
+        "ezyang/htmlpurifier",
+        "fukuball/jieba-php",
+        "gabrielelana/byte-units",
+        "giggsey/libphonenumber-for-php",
+        "heiglandreas/Org_Heigl_Hyphenator",
+        "ircmaxell/filterus",
+        "jbroadway/urlify",
+        "jdorn/sql-formatter",
+        "jenssegers/agent",
+        "JsonMapper/JsonMapper",
+        "jsonrainbow/json-schema",
+        "markrogoyski/math-php",
+        "matomo-org/device-detector",
+        "mikeemoo/ColorJizz-PHP",
+        "nicolas-grekas/Patchwork-UTF8",
+        "php-collective/decimal-object",
+        "ramsey/uuid",
+        "Respect/Validation",
+        "romaricdrigon/MetaYaml",
+        "ronanguilloux/IsoCodes",
+        "Seldaek/jsonlint",
+        "sensiolabs/ansi-to-html",
+        "serbanghita/Mobile-Detect",
+        "serkin/Volan",
+        "symfony/html-sanitizer",
+        "triplepoint/php-units-of-measure",
+        "vlucas/valitron",
+        "voku/portable-ascii",
+        "voku/portable-utf8",
+        "voku/Stringy",
+        "vstelmakh/url-highlight"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data/Date & Geo"
+      },
+      "data": [
+        "auraphp/Aura.Intl",
+        "azuyalabs/yasumi",
+        "briannesbitt/Carbon",
+        "cakephp/chronos",
+        "cakephp/i18n",
+        "fightbulc/moment.php",
+        "jmikola/geojson",
+        "mjaschen/phpgeo",
+        "php-gettext/Gettext",
+        "symfony/translation",
+        "thephpleague/geotools",
+        "umpirsky/country-list",
+        "yohang/CalendR",
+        "geocoder-php/Geocoder"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Third Party APIs"
+      },
+      "data": [
+        "aws/aws-sdk-php",
+        "blongden/hal",
+        "janephp/janephp",
+        "KnpLabs/php-github-api",
+        "laminas-api-tools/api-tools-skeleton",
+        "leedavis81/drest",
+        "Luracast/Restler",
+        "mailgun/mailgun-php",
+        "square/connect-php-sdk",
+        "stripe/stripe-php",
+        "twilio/twilio-php",
+        "willdurand/Hateoas",
+        "willdurand/Negotiation",
+        "WsdlToPhp/PackageGenerator",
+        "async-aws/aws",
+        "campaignmonitor/createsend-php"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Authentication"
+      },
+      "data": [
+        "abraham/twitteroauth",
+        "ambionics/phpggc",
+        "auraphp/Aura.Auth",
+        "BePsvPT/secure-headers",
+        "bjeavons/zxcvbn-php",
+        "daviddesberg/PHPoAuthLib",
+        "defuse/php-encryption",
+        "hackzilla/password-generator",
+        "ircmaxell/password-policy",
+        "ircmaxell/password_compat",
+        "ircmaxell/PHP-PasswordLib",
+        "jedisct1/libsodium",
+        "jenssegers/optimus",
+        "jeremykendall/password-validator",
+        "lcobucci/jwt",
+        "opauth/opauth",
+        "paragonie/paseto",
+        "paragonie/random_compat",
+        "Roave/SecurityAdvisories",
+        "socialConnect/auth",
+        "sqlmapproject/sqlmap",
+        "thephpleague/oauth1-client",
+        "thephpleague/oauth2-client",
+        "timoh6/GenPhrase",
+        "voku/anti-xss",
+        "zaproxy/zaproxy"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Design Patterns & DI"
+      },
+      "data": [
+        "AcclimateContainer/acclimate-container",
+        "amphp/amp",
+        "auraphp/Aura.Di",
+        "bitExpert/disco",
+        "broadway/broadway",
+        "cakephp/event",
+        "DesignPatternsPHP/DesignPatternsPHP",
+        "ElephantIO/elephant.io",
+        "hollodotme/fast-cgi-client",
+        "igorw/evenement",
+        "illuminate/support",
+        "K-Phoen/rulerz",
+        "lstrojny/functional-php",
+        "markrogoyski/itertools-php",
+        "nikic/iter",
+        "php-defer/php-defer",
+        "prooph/event-store",
+        "ratchetphp/Pawl",
+        "ratchetphp/Ratchet",
+        "rdlowrey/Auryn",
+        "ReactiveX/RxPHP",
+        "reactphp/reactphp",
+        "ScriptFUSION/Porter",
+        "silexphp/Pimple",
+        "spatie/laravel-permission",
+        "swoole/swoole-src",
+        "symfony/dependency-injection",
+        "symfony/http-foundation",
+        "thephpleague/container",
+        "thephpleague/event",
+        "thephpleague/pipeline",
+        "walkor/Workerman",
+        "yohang/Finite",
+        "php/frankenphp"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Code Quality & Debugging"
+      },
+      "data": [
+        "adsr/phpspy",
+        "atoum/atoum",
+        "barbushin/php-console",
+        "beberlei/metrics",
+        "bovigo/vfsStream",
+        "captainhook-git/captainhook",
+        "carlosas/phpat",
+        "Codeception/Codeception",
+        "dancryer/phpci",
+        "devster/ubench",
+        "EdgedesignCZ/phpqa",
+        "editorconfig-checker/editorconfig-checker.php",
+        "exakat/exakat",
+        "fakerphp/faker",
+        "filp/whoops",
+        "infection/infection",
+        "jolicode/JoliCi",
+        "kahlan/kahlan",
+        "kint-php/kint",
+        "krakjoe/pcov",
+        "laravel/pint",
+        "mamuz/PhpDependencyAnalysis",
+        "mockery/mockery",
+        "monque/PHP-Migration",
+        "nelmio/alice",
+        "nette/tester",
+        "nette/tracy",
+        "nikic/PHP-Parser",
+        "paratestphp/paratest",
+        "phacility/xhprof",
+        "phake/phake",
+        "phan/phan",
+        "PHP-CS-Fixer/PHP-CS-Fixer",
+        "php-mock/php-mock",
+        "phpactor/phpactor",
+        "phpbench/phpbench",
+        "PHPCheckstyle/phpcheckstyle",
+        "PHPCompatibility/PHPCompatibility",
+        "PHPCSStandards/PHP_CodeSniffer",
+        "phpmd/phpmd",
+        "phpmetrics/PhpMetrics",
+        "phpro/grumphp",
+        "phpspec/phpspec",
+        "phpspec/prophecy",
+        "phpstan/phpdoc-parser",
+        "phpstan/phpstan",
+        "povils/phpmnd",
+        "qossmic/deptrac",
+        "rectorphp/rector",
+        "Roave/BetterReflection",
+        "scrutinizer-ci/php-analyzer",
+        "sebastianbergmann/phpcpd",
+        "sebastianbergmann/phploc",
+        "sebastianbergmann/phpunit",
+        "Seldaek/php-console",
+        "shivammathur/setup-php",
+        "symfony/var-dumper",
+        "tomzx/php-semver-checker",
+        "vimeo/php-mysql-engine",
+        "vimeo/psalm",
+        "xdebug/xdebug",
+        "Yoast/PHPUnit-Polyfills",
+        "zenstruck/foundry"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Logging & Monitoring"
+      },
+      "data": [
+        "airbrake/phpbrake",
+        "bugsnag/bugsnag-php",
+        "getsentry/sentry-php",
+        "graylog-labs/gelf-php",
+        "maxbanton/cwh",
+        "rollbar/rollbar-php",
+        "Seldaek/monolog",
+        "waza-ari/monolog-mysql"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Automation & Deployment"
+      },
+      "data": [
+        "box-project/box",
+        "consolidation/Robo",
+        "deployphp/deployer",
+        "hassankhan/config",
+        "jobbyphp/jobby",
+        "jonathantorres/construct",
+        "laravel-mix/laravel-mix",
+        "laravel/envoy",
+        "liip/RMT",
+        "nette/neon",
+        "rocketeers/rocketeer",
+        "symfony/asset",
+        "symfony/config",
+        "symfony/dotenv",
+        "symfony/webpack-encore",
+        "tedious/JShrink",
+        "toml-lang/toml",
+        "vlucas/phpdotenv",
+        "yosymfony/toml",
+        "taskphp/task",
+        "phingofficial/phing"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Environments & Tools"
+      },
+      "data": [
+        "appserver-io/appserver",
+        "ddev/ddev",
+        "docksal/docksal",
+        "exposedev/expose",
+        "facebook/hhvm",
+        "mlocati/docker-php-extension-installer",
+        "peachpiecompiler/peachpie",
+        "philcook/brew-php-switcher",
+        "php-build/php-build",
+        "php-pm/php-pm",
+        "phpbrew/phpbrew",
+        "roadrunner-server/roadrunner",
+        "tighten/takeout",
+        "hashicorp/vagrant",
+        "puppetlabs/puppet",
+        "nicoverbruggen/phpmon",
+        "laradock/laradock",
+        "laravel/sail",
+        "lando/lando",
+        "nette/php-generator"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/CLI Utilities"
+      },
+      "data": [
+        "auraphp/Aura.Cli",
+        "bobthecow/psysh",
+        "c9s/CLIFramework",
+        "c9s/GetOptionKit",
+        "Cilex/Cilex",
+        "getopt-php/getopt-php",
+        "MrRio/shellwrap",
+        "mtdowling/cron-expression",
+        "nategood/commando",
+        "php-school/cli-menu",
+        "thephpleague/climate",
+        "crazywhalecc/static-php-cli"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Docs & Frontend"
+      },
+      "data": [
+        "apigen/apigen",
+        "cebe/markdown",
+        "dauxio/daux.io",
+        "doctrine/annotations",
+        "erusev/parsedown",
+        "essence/essence",
+        "Masterminds/html5-php",
+        "michelf/php-markdown",
+        "milesj/decoda",
+        "mpratt/Embera",
+        "MyIntervals/PHP-CSS-Parser",
+        "phpDocumentor/phpDocumentor",
+        "sabre-io/vobject",
+        "shikijs/shiki",
+        "spatie/shiki-php",
+        "thephpleague/commonmark",
+        "thephpleague/html-to-markdown",
+        "zircote/swagger-php"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Web Applications"
+      },
+      "data": [
+        "cachethq/cachet",
+        "CoderKungfu/php-queue",
+        "electerious/Lychee",
+        "ErikDubbelboer/phpRedisAdmin",
+        "phpmyadmin/phpmyadmin",
+        "sj26/mailcatcher",
+        "SjonHortensius/3v4l_org",
+        "vrana/adminer",
+        "phpsandbox/phpsandbox"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Extensions & Internals"
+      },
+      "data": [
+        "beberlei/php-rfc-watch",
+        "mongodb/mongo-php-driver",
+        "phalcon/cphalcon",
+        "php/php-src",
+        "phpredis/phpredis",
+        "swoole/swoole-src",
+        "zephir-lang/zephir"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Serverless"
+      },
+      "data": [
+        "brefphp/bref",
+        "apache/openwhisk",
+        "serverless/serverless",
+        "laravel/vapor-core"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "AI & LLMs"
+      },
+      "data": [
+        "cognesy/instructor-php",
+        "LLPhant/LLPhant",
+        "openai-php/client",
+        "openai-php/laravel",
+        "SoftCreatR/php-mistral-ai-sdk"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Miscellaneous"
+      },
+      "data": [
+        "ackintosh/ganesha",
+        "ARCANEDEV/noCAPTCHA",
+        "botman/botman",
+        "ClassPreloader/ClassPreloader",
+        "doctrine/annotations",
+        "hprose/hprose-php",
+        "laravel/serializable-closure",
+        "thecodingmachine/safe",
+        "whiteoctober/Pagerfanta"
+      ]
+    }
+  ],
+  "options": {
+    "categoryOrder": [
+      "Official",
+      "Dependency Management",
+      "Frameworks/Full Stack",
+      "Frameworks/CMS & Commerce",
+      "Frameworks/Micro & Routing",
+      "Frameworks/Templating & Static",
+      "Web/HTTP & Middleware",
+      "Web/Scraping & Automation",
+      "Web/Email & Notifications",
+      "Data/Databases & Storage",
+      "Data/Queues & Caching",
+      "Data/Text & Validation",
+      "Data/Date & Geo",
+      "File Manipulation",
+      "Third Party APIs",
+      "Authentication",
+      "Design Patterns & DI",
+      "Code Quality & Debugging",
+      "Logging & Monitoring",
+      "Automation & Deployment",
+      "Development/Environments & Tools",
+      "Development/CLI Utilities",
+      "Development/Docs & Frontend",
+      "Development/Web Applications",
+      "Extensions & Internals",
+      "Serverless",
+      "AI & LLMs",
+      "Miscellaneous"
+    ]
+  }
+}

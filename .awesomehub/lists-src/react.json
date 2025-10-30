@@ -47,6 +47,7 @@
       "type": "github.list",
       "data": "brillout/awesome-react-components",
       "options": {
+        "commit": "4309d1b9a852f4c949efdd3f87c1a4526583bd75",
         "markdownCategories": {
           "H1(\uD83D\uDE80 Absolutely Awesome React Components & Libraries)": { "ignore": true, "recursive": false },
           "H2(UI Components)": { "rename": "UI Components/{name}" },
@@ -70,12 +71,16 @@
     },
     {
       "type": "github.list",
-      "data": "enaqx/awesome-react"
+      "data": "enaqx/awesome-react",
+      "options": {
+        "commit": "3aff0b01358ce13a859c392a98e1f7888805e663"
+      }
     },
     {
       "type": "github.list",
       "data": "jondot/awesome-react-native",
       "options": {
+        "commit": "23100d54f6ef1cbdf56d4983dde8fe97cbe26c76",
         "category": "React Native"
       }
     }

@@ -185,9 +185,7 @@
         "angular-schule/angular-cli-ghpages",
         "k9n-dev/analog-publish-gh-pages",
         "Genez-io/genezio",
-        "zeropsio/recipe-analog-nodejs",
-        "OrthoFi/actions-angular-deploy",
-        "OrthoFi/actions-angular-ci-cd"
+        "zeropsio/recipe-analog-nodejs"
       ]
     },
     {
@@ -355,7 +353,8 @@
         "angular-a11y/angular-vlibras",
         "gagdmac/a11y-accessibility-first",
         "ShakeelKadri/ngx-accessible-ui",
-        "richpauly13/easy"
+        "richpauly13/easy",
+        "LDV2k3/a11y-libraries"
       ]
     },
     {
@@ -376,7 +375,8 @@
         "liveloveapp/hashbrown",
         "gsans/mini-bard-palm2-angular",
         "scottstraughan/ngx-bob",
-        "angular/web-codegen-scorer"
+        "angular/web-codegen-scorer",
+        "AshwinSathian/ngx-runtime-i18n"
       ]
     },
     {
@@ -598,8 +598,7 @@
         "ngx-addons/omni-auth",
         "subha-patra/otp-angular",
         "serhiisol/ngx-auth",
-        "satya-jugran/witspry-auth-ng-client",
-        "en/code-security"
+        "satya-jugran/witspry-auth-ng-client"
       ]
     },
     {
@@ -881,7 +880,8 @@
         "BugSplat-Git/ngx-animated-counter",
         "damingerdai/ngx-dom-confetti",
         "victor-enogwe/ngx-dotlottie-web",
-        "afnaanulla/AfnaanNgx-cusotm-cursor"
+        "afnaanulla/AfnaanNgx-cusotm-cursor",
+        "marcos-velasquez/ngx-gsap"
       ]
     },
     {
@@ -898,7 +898,8 @@
         "giacomo/ngx-calendar-widget",
         "by-pinja/ngx-resource-calendar",
         "codingchefss/ngx-strip-calendar",
-        "schedule-x/schedule-x"
+        "schedule-x/schedule-x",
+        "charlesschaefer/ngx-calendar-view"
       ]
     },
     {
@@ -979,7 +980,8 @@
         "PioneerCode/pioneer-charts",
         "nocode-js/sequential-workflow-designer",
         "systelab/systelab-charts",
-        "f5/unovis"
+        "f5/unovis",
+        "wook95/ngx-recharts"
       ]
     },
     {
@@ -1036,7 +1038,8 @@
         "DjonnyX/ng-virtual-grid",
         "rinturaj/ngx-simple-datatables",
         "RzoDev/ngx-list-manager",
-        "ryoucerious/cerious-widgets"
+        "ryoucerious/cerious-widgets",
+        "toozuuu/ngxsmk-datatable"
       ]
     },
     {
@@ -1370,7 +1373,8 @@
         "taiga-family/ng-polymorpheus",
         "acrodata/gui",
         "json-k/ngx-zoomable",
-        "ansarisufiyan777/ngx-material-drawer"
+        "ansarisufiyan777/ngx-material-drawer",
+        "marxlnfcs/ngx-grid"
       ]
     },
     {
@@ -1571,7 +1575,9 @@
         "Mazen-Embaby/ngx-toastr-notifier",
         "OneSignal/onesignal-ngx",
         "andreasnicolaou/toastify",
-        "andreasnicolaou/web-notifier"
+        "andreasnicolaou/web-notifier",
+        "mkeller1992/mk-magic-messages-library",
+        "fgilmet/ngx-popify"
       ]
     },
     {
@@ -1759,7 +1765,9 @@
         "IfFaith/ngx-vant-revive",
         "MatoMakuch/maxterdev",
         "cds-snc/gcds-components",
-        "entake-org/particle-ng"
+        "entake-org/particle-ng",
+        "OnsenUI/OnsenUI",
+        "OpenKit-Labs/ngx-kit-ui"
       ]
     },
     {
@@ -1770,6 +1778,7 @@
       "data": [
         "mikaelbotassi/ng-bootstrap-addons",
         "valor-software/ngx-bootstrap",
+        "ng-bootstrap/ng-bootstrap",
         "italia/design-angular-kit",
         "dotted-labs/ngx-bootstrap-components",
         "pSkywalker/ez-nav"
