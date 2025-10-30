@@ -39,7 +39,11 @@ class BuildFactory implements BuildFactoryInterface
 
     public function cache(BuildInterface $build): void
     {
-        $this->filesystem->mirror($build->getPath(), $this->path['cached']);
+        $this->filesystem->mirror(
+            $build->getPath(),
+            $this->path['cached'],
+            options: ['override' => true, 'delete' => true],
+        );
     }
 
     public function getCurrent(): ?BuildInterface

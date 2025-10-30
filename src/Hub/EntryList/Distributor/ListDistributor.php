@@ -100,34 +100,33 @@ class ListDistributor implements ListDistributorInterface
     {
         $updated = false;
         $entries = [];
-        $entries_total_score = 0;
-        $entries_count = 0;
+        $entriesTotalScore = 0;
+        $entriesCount = 0;
         foreach ($this->list->getEntries() as $entry) {
             $entryData = $entry->get();
             $entryData['updated'] = time();
-            $entryDataCache = $this->getCachedObject($entry->getId()) ?: $entryData;
+            $entryDataCache = $this->readCachedObject($entry->getId()) ?: $entryData;
             $diff = $this->deepDiffArray($entryData, $entryDataCache);
             if (1 === \count($diff)) {
                 $entryData['updated'] = $entryDataCache['updated'];
             } else {
                 $updated = true;
-                $this->setObject($entry->getId(), $entryData);
             }
-
+            $this->cacheObject($entry->getId(), $entryData);
             if ($entry instanceof RepoGithubEntryInterface) {
-                $entries_total_score += $entryData['scores_avg'];
                 // Ignore archived entries and entries with score < 50
                 if ($entryData['scores_avg'] < 50 || $entryData['archived']) {
                     $this->list->removeEntry($entry);
 
                     continue;
                 }
+                $entriesTotalScore += $entryData['scores_avg'];
                 $entryData = $this->buildEntryRepoGithub($entryData, $entryDataCache);
             }
 
             $entryType = $entry::getType();
             $entries[$entryType][] = $entryData;
-            ++$entries_count;
+            ++$entriesCount;
         }
 
         $githubRepoType = RepoGithubEntry::getType();
@@ -175,7 +174,7 @@ class ListDistributor implements ListDistributorInterface
             }
         }
 
-        $this->list->set('score', (int) ($entries_total_score / max(1, $entries_count)));
+        $this->list->set('score', (int) ($entriesTotalScore / max(1, $entriesCount)));
 
         $list = [
             'id' => $this->list->getId(),
@@ -187,12 +186,12 @@ class ListDistributor implements ListDistributorInterface
         ];
 
         $cid = 'list:'.$list['id'];
-        $listCache = $this->getCachedObject($cid) ?: $list;
+        $listCache = $this->readCachedObject($cid) ?: $list;
         $diff = $this->deepDiffArray($list, $listCache);
         if (!$updated && 1 === \count($diff)) {
             $list['updated'] = $listCache['updated'];
         } else {
-            $this->setObject($cid, $list);
+            $this->cacheObject($cid, $list);
         }
 
         $list['entries'] = $entries;
@@ -248,14 +247,14 @@ class ListDistributor implements ListDistributorInterface
     /**
      * Gets the value of a cached object.
      */
-    protected function getCachedObject(string $id): mixed
+    protected function readCachedObject(string $id): mixed
     {
         if (null === $this->cachedBuild) {
             return false;
         }
 
         $idsha = sha1($id);
-        $file = \sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
+        $file = \sprintf('objects/%s/%s/%s/%s', $this->list->getId(), $idsha[0], $idsha[1], $idsha);
         if (!$this->cachedBuild->exists($file, true)) {
             return false;
         }
@@ -264,12 +263,12 @@ class ListDistributor implements ListDistributorInterface
     }
 
     /**
-     * Writes an object data.
+     * Writes an object data to cache.
      */
-    protected function setObject(string $id, mixed $data): void
+    protected function cacheObject(string $id, mixed $data): void
     {
         $idsha = sha1($id);
-        $file = \sprintf('objects/%s/%s/%s', $idsha[0], $idsha[1], $idsha);
+        $file = \sprintf('objects/%s/%s/%s/%s', $this->list->getId(), $idsha[0], $idsha[1], $idsha);
         $this->build->write($file, serialize($data), true);
     }
 
