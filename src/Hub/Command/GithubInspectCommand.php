@@ -56,6 +56,7 @@ class GithubInspectCommand extends Command
             \sprintf(' <info>* Homepage:</info> %s', $repo['homepage'] ?: '--'),
             \sprintf(' <info>* Language:</info> %s', $repo['language'] ?: '--'),
             \sprintf(' <info>* License:</info> %s', $repo['license_id'] ?: '--'),
+            \sprintf(' <info>* Topics:</info> %s', implode(', ', $repo['topics']) ?: '--'),
             \sprintf(' <info>* Created:</info> %s', date('Y-m-d', strtotime($repo['created_at']))),
             \sprintf(' <info>* Pushed:</info> %s', date('Y-m-d g:i:s A e', strtotime($repo['pushed_at']))),
             \sprintf(' <info>* Average Score:</info> %d', $repo['scores_avg']),

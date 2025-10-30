@@ -1749,7 +1749,7 @@
     {
       "type": "github.repos",
       "options": {
-        "category": "Web/URL Shorteners"
+        "category": "URL Shorteners"
       },
       "data": [
         "sjdonado/bit",
@@ -1794,7 +1794,7 @@
     {
       "type": "github.repos",
       "options": {
-        "category": "Web/Servers"
+        "category": "Web Servers"
       },
       "data": [
         "xyproto/algernon",
@@ -1903,6 +1903,7 @@
       "Note-Taking Apps",
       "Office Suites",
       "Security/Password Managers",
+      "URL Shorteners",
       "Pastebin Tools",
       "Personal Dashboards",
       "Media/Photo Galleries",
@@ -1925,10 +1926,9 @@
       "Productivity/Task Management",
       "Support & Ticketing",
       "Productivity/Time Tracking",
-      "Web/URL Shorteners",
       "Security/Video Surveillance",
       "Networking/VPN",
-      "Web/Servers",
+      "Web Servers",
       "Knowledge/Wikis"
     ]
   }
