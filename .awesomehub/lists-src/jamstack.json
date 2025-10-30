@@ -6,12 +6,18 @@
     {
       "type": "github.folder",
       "data": "https://github.com/jamstack/jamstack.org/tree/main/src/site/generators",
-      "options": {"category": "Site Generators"}
+      "options": {
+        "commit": "3f61a35b9a828c4a7c8b0dcad7c473c58bab873d",
+        "category": "Site Generators"
+      }
     },
     {
       "type": "github.folder",
       "data": "https://github.com/jamstack/jamstack.org/tree/main/src/site/headless-cms",
-      "options": {"category": "Headless CMS"}
+      "options": {
+        "commit": "3f61a35b9a828c4a7c8b0dcad7c473c58bab873d",
+        "category": "Headless CMS"
+      }
     }
   ],
   "options": {

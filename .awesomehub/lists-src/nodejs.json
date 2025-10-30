@@ -51,7 +51,6 @@
       "type": "github.list",
       "data": "sindresorhus/awesome-nodejs",
       "options": {
-        "branch": "master",
         "commit": "c63ebd0c424ec5b18bde99d41a408f55edb3e6f0"
       }
     }

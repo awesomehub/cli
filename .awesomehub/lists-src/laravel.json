@@ -164,6 +164,7 @@
       "type": "github.list",
       "data": "TimothyDJones/awesome-laravel",
       "options": {
+        "commit": "56030f160c70ce89e702804ab9c1d313be118b65",
         "markdownCategories": {
           "H2(Tutorials)": { "ignore": true },
           "H2(Resources)": { "ignore": true },
@@ -174,7 +175,9 @@
     {
       "type": "github.list",
       "data": "chiraggude/awesome-laravel",
-      "options": {}
+      "options": {
+        "commit": "0374093f529ba54bfd201c4c52b40a88e45ab1ae"
+      }
     },
     {
       "type": "github.repos",

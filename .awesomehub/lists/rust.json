@@ -180,7 +180,8 @@
         "unum-cloud/usearch",
         "kn0sys/valentinus",
         "vorot93/libmdbx-rs",
-        "naomijub/wooridb"
+        "naomijub/wooridb",
+        "rustfs/rustfs"
       ]
     },
     {
@@ -740,9 +741,9 @@
         "auto-complete/auto-complete",
         "autozimu/LanguageClient-neovim",
         "brotzeit/rustic",
-        "company-mode/company-mode.github.io",
+        "company-mode/company-mode",
         "eclipse-corrosion/corrosion",
-        "filllabs/dependi.git",
+        "filllabs/dependi",
         "flycheck/flycheck",
         "flycheck/flycheck-rust",
         "intellij-rust/intellij-rust",
@@ -758,7 +759,7 @@
         "racer-rust/racer",
         "racer-rust/vim-racer",
         "rust-analyzer/rust-analyzer",
-        "rust-lang/rust-analyzer.git",
+        "rust-lang/rust-analyzer",
         "rust-lang/rust-enhanced",
         "rust-lang/rust-mode",
         "rust-lang/rust.vim"
@@ -1140,7 +1141,8 @@
         "kernelmachine/utah",
         "paradedb/paradedb",
         "pola-rs/polars",
-        "weld-project/weld"
+        "weld-project/weld",
+        "pathwaycom/pathway"
       ]
     },
     {
@@ -1173,7 +1175,8 @@
         "RoaringBitmap/roaring-rs",
         "rust-itertools/itertools",
         "tnballo/scapegoat",
-        "yamafaktory/hypergraph"
+        "yamafaktory/hypergraph",
+        "bilinearlabs/rs-merkle-tree"
       ]
     },
     {
@@ -1583,10 +1586,10 @@
         "smallnest/rpcx-rs",
         "smoltcp-rs/smoltcp",
         "socketio/socket.io",
-        "stomp/stomp-specification-1.2.html",
         "thehydroimpulse/nanomsg.rs",
         "tikv/grpc-rs",
-        "zslayton/stomp-rs"
+        "zslayton/stomp-rs",
+        "ararog/deboa"
       ]
     },
     {
@@ -1828,7 +1831,7 @@
         "TeXitoi/benchmarksgame-rs",
         "ad-si/Rust-Flashcards",
         "aturon/aturon.github.io",
-        "boostcon/cppnow_presentations_201...",
+        "boostcon/cppnow_presentations_2017",
         "brson/stdx",
         "c410-f3r/wtx-bench",
         "cis198-2016s/schedule",

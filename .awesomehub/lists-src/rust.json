@@ -5,7 +5,10 @@
   "sources": [
     {
       "type": "github.list",
-      "data": "rust-unofficial/awesome-rust"
+      "data": "rust-unofficial/awesome-rust",
+      "options": {
+        "commit": "1125407f683ca67d6b67a9bf1487673f96ff5a50"
+      }
     }
   ]
 }

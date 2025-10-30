@@ -76,6 +76,7 @@
       "type": "github.list",
       "data": "sdras/awesome-actions",
       "options": {
+        "commit": "0edccf33480b95bf7547b90187c31e9ab2cb070d",
         "markdownCategories": {
           "H2(Official Resources)": { "rename": "Official/Automation" },
           "H2(Official Resources)/H4(Setup Actions)": { "rename": "Official/Setup Actions" },

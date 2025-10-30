@@ -5,7 +5,10 @@
   "sources": [
     {
       "type": "github.list",
-      "data": "akullpp/awesome-java"
+      "data": "akullpp/awesome-java",
+      "options": {
+        "commit": "c167e42db00b561553568fb14777365625f7e4e0"
+      }
     }
   ]
 }

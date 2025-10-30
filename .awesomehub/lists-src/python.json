@@ -5,7 +5,10 @@
   "sources": [
     {
       "type": "github.list",
-      "data": "vinta/awesome-python"
+      "data": "vinta/awesome-python",
+      "options": {
+        "commit": "48940ed070acba01da0a45c083e829192b8db509"
+      }
     }
   ]
 }

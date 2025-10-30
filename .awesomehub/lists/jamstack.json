@@ -192,7 +192,8 @@
         "wiztools/stagen",
         "wspringer/monkeyman",
         "yet-another-static-site-generator/yass",
-        "zedelghem/pystatic"
+        "zedelghem/pystatic",
+        "riipandi/vitto"
       ]
     },
     {

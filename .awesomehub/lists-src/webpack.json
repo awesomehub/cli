@@ -28,6 +28,7 @@
       "type": "github.list",
       "data": "https://raw.githubusercontent.com/webpack/webpack.js.org/refs/heads/main/src/content/awesome-webpack.mdx",
       "options": {
+        "commit": "afb19b57057a6c1b34824a9a848312e036b76e2a",
         "markdownCategories": {
           "H3(Loaders)": { "rename": "Loaders/{name}" },
           "H3(Webpack Plugins)": { "rename": "Plugins" },

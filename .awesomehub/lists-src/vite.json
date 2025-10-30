@@ -60,8 +60,10 @@
     },
     {
       "type": "github.list",
-      "data": "https://github.com/vitejs/awesome-vite",
-      "options": {}
+      "data": "vitejs/awesome-vite",
+      "options": {
+        "commit": "329bd93d26072e431ed5a3344ea4da98f474a108"
+      }
     }
   ],
   "options": {

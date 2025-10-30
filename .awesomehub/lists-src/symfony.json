@@ -113,6 +113,7 @@
       "type": "github.list",
       "data": "sitepoint-editors/awesome-symfony",
       "options": {
+        "commit": "754cb6f0d024103dae16e3dc1ca1074806f87d13",
         "markdownCategories": {}
       }
     }

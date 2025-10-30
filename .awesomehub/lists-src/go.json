@@ -17,6 +17,7 @@
       "type": "github.list",
       "data": "avelino/awesome-go",
       "options": {
+        "commit": "44263fcabf3b0a2827a1fe7d857b46be2f06242e",
         "markdownCategories": {
           "H2(Websites)": { "ignore": true }
         }
