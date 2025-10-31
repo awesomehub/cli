@@ -184,6 +184,7 @@ class ListDistributor implements ListDistributorInterface
         $list = [
             'id' => $this->list->getId(),
             'name' => $this->list->get('name'),
+            'copyright' => $this->list->get('copyright'),
             'desc' => $this->list->get('desc'),
             'score' => $this->list->get('score'),
             'cats' => array_values($this->list->getCategories()),
