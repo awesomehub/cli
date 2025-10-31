@@ -175,7 +175,6 @@
       },
       "data": [
         "985563349/react-vite-template",
-        "Aubergine-Community/react-basic-template",
         "ChrisUser/vite-complete-react-app",
         "Dulajdeshan/vite-react-redux-saga-typescript",
         "EverSeenTOTOTO/browser-app-boilerplate",
@@ -271,7 +270,6 @@
         "jooy2/vutron",
         "maxstue/vite-reactts-electron-starter",
         "mubaidr/vite-vue3-chrome-extension-v3",
-        "stefanfrede/11st-starter-kit",
         "tada5hi/vitron",
         "umbrella22/electron-vite-template"
       ]
@@ -481,7 +479,6 @@
         "windicss/vite-plugin-windicss",
         "xiaoxian521/vite-plugin-remove-console",
         "xiaweiss/vite-plugin-ali-oss",
-        "y-nk/vite-plugin-remark-rehype",
         "yingpengsha/vite-plugin-tips",
         "yjl9903/unplugin-info",
         "yjl9903/vite-plugin-cloudflare-functions",

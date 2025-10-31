@@ -34,7 +34,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
         $cached = $this->read($entry);
         if ($cached && !$force) {
             // Only merge the fields that we provide
-            $fields = ['author', 'name', 'description', 'language', 'license', 'scores_avg', 'scores', 'pushed', 'archived', 'highlight'];
+            $fields = ['author', 'name', 'description', 'topics', 'language', 'license', 'scores_avg', 'scores', 'pushed', 'archived', 'highlight'];
             foreach ($fields as $field) {
                 $entry->set($field, $cached->get($field));
             }
@@ -57,6 +57,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
 
         $entry->merge([
             'description' => $this->cleanStr((string) $repo['description']),
+            'topics' => $repo['topics'],
             'language' => $repo['language'],
             'license' => $repo['license_id'],
             'scores_avg' => $repo['scores_avg'],
@@ -120,6 +121,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
             'filesystem' => $filesystem,
         ]);
 
+        /** @var GithubRepoInspectorInterface $inspector */
         $inspector = $container->get('github.inspector');
 
         return new static($inspector, $filesystem, $workspace, $environment);

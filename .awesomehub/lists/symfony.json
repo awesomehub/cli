@@ -371,12 +371,7 @@
         "sonata-project/twig-extensions",
         "sonata-project/media-orm-pack",
         "sonata-project/media-odm-pack",
-        "sonata-project/media-phpcr-pack",
         "sonata-project/notification-orm-pack",
-        "sonata-project/classification-orm-pack",
-        "sonata-project/classification-odm-pack",
-        "sonata-project/news-orm-pack",
-        "sonata-project/news-odm-pack",
         "sonata-project/empty-website"
       ]
     },
@@ -695,7 +690,7 @@
       },
       "data": [
         "dustin10/VichUploaderBundle",
-        "hautelook/AliceBundle",
+        "theofidry/AliceBundle",
         "h4cc/AliceFixturesBundle",
         "AppVentus/AvSpoolMailerBundle",
         "eschmar/doctrine-routing-bundle",
@@ -894,7 +889,8 @@
         "vivait/StringGeneratorBundle",
         "TheBigBrainsCompany/TbbcCacheBundle",
         "TheBigBrainsCompany/TbbcMoneyBundle",
-        "hautelook/TemplatedUriBundle",
+        "ibexa/templated-uri-bundle",
+        "goetas/TemplatedUriRouter",
         "voryx/ThruwayBundle",
         "stephpy/timeline-bundle",
         "labzone/TransmissionBundle",

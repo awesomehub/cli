@@ -214,8 +214,7 @@
         "fast-facts/ng-update",
         "DSI-HUG/ngx-app-updater",
         "Celtian/ngx-update-app",
-        "angular-sanctuary/ngx-boomer",
-        "stardyn/angular-updater"
+        "angular-sanctuary/ngx-boomer"
       ]
     },
     {
@@ -309,7 +308,6 @@
         "Backbase/backbase-micro-frontends",
         "santoshshinde2012/micro-frontends-mindmaps",
         "dkhrunov/ngx-mfe",
-        "eurusik/ngx-mf-remote-loader",
         "nrwl/nx",
         "vercel/turbo"
       ]
@@ -325,8 +323,7 @@
         "angular-architects/module-federation-plugin",
         "edumserrano/webpack-module-federation-with-angular",
         "Seifenn/vite-module-federation-angular-test",
-        "igorhms/mfe-crossframework",
-        "eurusik/ngx-remote-component"
+        "igorhms/mfe-crossframework"
       ]
     },
     {
@@ -351,10 +348,10 @@
       "data": [
         "verto-health/astral-accessibility",
         "angular-a11y/angular-vlibras",
-        "gagdmac/a11y-accessibility-first",
         "ShakeelKadri/ngx-accessible-ui",
         "richpauly13/easy",
-        "LDV2k3/a11y-libraries"
+        "LDV2k3/a11y-libraries",
+        "dequelabs/axe-core"
       ]
     },
     {
@@ -832,7 +829,6 @@
         "angularcafe/ngXpress",
         "thatsamsonkid/spartan-stack-starter",
         "karmasakshi/jet",
-        "ClaudioAlcantaraR/serene",
         "TailAdmin/free-angular-tailwind-dashboard",
         "teamhanko/hanko-angular-express-starter",
         "Beszt/ng-ultimate-base",
@@ -1173,7 +1169,6 @@
         "mouhamadalmounayar/ngx-traak",
         "lula/ngx-summernote",
         "manishpatidar028/angular-rich-text-editor",
-        "michalgrzegorczyk-dev/ngx-wysicat",
         "synergycodes/ng-diagram"
       ]
     },
@@ -1262,7 +1257,6 @@
         "dgonzalez870/ngx-formcontrol-errors",
         "dynimorius/ngx-validator-pack",
         "fakeJan499/ngx-error-msg",
-        "marcellodotgg/ngx-validators",
         "abarghoud/ngx-reactive-form-class-validator",
         "mkeller1992/ng-error-tooltips",
         "apalaciosdev/ngx-forms-validator",
@@ -1290,7 +1284,6 @@
         "primefaces/primeicons",
         "czeckd/angular-svg-icon",
         "ngneat/svg-icon",
-        "bodnya29179/Angular-Svg-Sprite",
         "dimaslz/ng-heroicons",
         "bennymeg/ngx-fluent-ui",
         "adisreyaj/angular-remix-icon",
@@ -1503,7 +1496,6 @@
         "sinequa/sba-angular",
         "pechemann/angular-toolbox",
         "wghglory/ngx-lift",
-        "orgs/Firestitch",
         "studiohyperdrive/hyperdrive-opensource",
         "OPI-PIB/ngx-utility",
         "sketch7/ssv.ngx",
@@ -1853,7 +1845,7 @@
       "data": [
         "ng-primitives/ng-primitives",
         "radix-ng/primitives",
-        "ng-base/ngbase",
+        "lenneTech/ng-base",
         "DanielAlcaraz/vacui-ui",
         "fawadtariq/ngx-headless"
       ]

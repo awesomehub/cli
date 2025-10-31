@@ -421,7 +421,6 @@
       },
       "data": [
         "DV8FromTheWorld/JDA",
-        "DaveJarvis/KeenType",
         "Ecwid/consul-api",
         "Netflix/eureka",
         "TheoKanning/openai-java",
@@ -474,7 +473,6 @@
         "javapathfinder/jpf-core",
         "jhalterman/typetools",
         "jooq/joox",
-        "ksen007/janala2",
         "ladutsko/isbn-core",
         "langchain4j/langchain4j",
         "maxandersen/jbang",
@@ -502,7 +500,6 @@
         "vorburger/ch.vorburger.exec",
         "winterbe/java8-tutorial",
         "xmolecules/jmolecules",
-        "xzripper/Void2D",
         "yWorks/yGuard",
         "yasserg/crawler4j",
         "zeroturnaround/zt-exec",

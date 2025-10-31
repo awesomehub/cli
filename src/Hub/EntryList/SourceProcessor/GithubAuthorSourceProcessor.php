@@ -46,6 +46,9 @@ class GithubAuthorSourceProcessor implements SourceProcessorInterface
 
         $entries = [];
         foreach ($repos as $repo) {
+            if ($repo['archived']) {
+                continue;
+            }
             $entries[] = [
                 'type' => 'repo.github',
                 'data' => [

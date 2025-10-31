@@ -12,8 +12,8 @@ interface BuildFactoryInterface
     /**
      * Creates a new build.
      *
-     * @param string|null $path Build path
-     * @param bool $hashed Whether it's a hashed build
+     * @param null|string $path   Build path
+     * @param bool        $hashed Whether it's a hashed build
      */
     public function create(?string $path = null, bool $hashed = true): BuildInterface;
 

@@ -9,8 +9,6 @@
         "category": "Official/Automation"
       },
       "data": [
-        "features/actions",
-        "en/actions",
         "actions/virtual-environments",
         "actions/runner",
         "actions/starter-workflows",
@@ -49,8 +47,7 @@
         "actions/typescript-action",
         "actions/http-client",
         "actions/hello-world-docker-action",
-        "actions/container-toolkit-action",
-        "br3ndonland/f9c753eb27381f97336aa21b8d932be6"
+        "actions/container-toolkit-action"
       ]
     },
     {
@@ -140,7 +137,8 @@
         "jakejarvis/s3-sync-action",
         "appleboy/lambda-action",
         "Dirrk/terraform-docs",
-        "asgharlabs/github-terraform"
+        "asgharlabs/github-terraform",
+        "probot/adapter-github-actions"
       ]
     },
     {
@@ -158,7 +156,7 @@
         "whoan/docker-build-with-cache-action",
         "crazy-max/ghaction-docker-buildx",
         "ankitvgupta/ref-to-tag-action",
-        "marketplace/actions"
+        "christian-korneck/update-container-description-action"
       ]
     },
     {
@@ -300,7 +298,6 @@
       },
       "data": [
         "Ilshidur/action-discord",
-        "pullreminders/slack-action",
         "nexmo-community/nexmo-sms-action",
         "bharathvaj1995/clockwork-sms-action",
         "appleboy/telegram-action",
@@ -328,10 +325,9 @@
         "category": "Pull Requests"
       },
       "data": [
-        "pullreminders/assignee-to-reviewer-action",
         "vsoch/pull-request-action",
         "cirrus-actions/rebase",
-        "pullreminders/label-when-approved-action",
+        "TobKed/label-when-approved-action",
         "banyan/auto-label",
         "hmarr/auto-approve-action",
         "kentaro-m/auto-assign-action",
@@ -348,7 +344,6 @@
         "tibdex/autosquash",
         "maxkomarychev/merge-pal-action",
         "deepakputhraya/action-pr-title",
-        "jrylan/github-action-stuck-pr-notifier",
         "JulienKode/pull-request-name-linter-action",
         "cirrus-actions/branch-guard",
         "ssowonny/diff-pages-action",
@@ -358,7 +353,6 @@
         "tylermurry/github-pr-landmine",
         "staabm/annotate-pull-request-from-checkstyle",
         "flowwer-dev/pull-request-stats",
-        "derkinderfietsen/pr-description-enforcer",
         "lirantal/github-action-new-dependencies-advisor"
       ]
     },
@@ -485,7 +479,7 @@
         "WyriHaximus/github-action-create-milestone",
         "WyriHaximus/github-action-close-milestone",
         "deepakputhraya/action-branch-name",
-        "marketplace/actions",
+        "gacts/github-slug",
         "max/awesome-lint",
         "deef0000dragon1/json-edit-action",
         "Decathlon/slate-builder-action",

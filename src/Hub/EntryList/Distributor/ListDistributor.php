@@ -17,6 +17,7 @@ class ListDistributor implements ListDistributorInterface
     private const RANK_BANDS = [1, 3, 5, 10, 50, 90];
 
     protected ?EntryListInterface $list;
+
     /** @var array<string, mixed> */
     protected ?array $listCache;
     protected ?string $listUrl;
@@ -220,6 +221,7 @@ class ListDistributor implements ListDistributorInterface
             'cats' => $current['categories'],
             'score' => $current['scores_avg'],
             'scores' => $current['scores'],
+            'tags' => array_map('strtolower', $current['topics']),
             'hglt' => $current['highlight']['message'],
         ];
     }
@@ -260,7 +262,7 @@ class ListDistributor implements ListDistributorInterface
         }
 
         $data = $this->cachedBuild->read($file, true);
-        $this->listCache = @unserialize($data);;
+        $this->listCache = @unserialize($data);
     }
 
     protected function saveListCache(): void

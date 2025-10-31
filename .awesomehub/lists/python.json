@@ -351,7 +351,9 @@
         "py2exe/py2exe",
         "dashingsoft/pyarmor",
         "pyinstaller/pyinstaller",
-        "linkedin/shiv"
+        "linkedin/shiv",
+        "scoder/lupa",
+        "cython/cython"
       ]
     },
     {
@@ -419,7 +421,7 @@
         "r0x0r/pywebview",
         "sebp/PyGObject-Tutorial",
         "urwid/urwid",
-        "urwid/urwid.git",
+        "urwid/urwid",
         "wxWidgets/Phoenix",
         "yeongpin/cursor-free-vip",
         "zhiyiYo/PyQt-Fluent-Widgets",
@@ -444,7 +446,7 @@
         "rennat/pynliner",
         "spurin/xmldataset",
         "stchris/untangle",
-        "users/scoder"
+        "jaraco/cssutils"
       ]
     },
     {
@@ -945,7 +947,7 @@
         "mde/timezone-js",
         "python-babel/flask-babel",
         "python/tzdata",
-        "stub42/pytz.git"
+        "stub42/pytz"
       ]
     },
     {
@@ -1044,7 +1046,7 @@
         "django/channels",
         "django/daphne",
         "drivendataorg/cloudpathlib",
-        "edgewall/genshi.git",
+        "edgewall/genshi",
         "elastic/elasticsearch-dsl-py",
         "encode/uvicorn",
         "errbotio/errbot",
