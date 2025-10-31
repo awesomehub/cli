@@ -16,20 +16,20 @@ class ListDistributor implements ListDistributorInterface
 {
     private const RANK_BANDS = [1, 3, 5, 10, 50, 90];
 
-    protected EntryListInterface $list;
-    protected array $config;
-    protected int $updated;
-    protected ?string $currentListUrl = null;
+    protected ?EntryListInterface $list;
+    /** @var array<string, mixed> */
+    protected ?array $listCache;
+    protected ?string $listUrl;
+    protected ?int $listUpdatedAt;
 
     /** @var array<string, array<string, array<string, mixed>>> */
-    protected array $collectionsData = [];
+    protected array $listCollections = [];
+    protected array $config = [
+        'collections' => [],
+    ];
 
     public function __construct(protected BuildInterface $build, protected ?BuildInterface $cachedBuild = null, ?array $config = null)
     {
-        $this->config = [
-            'collections' => [],
-        ];
-
         if ($config) {
             $this->config = array_merge($this->config, $config);
         }
@@ -42,9 +42,13 @@ class ListDistributor implements ListDistributorInterface
         }
 
         $this->list = $list;
-        $this->currentListUrl = null;
+        $this->listUrl = null;
+        $this->listCache = [];
+        $this->listUpdatedAt = null;
 
+        $this->loadListCache();
         $this->buildList();
+        $this->saveListCache();
 
         // All lists goes this collection
         $this->addToCollection('all');
@@ -64,14 +68,14 @@ class ListDistributor implements ListDistributorInterface
 
     public function finalize(): void
     {
-        if (empty($this->collectionsData)) {
+        if (empty($this->listCollections)) {
             $this->build->set('urls', new \stdClass());
 
             return;
         }
 
         $urls = [];
-        foreach ($this->collectionsData as $collectionId => $listsById) {
+        foreach ($this->listCollections as $collectionId => $listsById) {
             $lists = array_values($listsById);
             $entriesCount = 0;
             foreach ($lists as $item) {
@@ -105,14 +109,14 @@ class ListDistributor implements ListDistributorInterface
         foreach ($this->list->getEntries() as $entry) {
             $entryData = $entry->get();
             $entryData['updated'] = time();
-            $entryDataCache = $this->readCachedObject($entry->getId()) ?: $entryData;
+            $entryDataCache = $this->listCache[$entry->getId()] ?? $entryData;
             $diff = $this->deepDiffArray($entryData, $entryDataCache);
             if (1 === \count($diff)) {
                 $entryData['updated'] = $entryDataCache['updated'];
             } else {
                 $updated = true;
             }
-            $this->cacheObject($entry->getId(), $entryData);
+            $this->listCache[$entry->getId()] = $entryData;
             if ($entry instanceof RepoGithubEntryInterface) {
                 // Ignore archived entries and entries with score < 50
                 if ($entryData['scores_avg'] < 50 || $entryData['archived']) {
@@ -185,21 +189,21 @@ class ListDistributor implements ListDistributorInterface
             'updated' => time(),
         ];
 
-        $cid = 'list:'.$list['id'];
-        $listCache = $this->readCachedObject($cid) ?: $list;
+        $cid = \sprintf('list:%s', $list['id']);
+        $listCache = $this->listCache[$cid] ?? $list;
         $diff = $this->deepDiffArray($list, $listCache);
         if (!$updated && 1 === \count($diff)) {
             $list['updated'] = $listCache['updated'];
         } else {
-            $this->cacheObject($cid, $list);
+            $this->listCache[$cid] = $list;
         }
 
         $list['entries'] = $entries;
         $relativePath = \sprintf('list/%s', $list['id']);
         $buildPath = $this->build->write($relativePath, $list);
 
-        $this->currentListUrl = $buildPath;
-        $this->updated = $list['updated'];
+        $this->listUrl = $buildPath;
+        $this->listUpdatedAt = $list['updated'];
     }
 
     /**
@@ -225,51 +229,53 @@ class ListDistributor implements ListDistributorInterface
      */
     protected function addToCollection(string $id): void
     {
-        if (null === $this->currentListUrl) {
+        if (null === $this->listUrl) {
             throw new \RuntimeException('List URL is not available for the current distribution.');
         }
 
-        if (!isset($this->collectionsData[$id])) {
-            $this->collectionsData[$id] = [];
+        if (!isset($this->listCollections[$id])) {
+            $this->listCollections[$id] = [];
         }
 
-        $this->collectionsData[$id][$this->list->getId()] = [
+        $this->listCollections[$id][$this->list->getId()] = [
             'id' => $this->list->getId(),
             'name' => $this->list->get('name'),
             'desc' => $this->list->get('desc'),
             'score' => $this->list->get('score'),
             'entries' => \count($this->list->getEntries()),
-            'updated' => $this->updated,
-            'url' => $this->currentListUrl,
+            'updated' => $this->listUpdatedAt,
+            'url' => $this->listUrl,
         ];
     }
 
-    /**
-     * Gets the value of a cached object.
-     */
-    protected function readCachedObject(string $id): mixed
+    protected function loadListCache(): void
     {
         if (null === $this->cachedBuild) {
-            return false;
+            return;
         }
 
-        $idsha = sha1($id);
-        $file = \sprintf('objects/%s/%s/%s/%s', $this->list->getId(), $idsha[0], $idsha[1], $idsha);
+        $file = $this->getListCachePath();
         if (!$this->cachedBuild->exists($file, true)) {
-            return false;
+            return;
         }
 
-        return unserialize($this->cachedBuild->read($file, true)) ?: false;
+        $data = $this->cachedBuild->read($file, true);
+        $this->listCache = @unserialize($data);;
     }
 
-    /**
-     * Writes an object data to cache.
-     */
-    protected function cacheObject(string $id, mixed $data): void
+    protected function saveListCache(): void
     {
-        $idsha = sha1($id);
-        $file = \sprintf('objects/%s/%s/%s/%s', $this->list->getId(), $idsha[0], $idsha[1], $idsha);
-        $this->build->write($file, serialize($data), true);
+        $this->build->write(
+            $this->getListCachePath(),
+            serialize($this->listCache),
+            true,
+            false
+        );
+    }
+
+    protected function getListCachePath(): string
+    {
+        return \sprintf('objects/%s.cache', $this->list->getId());
     }
 
     /**

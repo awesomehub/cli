@@ -45,9 +45,10 @@ interface BuildInterface
     /**
      * Writes a file into the build directory.
      *
-     * @param bool $raw Ignore data serialization
+     * @param bool $raw  Ignore data serialization
+     * @param bool $hash Ignore data hashing
      */
-    public function write(string $path, mixed $data, bool $raw = false): string;
+    public function write(string $path, mixed $data, bool $raw = false, bool $hash = true): string;
 
     /**
      * Reads a file from the build directory.

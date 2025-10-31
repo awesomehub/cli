@@ -22,7 +22,7 @@ class BuildFactory implements BuildFactoryInterface
         ];
     }
 
-    public function create($path = null, bool $hashed = true): BuildInterface
+    public function create(?string $path = null, bool $hashed = true): BuildInterface
     {
         $build = new Build(
             $this->filesystem,
