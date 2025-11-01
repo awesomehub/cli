@@ -561,8 +561,13 @@
         "luhenry/netlib",
         "mindsdb/mindsdb",
         "numenta/nupic",
+        "scikit-learn/scikit-learn",
         "openai/gym",
-        "scikit-learn/scikit-learn"
+        "openai/swarm",
+        "openai/openai-agents-python",
+        "langflow-ai/langflow",
+        "jina-ai/serve",
+        "langchain-ai/langchain"
       ]
     },
     {
@@ -1120,7 +1125,8 @@
         "zappa/Zappa",
         "zeromq/pyzmq",
         "zopefoundation/ZODB",
-        "zulko/moviepy"
+        "zulko/moviepy",
+        "pre-commit/pre-commit"
       ]
     }
   ],

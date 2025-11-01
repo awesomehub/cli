@@ -720,7 +720,13 @@
         "qbittorrent/qBittorrent",
         "slskd/slskd",
         "transmission/transmission",
-        "webtor-io/self-hosted"
+        "webtor-io/self-hosted",
+        "deluge-torrent/deluge",
+        "jesec/flood",
+        "VueTorrent/VueTorrent",
+        "sabnzbd/sabnzbd",
+        "Novik/ruTorrent",
+        "Prowlarr/Prowlarr"
       ]
     },
     {
@@ -1023,7 +1029,11 @@
         "sbondCo/Watcharr",
         "Totonyus/ydl_api_ng",
         "nbr23/youtube-dl-server",
-        "marcopiovanello/yt-dlp-web-ui"
+        "marcopiovanello/yt-dlp-web-ui",
+        "plexinc/pms-docker",
+        "MediaBrowser/Emby",
+        "tautulli/tautulli",
+        "morpheus65535/bazarr"
       ]
     },
     {
@@ -1359,7 +1369,8 @@
         "ignisda/ryot",
         "IgnisDa/ryot",
         "notclickable-jordan/starbase-80",
-        "Yooooomi/your_spotify"
+        "Yooooomi/your_spotify",
+        "causefx/Organizr"
       ]
     },
     {
@@ -1817,7 +1828,8 @@
         "traefik/traefik",
         "Safe3/uusec-waf",
         "varnishcache/varnish-cache",
-        "tobychui/zoraxy"
+        "tobychui/zoraxy",
+        "portainer/portainer"
       ]
     },
     {

@@ -306,7 +306,9 @@
         "rkalla/imgscalr",
         "romankh3/image-comparison",
         "vws-java/Barcode-Lib4J",
-        "zxing/zxing"
+        "zxing/zxing",
+        "facebook/fresco",
+        "bumptech/glide"
       ]
     },
     {
@@ -410,9 +412,13 @@
         "joel-jeremy/deezpatch",
         "nats-io/nats.java",
         "rabbitmq/rabbitmq-java-client",
-        "real-logic/Aeron",
         "zalando/nakadi",
-        "zeromq/jeromq"
+        "zeromq/jeromq",
+        "tchiotludo/akhq",
+        "apache/rocketmq",
+        "LMAX-Exchange/disruptor",
+        "aeron-io/aeron",
+        "strimzi/strimzi-kafka-operator"
       ]
     },
     {
@@ -661,7 +667,8 @@
         "jwtk/jjwt",
         "pac4j/pac4j",
         "square/keywhiz",
-        "tersesystems/securitybuilder"
+        "tersesystems/securitybuilder",
+        "beemdevelopment/Aegis"
       ]
     },
     {

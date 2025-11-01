@@ -10,6 +10,50 @@
       "options": {
         "commit": "1733abc2c42fc718d39c85b68eafe3de1bda0ab4"
       }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "File Transfer/Peer-to-Peer"
+      },
+      "data": [
+        "deluge-torrent/deluge",
+        "jesec/flood",
+        "VueTorrent/VueTorrent",
+        "sabnzbd/sabnzbd",
+        "Novik/ruTorrent",
+        "Prowlarr/Prowlarr"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Media/Management"
+      },
+      "data": [
+        "plexinc/pms-docker",
+        "MediaBrowser/Emby",
+        "tautulli/tautulli",
+        "morpheus65535/bazarr"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Personal Dashboards"
+      },
+      "data": [
+        "causefx/Organizr"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Web Servers"
+      },
+      "data": [
+        "portainer/portainer"
+      ]
     }
   ]
 }

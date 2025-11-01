@@ -10,6 +10,38 @@
       "options": {
         "commit": "c167e42db00b561553568fb14777365625f7e4e0"
       }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Imagery"
+      },
+      "data": [
+        "facebook/fresco",
+        "bumptech/glide"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Messaging"
+      },
+      "data": [
+        "tchiotludo/akhq",
+        "apache/rocketmq",
+        "LMAX-Exchange/disruptor",
+        "aeron-io/aeron",
+        "strimzi/strimzi-kafka-operator"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Security"
+      },
+      "data": [
+        "beemdevelopment/Aegis"
+      ]
     }
   ]
 }

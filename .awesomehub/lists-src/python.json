@@ -10,6 +10,28 @@
       "options": {
         "commit": "48940ed070acba01da0a45c083e829192b8db509"
       }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Machine Learning"
+      },
+      "data": [
+        "openai/swarm",
+        "openai/openai-agents-python",
+        "langflow-ai/langflow",
+        "jina-ai/serve",
+        "langchain-ai/langchain"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Miscellaneous"
+      },
+      "data": [
+        "pre-commit/pre-commit"
+      ]
     }
   ]
 }
