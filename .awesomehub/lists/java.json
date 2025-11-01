@@ -2,6 +2,7 @@
   "id": "java",
   "name": "Java",
   "desc": "Java frameworks, libraries, software and resources.",
+  "copyright": "Some repository links were initially sourced from the [awesome-java](https://github.com/akullpp/awesome-java) community, under the [CC BY 4.0 License](https://github.com/akullpp/awesome-java/blob/master/LICENSE).",
   "sources": [
     {
       "type": "github.repos",

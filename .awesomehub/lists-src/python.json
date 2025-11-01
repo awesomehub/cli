@@ -2,6 +2,7 @@
   "id": "python",
   "name": "Python",
   "desc": "Python frameworks, libraries, software and resources.",
+  "copyright": "Some repository links were initially sourced from the [awesome-python](https://github.com/vinta/awesome-python) community, under the [CC BY 4.0 License](https://github.com/vinta/awesome-python/blob/master/LICENSE).",
   "sources": [
     {
       "type": "github.list",

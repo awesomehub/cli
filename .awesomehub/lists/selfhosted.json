@@ -2,7 +2,7 @@
   "id": "selfhosted",
   "name": "Self-hosted",
   "desc": "Open-source self-hosted apps and services across everyday use cases.",
-  "copyright": "Data by the [awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted-data) community, under the [CC BY-SA 3.0 License](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/LICENSE).",
+  "copyright": "Some repository links were initially sourced from the [awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted-data) community, under the [CC BY-SA 3.0 License](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/LICENSE).",
   "sources": [
     {
       "type": "github.repos",
