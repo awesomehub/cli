@@ -17,6 +17,24 @@
         "commit": "c63ebd0c424ec5b18bde99d41a408f55edb3e6f0",
         "selectCategory": "Command-line apps"
       }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Generative AI"
+      },
+      "data": [
+        "openai/codex",
+        "anthropics/claude-code",
+        "sigoden/aichat",
+        "sst/opencode",
+        "google-gemini/gemini-cli",
+        "charmbracelet/crush",
+        "gptme/gptme",
+        "continuedev/continue",
+        "plandex-ai/plandex",
+        "CodebuffAI/codebuff"
+      ]
     }
   ]
 }

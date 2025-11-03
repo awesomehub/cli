@@ -105,7 +105,8 @@
         "victorb/trymodule",
         "kucherenko/jscpd",
         "siddharthkp/auto-install",
-        "siddharthkp/cost-of-modules"
+        "siddharthkp/cost-of-modules",
+        "maaslalani/nap"
       ]
     },
     {
@@ -245,6 +246,24 @@
         "kessler/node-bcat",
         "juliangruber/browser-run",
         "Raathigesh/Atmo"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Generative AI"
+      },
+      "data": [
+        "openai/codex",
+        "anthropics/claude-code",
+        "sigoden/aichat",
+        "sst/opencode",
+        "google-gemini/gemini-cli",
+        "charmbracelet/crush",
+        "gptme/gptme",
+        "continuedev/continue",
+        "plandex-ai/plandex",
+        "CodebuffAI/codebuff"
       ]
     },
     {
@@ -505,7 +524,7 @@
     {
       "type": "github.repos",
       "options": {
-        "category": "Learning/Command Line"
+        "category": "Learning"
       },
       "data": [
         "gleitz/howdoi",
@@ -753,6 +772,7 @@
       "Development/Release Automation",
       "Development/Package & Boilerplate",
       "Development/HTTP & Testing",
+      "Productivity/Generative AI",
       "Productivity/Workflows",
       "Productivity/Time Tracking",
       "Productivity/Notes & Knowledge",
@@ -769,7 +789,7 @@
       "Utilities/Security",
       "Utilities/Science & Math",
       "Utilities/Info & Weather",
-      "Learning/Command Line",
+      "Learning",
       "Data Manipulation/Processors",
       "Data Manipulation/JSON & Config",
       "Files/File Managers",
