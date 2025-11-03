@@ -323,7 +323,8 @@
         "voku/portable-ascii",
         "voku/portable-utf8",
         "voku/Stringy",
-        "vstelmakh/url-highlight"
+        "vstelmakh/url-highlight",
+        "laminas/laminas-escaper"
       ]
     },
     {
@@ -445,7 +446,10 @@
         "thephpleague/pipeline",
         "walkor/Workerman",
         "yohang/Finite",
-        "php/frankenphp"
+        "php/frankenphp",
+        "laminas/laminas-di",
+        "laminas/laminas-servicemanager",
+        "laminas/laminas-eventmanager"
       ]
     },
     {
@@ -516,7 +520,8 @@
         "vimeo/psalm",
         "xdebug/xdebug",
         "Yoast/PHPUnit-Polyfills",
-        "zenstruck/foundry"
+        "zenstruck/foundry",
+        "laminas/laminas-code"
       ]
     },
     {
@@ -609,7 +614,10 @@
         "nategood/commando",
         "php-school/cli-menu",
         "thephpleague/climate",
-        "crazywhalecc/static-php-cli"
+        "crazywhalecc/static-php-cli",
+        "laravel-zero/laravel-zero",
+        "laminas/laminas-cli",
+        "symfony/console"
       ]
     },
     {
@@ -692,7 +700,11 @@
         "LLPhant/LLPhant",
         "openai-php/client",
         "openai-php/laravel",
-        "SoftCreatR/php-mistral-ai-sdk"
+        "SoftCreatR/php-mistral-ai-sdk",
+        "symfony/ai",
+        "orhanerday/open-ai",
+        "WordPress/php-ai-client",
+        "openai-php/client"
       ]
     },
     {

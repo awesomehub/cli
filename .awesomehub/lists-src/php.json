@@ -9,6 +9,58 @@
       "options": {
         "commit": "4e5fb6e6f77e967bfd01419b7a99b71b8f6290c4"
       }
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "AI & LLMs"
+      },
+      "data": [
+        "symfony/ai",
+        "orhanerday/open-ai",
+        "WordPress/php-ai-client",
+        "openai-php/client"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Design Patterns & DI"
+      },
+      "data": [
+        "laminas/laminas-di",
+        "laminas/laminas-servicemanager",
+        "laminas/laminas-eventmanager"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/CLI Utilities"
+      },
+      "data": [
+        "laravel-zero/laravel-zero",
+        "laminas/laminas-cli",
+        "symfony/console"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Data/Text & Validation"
+      },
+      "data": [
+        "laminas/laminas-escaper"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Code Quality & Debugging"
+      },
+      "data": [
+        "laminas/laminas-code"
+      ]
     }
   ]
 }
