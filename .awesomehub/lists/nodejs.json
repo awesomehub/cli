@@ -822,7 +822,13 @@
         "strapi/strapi",
         "FactorJS/factor",
         "SoftwareBrothers/adminjs",
-        "exogee-technology/graphweaver"
+        "exogee-technology/graphweaver",
+        "payloadcms/payload",
+        "avitorio/outstatic",
+        "Thinkmill/keystatic",
+        "directus/directus",
+        "tinacms/tinacms",
+        "webiny/webiny-js"
       ]
     },
     {

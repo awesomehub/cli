@@ -48,6 +48,20 @@
       ]
     },
     {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Content Management Systems"
+      },
+      "data": [
+        "payloadcms/payload",
+        "avitorio/outstatic",
+        "Thinkmill/keystatic",
+        "directus/directus",
+        "tinacms/tinacms",
+        "webiny/webiny-js"
+      ]
+    },
+    {
       "type": "github.list",
       "data": "sindresorhus/awesome-nodejs",
       "options": {
