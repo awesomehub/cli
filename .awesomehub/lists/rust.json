@@ -314,6 +314,7 @@
         "category": "Applications/Productivity"
       },
       "data": [
+        "dali-benothmen/cronflow",
         "0xdea/jiggy",
         "0xdea/oneiromancer",
         "sigoden/aichat",
@@ -367,6 +368,7 @@
         "category": "Applications/System tools"
       },
       "data": [
+        "deshaw/procfd",
         "Chleba/netscanner",
         "ChurchTao/clipboard-rs",
         "ClementTsang/bottom",

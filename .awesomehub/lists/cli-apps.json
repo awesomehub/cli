@@ -159,6 +159,7 @@
         "category": "Development/DevOps & Deployment"
       },
       "data": [
+        "Owloops/updo",
         "lukechilds/htconvert",
         "donnemartin/saws",
         "s3tools/s3cmd",

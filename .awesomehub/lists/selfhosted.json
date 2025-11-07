@@ -10,6 +10,7 @@
         "category": "Analytics"
       },
       "data": [
+        "orangecoloured/analog",
         "aptabase/aptabase",
         "eldy/awstats",
         "Countly/countly-server",
@@ -121,6 +122,7 @@
         "category": "Blogging Platforms"
       },
       "data": [
+        "lin-snow/Ech0",
         "antville/antville",
         "xenocrat/chyrp-lite",
         "flatpressblog/flatpress",
@@ -630,6 +632,7 @@
         "category": "Feed Readers"
       },
       "data": [
+        "tt-rss/tt-rss",
         "georgemandis/bubo-rss",
         "Athou/commafeed",
         "Qolors/FeedCord",

@@ -39,16 +39,18 @@ Represents a GitHub author profile from which you should fetch all their repos w
 Sometimes there a `categories` option which defines the target categories for those repos, it should be respected as well, it can also a regex to be matched against the repo name, or `*` to match all repos.
 The third option is the `category` field which defines the target category for those repos.
 
-Notes:
- - Don't write any code, just do the analyzation yourself and write the result to `lists/`.
- - There is a `config.json` file next to this file with different GitHub auth tokens you can use, in case a token hits the rate limit, you can use the next one.
- - You can use the `cache/` directory to store any temporary data you need to avoid re-fetching the same data multiple times.
- - Your job is to collect github repo slugs like `author/repo`, nothing more, no need to collect any details about those repos.
- - Any links that are not strictly under `github.com` or not GitHub repos should be ignored (eg. `help.github.com`, `github.com/apps/guardrail`, `github.com/topics/awesome`).
- - If a project entry uses a `*.github.io` URL, convert it to an `owner/repo` slug by mapping the GitHub Pages host and first path segment (for example `https://foo.github.io/bar/` -> `foo/bar`). If the mapping is unclear, treat it as an external link instead.
- - For other external project URLs, fetch the page once; when you can confidently extract a GitHub repository link from the HTML, add that slug, otherwise skip it.
- - Category names should not contain `/` since we are using it as a delimiter to separate main category from sub category.
- - Its fine if repos appear multiple times in different categories, as long as they actually belong to that category. eg. `angular/cli` repo can appear under `official` category and also under `cli tools` category. this is completely fine.
- - If you think a github repo is irrelevant or a bot repo, please exclude it.
- - After processing is finished, if you find a category with less than 4 repos, move those repos to a category to best-matches their name/desc.
- - When rebuilding lists next time, repeat the same flow: merge any existing `sources` seed data, pull GitHub slugs from the referenced awesome list, normalize category names per the rules above, and re-run the "at least four repos" consolidation before writing to `lists/`.
+## Notes
+
+- Don't write any code, just do the analyzation yourself and write the result to `lists/`.
+- There is a `config.json` file next to this file with different GitHub auth tokens you can use, in case a token hits the rate limit, you can use the next one.
+- You can use the `cache/` directory to store any temporary data you need to avoid re-fetching the same data multiple times.
+- Your job is to collect github repo slugs like `author/repo`, nothing more, no need to collect any details about those repos.
+- Any links that are not strictly under `github.com` or not GitHub repos should be ignored (eg. `help.github.com`, `github.com/apps/guardrail`, `github.com/topics/awesome`).
+- If a project entry uses a `*.github.io` URL, convert it to an `owner/repo` slug by mapping the GitHub Pages host and first path segment (for example `https://foo.github.io/bar/` -> `foo/bar`). If the mapping is unclear, treat it as an external link instead.
+- For other external project URLs, fetch the page once; when you can confidently extract a GitHub repository link from the HTML, add that slug, otherwise skip it.
+- Category names should not contain `/` since we are using it as a delimiter to separate main category from sub category.
+- Its fine if repos appear multiple times in different categories, as long as they actually belong to that category. eg. `angular/cli` repo can appear under `official` category and also under `cli tools` category. this is completely fine.
+- When inserting new repos into any `data` array inside `lists/*.json`, prepend them so new additions appear at the start of that array (after deduping if needed).
+- If you think a github repo is irrelevant or a bot repo, please exclude it.
+- After processing is finished, if you find a category with less than 4 repos, move those repos to a category to best-matches their name/desc.
+- When rebuilding lists next time, repeat the same flow: merge any existing `sources` seed data, pull GitHub slugs from the referenced awesome list, normalize category names per the rules above, and re-run the "at least four repos" consolidation before writing to `lists/`.

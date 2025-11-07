@@ -360,6 +360,7 @@
         "category": "Development Utilities/AI"
       },
       "data": [
+        "alessiopelliccione/ngx-gen-ui",
         "angular/examples",
         "slsfi/abbi-ng-ai-image-descriptor",
         "tecnomanu/agent-rules-kit",
@@ -457,6 +458,8 @@
         "category": "Development Utilities/Generators and Scaffolding"
       },
       "data": [
+        "lit-migrators/cem-angular-generator",
+        "borisonekenobi/angular-sitemap-generator",
         "Shpota/goxygen",
         "abpframework/abp",
         "filiptrivan/spiderly",
@@ -475,6 +478,7 @@
         "category": "Development Utilities/Internationalization"
       },
       "data": [
+        "njirolu/ruci",
         "json-derulo/angular-ecmascript-intl",
         "Romanchuk/angular-i18next",
         "aymericzip/intlayer",
@@ -633,6 +637,7 @@
         "category": "State Management/NgRx"
       },
       "data": [
+        "solidexpert-ltd/ngx-rehydrate",
         "ngrx/platform",
         "angular-university/ngrx-course",
         "btroncone/ngrx-store-localstorage",
@@ -927,6 +932,7 @@
         "category": "Components/Carousels"
       },
       "data": [
+        "miskith/ngx-cdk-lightbox",
         "uiuniversal/ngu-carousel",
         "angular-slider/ngx-slider",
         "MurhafSousli/ngx-gallery",
@@ -1070,6 +1076,8 @@
         "category": "Components/Directives"
       },
       "data": [
+        "toozuuu/ngxsmk-button-spinner",
+        "hosembafer/ngx-overflow-reveal",
         "nigrosimone/ng-let",
         "nigrosimone/ng-for-track-by-property",
         "piecioshka/ngx-nullish",
@@ -1178,6 +1186,7 @@
         "category": "Components/Form Controls"
       },
       "data": [
+        "toozuuu/ngxsmk-otp-input",
         "arturovt/ngx-emoji-mart-next",
         "scttcper/ngx-color",
         "zefoy/ngx-color-picker",
@@ -1232,6 +1241,7 @@
         "category": "Components/JSON Forms"
       },
       "data": [
+        "TheNordicOne/ngx-formbar",
         "ngx-formly/ngx-formly",
         "formio/angular",
         "fluent-form/fluent-form",
@@ -1460,6 +1470,7 @@
         "category": "Components/Media"
       },
       "data": [
+        "malikrajat/rm-ng-video-player-main",
         "chrisguttandin/angular-audio-context",
         "joldibaev/silicon-audio-wave",
         "byteark/byteark-player-angular",
@@ -1548,6 +1559,7 @@
         "category": "Components/Notifications"
       },
       "data": [
+        "Salromag/ngx-alertifying",
         "npm-lahsiv/alert-bar-library",
         "svierk/angular-bootstrap-toast-service",
         "lazycuh/angular-notification",
@@ -1856,6 +1868,7 @@
         "category": "Components/UX Components"
       },
       "data": [
+        "toozuuu/ngxsmk-help-tour",
         "shepherd-pro/angular-shepherd",
         "blackbaud/skyux",
         "hakimio/ngx-ui-tour",
@@ -2016,6 +2029,7 @@
         "category": "Framework Interoperability/Wrappers"
       },
       "data": [
+        "livechat/chat-widget-adapters",
         "unlayer/angular-email-editor",
         "angular-threejs/angular-three",
         "ckeditor/ckeditor5-angular",
