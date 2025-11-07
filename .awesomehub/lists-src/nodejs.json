@@ -53,6 +53,9 @@
         "category": "Packages/Content Management Systems"
       },
       "data": [
+        "FactorJS/factor",
+        "SoftwareBrothers/adminjs",
+        "exogee-technology/graphweaver",
         "payloadcms/payload",
         "avitorio/outstatic",
         "Thinkmill/keystatic",

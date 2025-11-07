@@ -40,6 +40,58 @@
     {
       "type": "github.repos",
       "options": {
+        "category": "Automation"
+      },
+      "data": [
+        "n8n-io/n8n"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Monitoring/Systems"
+      },
+      "data": [
+        "grafana/grafana"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Content Management Systems"
+      },
+      "data": [
+        "FactorJS/factor",
+        "SoftwareBrothers/adminjs",
+        "exogee-technology/graphweaver",
+        "avitorio/outstatic",
+        "Thinkmill/keystatic",
+        "tinacms/tinacms",
+        "webiny/webiny-js",
+        "directus/directus"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Knowledge/Wikis"
+      },
+      "data": [
+        "Outline/outline"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Software Development/Low Code"
+      },
+      "data": [
+        "budibase/budibase"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
         "category": "Personal Dashboards"
       },
       "data": [

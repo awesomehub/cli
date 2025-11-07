@@ -408,6 +408,7 @@
         "category": "Development Utilities/Developer Tools"
       },
       "data": [
+        "angular-eslint/angular-eslint",
         "princemaple/ngx-html-syntax",
         "angular/vscode-ng-language-service",
         "reduxjs/redux-devtools",
@@ -458,7 +459,6 @@
         "category": "Development Utilities/Generators and Scaffolding"
       },
       "data": [
-        "lit-migrators/cem-angular-generator",
         "borisonekenobi/angular-sitemap-generator",
         "Shpota/goxygen",
         "abpframework/abp",

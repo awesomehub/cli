@@ -35,6 +35,42 @@
         "plandex-ai/plandex",
         "CodebuffAI/codebuff"
       ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/Workflow Utilities"
+      },
+      "data": [
+        "withfig/autocomplete"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Development/DevOps & Deployment"
+      },
+      "data": [
+        "cli/cli"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Notes & Knowledge"
+      },
+      "data": [
+        "charmbracelet/glow"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Productivity/Workflows"
+      },
+      "data": [
+        "atuinsh/atuin"
+      ]
     }
   ]
 }

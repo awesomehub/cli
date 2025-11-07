@@ -84,6 +84,7 @@
         "category": "Development/Workflow Utilities"
       },
       "data": [
+        "withfig/autocomplete",
         "captainsafia/legit",
         "cezaraugusto/mklicense",
         "shobrook/rebound",
@@ -159,6 +160,7 @@
         "category": "Development/DevOps & Deployment"
       },
       "data": [
+        "cli/cli",
         "Owloops/updo",
         "lukechilds/htconvert",
         "donnemartin/saws",
@@ -273,6 +275,7 @@
         "category": "Productivity/Workflows"
       },
       "data": [
+        "atuinsh/atuin",
         "ttscoff/doing",
         "cytopia/ffscreencast",
         "specious/meetup-cli",
@@ -306,6 +309,7 @@
         "category": "Productivity/Notes & Knowledge"
       },
       "data": [
+        "charmbracelet/glow",
         "IonicaBizau/idea",
         "vitaly-zdanevich/geeknote",
         "simeg/eureka",

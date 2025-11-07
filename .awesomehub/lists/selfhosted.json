@@ -68,6 +68,7 @@
         "category": "Automation"
       },
       "data": [
+        "n8n-io/n8n",
         "activepieces/activepieces",
         "apache/airflow",
         "automatisch/automatisch",
@@ -436,6 +437,14 @@
         "category": "Content Management Systems"
       },
       "data": [
+        "FactorJS/factor",
+        "SoftwareBrothers/adminjs",
+        "exogee-technology/graphweaver",
+        "avitorio/outstatic",
+        "Thinkmill/keystatic",
+        "tinacms/tinacms",
+        "webiny/webiny-js",
+        "directus/directus",
         "Alfresco/alfresco-community-repo",
         "apostrophecms/apostrophe",
         "backdrop/backdrop",
@@ -1225,6 +1234,7 @@
         "category": "Monitoring/Systems"
       },
       "data": [
+        "grafana/grafana",
         "opinkerfi/adagios",
         "alerta/alerta",
         "henrygd/beszel",
@@ -1657,6 +1667,7 @@
         "category": "Software Development/Low Code"
       },
       "data": [
+        "budibase/budibase",
         "appsmithorg/appsmith",
         "appwrite/appwrite",
         "dashpresshq/dashpress",
@@ -1841,6 +1852,7 @@
         "category": "Knowledge/Wikis"
       },
       "data": [
+        "Outline/outline",
         "melmothx/amusewiki",
         "BookStackApp/BookStack",
         "django-wiki/django-wiki",

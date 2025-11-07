@@ -817,6 +817,9 @@
         "category": "Packages/Content Management Systems"
       },
       "data": [
+        "FactorJS/factor",
+        "SoftwareBrothers/adminjs",
+        "exogee-technology/graphweaver",
         "keystonejs/keystone",
         "apostrophecms/apostrophe",
         "strapi/strapi",

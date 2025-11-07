@@ -87,6 +87,15 @@
       }
     },
     {
+      "type": "github.repos",
+      "data": [
+        "angular-eslint/angular-eslint"
+      ],
+      "options": {
+        "category": "Development Utilities/Developer Tools"
+      }
+    },
+    {
       "type": "github.list",
       "data": "PatrickJS/awesome-angular",
       "options": {
