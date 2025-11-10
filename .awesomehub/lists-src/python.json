@@ -21,7 +21,10 @@
         "openai/openai-agents-python",
         "langflow-ai/langflow",
         "jina-ai/serve",
-        "langchain-ai/langchain"
+        "langchain-ai/langchain",
+        "open-webui/open-webui",
+        "invoke-ai/InvokeAI",
+        "Chainlit/chainlit"
       ]
     },
     {

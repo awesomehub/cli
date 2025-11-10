@@ -45,7 +45,8 @@
       "data": [
         "clowdhaus/aws-github-actions",
         "10up/action-wordpress-plugin-asset-update",
-        "10up/action-wordpress-plugin-deploy"
+        "10up/action-wordpress-plugin-deploy",
+        "vercel/ai-action"
       ],
       "options": {
         "category": "External Services"
@@ -60,7 +61,7 @@
         "JamesIves/github-pages-deploy-action"
       ],
       "options": {
-        "category": "Deployment"
+        "category": "Deployment/General"
       }
     },
     {

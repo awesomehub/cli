@@ -616,7 +616,10 @@
         "reactstrap/reactstrap",
         "JetBrains/ring-ui",
         "chakra-ui/zag",
-        "youzan/zent"
+        "youzan/zent",
+        "vercel/ai-elements",
+        "assistant-ui/assistant-ui",
+        "ant-design/x"
       ]
     },
     {
@@ -1827,7 +1830,8 @@
         "watzak/react-native-instagram-share",
         "weflex/react-native-wechat",
         "wix/react-native-newrelic",
-        "zo0r/react-native-conekta"
+        "zo0r/react-native-conekta",
+        "callstackincubator/ai"
       ]
     },
     {
@@ -2297,6 +2301,42 @@
         "netbeast/react-native-diagnose",
         "rilyu/teaset"
       ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Text and Content"
+      },
+      "data": [
+        "wojtekmaj/react-pdf",
+        "diegomura/react-pdf",
+        "agentcooper/react-pdf-highlighter",
+        "react-pdf-viewer/react-pdf-viewer",
+        "phuoc-ng/react-pdf-viewer",
+        "remarkjs/react-markdown",
+        "jrm2k6/react-markdown-editor",
+        "markpluslabs/react-markplus",
+        "code-hike/codehike",
+        "quantizor/markdown-to-jsx",
+        "mdx-editor/editor",
+        "vercel/streamdown",
+        "react-csv/react-csv",
+        "tableflowhq/csv-import"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Components/Generative AI"
+      },
+      "data": [
+        "vercel/ai",
+        "vercel/ai-elements",
+        "CopilotKit/CopilotKit",
+        "vercel/streamdown",
+        "assistant-ui/assistant-ui",
+        "ant-design/x"
+      ]
     }
   ],
   "options": {
@@ -2304,6 +2344,7 @@
       "Official",
       "Components/Data Grids",
       "Components/Table",
+      "Components/Text and Content",
       "Components/Infinite Scroll",
       "Components/Overlay",
       "Components/Notification",
@@ -2319,6 +2360,7 @@
       "Components/Paginator",
       "Components/Canvas",
       "Components/Miscellaneous",
+      "Components/Generative AI",
       "Components/Forms",
       "Components/Layout",
       "UI Frameworks/Component Collections",

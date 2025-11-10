@@ -208,7 +208,8 @@
         "fabasoad/jsonbin-action",
         "clowdhaus/aws-github-actions",
         "10up/action-wordpress-plugin-asset-update",
-        "10up/action-wordpress-plugin-deploy"
+        "10up/action-wordpress-plugin-deploy",
+        "vercel/ai-action"
       ]
     },
     {
@@ -561,7 +562,7 @@
     {
       "type": "github.repos",
       "options": {
-        "category": "Machine Learning Ops"
+        "category": "Machine Learning"
       },
       "data": [
         "machine-learning-apps/actions-argo",
@@ -570,7 +571,8 @@
         "yaananth/run-notebook",
         "NikeNano/kubeflow-github-action",
         "jupyterhub/repo2docker-action",
-        "machine-learning-apps/ml-template-azure"
+        "machine-learning-apps/ml-template-azure",
+        "vercel/ai-action"
       ]
     },
     {
@@ -633,7 +635,7 @@
       "Utility/Dependencies",
       "Utility/Semantic Versioning",
       "Utility/Environments",
-      "Machine Learning Ops",
+      "Machine Learning",
       "Monitoring",
       "Collection of Actions"
     ]

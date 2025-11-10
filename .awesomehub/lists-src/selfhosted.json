@@ -106,6 +106,15 @@
       "data": [
         "portainer/portainer"
       ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Games"
+      },
+      "data": [
+        "a16z-infra/ai-town"
+      ]
     }
   ]
 }

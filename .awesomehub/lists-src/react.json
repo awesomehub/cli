@@ -29,6 +29,53 @@
     {
       "type": "github.repos",
       "data": [
+        "wojtekmaj/react-pdf",
+        "diegomura/react-pdf",
+        "agentcooper/react-pdf-highlighter",
+        "react-pdf-viewer/react-pdf-viewer",
+        "phuoc-ng/react-pdf-viewer",
+        "remarkjs/react-markdown",
+        "jrm2k6/react-markdown-editor",
+        "markpluslabs/react-markplus",
+        "code-hike/codehike",
+        "quantizor/markdown-to-jsx",
+        "mdx-editor/editor",
+        "vercel/streamdown",
+        "react-csv/react-csv",
+        "tableflowhq/csv-import"
+      ],
+      "options": {
+        "category": "Components/Text and Content"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "vercel/ai",
+        "vercel/ai-elements",
+        "CopilotKit/CopilotKit",
+        "vercel/streamdown",
+        "assistant-ui/assistant-ui",
+        "ant-design/x"
+      ],
+      "options": {
+        "category": "Components/Generative AI"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
+        "vercel/ai-elements",
+        "assistant-ui/assistant-ui",
+        "ant-design/x"
+      ],
+      "options": {
+        "category": "UI Frameworks/Component Collections"
+      }
+    },
+    {
+      "type": "github.repos",
+      "data": [
         "vercel/next.js",
         "gatsbyjs/gatsby",
         "facebook/docusaurus",

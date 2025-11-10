@@ -65,6 +65,61 @@
       ]
     },
     {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Control Flow"
+      },
+      "data": [
+        "vercel/workflow"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Packages/Generative AI"
+      },
+      "data": [
+        "vercel/ai",
+        "cloudflare/ai",
+        "stripe/ai",
+        "FlowiseAI/Flowise",
+        "julep-ai/julep",
+        "llm-tools/embedJs"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/General"
+      },
+      "data": [
+        "nocodb/nocodb",
+        "TriliumNext/Trilium",
+        "Termix-SSH/Termix",
+        "rybbit-io/rybbit",
+        "Budibase/budibase",
+        "kottster/kottster",
+        "calcom/cal.com",
+        "RocketChat/Rocket.Chat",
+        "laurent22/joplin",
+        "misskey-dev/misskey"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Applications/Generative AI"
+      },
+      "data": [
+        "activepieces/activepieces",
+        "vercel/ai-chatbot",
+        "Mintplex-Labs/anything-llm",
+        "ItzCrazyKns/Perplexica",
+        "ToolJet/ToolJet",
+        "a16z-infra/ai-town"
+      ]
+    },
+    {
       "type": "github.list",
       "data": "sindresorhus/awesome-nodejs",
       "options": {
@@ -76,7 +131,9 @@
     "categoryOrder": [
       "Runtimes",
       "Package Managers",
-      "Native App Frameworks"
+      "Native App Frameworks",
+      "Applications/General",
+      "Applications/Generative AI"
     ]
   }
 }
