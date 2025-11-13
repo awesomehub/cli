@@ -93,7 +93,8 @@
         "tmc/langchaingo",
         "mudler/LocalAI",
         "jmorganca/ollama",
-        "presbrey/ollamafarm"
+        "presbrey/ollamafarm",
+        "googleapis/genai-toolbox"
       ]
     },
     {

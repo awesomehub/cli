@@ -67,6 +67,15 @@
     {
       "type": "github.repos",
       "options": {
+        "category": "Packages/Web Frameworks"
+      },
+      "data": [
+        "vikejs/vike"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
         "category": "Packages/Control Flow"
       },
       "data": [
@@ -84,7 +93,10 @@
         "stripe/ai",
         "FlowiseAI/Flowise",
         "julep-ai/julep",
-        "llm-tools/embedJs"
+        "llm-tools/embedJs",
+        "langchain-ai/langchainjs",
+        "firebase/genkit",
+        "googleapis/mcp-toolbox-sdk-js"
       ]
     },
     {
@@ -116,7 +128,8 @@
         "Mintplex-Labs/anything-llm",
         "ItzCrazyKns/Perplexica",
         "ToolJet/ToolJet",
-        "a16z-infra/ai-town"
+        "a16z-infra/ai-town",
+        "n8n-io/n8n"
       ]
     },
     {
