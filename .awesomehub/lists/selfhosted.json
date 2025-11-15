@@ -69,6 +69,7 @@
       },
       "data": [
         "n8n-io/n8n",
+        "infiniflow/ragflow",
         "activepieces/activepieces",
         "apache/airflow",
         "automatisch/automatisch",

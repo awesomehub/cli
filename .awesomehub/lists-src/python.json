@@ -24,7 +24,8 @@
         "langchain-ai/langchain",
         "open-webui/open-webui",
         "invoke-ai/InvokeAI",
-        "Chainlit/chainlit"
+        "Chainlit/chainlit",
+        "infiniflow/ragflow"
       ]
     },
     {

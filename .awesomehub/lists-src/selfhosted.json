@@ -43,7 +43,8 @@
         "category": "Automation"
       },
       "data": [
-        "n8n-io/n8n"
+        "n8n-io/n8n",
+        "infiniflow/ragflow"
       ]
     },
     {

@@ -619,7 +619,8 @@
         "youzan/zent",
         "vercel/ai-elements",
         "assistant-ui/assistant-ui",
-        "ant-design/x"
+        "ant-design/x",
+        "LangbaseInc/langui"
       ]
     },
     {
@@ -2335,7 +2336,8 @@
         "CopilotKit/CopilotKit",
         "vercel/streamdown",
         "assistant-ui/assistant-ui",
-        "ant-design/x"
+        "ant-design/x",
+        "LangbaseInc/langui"
       ]
     }
   ],

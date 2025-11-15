@@ -96,7 +96,10 @@
         "llm-tools/embedJs",
         "langchain-ai/langchainjs",
         "firebase/genkit",
-        "googleapis/mcp-toolbox-sdk-js"
+        "googleapis/mcp-toolbox-sdk-js",
+        "composiohq/composio",
+        "huggingface/huggingface.js",
+        "LangbaseInc/langbase-sdk"
       ]
     },
     {
@@ -129,7 +132,8 @@
         "ItzCrazyKns/Perplexica",
         "ToolJet/ToolJet",
         "a16z-infra/ai-town",
-        "n8n-io/n8n"
+        "n8n-io/n8n",
+        "huggingface/chat-ui"
       ]
     },
     {
