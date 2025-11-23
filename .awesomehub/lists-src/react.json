@@ -56,6 +56,7 @@
         "CopilotKit/CopilotKit",
         "vercel/streamdown",
         "assistant-ui/assistant-ui",
+        "assistant-ui/tool-ui",
         "ant-design/x",
         "LangbaseInc/langui"
       ],
@@ -68,8 +69,10 @@
       "data": [
         "vercel/ai-elements",
         "assistant-ui/assistant-ui",
+        "assistant-ui/tool-ui",
         "ant-design/x",
-        "LangbaseInc/langui"
+        "LangbaseInc/langui",
+        "better-auth-ui/better-auth-ui"
       ],
       "options": {
         "category": "UI Frameworks/Component Collections"

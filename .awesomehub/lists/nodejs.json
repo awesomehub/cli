@@ -78,7 +78,9 @@
         "ToolJet/ToolJet",
         "a16z-infra/ai-town",
         "n8n-io/n8n",
-        "huggingface/chat-ui"
+        "huggingface/chat-ui",
+        "langchain-ai/agent-chat-ui",
+        "upstash/rag-chat"
       ]
     },
     {
@@ -98,7 +100,8 @@
         "googleapis/mcp-toolbox-sdk-js",
         "composiohq/composio",
         "huggingface/huggingface.js",
-        "LangbaseInc/langbase-sdk"
+        "LangbaseInc/langbase-sdk",
+        "mastra-ai/mastra"
       ]
     },
     {
