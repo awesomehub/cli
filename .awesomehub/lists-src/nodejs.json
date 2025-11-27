@@ -100,7 +100,10 @@
         "composiohq/composio",
         "huggingface/huggingface.js",
         "LangbaseInc/langbase-sdk",
-        "mastra-ai/mastra"
+        "mastra-ai/mastra",
+        "ollama/ollama-js",
+        "run-llama/LlamaIndexTS",
+        "jina-ai/reader"
       ]
     },
     {
