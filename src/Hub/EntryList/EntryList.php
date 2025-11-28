@@ -180,7 +180,8 @@ class EntryList implements EntryListInterface
         foreach ($this->entries as $entry) {
             $aliases = $entry->getAliases();
             foreach ($aliases as $aliasId) {
-                if (isset($this->entries[$aliasId])) {
+                // @todo $aliasId should not be added in the first place if its === $entry->getId() but sometimes it does
+                if ($aliasId !== $entry->getId() && isset($this->entries[$aliasId])) {
                     $entry->merge($this->entries[$aliasId]->get());
                     $this->removeEntry($this->entries[$aliasId]);
                     ++$im;
