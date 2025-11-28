@@ -164,7 +164,7 @@ class RepoGithubEntryResolver implements EntryResolverInterface, AsyncResolverIn
      */
     protected function getPath(RepoGithubEntryInterface $entry): string
     {
-        [$idType, $id] = explode(':', $entry->getId(), 2);
+        [$idType, $id] = explode(':', strtolower($entry->getId()), 2);
 
         return $this->workspace->path(['cache/entries', $idType, $id[0], $id]);
     }
