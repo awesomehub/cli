@@ -191,7 +191,6 @@
         "jerairrest/react-chartjs-2",
         "joyceworks/flowchart-react",
         "jscharting/jscharting-react",
-        "kirillstepkin/chartify",
         "kirjs/react-highcharts",
         "plouc/nivo",
         "recharts/recharts",
@@ -582,7 +581,6 @@
         "ant-design/ant-design",
         "ariakit/ariakit",
         "chakra-ui/chakra-ui",
-        "dataminr/react-components",
         "framework7io/framework7",
         "luciancaetano/lens-ui",
         "mantinedev/mantine",
@@ -714,7 +712,6 @@
         "jaredpalmer/formik",
         "luoanb/hook-form-react",
         "mozilla-services/react-jsonschema-form",
-        "phormal/phormal",
         "react-hook-form/react-hook-form",
         "surveyjs/survey-library"
       ]
@@ -884,7 +881,6 @@
         "azmenak/react-stripe-checkout",
         "csfrequency/react-firebase-hooks",
         "hzdg/react-google-analytics",
-        "rangle/redux-segment",
         "react-ga/react-ga"
       ]
     },
@@ -1076,7 +1072,6 @@
         "MAKARD/react-native-toastboard",
         "N1ghtly/react-native-responsive-linechart",
         "NishanthShankar/react-native-android-statusbar",
-        "NorthFoxz/react-native-imagewand",
         "Obooman/RCTRefreshControl",
         "ParamoshkinAndrew/ReactNativeCircleCheckbox",
         "Partido-Asia/react-native-drawpad",
@@ -1121,7 +1116,6 @@
         "alinz/react-native-scene-manager",
         "alinz/react-native-tabbar",
         "ammarahm-ed/react-native-actions-sheet",
-        "anarchicknight/react-native-message-composer",
         "andy9775/React-Native-CircularProgress",
         "anvilabs/react-native-image-carousel",
         "appintheair/react-native-looped-carousel",
@@ -1158,8 +1152,6 @@
         "c-bata/react-native-focus-scroll",
         "callstack/react-native-paper",
         "capitalone/react-native-pathjs-charts",
-        "caroaguilar/react-native-bar-collapsible",
-        "caroaguilar/react-native-custom-checkbox",
         "cesardeazevedo/react-native-bottom-sheet-behavior",
         "cesardeazevedo/react-native-collapsing-toolbar",
         "chagasaway/react-native-fading-slides",
@@ -1172,7 +1164,6 @@
         "chymtt/ReactNativeCalendarAndroid",
         "chymtt/ReactNativeDropdownAndroid",
         "cnjon/react-native-pdf-view",
-        "codypearce/react-native-material-drawer",
         "colbymillerdev/react-native-progress-steps",
         "corymsmith/react-native-icons",
         "crabstudio/react-native-search-box",
@@ -1206,7 +1197,6 @@
         "gaoxiaosong/react-native-full-image-picker",
         "gaoxiaosong/react-native-pure-navigation-bar",
         "garrettmac/react-native-pagination",
-        "ge6285790/react-native-sortable-gridview",
         "geremih/react-native-circular-action-menu",
         "gilbox/react-native-masked-view",
         "gitim/react-native-sortable-list",
@@ -1260,7 +1250,6 @@
         "kirankalyan5/react-native-segmented-control-tab",
         "kirkness/react-native-fs-modal",
         "kirkness/react-native-tween-animation",
-        "kis/react-native-air-progress-bar",
         "kkjdaniel/react-native-display-view",
         "kristerkari/pinar",
         "kristerkari/react-native-svg-transformer",
@@ -1278,7 +1267,6 @@
         "leowang721/k-react-native-swipe-unlocker",
         "lesliesam/react-native-wheel-picker",
         "llanox/react-native-draggable-drawer",
-        "localz/react-native-searchbar",
         "lodev09/react-native-cell-components",
         "lucasferreira/react-native-flash-message",
         "lucasferreira/react-native-simpledialog-android",
@@ -1376,12 +1364,9 @@
         "prscX/react-native-bottom-action-sheet",
         "prscX/react-native-download-button",
         "prscX/react-native-iconic",
-        "prscX/react-native-material-showcase-ios",
         "prscX/react-native-popover-menu",
         "prscX/react-native-shine-button",
         "prscX/react-native-siri-wave-view",
-        "prscX/react-native-taptargetview",
-        "psicotropicos/react-native-tilt",
         "puredazzle/react-native-simple-picker",
         "pwbrown/react-native-slidable-tab-bar",
         "q6112345/react-native-google-place-picker",
@@ -1447,8 +1432,6 @@
         "thegamenicorus/react-native-phone-input",
         "thegamenicorus/react-native-timeline-listview",
         "thewei/react-native-grid",
-        "thomaswangio/auth-screens",
-        "thomaswangio/react-native-gradient-buttons",
         "tinycreative/react-native-dropbox-chooser",
         "tofugear/react-native-country-picker",
         "tomLadder/react-native-echarts-wrapper",
@@ -1456,7 +1439,6 @@
         "tomzaku/react-native-timeline-theme",
         "toystars/react-native-multiple-select",
         "tsepeti/react-native-dots-pagination",
-        "tuantvk/monalisa-ui",
         "tuckerconnelly/match-media-mocks",
         "ui-ninja/react-native-rating-element",
         "umhan35/react-native-search-bar",
@@ -1483,7 +1465,6 @@
         "xinthink/react-native-material-kit",
         "xotahal/react-native-material-ui",
         "xudafeng/autoresponsive-react-native",
-        "yamill/react-native-orientation",
         "yasaricli/react-native-counters",
         "yonahforst/react-native-emoji-picker",
         "zachgibson/react-native-parallax-swiper",
@@ -1498,7 +1479,6 @@
         "category": "React Native/System"
       },
       "data": [
-        "Bruno-Furtado/react-native-sms-retriever",
         "CentaurWarchief/react-native-android-sms-listener",
         "EkoLabs/react-native-background-downloader",
         "ElekenAgency/react-native-touch-id-android",
@@ -1541,7 +1521,6 @@
         "kprimice/react-native-sensor-manager",
         "lifuzu/ReactNativeBarcodeScanner",
         "lilach/react-native-push-with-gcm",
-        "localz/react-native-pinch",
         "luggit/react-native-config",
         "madriska/react-native-quick-actions",
         "maxkomarychev/react-native-ultimate-config",
@@ -1638,14 +1617,12 @@
         "category": "React Native/Media"
       },
       "data": [
-        "App2Sales/react-native-hue-player",
         "CBCNewMedia/react-native-airplay-button",
         "Cherrypick-Consulting/react-native-android-video",
         "EstebanFuentealba/react-native-android-audio-streaming-aac",
         "IFours/react-native-volume-slider",
         "InterfaceKit/react-native-interactive-image-gallery",
         "ScreamZ/react-native-true-sight",
-        "Tricy/react-native-audio-manager",
         "andreaskeller/react-native-audioplayer",
         "brentvatne/react-native-video",
         "bsudekum/react-native-color-grabber",
@@ -1719,7 +1696,6 @@
         "jsifalda/styled-react-native",
         "kristerkari/react-native-css-modules",
         "robinpowered/glamorous-native",
-        "sabeurthabti/react-native-css",
         "styled-components/styled-components",
         "tachyons-css/react-native-style-tachyons",
         "tmpfs/prism",
@@ -1776,7 +1752,6 @@
       },
       "data": [
         "APSL/react-native-sumup",
-        "DriveWealth/react-native-onepassword",
         "FaridSafi/react-native-google-places-autocomplete",
         "GoldenOwlAsia/react-native-twitter-signin",
         "Instabug/instabug-reactnative",
@@ -1788,7 +1763,6 @@
         "agoraio/agora-react-native-rtm",
         "alawong/react-native-braintree",
         "algolia/react-instantsearch",
-        "amitkothari/react-native-flurry",
         "andyscott/react-native-hawk",
         "apptailor/react-native-google-signin",
         "beefe/react-native-wechat-ios",
@@ -1857,7 +1831,6 @@
         "edeckers/react-native-blob-courier",
         "eduedix/react-native-networking",
         "feathersjs/feathers-client",
-        "iktw/react-native-jwt",
         "inProgress-team/react-native-meteor",
         "indatawetrust/react-native-nchan",
         "kirkness/react-native-swift-socketio",
@@ -1930,7 +1903,6 @@
         "electrode-io/electrode-native",
         "exponentjs/react-native-util",
         "fjcaetano/react-hook-hooker",
-        "frichti/react-native-tips",
         "g6ling/react-native-html-parser",
         "heyman333/react-native-iphone-se-helper",
         "jgable/react-native-fluxbone",
@@ -1968,7 +1940,6 @@
         "visuallylab/react-native-use-persist-storage",
         "wix/detox",
         "wwayne/react-native-user-defaults",
-        "xcarpentier/react-native-linkedin",
         "z-hao-wang/react-native-rsa",
         "zetachang/opal-native"
       ]
@@ -2007,8 +1978,7 @@
         "lwansbrough/react-native-ab",
         "lwansbrough/react-native-google-analytics",
         "negativetwelve/react-native-ux-cam",
-        "quipper/react-native-td",
-        "smore-inc/react-native-segment-io-analytics"
+        "quipper/react-native-td"
       ]
     },
     {
@@ -2054,8 +2024,7 @@
         "busfor/react-native-apay",
         "busfor/react-native-google-pay",
         "sbugert/react-native-admob",
-        "square/in-app-payments-react-native-plugin",
-        "xcarpentier/react-native-stripe-api"
+        "square/in-app-payments-react-native-plugin"
       ]
     },
     {
@@ -2089,11 +2058,9 @@
       },
       "data": [
         "Microsoft/reactxp",
-        "MystK/react-native-watchkit",
         "ReactWindows/react-native-windows",
         "areslabs/alita",
-        "necolas/react-native-web",
-        "ycinfinity/react-native-tvos-controller"
+        "necolas/react-native-web"
       ]
     },
     {
@@ -2183,7 +2150,6 @@
         "Bartozzz/smog-alert-app",
         "BelinChung/react-native-hiapp",
         "BoostIO/boostnote-mobile",
-        "Bruno-Furtado/fastbuy-app",
         "FaridSafi/react-native-basketball",
         "JetBrains/youtrack-mobile",
         "KevinOfNeu/xReddit",
@@ -2195,8 +2161,6 @@
         "RocketChat/Rocket.Chat.ReactNative",
         "RooyeKhat-Media/iGap-Plus",
         "SKempin/Lyrics-King-React-Native",
-        "SeshApp/text-blast-ionic",
-        "SeshApp/text-blast-react-native",
         "adarsh0d/postcardApp",
         "agrcrobles/react-native-live-translator",
         "ajwhite/MagicMirror",
@@ -2266,8 +2230,6 @@
         "rizalibnu/commit-strip-react-native",
         "rizalibnu/github-jobs-react-native",
         "ryanmcdermott/react-native-login",
-        "saketkumar95/react-native-medium-clap-animation",
-        "saketkumar95/react-native-uber-clone",
         "sobstel/sequent",
         "sonnylazuardi/ziliun-react-native",
         "stage88/react-weather",
