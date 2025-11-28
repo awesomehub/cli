@@ -85,6 +85,27 @@
     {
       "type": "github.repos",
       "options": {
+        "category": "Packages/Dependency Injection"
+      },
+      "data": [
+        "Microsoft/tsyringe",
+        "inversify/monorepo",
+        "vojtajina/node-di",
+        "mgechev/injection-js",
+        "typestack/typedi",
+        "jeffijoe/awilix",
+        "aurelia/dependency-injection",
+        "nikku/didi",
+        "nicojs/typed-inject",
+        "needle-di/needle-di",
+        "guidesmiths/systemic",
+        "adonisjs/fold",
+        "Evyweb/ioctopus"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
         "category": "Packages/Generative AI"
       },
       "data": [
