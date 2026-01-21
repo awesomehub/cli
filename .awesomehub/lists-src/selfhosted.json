@@ -40,6 +40,15 @@
     {
       "type": "github.repos",
       "options": {
+        "category": "Generative AI Tools"
+      },
+      "data": [
+        "watercrawl/watercrawl"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
         "category": "Automation"
       },
       "data": [

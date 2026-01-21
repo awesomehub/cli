@@ -877,7 +877,8 @@
         "meilisearch/meilisearch",
         "block/goose",
         "sigoden/aichat",
-        "rasulkireev/TuxSEO"
+        "rasulkireev/TuxSEO",
+        "watercrawl/watercrawl"
       ]
     },
     {
