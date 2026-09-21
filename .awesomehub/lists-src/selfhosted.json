@@ -120,6 +120,15 @@
     {
       "type": "github.repos",
       "options": {
+        "category": "URL Shorteners"
+      },
+      "data": [
+        "oddbit/shrtnr"
+      ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
         "category": "Games"
       },
       "data": [
