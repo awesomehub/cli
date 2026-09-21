@@ -1785,6 +1785,7 @@
         "category": "URL Shorteners"
       },
       "data": [
+        "oddbit/shrtnr",
         "sjdonado/bit",
         "SinTan1729/chhoto-url",
         "thedevs-network/kutt",
