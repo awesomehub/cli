@@ -125,6 +125,15 @@
       "data": [
         "a16z-infra/ai-town"
       ]
+    },
+    {
+      "type": "github.repos",
+      "options": {
+        "category": "Pastebin Tools"
+      },
+      "data": [
+        "Dino-Kupinic/sniptide"
+      ]
     }
   ]
 }
